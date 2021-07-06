@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> TryRecoverUart
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,19 +10,18 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: esp_err_t TryRecoverUart(UartSpinelInterface * this) */
+/* esp::openthread::UartSpinelInterface::TryRecoverUart() */
 
-esp_err_t __thiscall esp::openthread::UartSpinelInterface::TryRecoverUart(UartSpinelInterface *this)
+int __thiscall esp::openthread::UartSpinelInterface::TryRecoverUart(UartSpinelInterface *this)
 
 {
-  esp_err_t eVar1;
+  int iVar1;
   undefined4 uVar2;
   
-  eVar1 = DeinitUart(this);
-  if (eVar1 == 0) {
-    eVar1 = InitUart(this,&this->m_uart_config);
-    if (eVar1 != 0) {
+  iVar1 = DeinitUart(this);
+  if (iVar1 == 0) {
+    iVar1 = InitUart(this,(esp_openthread_uart_config_t *)(this + 0x24));
+    if (iVar1 != 0) {
       uVar2 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD","TryRecoverUart",0x122);
     }
@@ -31,6 +30,6 @@ esp_err_t __thiscall esp::openthread::UartSpinelInterface::TryRecoverUart(UartSp
     uVar2 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&::_L0,uVar2,"OPENTHREAD","TryRecoverUart",0x121);
   }
-  return eVar1;
+  return iVar1;
 }
 

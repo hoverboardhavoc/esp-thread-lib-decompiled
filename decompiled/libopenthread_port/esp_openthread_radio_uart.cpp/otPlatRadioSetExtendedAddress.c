@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetExtendedAddress
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,32 +10,29 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-
-void otPlatRadioSetExtendedAddress(otInstance *instance,otExtAddress *address)
+void otPlatRadioSetExtendedAddress(int param_1)
 
 {
-  otError oVar1;
+  int iVar1;
   undefined4 uVar2;
-  int __status;
   uint uVar3;
-  undefined1 auStack_18 [4];
-  otExtAddress addr;
+  otExtAddress aoStack_18 [20];
   
   for (uVar3 = 0; uVar3 < 8; uVar3 = uVar3 + 1) {
-    auStack_18[uVar3] = *(undefined1 *)((7 - uVar3) + (int)address);
+    aoStack_18[uVar3] = *(otExtAddress *)((7 - uVar3) + param_1);
   }
-  oVar1 = ot::Spinel::
-          RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-          SetExtendedAddress(&s_radio,(otExtAddress *)auStack_18);
-  if (oVar1 == OT_ERROR_NONE) {
+  iVar1 = ot::Spinel::
+          RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+          SetExtendedAddress((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                              *)s_radio,aoStack_18);
+  if (iVar1 == 0) {
     return;
   }
-  oVar1 = ot::Spinel::
-          RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-          SetExtendedAddress(&s_radio,(otExtAddress *)auStack_18);
-  if (oVar1 == OT_ERROR_INVALID_ARGS) {
+  iVar1 = ot::Spinel::
+          RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+          SetExtendedAddress((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                              *)s_radio,aoStack_18);
+  if (iVar1 == 7) {
     uVar2 = 2;
   }
   else {
@@ -45,16 +42,17 @@ void otPlatRadioSetExtendedAddress(otInstance *instance,otExtAddress *address)
   otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
             "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
             ,0x4a,uVar2);
-  oVar1 = ot::Spinel::
-          RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-          SetExtendedAddress(&s_radio,(otExtAddress *)auStack_18);
-  if (oVar1 == OT_ERROR_INVALID_ARGS) {
-    __status = 2;
+  iVar1 = ot::Spinel::
+          RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+          SetExtendedAddress((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                              *)s_radio,aoStack_18);
+  if (iVar1 == 7) {
+    iVar1 = 2;
   }
   else {
-    __status = 1;
+    iVar1 = 1;
   }
                     /* WARNING: Subroutine does not return */
-  exit(__status);
+  exit(iVar1);
 }
 

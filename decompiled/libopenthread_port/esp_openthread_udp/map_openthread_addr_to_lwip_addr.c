@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_udp.o -> map_openthread_addr_to_lwip_addr
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,31 +10,31 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-
-void map_openthread_addr_to_lwip_addr(otIp6Address *address)
+int * map_openthread_addr_to_lwip_addr(int *param_1,void *param_2)
 
 {
-  u32_t *in_a0;
-  u32_t uStack_28;
-  ip_addr_t addr;
+  int iStack_28;
+  int iStack_24;
+  int iStack_20;
+  int iStack_1c;
+  uint uStack_18;
+  int iStack_14;
   
-  memcpy(&uStack_28,address,0x10);
-  if (((uStack_28 == 0) && (addr.u_addr.ip6.addr[0] == 0)) &&
-     (addr.u_addr.ip6.addr[1] == 0xffff0000)) {
-    uStack_28 = addr.u_addr.ip6.addr[2];
-    addr.u_addr._16_4_ = (uint)(uint3)addr.u_addr._17_3_ << 8;
+  memcpy(&iStack_28,param_2,0x10);
+  if (((iStack_28 == 0) && (iStack_24 == 0)) && (iStack_20 == -0x10000)) {
+    iStack_28 = iStack_1c;
+    iStack_14 = (uint)iStack_14._1_3_ << 8;
   }
   else {
-    addr.u_addr.ip6.zone = 6;
-    addr.u_addr.ip6.addr[3] = addr.u_addr.ip6.addr[3] & 0xffffff00;
+    iStack_14 = CONCAT31(iStack_14._1_3_,6);
+    uStack_18 = uStack_18 & 0xffffff00;
   }
-  *in_a0 = uStack_28;
-  in_a0[1] = addr.u_addr.ip6.addr[0];
-  in_a0[2] = addr.u_addr.ip6.addr[1];
-  in_a0[3] = addr.u_addr.ip6.addr[2];
-  in_a0[4] = addr.u_addr.ip6.addr[3];
-  in_a0[5] = addr.u_addr._16_4_;
-  return;
+  *param_1 = iStack_28;
+  param_1[1] = iStack_24;
+  param_1[2] = iStack_20;
+  param_1[3] = iStack_1c;
+  param_1[4] = uStack_18;
+  param_1[5] = iStack_14;
+  return param_1;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RequestWithExpectedCommandV
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,25 +10,20 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   RequestWithExpectedCommandV(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this, uint32_t aExpectedCommand, uint32_t aCommand, spinel_prop_key_t aKey, char * aFormat,
-   va_list aArgs) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::RequestWithExpectedCommandV(unsigned long, unsigned long,
+   unsigned long, char const*, void*) */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
+void __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
 RequestWithExpectedCommandV
-          (RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-           *this,uint32_t aExpectedCommand,uint32_t aCommand,spinel_prop_key_t aKey,char *aFormat,
-          va_list aArgs)
+          (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this
+          ,ulong param_1,ulong param_2,ulong param_3,char *param_4,void *param_5)
 
 {
-  otError oVar1;
-  
-  this->mExpectedCommand = aExpectedCommand;
-  oVar1 = RequestV(this,aCommand,aKey,aFormat,aArgs);
-  this->mExpectedCommand = 0;
-  return oVar1;
+  *(ulong *)(this + 0x474) = param_1;
+  RequestV(this,param_2,param_3,param_4,param_5);
+  *(undefined4 *)(this + 0x474) = 0;
+  return;
 }
 

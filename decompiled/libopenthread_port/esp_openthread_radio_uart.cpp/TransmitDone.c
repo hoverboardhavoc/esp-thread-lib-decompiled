@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> TransmitDone
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,26 +10,23 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void
-   TransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this, otRadioFrame * aFrame, otRadioFrame * aAckFrame, otError aError) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::TransmitDone(otRadioFrame*, otRadioFrame*, otError) */
 
 void __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-TransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-             *this,otRadioFrame *aFrame,otRadioFrame *aAckFrame,otError aError)
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+TransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+             *this,undefined4 param_1,undefined4 param_2,undefined4 param_4)
 
 {
-  bool bVar1;
-  undefined3 extraout_var;
+  int iVar1;
   
-  bVar1 = otPlatDiagModeGet();
-  if (CONCAT31(extraout_var,bVar1) == 0) {
-    otPlatRadioTxDone(this->mInstance,aFrame,aAckFrame,aError);
+  iVar1 = otPlatDiagModeGet();
+  if (iVar1 == 0) {
+    otPlatRadioTxDone(*(undefined4 *)this,param_1,param_2,param_4);
   }
   else {
-    otPlatDiagRadioTransmitDone(this->mInstance,aFrame,aError);
+    otPlatDiagRadioTransmitDone(*(undefined4 *)this,param_1,param_4);
   }
   return;
 }

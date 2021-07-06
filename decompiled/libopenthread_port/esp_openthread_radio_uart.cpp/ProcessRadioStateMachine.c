@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessRadioStateMachine
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,59 +10,68 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void
-   ProcessRadioStateMachine(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::ProcessRadioStateMachine() */
 
-void __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
+RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> * __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
 ProcessRadioStateMachine
-          (RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-           *this)
+          (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this
+          )
 
 {
-  uint uVar1;
-  int extraout_a0;
+  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *pRVar1;
+  int iVar2;
   uint extraout_a1;
-  otRadioFrame *aAckFrame;
-  char cVar2;
-  uint uVar3;
+  char cVar3;
   
-  if (this->mState == kStateTransmitDone) {
-    this->mState = kStateReceive;
-    *(undefined4 *)&this->mTxRadioEndUs = 0xffffffff;
-    *(undefined4 *)((int)&this->mTxRadioEndUs + 4) = 0xffffffff;
-    if ((this->mAckRadioFrame).mLength == 0) {
-      aAckFrame = (otRadioFrame *)0x0;
+  if (*(int *)(this + 0x700) == 4) {
+    *(undefined4 *)(this + 0x700) = 2;
+    *(undefined4 *)(this + 0x710) = 0xffffffff;
+    *(undefined4 *)(this + 0x714) = 0xffffffff;
+    if (*(short *)(this + 0x644) == 0) {
+      pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                *)0x0;
     }
     else {
-      aAckFrame = &this->mAckRadioFrame;
+      pRVar1 = this + 0x640;
     }
-    TransmitDone(this,this->mTransmitFrame,aAckFrame,this->mTxError);
+    pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
+             TransmitDone(this,*(undefined4 *)(this + 0x660),pRVar1,*(undefined4 *)(this + 0x674));
   }
-  else if (this->mState == kStateTransmitting) {
-    uVar1 = otPlatTimeGet();
-    uVar3 = *(uint *)((int)&this->mTxRadioEndUs + 4);
-    if ((uVar3 <= extraout_a1) && ((uVar3 != extraout_a1 || ((uint)this->mTxRadioEndUs <= uVar1))))
-    {
-      otLogWarn(0xc,_LC2,"radio tx timeout");
-      HandleRcpTimeout(this);
-      uVar1 = (uint)*(byte *)(extraout_a0 + 0x462);
-      if (((int)(uint)*(ushort *)(extraout_a0 + 0x460) >> (uVar1 & 0x1f) & 1U) == 0) {
-        if (uVar1 < 0xf) {
-          cVar2 = *(byte *)(extraout_a0 + 0x462) + 1;
+  else {
+    pRVar1 = this;
+    if (*(int *)(this + 0x700) == 3) {
+      pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                *)otPlatTimeGet();
+      if ((*(uint *)(this + 0x714) <= extraout_a1) &&
+         ((*(uint *)(this + 0x714) != extraout_a1 ||
+          (*(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> **)
+            (this + 0x710) <= pRVar1)))) {
+        otLogWarn(0xc,_LC2,"radio tx timeout");
+        iVar2 = HandleRcpTimeout();
+        pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                  *)(uint)*(byte *)(iVar2 + 0x462);
+        if (((int)(uint)*(ushort *)(iVar2 + 0x460) >> ((uint)pRVar1 & 0x1f) & 1U) == 0) {
+          if (pRVar1 < (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                        *)0xf) {
+            cVar3 = *(byte *)(iVar2 + 0x462) + 1;
+          }
+          else {
+            cVar3 = '\x01';
+          }
+          *(char *)(iVar2 + 0x462) = cVar3;
+          *(ushort *)(iVar2 + 0x460) =
+               *(ushort *)(iVar2 + 0x460) | (ushort)(1 << ((uint)pRVar1 & 0x1f));
         }
         else {
-          cVar2 = '\x01';
+          pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                    *)0x0;
         }
-        *(char *)(extraout_a0 + 0x462) = cVar2;
-        *(ushort *)(extraout_a0 + 0x460) =
-             *(ushort *)(extraout_a0 + 0x460) | (ushort)(1 << (uVar1 & 0x1f));
+        return pRVar1;
       }
-      return;
     }
   }
-  return;
+  return pRVar1;
 }
 

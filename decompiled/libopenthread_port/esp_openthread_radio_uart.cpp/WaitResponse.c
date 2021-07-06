@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> WaitResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,14 +10,12 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   WaitResponse(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::WaitResponse() */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-WaitResponse(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
+undefined4 __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+WaitResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
              *this)
 
 {
@@ -36,20 +34,22 @@ WaitResponse(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_ma
     uVar5 = otPlatTimeGet();
     if ((uVar4 <= extraout_a1_00) && ((uVar4 != extraout_a1_00 || (uVar1 + 2000000 <= extraout_a0)))
        ) {
-      HandleRcpTimeout(this);
+      HandleRcpTimeout();
 _L0:
-      HandleRcpTimeout(this);
+      HandleRcpTimeout();
       goto _L0;
     }
     iVar2 = esp::openthread::UartSpinelInterface::WaitForFrame(uVar5);
     if (iVar2 != 0) goto _L0;
-  } while ((this->mWaitingTid != '\0') || ((*(uint *)&this->field_0x704 >> 1 & 1) == 0));
-  if (this->mError != OT_ERROR_NONE) {
+  } while ((this[0x464] !=
+            (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)0x0
+           ) || ((*(uint *)(this + 0x704) >> 1 & 1) == 0));
+  if (*(int *)(this + 0x478) != 0) {
 _L0:
     uVar3 = otThreadErrorToString();
     otLogWarn(0xc,_LC2,"%s: %s","Error waiting response",uVar3);
   }
-  this->mWaitingKey = 0;
-  return this->mError;
+  *(undefined4 *)(this + 0x468) = 0;
+  return *(undefined4 *)(this + 0x478);
 }
 

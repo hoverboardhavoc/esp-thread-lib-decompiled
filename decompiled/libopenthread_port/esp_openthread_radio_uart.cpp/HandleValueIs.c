@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,71 +10,68 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void
-   HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this, spinel_prop_key_t aKey, uint8_t * aBuffer, uint16_t aLength) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::HandleValueIs(unsigned long, unsigned char const*, unsigned
+   short) */
 
 void __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-              *this,spinel_prop_key_t aKey,uint8_t *aBuffer,uint16_t aLength)
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+              *this,ulong param_1,uchar *param_2,ushort param_3)
 
 {
-  otError oVar1;
+  int iVar1;
   undefined4 uVar2;
   undefined2 in_register_00002036;
-  int iVar3;
   uint local_c0;
-  uint8_t scanChannel;
-  spinel_status_t status;
-  uint uStack_24;
-  spinel_ssize_t unpacked;
+  int aiStack_bc [38];
+  uint auStack_24 [4];
   
-  iVar3 = CONCAT22(in_register_00002036,aLength);
-  if (aKey == 0x71) {
-    oVar1 = ParseRadioFrame(this,&this->mRxRadioFrame,aBuffer,aLength,(spinel_ssize_t *)&uStack_24);
-    if (oVar1 == OT_ERROR_NONE) {
+  iVar1 = CONCAT22(in_register_00002036,param_3);
+  if (param_1 == 0x71) {
+    iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,(int *)auStack_24);
+    if (iVar1 == 0) {
       RadioReceive(this);
     }
   }
-  else if (aKey == 0) {
-    _scanChannel = 0;
-    uStack_24 = spinel_datatype_unpack(aBuffer,iVar3,&_LC14,&scanChannel);
-    if ((int)uStack_24 < 1) {
-      oVar1 = OT_ERROR_PARSE;
+  else if (param_1 == 0) {
+    aiStack_bc[0] = 0;
+    auStack_24[0] = spinel_datatype_unpack(param_2,iVar1,&_LC14,aiStack_bc);
+    if ((int)auStack_24[0] < 1) {
+      iVar1 = 6;
     }
     else {
-      oVar1 = OT_ERROR_NONE;
-      if (_scanChannel - 0x70 < 0x11) {
-        if (this->mState == kStateDisabled) {
+      iVar1 = 0;
+      if (aiStack_bc[0] - 0x70U < 0x11) {
+        if (*(int *)(this + 0x700) == 0) {
           uVar2 = spinel_status_to_cstr();
           otLogInfo(0xc,_LC2,"RCP reset: %s",uVar2);
-          this->field_0x704 = this->field_0x704 | 2;
+          this[0x704] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                         )((byte)this[0x704] | 2);
           goto _L0;
         }
-        HandleRcpUnexpectedReset(this,_scanChannel);
+        HandleRcpUnexpectedReset((ulong)this);
       }
       uVar2 = spinel_status_to_cstr();
       otLogInfo(0xc,_LC2,"RCP last status: %s",uVar2);
     }
   }
-  else if (aKey == 0x39) {
-    uStack_24 = spinel_datatype_unpack(aBuffer,iVar3,&_LC64,&local_c0,&scanChannel);
-    if ((int)uStack_24 < 1) {
-      oVar1 = OT_ERROR_PARSE;
+  else if (param_1 == 0x39) {
+    auStack_24[0] = spinel_datatype_unpack(param_2,iVar1,&_LC64,&local_c0,aiStack_bc);
+    if ((int)auStack_24[0] < 1) {
+      iVar1 = 6;
     }
     else {
-      otPlatRadioEnergyScanDone(this->mInstance,(int)(char)scanChannel);
-      oVar1 = OT_ERROR_NONE;
+      otPlatRadioEnergyScanDone(*(undefined4 *)this,(int)(char)aiStack_bc[0]);
+      iVar1 = 0;
     }
   }
-  else if (aKey == 0x70) {
+  else if (param_1 == 0x70) {
     local_c0 = 0x97;
-    uStack_24 = spinel_datatype_unpack_in_place(aBuffer,iVar3,&_LC13,&scanChannel,&local_c0);
+    auStack_24[0] = spinel_datatype_unpack_in_place(param_2,iVar1,&_LC13,aiStack_bc,&local_c0);
     if (local_c0 < 0x97) {
-      if (0 < (int)uStack_24) {
-        oVar1 = OT_ERROR_NONE;
+      if (0 < (int)auStack_24[0]) {
+        iVar1 = 0;
         goto _L0;
       }
     }
@@ -84,47 +81,48 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_m
                     "void ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::HandleValueIs(spinel_prop_key_t, const uint8_t*, uint16_t) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; spinel_prop_key_t = long unsigned int; uint8_t = unsigned char; uint16_t = short unsigned int]"
                     ,"len < sizeof(logStream)");
     }
-    oVar1 = OT_ERROR_PARSE;
+    iVar1 = 6;
   }
-  else if (aKey == 0x74) {
-    if ((*(uint *)&this->field_0x704 >> 2 & 1) == 0) {
-      oVar1 = OT_ERROR_NONE;
+  else if (param_1 == 0x74) {
+    if ((*(uint *)(this + 0x704) >> 2 & 1) == 0) {
+      iVar1 = 0;
     }
     else {
-      uStack_24 = spinel_datatype_unpack(aBuffer,iVar3,&_LC27,&scanChannel);
-      if (((int)uStack_24 < 0) ||
-         (uStack_24 = spinel_datatype_unpack
-                                (aBuffer + uStack_24,iVar3 - (uStack_24 & 0xffff) & 0xffff,&_LC38,
-                                 &local_c0), (int)uStack_24 < 1)) {
-        oVar1 = OT_ERROR_PARSE;
+      auStack_24[0] = spinel_datatype_unpack(param_2,iVar1,&_LC27,aiStack_bc);
+      if (((int)auStack_24[0] < 0) ||
+         (auStack_24[0] =
+               spinel_datatype_unpack
+                         (param_2 + auStack_24[0],iVar1 - (auStack_24[0] & 0xffff) & 0xffff,&_LC38,
+                          &local_c0), (int)auStack_24[0] < 1)) {
+        iVar1 = 6;
       }
       else {
         switch(local_c0 & 0xff) {
         case 0:
         case 1:
         case 2:
-          otLogCrit(0xc,_LC2,"RCP => %s",_scanChannel);
+          otLogCrit(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
           break;
         case 3:
         case 4:
-          otLogWarn(0xc,_LC2,"RCP => %s",_scanChannel);
+          otLogWarn(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
           break;
         case 5:
-          otLogNote(0xc,_LC2,"RCP => %s",_scanChannel);
+          otLogNote(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
           break;
         case 6:
-          otLogInfo(0xc,_LC2,"RCP => %s",_scanChannel);
+          otLogInfo(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
         }
-        oVar1 = OT_ERROR_NONE;
+        iVar1 = 0;
       }
     }
   }
   else {
-    oVar1 = OT_ERROR_NONE;
+    iVar1 = 0;
   }
 _L0:
-  if (oVar1 != OT_ERROR_NONE) {
-    uVar2 = otThreadErrorToString(oVar1);
+  if (iVar1 != 0) {
+    uVar2 = otThreadErrorToString(iVar1);
     otLogWarn(0xc,_LC2,"%s: %s","Failed to handle ValueIs",uVar2);
   }
   return;

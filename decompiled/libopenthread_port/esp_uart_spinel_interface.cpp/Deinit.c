@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> Deinit
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,19 +10,16 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: esp_err_t Deinit(UartSpinelInterface * this) */
+/* esp::openthread::UartSpinelInterface::Deinit() */
 
-esp_err_t __thiscall esp::openthread::UartSpinelInterface::Deinit(UartSpinelInterface *this)
+void __thiscall esp::openthread::UartSpinelInterface::Deinit(UartSpinelInterface *this)
 
 {
-  esp_err_t eVar1;
-  
-  if (this->m_uart_rx_buffer != (uint8_t *)0x0) {
+  if (*(int *)(this + 0x20) != 0) {
     heap_caps_free();
   }
-  this->m_uart_rx_buffer = (uint8_t *)0x0;
-  eVar1 = DeinitUart(this);
-  return eVar1;
+  *(undefined4 *)(this + 0x20) = 0;
+  DeinitUart(this);
+  return;
 }
 

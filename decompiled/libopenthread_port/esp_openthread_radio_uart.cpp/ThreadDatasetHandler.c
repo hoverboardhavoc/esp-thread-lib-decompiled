@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ThreadDatasetHandler
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,196 +10,204 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Variable defined which should be unmapped: opDataset */
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   ThreadDatasetHandler(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this, uint8_t * aBuffer, uint16_t aLength) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::ThreadDatasetHandler(unsigned char const*, unsigned short) */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-ThreadDatasetHandler
-          (RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-           *this,uint8_t *aBuffer,uint16_t aLength)
+int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+    ::ThreadDatasetHandler(uchar *param_1,ushort param_2)
 
 {
-  spinel_prop_key_t sVar1;
+  int iVar1;
   short sVar2;
   size_t __n;
-  otError oVar3;
+  int iVar3;
   uint uVar4;
   uchar *puVar5;
   short local_1a6;
   uint uStack_1a4;
-  uint16_t len;
-  uint propKey;
-  uint8_t *key;
-  Dataset dataset;
-  Decoder decoder;
-  otOperationalDataset opDataset;
+  char *local_1a0;
+  Dataset aDStack_19c [268];
+  Decoder aDStack_90 [6];
+  short sStack_8a;
+  short sStack_88;
+  undefined4 uStack_78;
+  undefined4 uStack_74;
+  undefined1 auStack_68 [16];
+  undefined1 auStack_58 [17];
+  undefined1 auStack_47 [8];
+  char cStack_3f;
+  char cStack_3e;
+  char cStack_3d;
+  char cStack_3c;
+  char cStack_3b;
+  char cStack_3a;
+  char cStack_39;
+  char cStack_38;
+  ushort uStack_2e;
+  undefined1 auStack_2c [16];
+  uchar auStack_1c [4];
+  uint uStack_18;
+  ushort uStack_14;
   
-  sVar1 = this->mWaitingKey;
-  ot::Spinel::Decoder::Decoder((Decoder *)&dataset.mType);
-  ot::MeshCoP::Dataset::Dataset((Dataset *)&key,(uint)(sVar1 != 0x1518));
-  memset(decoder.mPrevEnd + 2,0,0x68);
-  ot::Spinel::Decoder::Init((uchar *)&dataset.mType,(ushort)aBuffer);
+  iVar1 = *(int *)(param_1 + 0x468);
+  ot::Spinel::Decoder::Decoder(aDStack_90);
+  ot::MeshCoP::Dataset::Dataset(aDStack_19c,iVar1 != 0x1518);
+  memset(&uStack_78,0,0x68);
+  ot::Spinel::Decoder::Init((uchar *)aDStack_90,param_2);
   do {
-    if (decoder.mLength == decoder.mFrame._2_2_) {
-      decoder.mPrevEnd[2] = 0;
-      decoder.mPrevEnd[3] = 0;
-      opDataset.mActiveTimestamp._0_4_ = 0;
-      opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 1;
-      oVar3 = ot::MeshCoP::Dataset::SetFrom((Info *)&key);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+    if (sStack_88 == sStack_8a) {
+      uStack_78 = 0;
+      uStack_74 = 0;
+      uStack_14 = uStack_14 | 1;
+      iVar3 = ot::MeshCoP::Dataset::SetFrom((Info *)aDStack_19c);
+      if (iVar3 != 0) {
+        return iVar3;
       }
       sVar2 = ot::Instance::Get();
-      if (sVar1 == 0x1518) {
+      if (iVar1 == 0x1518) {
         puVar5 = (uchar *)0x1;
       }
       else {
         puVar5 = (uchar *)0x2;
       }
-      oVar3 = ot::Flash::Set(sVar2 + 0x54,puVar5,(ushort)&key);
-      return oVar3;
+      iVar1 = ot::Flash::Set(sVar2 + 0x54,puVar5,(ushort)aDStack_19c);
+      return iVar1;
     }
-    oVar3 = ot::Spinel::Decoder::OpenStruct();
-    if (oVar3 != OT_ERROR_NONE) {
-      return oVar3;
+    iVar3 = ot::Spinel::Decoder::OpenStruct();
+    if (iVar3 != 0) {
+      return iVar3;
     }
-    oVar3 = ot::Spinel::Decoder::ReadUintPacked(&dataset.mType);
-    if (oVar3 != OT_ERROR_NONE) {
-      return oVar3;
+    iVar3 = ot::Spinel::Decoder::ReadUintPacked((uint *)aDStack_90);
+    if (iVar3 != 0) {
+      return iVar3;
     }
     if (uStack_1a4 == 0x45) {
-      oVar3 = ot::Spinel::Decoder::ReadData((uchar **)&dataset.mType,(ushort *)&propKey);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_90,(ushort *)&local_1a0);
+      if (iVar3 != 0) {
+        return iVar3;
       }
       if (local_1a6 != 8) {
-        return OT_ERROR_INVALID_ARGS;
+        return 7;
       }
-      memcpy(opDataset.mNetworkName.m8 + 0xd,(void *)propKey,8);
-      opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x10;
+      memcpy(auStack_47,local_1a0,8);
+      uStack_14 = uStack_14 | 0x10;
     }
     else if (uStack_1a4 < 0x46) {
       if (uStack_1a4 == 0x22) {
-        opDataset.mSecurityPolicy = (otSecurityPolicy)0x0;
-        while (decoder.mFrame._2_2_ != decoder.mLength) {
-          oVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)&dataset.mType);
-          if (oVar3 != OT_ERROR_NONE) {
-            return oVar3;
+        uStack_18 = 0;
+        while (sStack_8a != sStack_88) {
+          iVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_90);
+          if (iVar3 != 0) {
+            return iVar3;
           }
-          if (0x1f < (propKey & 0xff)) {
-            return OT_ERROR_INVALID_ARGS;
+          if (0x1f < ((uint)local_1a0 & 0xff)) {
+            return 7;
           }
-          opDataset.mSecurityPolicy =
-               (otSecurityPolicy)(1 << (propKey & 0x1f) | (uint)opDataset.mSecurityPolicy);
+          uStack_18 = 1 << ((uint)local_1a0 & 0x1f) | uStack_18;
         }
-        opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x800;
+        uStack_14 = uStack_14 | 0x800;
       }
       else if (uStack_1a4 < 0x23) {
         if (uStack_1a4 == 0x21) {
-          oVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)&dataset.mType);
-          if (oVar3 != OT_ERROR_NONE) {
-            return oVar3;
+          iVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_90);
+          if (iVar3 != 0) {
+            return iVar3;
           }
-          opDataset.mDelay._2_2_ = (ushort)(byte)propKey;
-          opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x100;
+          uStack_2e = (ushort)(byte)local_1a0;
+          uStack_14 = uStack_14 | 0x100;
         }
       }
       else if (uStack_1a4 == 0x36) {
-        oVar3 = ot::Spinel::Decoder::ReadUint16((ushort *)&dataset.mType);
-        if (oVar3 != OT_ERROR_NONE) {
-          return oVar3;
+        iVar3 = ot::Spinel::Decoder::ReadUint16((ushort *)aDStack_90);
+        if (iVar3 != 0) {
+          return iVar3;
         }
-        opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x80;
+        uStack_14 = uStack_14 | 0x80;
       }
       else if (uStack_1a4 == 0x44) {
-        oVar3 = ot::Spinel::Decoder::ReadUtf8((char **)&dataset.mType);
-        if (oVar3 != OT_ERROR_NONE) {
-          return oVar3;
+        iVar3 = ot::Spinel::Decoder::ReadUtf8((char **)aDStack_90);
+        if (iVar3 != 0) {
+          return iVar3;
         }
-        __n = ot::StringLength((char *)propKey,0x10);
-        memcpy(opDataset.mMasterKey.m8 + 0xc,(void *)propKey,__n);
-        opDataset.mMasterKey.m8[__n + 0xc] = '\0';
-        opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 8;
+        __n = ot::StringLength(local_1a0,0x10);
+        memcpy(auStack_58,local_1a0,__n);
+        auStack_58[__n] = 0;
+        uStack_14 = uStack_14 | 8;
       }
     }
     else if (uStack_1a4 == 0x62) {
-      oVar3 = ot::Spinel::Decoder::ReadItem((uchar **)&dataset.mType,(ushort)&propKey);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadItem((uchar **)aDStack_90,(ushort)&local_1a0);
+      if (iVar3 != 0) {
+        return iVar3;
       }
-      oVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)&dataset.mType);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_90);
+      if (iVar3 != 0) {
+        return iVar3;
       }
       if ((char)local_1a6 != '@') {
-        return OT_ERROR_INVALID_ARGS;
+        return 7;
       }
-      opDataset.mExtendedPanId.m8[4] = *(uint8_t *)propKey;
-      opDataset.mExtendedPanId.m8[5] = *(uint8_t *)(propKey + 1);
-      opDataset.mExtendedPanId.m8[6] = *(uint8_t *)(propKey + 2);
-      opDataset.mExtendedPanId.m8[7] = *(uint8_t *)(propKey + 3);
-      opDataset.mMeshLocalPrefix.m8[0] = *(uint8_t *)(propKey + 4);
-      opDataset.mMeshLocalPrefix.m8[1] = *(uint8_t *)(propKey + 5);
-      opDataset.mMeshLocalPrefix.m8[2] = *(uint8_t *)(propKey + 6);
-      opDataset.mMeshLocalPrefix.m8[3] = *(uint8_t *)(propKey + 7);
-      opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x20;
+      cStack_3f = *local_1a0;
+      cStack_3e = local_1a0[1];
+      cStack_3d = local_1a0[2];
+      cStack_3c = local_1a0[3];
+      cStack_3b = local_1a0[4];
+      cStack_3a = local_1a0[5];
+      cStack_39 = local_1a0[6];
+      cStack_38 = local_1a0[7];
+      uStack_14 = uStack_14 | 0x20;
     }
     else if (uStack_1a4 < 99) {
       if (uStack_1a4 == 0x46) {
-        oVar3 = ot::Spinel::Decoder::ReadData((uchar **)&dataset.mType,(ushort *)&propKey);
-        if (oVar3 != OT_ERROR_NONE) {
-          return oVar3;
+        iVar3 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_90,(ushort *)&local_1a0);
+        if (iVar3 != 0) {
+          return iVar3;
         }
         if (local_1a6 != 0x10) {
-          return OT_ERROR_INVALID_ARGS;
+          return 7;
         }
-        memcpy((void *)((int)&opDataset.mPendingTimestamp + 4),(void *)propKey,0x10);
-        opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 4;
+        memcpy(auStack_68,local_1a0,0x10);
+        uStack_14 = uStack_14 | 4;
       }
       else if (uStack_1a4 == 0x4b) {
-        oVar3 = ot::Spinel::Decoder::ReadData((uchar **)&dataset.mType,(ushort *)&propKey);
-        if (oVar3 != OT_ERROR_NONE) {
-          return oVar3;
+        iVar3 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_90,(ushort *)&local_1a0);
+        if (iVar3 != 0) {
+          return iVar3;
         }
         if (local_1a6 != 0x10) {
-          return OT_ERROR_INVALID_ARGS;
+          return 7;
         }
-        memcpy(&opDataset.mPanId,(void *)propKey,0x10);
-        opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x200;
+        memcpy(auStack_2c,local_1a0,0x10);
+        uStack_14 = uStack_14 | 0x200;
       }
     }
     else if (uStack_1a4 == 0x151e) {
-      oVar3 = ot::Spinel::Decoder::ReadUint32(&dataset.mType);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadUint32((ulong *)aDStack_90);
+      if (iVar3 != 0) {
+        return iVar3;
       }
-      opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x40;
+      uStack_14 = uStack_14 | 0x40;
     }
     else if (uStack_1a4 == 0x151f) {
-      oVar3 = ot::Spinel::Decoder::ReadUint16((ushort *)&dataset.mType);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadUint16((ushort *)aDStack_90);
+      if (iVar3 != 0) {
+        return iVar3;
       }
-      oVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)&dataset.mType);
-      if (oVar3 != OT_ERROR_NONE) {
-        return oVar3;
+      iVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_90);
+      if (iVar3 != 0) {
+        return iVar3;
       }
       uVar4 = otThreadGetVersion();
-      if (((2 < uVar4) && (decoder.mFrame._2_2_ != decoder.mLength)) &&
-         (oVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)&dataset.mType), oVar3 != OT_ERROR_NONE))
-      {
-        return oVar3;
+      if (((2 < uVar4) && (sStack_8a != sStack_88)) &&
+         (iVar3 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_90), iVar3 != 0)) {
+        return iVar3;
       }
-      ot::SecurityPolicy::SetFlags(opDataset.mPskc.m8 + 0xc,(uchar)&propKey);
-      opDataset.mChannelMask._0_2_ = (ushort)opDataset.mChannelMask | 0x400;
+      ot::SecurityPolicy::SetFlags(auStack_1c,(uchar)&local_1a0);
+      uStack_14 = uStack_14 | 0x400;
     }
-    oVar3 = ot::Spinel::Decoder::CloseStruct();
-    if (oVar3 != OT_ERROR_NONE) {
-      return oVar3;
+    iVar3 = ot::Spinel::Decoder::CloseStruct();
+    if (iVar3 != 0) {
+      return iVar3;
     }
   } while( true );
 }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification__1
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,39 +10,35 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void
-   HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this, uint8_t * aFrame, uint16_t aLength) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::HandleNotification(unsigned char const*, unsigned short) */
 
 void __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-                   *this,uint8_t *aFrame,uint16_t aLength)
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                   *this,uchar *param_1,ushort param_2)
 
 {
   int iVar1;
   undefined4 uVar2;
   undefined2 in_register_00002032;
   byte bStack_21;
-  int iStack_20;
-  uint8_t header;
-  uint32_t cmd;
-  uint8_t *data;
-  spinel_size_t len;
-  spinel_prop_key_t key;
+  int local_20;
+  uchar *puStack_1c;
+  undefined4 uStack_18;
+  ulong auStack_14 [3];
   
-  data = (uint8_t *)0x0;
-  cmd = 0;
+  uStack_18 = 0;
+  puStack_1c = (uchar *)0x0;
   iVar1 = spinel_datatype_unpack
-                    (aFrame,CONCAT22(in_register_00002032,aLength),&_LC58,&bStack_21,
-                     &stack0xffffffe0,&len,&cmd,&data);
+                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC58,&bStack_21,&local_20,
+                     auStack_14,&puStack_1c,&uStack_18);
   if (iVar1 < 1) {
     iVar1 = 6;
   }
   else if ((bStack_21 & 0xf) == 0) {
-    if (iStack_20 == 6) {
-      HandleValueIs(this,len,(uint8_t *)cmd,(uint16_t)data);
+    if (local_20 == 6) {
+      HandleValueIs(this,auStack_14[0],puStack_1c,(ushort)uStack_18);
       iVar1 = 0;
     }
     else {

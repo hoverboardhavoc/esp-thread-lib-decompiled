@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,23 +10,19 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-
-otError otPlatRadioClearSrcMatchExtEntry(otInstance *instance,otExtAddress *ext_address)
+void otPlatRadioClearSrcMatchExtEntry(int param_1)
 
 {
-  otError oVar1;
-  uint uVar2;
-  undefined1 auStack_18 [4];
-  otExtAddress addr;
+  uint uVar1;
+  otExtAddress aoStack_18 [20];
   
-  for (uVar2 = 0; uVar2 < 8; uVar2 = uVar2 + 1) {
-    auStack_18[uVar2] = *(undefined1 *)((7 - uVar2) + (int)ext_address);
+  for (uVar1 = 0; uVar1 < 8; uVar1 = uVar1 + 1) {
+    aoStack_18[uVar1] = *(otExtAddress *)((7 - uVar1) + param_1);
   }
-  oVar1 = ot::Spinel::
-          RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-          ClearSrcMatchExtEntry(&s_radio,(otExtAddress *)auStack_18);
-  return oVar1;
+  ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+  ClearSrcMatchExtEntry
+            ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
+             s_radio,aoStack_18);
+  return;
 }
 

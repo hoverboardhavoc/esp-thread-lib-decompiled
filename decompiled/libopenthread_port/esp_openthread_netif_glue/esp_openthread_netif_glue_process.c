@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,24 +10,20 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-
-esp_err_t esp_openthread_netif_glue_process
-                    (otInstance *instance,esp_openthread_mainloop_context_t *context)
+undefined4 esp_openthread_netif_glue_process(int param_1)
 
 {
-  esp_err_t eVar1;
+  undefined4 uVar1;
   
-  if (s_openthread_netif_glue.event_fd < 0) {
+  if ((int)DAT_00010b4c < 0) {
     return 0;
   }
-  if ((uint)s_openthread_netif_glue.event_fd < 0x40) {
-    if ((1 << (s_openthread_netif_glue.event_fd & 0x1fU) &
-        (context->read_fds).fds_bits[(uint)s_openthread_netif_glue.event_fd >> 5]) == 0) {
+  if (DAT_00010b4c < 0x40) {
+    if ((1 << (DAT_00010b4c & 0x1f) & *(uint *)(param_1 + (DAT_00010b4c >> 5) * 4)) == 0) {
       return 0;
     }
-    eVar1 = process_thread_transmit(instance);
-    return eVar1;
+    uVar1 = process_thread_transmit();
+    return uVar1;
   }
   return 0;
 }

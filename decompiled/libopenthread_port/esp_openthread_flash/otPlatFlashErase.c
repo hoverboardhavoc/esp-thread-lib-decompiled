@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_flash.o -> otPlatFlashErase
  *
  * (C) Espressif, Apache License 2.0.
@@ -11,20 +11,16 @@
  */
 
 /* WARNING: Control flow encountered bad instruction data */
-/* WARNING: Unknown calling convention */
-/* WARNING: Enum "esp_partition_subtype_t": Some values do not have unique names */
 
-void otPlatFlashErase(otInstance *instance,uint8_t index)
+void otPlatFlashErase(int param_1,undefined4 param_2)
 
 {
   int iVar1;
-  undefined3 in_register_0000202d;
   undefined4 uVar2;
   char *pcVar3;
   char *pcVar4;
-  undefined4 in_a4;
   
-  if (CONCAT31(in_register_0000202d,index) == 0) {
+  if (param_1 == 0) {
     uVar2 = 0;
   }
   else {
@@ -37,33 +33,33 @@ void otPlatFlashErase(otInstance *instance,uint8_t index)
   pcVar4 = "err == ESP_OK";
   pcVar3 = "otPlatFlashErase";
   iVar1 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                        ,0x2f,"otPlatFlashErase","err == ESP_OK");
+                        ,0x33,"otPlatFlashErase","err == ESP_OK");
   if (iVar1 == 0) {
     iVar1 = 0;
   }
   else {
     iVar1 = 0x1000;
   }
-  iVar1 = esp_partition_read(s_ot_partition,pcVar3 + iVar1,pcVar4,in_a4);
+  iVar1 = esp_partition_read(s_ot_partition,pcVar3 + iVar1,pcVar4,param_2);
   if (iVar1 == 0) {
     return;
   }
   pcVar4 = "err == ESP_OK";
   pcVar3 = "otPlatFlashRead";
   iVar1 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                        ,0x3a,"otPlatFlashRead","err == ESP_OK");
+                        ,0x3e,"otPlatFlashRead","err == ESP_OK");
   if (iVar1 == 0) {
     iVar1 = 0;
   }
   else {
     iVar1 = 0x1000;
   }
-  iVar1 = esp_partition_write(s_ot_partition,pcVar3 + iVar1,pcVar4,in_a4);
+  iVar1 = esp_partition_write(s_ot_partition,pcVar3 + iVar1,pcVar4,param_2);
   if (iVar1 == 0) {
     return;
   }
   __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                ,0x45,"otPlatFlashWrite","err == ESP_OK");
+                ,0x49,"otPlatFlashWrite","err == ESP_OK");
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();
 }

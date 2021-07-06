@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> GetRssi
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,25 +10,22 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: int8_t
-   GetRssi(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *
-   this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::GetRssi() */
 
-int8_t __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-GetRssi(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this)
+undefined4 __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+GetRssi(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this)
 
 {
-  otError oVar1;
+  int iVar1;
   undefined4 uVar2;
-  int8_t rssi;
   
-  oVar1 = Get(this,0x26,"c");
-  if (oVar1 != OT_ERROR_NONE) {
+  iVar1 = Get((ulong)this,(char *)0x26);
+  if (iVar1 != 0) {
     uVar2 = otThreadErrorToString();
     otLogWarn(0xc,_LC2,"%s: %s","Get RSSI failed",uVar2);
   }
-  return '\x7f';
+  return 0x7f;
 }
 

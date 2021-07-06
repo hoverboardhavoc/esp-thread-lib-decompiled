@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RequestV
  *
  * (C) Espressif, Apache License 2.0.
@@ -11,43 +11,43 @@
  */
 
 /* WARNING: Removing unreachable block (ram,0x00010aaa) */
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *
-   this, uint32_t command, spinel_prop_key_t aKey, char * aFormat, va_list aArgs) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::RequestV(unsigned long, unsigned long, char const*, void*) */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this,
-        uint32_t command,spinel_prop_key_t aKey,char *aFormat,va_list aArgs)
+int __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this,
+        ulong param_1,ulong param_2,char *param_3,void *param_4)
 
 {
-  spinel_tid_t tid;
-  undefined3 extraout_var;
-  otError oVar1;
+  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar1;
+  int iVar2;
   
-  tid = GetNextTid(this);
-  if (CONCAT31(extraout_var,tid) == 0) {
-    oVar1 = OT_ERROR_BUSY;
+  iVar2 = GetNextTid(this);
+  if (iVar2 == 0) {
+    iVar2 = 5;
   }
   else {
-    oVar1 = SendCommand(this,command,aKey,tid,aFormat,aArgs);
-    if (oVar1 == OT_ERROR_NONE) {
-      if (aKey == 0x71) {
-        if (this->mTxRadioTid == '\0') {
-          this->mTxRadioTid = tid;
-          return OT_ERROR_NONE;
+    RVar1 = SUB41(iVar2,0);
+    iVar2 = SendCommand(this,param_1,param_2,(uchar)RVar1,param_3,param_4);
+    if (iVar2 == 0) {
+      if (param_2 == 0x71) {
+        if (this[0x463] ==
+            (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)0x0
+           ) {
+          this[0x463] = RVar1;
+          return 0;
         }
         __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
                       0x6e1,
                       "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::RequestV(uint32_t, spinel_prop_key_t, const char*, va_list) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; uint32_t = long unsigned int; spinel_prop_key_t = long unsigned int; va_list = void*]"
                       ,"mTxRadioTid == 0");
       }
-      this->mWaitingKey = aKey;
-      this->mWaitingTid = tid;
-      oVar1 = WaitResponse(this);
+      *(ulong *)(this + 0x468) = param_2;
+      this[0x464] = RVar1;
+      iVar2 = WaitResponse(this);
     }
   }
-  return oVar1;
+  return iVar2;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> SendFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,35 +10,29 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* WARNING: Struct "FrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError SendFrame(UartSpinelInterface * this, uint8_t * frame, uint16_t
-   length) */
+/* esp::openthread::UartSpinelInterface::SendFrame(unsigned char const*, unsigned short) */
 
-otError __thiscall
-esp::openthread::UartSpinelInterface::SendFrame
-          (UartSpinelInterface *this,uint8_t *frame,uint16_t length)
+int esp::openthread::UartSpinelInterface::SendFrame(uchar *param_1,ushort param_2)
 
 {
-  otError oVar1;
-  uint8_t *aFrame;
-  undefined1 auStack_430 [4];
-  Encoder hdlc_encoder;
-  FrameBuffer<1024> encoder_buffer;
+  int iVar1;
+  Encoder aEStack_430 [8];
+  uchar *puStack_428;
+  undefined2 uStack_424;
+  uchar auStack_422 [1038];
   
-  hdlc_encoder._4_4_ = (int)&encoder_buffer.super_FrameWritePointer.mWritePointer + 2;
-  encoder_buffer.super_FrameWritePointer.mWritePointer._0_2_ = 0x400;
-  ot::Hdlc::Encoder::Encoder((Encoder *)auStack_430,(FrameWritePointer *)&hdlc_encoder.mFcs);
-  oVar1 = ot::Hdlc::Encoder::BeginFrame();
-  if (((oVar1 == OT_ERROR_NONE) &&
-      (oVar1 = ot::Hdlc::Encoder::Encode(auStack_430,(ushort)frame), oVar1 == OT_ERROR_NONE)) &&
-     (oVar1 = ot::Hdlc::Encoder::EndFrame(), oVar1 == OT_ERROR_NONE)) {
-    aFrame = (uint8_t *)((int)&encoder_buffer.super_FrameWritePointer.mWritePointer + 2);
-    oVar1 = Write(this,aFrame,(uint16_t)hdlc_encoder._4_4_ - (short)aFrame);
+  puStack_428 = auStack_422;
+  uStack_424 = 0x400;
+  ot::Hdlc::Encoder::Encoder(aEStack_430,(FrameWritePointer *)&puStack_428);
+  iVar1 = ot::Hdlc::Encoder::BeginFrame();
+  if (((iVar1 == 0) && (iVar1 = ot::Hdlc::Encoder::Encode((uchar *)aEStack_430,param_2), iVar1 == 0)
+      ) && (iVar1 = ot::Hdlc::Encoder::EndFrame(), iVar1 == 0)) {
+    iVar1 = Write((UartSpinelInterface *)param_1,auStack_422,(short)puStack_428 - (short)auStack_422
+                 );
   }
-  if (oVar1 != OT_ERROR_NONE) {
+  if (iVar1 != 0) {
     otLogCrit(0xc,"-PLAT----: ","send radio frame failed");
   }
-  return oVar1;
+  return iVar1;
 }
 

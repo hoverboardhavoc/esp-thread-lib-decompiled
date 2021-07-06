@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RadioReceive
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,29 +10,26 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void
-   RadioReceive(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-   * this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::RadioReceive() */
 
 void __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-RadioReceive(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+RadioReceive(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
              *this)
 
 {
-  bool bVar1;
-  undefined3 extraout_var;
+  int iVar1;
   
-  if (((*(uint *)&this->field_0x704 & 1) == 0) && (this->mState < kStateReceive)) {
+  if (((*(uint *)(this + 0x704) & 1) == 0) && (*(uint *)(this + 0x700) < 2)) {
     return;
   }
-  bVar1 = otPlatDiagModeGet();
-  if (CONCAT31(extraout_var,bVar1) == 0) {
-    otPlatRadioReceiveDone(this->mInstance,&this->mRxRadioFrame,0);
+  iVar1 = otPlatDiagModeGet();
+  if (iVar1 == 0) {
+    otPlatRadioReceiveDone(*(undefined4 *)this,this + 0x600,0);
   }
   else {
-    otPlatDiagRadioReceiveDone(this->mInstance,&this->mRxRadioFrame,0);
+    otPlatDiagRadioReceiveDone(*(undefined4 *)this,this + 0x600,0);
   }
   return;
 }

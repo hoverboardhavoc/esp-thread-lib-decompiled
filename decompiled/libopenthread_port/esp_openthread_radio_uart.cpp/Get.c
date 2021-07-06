@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Get
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,20 +10,17 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   Get(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> * this,
-   spinel_prop_key_t aKey, char * aFormat, ...) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::Get(unsigned long, char const*, ...) */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-Get(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this,
-   spinel_prop_key_t aKey,char *aFormat,...)
+void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+     ::Get(ulong param_1,char *param_2,...)
 
 {
-  otError oVar1;
-  RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this_00;
-  undefined4 uVar2;
+  ulong uVar1;
+  int iVar2;
+  undefined4 uVar3;
+  char *in_a2;
   undefined4 in_a3;
   undefined4 in_a4;
   undefined4 in_a5;
@@ -42,26 +39,27 @@ Get(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_co
   uStack_c = in_a5;
   uStack_8 = in_a6;
   uStack_4 = in_a7;
-  if (this->mWaitingTid == '\0') {
-    this->mPropertyArgs = &uStack_14;
-    oVar1 = RequestWithPropertyFormatV(this,aFormat,2,aKey,(char *)0x0,&uStack_14);
-    return oVar1;
+  if (*(char *)(param_1 + 0x464) == '\0') {
+    *(undefined4 **)(param_1 + 0x470) = &uStack_14;
+    RequestWithPropertyFormatV
+              ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                *)param_1,in_a2,2,(ulong)param_2,(char *)0x0,&uStack_14);
+    return;
   }
-  this_00 = (RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *)
-            __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                          ,0x5f6,
-                          "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::Get(spinel_prop_key_t, const char*, ...) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; spinel_prop_key_t = long unsigned int]"
-                          ,"mWaitingTid == 0");
-  oVar1 = Get(this_00,1,"ii",aiStack_44,&iStack_48);
-  if ((oVar1 == OT_ERROR_NONE) && ((aiStack_44[0] != 4 || (iStack_48 != 3)))) {
+  uVar1 = __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
+                        0x5f6,
+                        "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::Get(spinel_prop_key_t, const char*, ...) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; spinel_prop_key_t = long unsigned int]"
+                        ,"mWaitingTid == 0");
+  iVar2 = Get(uVar1,(char *)0x1,&_LC11,aiStack_44,&iStack_48);
+  if ((iVar2 == 0) && ((aiStack_44[0] != 4 || (iStack_48 != 3)))) {
     otLogCrit(0xc,_LC2,"Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3,iStack_48);
-    uVar2 = otExitCodeToString(3);
+    uVar3 = otExitCodeToString(3);
     otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","CheckSpinelVersion",
               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x125,
-              uVar2);
+              uVar3);
                     /* WARNING: Subroutine does not return */
     exit(3);
   }
-  return oVar1;
+  return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_task_queue.o -> esp_openthread_task_queue_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,31 +10,28 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-
-esp_err_t esp_openthread_task_queue_init(void)
+undefined4 esp_openthread_task_queue_init(int param_1)
 
 {
-  esp_err_t eVar1;
-  undefined4 uVar2;
+  undefined4 uVar1;
   
   s_task_queue_event_fd = eventfd(0,0x10);
   if (s_task_queue_event_fd < 0) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC1,uVar2,"OPENTHREAD","esp_openthread_task_queue_init",0x25);
-    eVar1 = -1;
+    uVar1 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC1,uVar1,"OPENTHREAD","esp_openthread_task_queue_init",0x26);
+    uVar1 = 0xffffffff;
   }
   else {
-    s_task_queue = (QueueHandle_t)xQueueGenericCreate(10,8,0);
-    if (s_task_queue == (QueueHandle_t)0x0) {
-      uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD","esp_openthread_task_queue_init",0x28);
-      eVar1 = 0x101;
+    s_task_queue = xQueueGenericCreate(*(undefined1 *)(param_1 + 0x5d),8,0);
+    if (s_task_queue == 0) {
+      uVar1 = esp_log_timestamp();
+      esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","esp_openthread_task_queue_init",0x29);
+      uVar1 = 0x101;
     }
     else {
-      eVar1 = 0;
+      uVar1 = 0;
     }
   }
-  return eVar1;
+  return uVar1;
 }
 

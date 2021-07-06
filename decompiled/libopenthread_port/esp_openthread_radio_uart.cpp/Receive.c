@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Receive
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,38 +10,39 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   Receive(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *
-   this, uint8_t aChannel) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::Receive(unsigned char) */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-Receive(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this,
-       uint8_t aChannel)
+int __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+Receive(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this,
+       uchar param_1)
 
 {
-  otError oVar1;
+  int iVar1;
   undefined3 in_register_0000202d;
   
-  if (this->mState == kStateDisabled) {
-    return OT_ERROR_INVALID_STATE;
+  if (*(int *)(this + 0x700) == 0) {
+    return 0xd;
   }
-  if ((uint)this->mChannel != CONCAT31(in_register_0000202d,aChannel)) {
-    oVar1 = Set(this,0x21,"C");
-    if (oVar1 != OT_ERROR_NONE) {
-      return oVar1;
+  if ((uint)(byte)this[0x671] != CONCAT31(in_register_0000202d,param_1)) {
+    iVar1 = Set((ulong)this,(char *)0x21);
+    if (iVar1 != 0) {
+      return iVar1;
     }
-    this->mChannel = aChannel;
+    this[0x671] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                   )param_1;
   }
-  oVar1 = OT_ERROR_NONE;
-  if ((this->mState != kStateSleep) || (oVar1 = Set(this,0x37,"b"), oVar1 == OT_ERROR_NONE)) {
-    if (this->mTxRadioTid != 0) {
-      this->mCmdTidsInUse = ~(ushort)(1 << (this->mTxRadioTid & 0x1f)) & this->mCmdTidsInUse;
-      this->mTxRadioTid = '\0';
+  iVar1 = 0;
+  if ((*(int *)(this + 0x700) != 1) || (iVar1 = Set((ulong)this,(char *)0x37), iVar1 == 0)) {
+    if ((byte)this[0x463] != 0) {
+      *(ushort *)(this + 0x460) =
+           ~(ushort)(1 << ((byte)this[0x463] & 0x1f)) & *(ushort *)(this + 0x460);
+      this[0x463] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                     )0x0;
     }
-    this->mState = kStateReceive;
+    *(undefined4 *)(this + 0x700) = 2;
   }
-  return oVar1;
+  return iVar1;
 }
 

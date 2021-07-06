@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_udp.o -> udp_bind_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,17 +10,14 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-
-void udp_bind_task(void *ctx)
+void udp_bind_task(undefined4 *param_1)
 
 {
   undefined1 uVar1;
   
-  uVar1 = udp_bind(*(undefined4 *)((int)ctx + 4),(int)ctx + 8,*(undefined2 *)((int)ctx + 0x20));
-  *(undefined1 *)((int)ctx + 0x22) = uVar1;
-                    /* WARNING: Load size is inaccurate */
-  xTaskGenericNotify(*ctx,0,2,0);
+  uVar1 = udp_bind(param_1[1],param_1 + 2,*(undefined2 *)(param_1 + 8));
+  *(undefined1 *)((int)param_1 + 0x22) = uVar1;
+  xTaskGenericNotify(*param_1,0,2,0);
   return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> Update
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,25 +10,22 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: void Update(UartSpinelInterface * this,
-   esp_openthread_mainloop_context_t * mainloop) */
+/* esp::openthread::UartSpinelInterface::Update(esp_openthread_mainloop_context_t&) */
 
 void __thiscall
 esp::openthread::UartSpinelInterface::Update
-          (UartSpinelInterface *this,esp_openthread_mainloop_context_t *mainloop)
+          (UartSpinelInterface *this,esp_openthread_mainloop_context_t *param_1)
 
 {
   uint uVar1;
-  fd_mask *pfVar2;
   
-  uVar1 = this->m_uart_fd;
+  uVar1 = *(uint *)(this + 0x4c);
   if (uVar1 < 0x40) {
-    pfVar2 = (mainloop->read_fds).fds_bits + (uVar1 >> 5);
-    *pfVar2 = *pfVar2 | 1 << (uVar1 & 0x1f);
+    *(uint *)(param_1 + (uVar1 >> 5) * 4) =
+         *(uint *)(param_1 + (uVar1 >> 5) * 4) | 1 << (uVar1 & 0x1f);
   }
-  if (mainloop->max_fd < this->m_uart_fd) {
-    mainloop->max_fd = this->m_uart_fd;
+  if (*(int *)(param_1 + 0x18) < *(int *)(this + 0x4c)) {
+    *(int *)(param_1 + 0x18) = *(int *)(this + 0x4c);
   }
   return;
 }

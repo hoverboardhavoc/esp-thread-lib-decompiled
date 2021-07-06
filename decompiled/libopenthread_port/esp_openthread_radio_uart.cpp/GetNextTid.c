@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> GetNextTid
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,36 +10,34 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: spinel_tid_t
-   GetNextTid(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *
-   this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::GetNextTid() */
 
-spinel_tid_t __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-GetNextTid(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>
-           *this)
+uint __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+GetNextTid(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this
+          )
 
 {
-  spinel_tid_t sVar1;
-  byte bVar2;
-  uint uVar3;
+  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar1;
+  uint uVar2;
   
-  bVar2 = this->mCmdNextTid;
-  uVar3 = (uint)bVar2;
-  if (((int)(uint)this->mCmdTidsInUse >> (uVar3 & 0x1f) & 1U) == 0) {
-    if (uVar3 < 0xf) {
-      sVar1 = bVar2 + 1;
+  uVar2 = (uint)(byte)this[0x462];
+  if (((int)(uint)*(ushort *)(this + 0x460) >> (uVar2 & 0x1f) & 1U) == 0) {
+    if (uVar2 < 0xf) {
+      RVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
+              ((char)this[0x462] + 1);
     }
     else {
-      sVar1 = '\x01';
+      RVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
+              0x1;
     }
-    this->mCmdNextTid = sVar1;
-    this->mCmdTidsInUse = this->mCmdTidsInUse | (ushort)(1 << (uVar3 & 0x1f));
+    this[0x462] = RVar1;
+    *(ushort *)(this + 0x460) = *(ushort *)(this + 0x460) | (ushort)(1 << (uVar2 & 0x1f));
   }
   else {
-    bVar2 = 0;
+    uVar2 = 0;
   }
-  return bVar2;
+  return uVar2;
 }
 

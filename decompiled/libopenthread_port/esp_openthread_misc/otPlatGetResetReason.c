@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_misc.o -> otPlatGetResetReason
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,43 +10,40 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Unknown calling convention */
-
-otPlatResetReason otPlatGetResetReason(otInstance *instance)
+undefined4 otPlatGetResetReason(void)
 
 {
   undefined4 uVar1;
-  otPlatResetReason oVar2;
   
   uVar1 = esp_reset_reason();
   switch(uVar1) {
   case 0:
-    oVar2 = OT_PLAT_RESET_REASON_UNKNOWN;
+    uVar1 = 7;
     break;
   case 1:
-    oVar2 = OT_PLAT_RESET_REASON_POWER_ON;
+    uVar1 = 0;
     break;
   case 2:
-    oVar2 = OT_PLAT_RESET_REASON_EXTERNAL;
+    uVar1 = 1;
     break;
   case 3:
-    oVar2 = OT_PLAT_RESET_REASON_SOFTWARE;
+    uVar1 = 2;
     break;
   case 4:
-    oVar2 = OT_PLAT_RESET_REASON_FAULT;
+    uVar1 = 3;
     break;
   case 5:
-    oVar2 = OT_PLAT_RESET_REASON_WATCHDOG;
+    uVar1 = 8;
     break;
   case 6:
-    oVar2 = OT_PLAT_RESET_REASON_WATCHDOG;
+    uVar1 = 8;
     break;
   case 7:
-    oVar2 = OT_PLAT_RESET_REASON_WATCHDOG;
+    uVar1 = 8;
     break;
   default:
-    oVar2 = OT_PLAT_RESET_REASON_OTHER;
+    uVar1 = 6;
   }
-  return oVar2;
+  return uVar1;
 }
 

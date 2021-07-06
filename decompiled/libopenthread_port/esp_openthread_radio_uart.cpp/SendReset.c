@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> SendReset
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,30 +10,26 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Struct "MultiFrameBuffer<1024>": ignoring overlapping field "mBuffer" */
-/* DWARF original prototype: otError
-   SendReset(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *
-   this) */
+/* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
+   esp_openthread_mainloop_context_t>::SendReset() */
 
-otError __thiscall
-ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t>::
-SendReset(RadioSpinel<esp::openthread::UartSpinelInterface,_esp_openthread_mainloop_context_t> *this
-         )
+undefined4 __thiscall
+ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
+SendReset(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *this)
 
 {
   int iVar1;
-  otError oVar2;
-  undefined1 auStack_410 [4];
-  uint8_t buffer [1024];
+  undefined4 uVar2;
+  undefined1 auStack_410 [1032];
   
   iVar1 = spinel_datatype_pack(auStack_410,0x400,&_LC3,0x80,1);
   if (iVar1 - 1U < 0x400) {
-    oVar2 = esp::openthread::UartSpinelInterface::SendFrame
-                      ((uchar *)&this->mSpinelInterface,(ushort)auStack_410);
+    uVar2 = esp::openthread::UartSpinelInterface::SendFrame
+                      ((uchar *)(this + 0x410),(ushort)auStack_410);
   }
   else {
-    oVar2 = OT_ERROR_NO_BUFS;
+    uVar2 = 3;
   }
-  return oVar2;
+  return uVar2;
 }
 

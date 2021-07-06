@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 42db25b3f71f29085e6f6065b22939bc090787db
- * https://github.com/espressif/esp-thread-lib/commit/42db25b3f71f29085e6f6065b22939bc090787db
- * Upstream date: 2021-06-30 15:48:18 +0800
- * Upstream subject: openthread: initial libraries
+ * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
+ * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
+ * Upstream date: 2021-07-06 14:49:24 +0800
+ * Upstream subject: openthread: make queue size and partition configurable
  * Source: libopenthread_port -> esp_openthread_udp.o -> handle_udp_recv
  *
  * (C) Espressif, Apache License 2.0.
@@ -11,9 +11,8 @@
  */
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* WARNING: Unknown calling convention */
 
-void handle_udp_recv(void *ctx,udp_pcb *pcb,pbuf *p,ip_addr_t *addr,uint16_t port)
+void handle_udp_recv(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined2 param_4)
 
 {
   undefined1 uVar1;
@@ -23,9 +22,9 @@ void handle_udp_recv(void *ctx,udp_pcb *pcb,pbuf *p,ip_addr_t *addr,uint16_t por
   undefined4 *__ptr;
   uint uVar5;
   int iVar6;
-  u32_t uVar7;
-  u32_t uVar8;
-  u32_t uVar9;
+  undefined4 uVar7;
+  undefined4 uVar8;
+  undefined4 uVar9;
   undefined4 uVar10;
   undefined4 uVar11;
   
@@ -36,21 +35,21 @@ void handle_udp_recv(void *ctx,udp_pcb *pcb,pbuf *p,ip_addr_t *addr,uint16_t por
   if (__ptr == (undefined4 *)0x0) {
     otLogCrit(0xc,"-PLAT----: ","Failed to allocate recv task when receiving OpenThread plat UDP");
   }
-  *__ptr = ctx;
-  __ptr[1] = p;
-  uVar7 = (addr->u_addr).ip6.addr[1];
-  uVar8 = (addr->u_addr).ip6.addr[2];
-  uVar9 = (addr->u_addr).ip6.addr[3];
-  uVar10 = *(undefined4 *)((int)&addr->u_addr + 0x10);
-  uVar11 = *(undefined4 *)&addr->type;
-  __ptr[2] = (addr->u_addr).ip6.addr[0];
+  *__ptr = param_1;
+  __ptr[1] = param_2;
+  uVar7 = param_3[1];
+  uVar8 = param_3[2];
+  uVar9 = param_3[3];
+  uVar10 = param_3[4];
+  uVar11 = param_3[5];
+  __ptr[2] = *param_3;
   __ptr[3] = uVar7;
   __ptr[4] = uVar8;
   __ptr[5] = uVar9;
   __ptr[6] = uVar10;
   __ptr[7] = uVar11;
-  *(uint16_t *)(__ptr + 8) = port;
-  if (addr->type == '\x06') {
+  *(undefined2 *)(__ptr + 8) = param_4;
+  if (*(char *)(param_3 + 5) == '\x06') {
     uVar1 = *(undefined1 *)(iVar4 + 7);
   }
   else {
