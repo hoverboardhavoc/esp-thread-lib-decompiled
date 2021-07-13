@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_post_attach
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ void openthread_netif_post_attach(undefined4 param_1,int param_2)
   }
   else {
     _esp_error_check_failed
-              ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_netif_glue.c"
+              ("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_netif_glue.c"
                ,0x109,"openthread_netif_post_attach",
                "esp_netif_set_driver_config(esp_netif, &driver_ifconfig)");
   }

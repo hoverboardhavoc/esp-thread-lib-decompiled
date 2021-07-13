@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_task_queue.o -> esp_openthread_task_queue_post
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,7 +36,7 @@ int esp_openthread_task_queue_post(undefined4 param_1,undefined4 param_2)
   else {
     sVar3 = write(s_task_queue_event_fd,&local_20,8);
     if (sVar3 != 8) {
-      iVar2 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_task_queue.c"
+      iVar2 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_task_queue.c"
                             ,0x39,"esp_openthread_task_queue_post","ret == sizeof(val)");
       uVar1 = s_task_queue_event_fd;
       if (-1 < (int)s_task_queue_event_fd) {

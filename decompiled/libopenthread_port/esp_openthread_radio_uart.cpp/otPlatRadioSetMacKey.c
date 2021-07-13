@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetMacKey
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,13 +18,13 @@ void otPlatRadioSetMacKey(uchar param_1,otMacKey *param_2,otMacKey *param_3,otMa
   
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('h',param_1,param_2,param_3,param_4);
+          SetMacKey('0',param_1,param_2,param_3,param_4);
   if (iVar1 == 0) {
     return;
   }
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('h',param_1,param_2,param_3,param_4);
+          SetMacKey('0',param_1,param_2,param_3,param_4);
   if (iVar1 == 7) {
     uVar2 = 2;
   }
@@ -33,11 +33,11 @@ void otPlatRadioSetMacKey(uchar param_1,otMacKey *param_2,otMacKey *param_3,otMa
   }
   uVar2 = otExitCodeToString(uVar2);
   otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","otPlatRadioSetMacKey",
-            "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+            "/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
             ,0xe9,uVar2);
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('h',param_1,param_2,param_3,param_4);
+          SetMacKey('0',param_1,param_2,param_3,param_4);
   if (iVar1 == 7) {
     iVar1 = 2;
   }

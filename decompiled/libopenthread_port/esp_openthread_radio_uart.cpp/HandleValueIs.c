@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,6 +23,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
   int iVar1;
   undefined4 uVar2;
   undefined2 in_register_00002036;
+  uint uVar3;
   uint local_c0;
   int aiStack_bc [38];
   uint auStack_24 [4];
@@ -89,32 +90,32 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     }
     else {
       auStack_24[0] = spinel_datatype_unpack(param_2,iVar1,&_LC27,aiStack_bc);
-      if (((int)auStack_24[0] < 0) ||
-         (auStack_24[0] =
-               spinel_datatype_unpack
-                         (param_2 + auStack_24[0],iVar1 - (auStack_24[0] & 0xffff) & 0xffff,&_LC38,
-                          &local_c0), (int)auStack_24[0] < 1)) {
-        iVar1 = 6;
-      }
-      else {
-        switch(local_c0 & 0xff) {
-        case 0:
-        case 1:
-        case 2:
-          otLogCrit(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
-          break;
-        case 3:
-        case 4:
-          otLogWarn(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
-          break;
-        case 5:
-          otLogNote(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
-          break;
-        case 6:
-          otLogInfo(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
+      if (-1 < (int)auStack_24[0]) {
+        auStack_24[0] =
+             spinel_datatype_unpack
+                       (param_2 + auStack_24[0],iVar1 - (auStack_24[0] & 0xffff) & 0xffff,&_LC38,
+                        &local_c0);
+        if (0 < (int)auStack_24[0]) {
+          uVar3 = local_c0 & 0xff;
+          if (uVar3 < 5) {
+            if (uVar3 < 3) {
+              otLogCrit(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
+            }
+            else {
+              otLogWarn(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
+            }
+          }
+          else if (uVar3 == 5) {
+            otLogNote(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
+          }
+          else if (uVar3 == 6) {
+            otLogInfo(0xc,_LC2,"RCP => %s",aiStack_bc[0]);
+          }
+          iVar1 = 0;
+          goto _L0;
         }
-        iVar1 = 0;
       }
+      iVar1 = 6;
     }
   }
   else {

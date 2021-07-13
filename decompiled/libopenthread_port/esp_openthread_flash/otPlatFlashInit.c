@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_flash.o -> otPlatFlashInit
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,7 @@ void otPlatFlashInit(undefined4 param_1)
   char *pcVar6;
   
   if (s_ot_partition == 0) {
-    __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+    __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                   ,0x22,"otPlatFlashInit","s_ot_partition != NULL");
   }
   else {
@@ -33,7 +33,7 @@ void otPlatFlashInit(undefined4 param_1)
       return;
     }
   }
-  iVar3 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  iVar3 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                         ,0x23,"otPlatFlashInit",
                         "s_ot_partition->size >= otPlatFlashGetSwapSize(instance)");
   if (iVar3 == 0) {
@@ -48,7 +48,7 @@ void otPlatFlashInit(undefined4 param_1)
   }
   pcVar6 = "err == ESP_OK";
   pcVar5 = "otPlatFlashErase";
-  iVar3 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  iVar3 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                         ,0x33,"otPlatFlashErase","err == ESP_OK");
   if (iVar3 == 0) {
     iVar3 = 0;
@@ -62,7 +62,7 @@ void otPlatFlashInit(undefined4 param_1)
   }
   pcVar6 = "err == ESP_OK";
   pcVar5 = "otPlatFlashRead";
-  iVar3 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  iVar3 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                         ,0x3e,"otPlatFlashRead","err == ESP_OK");
   if (iVar3 == 0) {
     iVar3 = 0;
@@ -74,7 +74,7 @@ void otPlatFlashInit(undefined4 param_1)
   if (iVar3 == 0) {
     return;
   }
-  __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                 ,0x49,"otPlatFlashWrite","err == ESP_OK");
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();

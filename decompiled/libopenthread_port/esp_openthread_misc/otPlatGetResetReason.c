@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
+ * Upstream date: 2021-07-13 21:21:08 +0800
+ * Upstream subject: openthread: add ot library for esp32h2
  * Source: libopenthread_port -> esp_openthread_misc.o -> otPlatGetResetReason
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,37 +13,39 @@
 undefined4 otPlatGetResetReason(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
+  undefined4 uVar2;
   
   uVar1 = esp_reset_reason();
-  switch(uVar1) {
-  case 0:
-    uVar1 = 7;
-    break;
-  case 1:
-    uVar1 = 0;
-    break;
-  case 2:
-    uVar1 = 1;
-    break;
-  case 3:
-    uVar1 = 2;
-    break;
-  case 4:
-    uVar1 = 3;
-    break;
-  case 5:
-    uVar1 = 8;
-    break;
-  case 6:
-    uVar1 = 8;
-    break;
-  case 7:
-    uVar1 = 8;
-    break;
-  default:
-    uVar1 = 6;
+  if (uVar1 == 3) {
+    uVar2 = 2;
   }
-  return uVar1;
+  else if (uVar1 < 4) {
+    if (uVar1 == 1) {
+      uVar2 = 0;
+    }
+    else if (uVar1 < 2) {
+      uVar2 = 7;
+    }
+    else {
+      uVar2 = 1;
+    }
+  }
+  else if (uVar1 == 5) {
+    uVar2 = 8;
+  }
+  else if (uVar1 < 5) {
+    uVar2 = 3;
+  }
+  else if (uVar1 == 6) {
+    uVar2 = 8;
+  }
+  else if (uVar1 == 7) {
+    uVar2 = 8;
+  }
+  else {
+    uVar2 = 6;
+  }
+  return uVar2;
 }
 
