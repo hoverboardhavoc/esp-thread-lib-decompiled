@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> register_openthread_event_handlers
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,48 +41,48 @@ int register_openthread_event_handlers(undefined4 param_1)
                 if (iVar1 != 0) {
                   uVar2 = esp_log_timestamp();
                   esp_log_write(1,"OPENTHREAD",&_LC17,uVar2,"OPENTHREAD",
-                                "register_openthread_event_handlers",0xee);
+                                "register_openthread_event_handlers",0xe6);
                 }
               }
               else {
                 uVar2 = esp_log_timestamp();
                 esp_log_write(1,"OPENTHREAD",&_LC16,uVar2,"OPENTHREAD",
-                              "register_openthread_event_handlers",0xeb);
+                              "register_openthread_event_handlers",0xe3);
               }
             }
             else {
               uVar2 = esp_log_timestamp();
               esp_log_write(1,"OPENTHREAD",&_LC15,uVar2,"OPENTHREAD",
-                            "register_openthread_event_handlers",0xe8);
+                            "register_openthread_event_handlers",0xe0);
             }
           }
           else {
             uVar2 = esp_log_timestamp();
             esp_log_write(1,"OPENTHREAD",&_LC14,uVar2,"OPENTHREAD",
-                          "register_openthread_event_handlers",0xe5);
+                          "register_openthread_event_handlers",0xdd);
           }
         }
         else {
           uVar2 = esp_log_timestamp();
           esp_log_write(1,"OPENTHREAD",&_LC13,uVar2,"OPENTHREAD",
-                        "register_openthread_event_handlers",0xe2);
+                        "register_openthread_event_handlers",0xda);
         }
       }
       else {
         uVar2 = esp_log_timestamp();
         esp_log_write(1,"OPENTHREAD",&_LC12,uVar2,"OPENTHREAD","register_openthread_event_handlers",
-                      0xdf);
+                      0xd7);
       }
     }
     else {
       uVar2 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC11,uVar2,"OPENTHREAD","register_openthread_event_handlers",
-                    0xdc);
+                    0xd4);
     }
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC10,uVar2,"OPENTHREAD","register_openthread_event_handlers",0xd9
+    esp_log_write(1,"OPENTHREAD",&_LC10,uVar2,"OPENTHREAD","register_openthread_event_handlers",0xd1
                  );
   }
   return iVar1;

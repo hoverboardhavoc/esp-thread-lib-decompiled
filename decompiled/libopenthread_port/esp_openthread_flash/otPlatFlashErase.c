@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_openthread_flash.o -> otPlatFlashErase
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,7 +32,7 @@ void otPlatFlashErase(int param_1,undefined4 param_2)
   }
   pcVar4 = "err == ESP_OK";
   pcVar3 = "otPlatFlashErase";
-  iVar1 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  iVar1 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                         ,0x33,"otPlatFlashErase","err == ESP_OK");
   if (iVar1 == 0) {
     iVar1 = 0;
@@ -46,7 +46,7 @@ void otPlatFlashErase(int param_1,undefined4 param_2)
   }
   pcVar4 = "err == ESP_OK";
   pcVar3 = "otPlatFlashRead";
-  iVar1 = __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  iVar1 = __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                         ,0x3e,"otPlatFlashRead","err == ESP_OK");
   if (iVar1 == 0) {
     iVar1 = 0;
@@ -58,7 +58,7 @@ void otPlatFlashErase(int param_1,undefined4 param_2)
   if (iVar1 == 0) {
     return;
   }
-  __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                 ,0x49,"otPlatFlashWrite","err == ESP_OK");
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();

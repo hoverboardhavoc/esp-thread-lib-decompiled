@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> notify_packets_pending
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ undefined4 notify_packets_pending(void)
   
   uStack_18 = 1;
   uStack_14 = 0;
-  sVar1 = write(DAT_00010b4c,&uStack_18,8);
+  sVar1 = write(DAT_00010afc,&uStack_18,8);
   if (sVar1 == 8) {
     uVar2 = 0;
   }

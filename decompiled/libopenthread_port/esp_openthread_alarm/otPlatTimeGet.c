@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_openthread_alarm.o -> otPlatTimeGet
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ int otPlatTimeGet(void)
   }
   pcVar2 = "otPlatTimeGet";
   s_alarm_ms_t0 =
-       __assert_func("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_openthread_alarm.c"
+       __assert_func("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_alarm.c"
                      ,0x2d,"err == 0");
   DAT_00010364 = 0;
   s_alarm_ms_dt = pcVar2;

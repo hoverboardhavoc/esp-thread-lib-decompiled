@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> WaitForFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -58,7 +58,7 @@ undefined4 esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
       return 1;
     }
     iVar1 = _esp_error_check_failed
-                      ("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
+                      ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
                        ,0xe5,"otError esp::openthread::UartSpinelInterface::WaitForFrame(uint64_t)",
                        "TryRecoverUart()");
   }
@@ -68,7 +68,7 @@ undefined4 esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
   iVar1 = TryRecoverUart(in_a0);
   if (iVar1 != 0) {
     _esp_error_check_failed
-              ("/home/chenshu/code/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
+              ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
                ,0xeb,"otError esp::openthread::UartSpinelInterface::WaitForFrame(uint64_t)",
                "TryRecoverUart()");
     return 0;

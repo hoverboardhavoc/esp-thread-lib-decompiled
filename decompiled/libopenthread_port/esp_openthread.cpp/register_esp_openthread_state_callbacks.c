@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
+ * Upstream date: 2021-07-19 15:27:16 +0800
+ * Upstream subject: openthread: support 1.3 border routing features
  * Source: libopenthread_port -> esp_openthread.cpp.o -> register_esp_openthread_state_callbacks
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ undefined4 register_esp_openthread_state_callbacks(void)
   else {
     uVar2 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC1,uVar2,"OPENTHREAD","register_esp_openthread_state_callbacks",
-                  0x22);
+                  0x26);
     uVar2 = 0xffffffff;
   }
   return uVar2;
