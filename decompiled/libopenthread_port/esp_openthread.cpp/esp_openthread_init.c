@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit 4cea59c231dbf1b3ee2dcd12c631cc25cfa11d42
+ * https://github.com/espressif/esp-thread-lib/commit/4cea59c231dbf1b3ee2dcd12c631cc25cfa11d42
+ * Upstream date: 2021-07-20 11:34:17 +0800
+ * Upstream subject: openthread: remove build dependency on border router in port library
  * Source: libopenthread_port -> esp_openthread.cpp.o -> esp_openthread_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ int esp_openthread_init(void)
     iVar1 = otInstanceInitSingle();
     if (iVar1 == 0) {
       uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD","esp_openthread_init",0x2f);
+      esp_log_write(1,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD","esp_openthread_init",0x2c);
       iVar1 = -1;
     }
     else {
@@ -30,7 +30,7 @@ int esp_openthread_init(void)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD","esp_openthread_init",0x2d);
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD","esp_openthread_init",0x2a);
   }
   return iVar1;
 }
