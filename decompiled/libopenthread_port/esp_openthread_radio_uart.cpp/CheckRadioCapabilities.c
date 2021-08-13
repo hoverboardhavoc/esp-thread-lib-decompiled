@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRadioCapabilities
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ CheckRadioCapabilities
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
   aRStack_14 [12];
   
-  iVar1 = Get((ulong)this,(char *)0x120b,&_LC14,aRStack_14);
+  iVar1 = Get((ulong)this,(char *)0x120b,&_LC16,aRStack_14);
   if (iVar1 == 0) {
     this[0x670] = aRStack_14[0];
     if (((byte)aRStack_14[0] & 0x6d) != 0x6d) {
@@ -66,10 +66,10 @@ CheckRadioCapabilities
       else {
         pcVar8 = "tx-timing ";
       }
-      otLogCrit(0xc,_LC2,"RCP is missing required capabilities: %s%s%s%s%s",pcVar3,pcVar4,pcVar6,
+      otLogCrit(0xc,_LC3,"RCP is missing required capabilities: %s%s%s%s%s",pcVar3,pcVar4,pcVar6,
                 pcVar7,pcVar8);
       uVar2 = otExitCodeToString(3);
-      otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","CheckRadioCapabilities",
+      otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","CheckRadioCapabilities",
                 "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x180,
                 uVar2);
                     /* WARNING: Subroutine does not return */

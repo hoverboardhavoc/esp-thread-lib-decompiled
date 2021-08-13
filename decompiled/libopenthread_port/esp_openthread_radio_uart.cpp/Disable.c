@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Disable
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,9 +24,9 @@ Disable(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop
   iVar1 = *(int *)(this + 0x700);
   if (iVar1 != 0) {
     if (iVar1 == 1) {
-      iVar1 = Set((ulong)this,(char *)0x20,&_LC39,0);
+      iVar1 = Set((ulong)this,(char *)0x20,&_LC41,0);
       if (iVar1 != 0) {
-        iVar1 = Set((ulong)this,(char *)0x20,&_LC39,0);
+        iVar1 = Set((ulong)this,(char *)0x20,&_LC41,0);
         if (iVar1 == 7) {
           uVar2 = 2;
         }
@@ -34,10 +34,10 @@ Disable(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop
           uVar2 = 1;
         }
         uVar2 = otExitCodeToString(uVar2);
-        otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","Disable",
+        otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","Disable",
                   "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x7e8,
                   uVar2);
-        iVar1 = Set((ulong)this,(char *)0x20,&_LC39,0);
+        iVar1 = Set((ulong)this,(char *)0x20,&_LC41,0);
         if (iVar1 == 7) {
           iVar1 = 2;
         }

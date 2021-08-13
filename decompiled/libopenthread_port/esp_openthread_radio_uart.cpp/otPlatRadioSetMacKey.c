@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetMacKey
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,13 +18,13 @@ void otPlatRadioSetMacKey(uchar param_1,otMacKey *param_2,otMacKey *param_3,otMa
   
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('0',param_1,param_2,param_3,param_4);
+          SetMacKey('`',param_1,param_2,param_3,param_4);
   if (iVar1 == 0) {
     return;
   }
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('0',param_1,param_2,param_3,param_4);
+          SetMacKey('`',param_1,param_2,param_3,param_4);
   if (iVar1 == 7) {
     uVar2 = 2;
   }
@@ -32,12 +32,12 @@ void otPlatRadioSetMacKey(uchar param_1,otMacKey *param_2,otMacKey *param_3,otMa
     uVar2 = 1;
   }
   uVar2 = otExitCodeToString(uVar2);
-  otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","otPlatRadioSetMacKey",
-            "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
-            ,0xe9,uVar2);
+  otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","otPlatRadioSetMacKey",
+            "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+            ,0xed,uVar2);
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey('0',param_1,param_2,param_3,param_4);
+          SetMacKey('`',param_1,param_2,param_3,param_4);
   if (iVar1 == 7) {
     iVar1 = 2;
   }

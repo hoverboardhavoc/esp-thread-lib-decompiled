@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> SendCommand
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ SendCommand(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_main
   undefined1 auStack_420 [1032];
   
   uVar1 = spinel_datatype_pack
-                    (auStack_420,0x400,&_LC8,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
+                    (auStack_420,0x400,&_LC9,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
                      param_2);
   if (0x3ff < uVar1 - 1) {
     return 3;

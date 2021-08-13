@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,24 +10,25 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 int esp_openthread_platform_process(undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
+  undefined4 uVar3;
   
-  if ((_DAT_000103b4 == 1) && (iVar1 = esp_openthread_uart_process(), iVar1 != 0)) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC9,uVar2,"OPENTHREAD","esp_openthread_platform_process",0x6f);
+  iVar1 = s_workflow_list;
+  while( true ) {
+    if (iVar1 == 0) {
+      return 0;
+    }
+    iVar2 = (**(code **)(iVar1 + 0x14))(param_1,param_2,*(code **)(iVar1 + 0x14));
+    if (iVar2 != 0) break;
+    iVar1 = *(int *)(iVar1 + 0x18);
   }
-  else {
-    esp_openthread_radio_process(param_1,param_2);
-    esp_openthread_alarm_process(param_1);
-    esp_openthread_task_queue_process(param_1,param_2);
-    iVar1 = esp_openthread_netif_glue_process(param_1,param_2);
-  }
-  return iVar1;
+  uVar3 = esp_log_timestamp();
+  esp_log_write(1,"OPENTHREAD",&_LC11,uVar3,"OPENTHREAD","esp_openthread_platform_process",0xa6,
+                iVar1);
+  return iVar2;
 }
 

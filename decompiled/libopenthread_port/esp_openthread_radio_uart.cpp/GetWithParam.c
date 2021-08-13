@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> GetWithParam
  *
  * (C) Espressif, Apache License 2.0.
@@ -48,8 +48,8 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
     RequestWithPropertyFormat((char *)param_1,in_a4,2,(char *)param_2);
     return;
   }
-  uVar1 = __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                        0x611,
+  uVar1 = __assert_func("/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                        ,0x611,
                         "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::GetWithParam(spinel_prop_key_t, const uint8_t*, spinel_size_t, const char*, ...) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; spinel_prop_key_t = long unsigned int; uint8_t = unsigned char; spinel_size_t = unsigned int]"
                         ,"mWaitingTid == 0");
   uStack_48 = 0;
@@ -62,7 +62,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
       goto _L0;
     }
   }
-  pcVar3 = (char *)spinel_datatype_pack(auStack_50,8,&_LC35,uStack_48,iStack_44);
+  pcVar3 = (char *)spinel_datatype_pack(auStack_50,8,&_LC37,uStack_48,iStack_44);
   if (pcVar3 + -1 < (char *)0x8) {
     uVar2 = otPlatTimeGet();
     iVar8 = GetWithParam(uVar1,(uchar *)0x802,(uint)auStack_50,pcVar3);
@@ -90,7 +90,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
 _L0:
   if (iVar8 != 0) {
     uVar5 = otThreadErrorToString(iVar8);
-    otLogWarn(0xc,_LC2,"%s: %s","Error calculating RCP time offset: %s",uVar5);
+    otLogWarn(0xc,_LC3,"%s: %s","Error calculating RCP time offset: %s",uVar5);
   }
   return;
 }

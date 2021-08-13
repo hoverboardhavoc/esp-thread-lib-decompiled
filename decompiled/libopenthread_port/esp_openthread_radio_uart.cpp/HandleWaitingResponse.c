@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleWaitingResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ HandleWaitingResponse
   if (param_2 != 0) {
     if (param_2 == 0x3bc0) {
       if ((*(int *)(this + 0x708) != 0) &&
-         (iVar1 = spinel_datatype_unpack_in_place(uVar2,&_LC27,this + 0x70c), iVar1 < 1)) {
+         (iVar1 = spinel_datatype_unpack_in_place(uVar2,&_LC29,this + 0x70c), iVar1 < 1)) {
         *(undefined4 *)(this + 0x478) = 6;
       }
     }
@@ -61,8 +61,8 @@ HandleWaitingResponse
             *(undefined4 *)(this + 0x478) = uVar2;
             goto _L0;
           }
-          __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                        0x31b,
+          __assert_func("/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                        ,0x31b,
                         "void ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::HandleWaitingResponse(uint32_t, spinel_prop_key_t, const uint8_t*, uint16_t) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; uint32_t = long unsigned int; spinel_prop_key_t = long unsigned int; uint8_t = unsigned char; uint16_t = short unsigned int]"
                         ,"handler != nullptr");
         }
@@ -80,7 +80,7 @@ HandleWaitingResponse
     }
     goto _L0;
   }
-  iVar1 = spinel_datatype_unpack(uVar2,&_LC14,&pcStack_18);
+  iVar1 = spinel_datatype_unpack(uVar2,&_LC16,&pcStack_18);
   if (iVar1 < 1) {
     *(undefined4 *)(this + 0x478) = 6;
     goto _L0;
@@ -142,7 +142,7 @@ _L0:
 _L0:
   if (*(int *)(this + 0x478) != 0) {
     uVar2 = otThreadErrorToString();
-    otLogWarn(0xc,_LC2,"%s: %s","Error processing result",uVar2);
+    otLogWarn(0xc,_LC3,"%s: %s","Error processing result",uVar2);
   }
   return;
 }

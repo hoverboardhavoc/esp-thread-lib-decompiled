@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,7 +36,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   iVar2 = spinel_datatype_unpack
                     (*(int *)param_1 -
                      (*(int *)(param_1 + 0x408) + *(ushort *)(*(int *)(param_1 + 0x408) + 2) + 4) &
-                     0xffff,&_LC58,&bStack_21,&uStack_20,auStack_14,&puStack_1c,&uStack_18);
+                     0xffff,&_LC60,&bStack_21,&uStack_20,auStack_14,&puStack_1c,&uStack_18);
   if (iVar2 < 1) {
     iVar2 = 6;
   }
@@ -71,7 +71,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
       iVar2 = 6;
     }
     else if (uStack_20 < 9) {
-      otLogInfo(0xc,_LC2,"Ignored command %d");
+      otLogInfo(0xc,_LC3,"Ignored command %d");
       iVar2 = 0;
     }
     else {
@@ -96,7 +96,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
 _L0:
   if (iVar2 != 0) {
     uVar3 = otThreadErrorToString();
-    otLogWarn(0xc,_LC2,"%s: %s","Error processing notification",uVar3);
+    otLogWarn(0xc,_LC3,"%s: %s","Error processing notification",uVar3);
   }
   return;
 }

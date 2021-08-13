@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ParseRadioFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,8 +10,8 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Removing unreachable block (ram,0x000129bc) */
-/* WARNING: Removing unreachable block (ram,0x000129c4) */
+/* WARNING: Removing unreachable block (ram,0x000129ee) */
+/* WARNING: Removing unreachable block (ram,0x000129f6) */
 /* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
    esp_openthread_mainloop_context_t>::ParseRadioFrame(otRadioFrame&, unsigned char const*, unsigned
    short, int&) */
@@ -69,7 +69,7 @@ ParseRadioFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
 _L0:
   if (iStack_2c != 0) {
     uVar3 = otThreadErrorToString(iStack_2c);
-    otLogWarn(0xc,_LC2,"%s: %s","Handle radio frame failed",uVar3);
+    otLogWarn(0xc,_LC3,"%s: %s","Handle radio frame failed",uVar3);
   }
   return iStack_2c;
 }

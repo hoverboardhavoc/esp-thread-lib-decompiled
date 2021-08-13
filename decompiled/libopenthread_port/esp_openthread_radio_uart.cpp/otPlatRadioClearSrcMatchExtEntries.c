@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntries
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,9 +36,9 @@ void otPlatRadioClearSrcMatchExtEntries(void)
     uVar2 = 1;
   }
   uVar2 = otExitCodeToString(uVar2);
-  otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","otPlatRadioClearSrcMatchExtEntries",
-            "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
-            ,0xb5,uVar2);
+  otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","otPlatRadioClearSrcMatchExtEntries",
+            "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+            ,0xb9,uVar2);
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
           ClearSrcMatchExtEntries

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> GetCcaEnergyDetectThreshold
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,7 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
   iVar1 = Get((ulong)param_1,(char *)0x24);
   if (iVar1 != 0) {
     uVar2 = otThreadErrorToString();
-    otLogWarn(0xc,_LC2,"%s: %s","Get CCA ED threshold failed",uVar2);
+    otLogWarn(0xc,_LC3,"%s: %s","Get CCA ED threshold failed",uVar2);
   }
   return iVar1;
 }

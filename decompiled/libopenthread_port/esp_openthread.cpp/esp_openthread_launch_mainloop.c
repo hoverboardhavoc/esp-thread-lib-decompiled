@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread.cpp.o -> esp_openthread_launch_mainloop
  *
  * (C) Espressif, Apache License 2.0.
@@ -60,12 +60,12 @@ int esp_openthread_launch_mainloop(void)
     esp_openthread_lock_release();
     if (iVar2 != 0) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC4,uVar1,"OPENTHREAD");
+      esp_log_write(1,"OPENTHREAD",&_LC3,uVar1,"OPENTHREAD");
       return iVar2;
     }
   }
   uVar1 = esp_log_timestamp();
-  esp_log_write(1,"OPENTHREAD",&_LC5,uVar1,"OPENTHREAD");
+  esp_log_write(1,"OPENTHREAD",&_LC4,uVar1,"OPENTHREAD");
   return -1;
 }
 

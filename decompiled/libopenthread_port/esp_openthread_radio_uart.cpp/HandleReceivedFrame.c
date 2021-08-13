@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleReceivedFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ HandleReceivedFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthr
   iVar2 = spinel_datatype_unpack
                     (*(int *)(this + 4) -
                      (*(int *)(this + 0x40c) + *(ushort *)(*(int *)(this + 0x40c) + 2) + 4) & 0xffff
-                     ,&_LC38,abStack_11);
+                     ,&_LC40,abStack_11);
   if (((0 < iVar2) && ((char)abStack_11[0] < '\0')) && (((int)(uint)abStack_11[0] >> 4 & 3U) == 0))
   {
     if ((abStack_11[0] & 0xf) == 0) {
@@ -66,7 +66,7 @@ HandleReceivedFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthr
   *(int *)(this + 4) = iVar2;
   *(short *)(this + 8) = sVar1 - (short)iVar2;
   uVar3 = otThreadErrorToString(6);
-  otLogWarn(0xc,_LC2,"Error handling hdlc frame: %s",uVar3);
+  otLogWarn(0xc,_LC3,"Error handling hdlc frame: %s",uVar3);
   return;
 }
 

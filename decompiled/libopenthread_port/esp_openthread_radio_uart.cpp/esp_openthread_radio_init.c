@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> esp_openthread_radio_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,10 +22,12 @@ int esp_openthread_radio_init(void)
     ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
     ::Init((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
            s_radio,true,false,false);
+    iVar1 = esp_openthread_platform_workflow_register
+                      (esp_openthread_radio_update,esp_openthread_radio_process,"radio_uart");
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC30,uVar2,"OPENTHREAD","esp_openthread_radio_init",0x22);
+    esp_log_write(1,"OPENTHREAD",&_LC32,uVar2,"OPENTHREAD","esp_openthread_radio_init",0x24);
   }
   return iVar1;
 }

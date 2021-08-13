@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_deinit
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,9 +23,9 @@ void esp_openthread_netif_glue_deinit(void)
     vQueueDelete();
     s_packet_queue = 0;
   }
-  if (-1 < DAT_00010afc) {
-    close(DAT_00010afc);
-    DAT_00010afc = -1;
+  if (-1 < DAT_00010b80) {
+    close(DAT_00010b80);
+    DAT_00010b80 = -1;
   }
   iVar2 = esp_event_post(OPENTHREAD_EVENT,1,0,0,0);
   if (iVar2 != 0) {
@@ -33,6 +33,7 @@ void esp_openthread_netif_glue_deinit(void)
   }
   s_openthread_netif = 0;
   unregister_openthread_event_handlers();
+  esp_openthread_platform_workflow_unregister("netif_glue");
   return;
 }
 

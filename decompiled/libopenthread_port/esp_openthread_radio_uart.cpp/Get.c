@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Get
  *
  * (C) Espressif, Apache License 2.0.
@@ -46,15 +46,15 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
                 *)param_1,in_a2,2,(ulong)param_2,(char *)0x0,&uStack_14);
     return;
   }
-  uVar1 = __assert_func("IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                        0x5f6,
+  uVar1 = __assert_func("/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                        ,0x5f6,
                         "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::Get(spinel_prop_key_t, const char*, ...) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; spinel_prop_key_t = long unsigned int]"
                         ,"mWaitingTid == 0");
-  iVar2 = Get(uVar1,(char *)0x1,&_LC11,aiStack_44,&iStack_48);
+  iVar2 = Get(uVar1,(char *)0x1,&_LC13,aiStack_44,&iStack_48);
   if ((iVar2 == 0) && ((aiStack_44[0] != 4 || (iStack_48 != 3)))) {
-    otLogCrit(0xc,_LC2,"Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3,iStack_48);
+    otLogCrit(0xc,_LC3,"Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3,iStack_48);
     uVar3 = otExitCodeToString(3);
-    otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","CheckSpinelVersion",
+    otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","CheckSpinelVersion",
               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x125,
               uVar3);
                     /* WARNING: Subroutine does not return */

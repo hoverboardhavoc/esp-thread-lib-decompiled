@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRcpApiVersion
  *
  * (C) Espressif, Apache License 2.0.
@@ -29,18 +29,18 @@ CheckRcpApiVersion(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
     iVar1 = 0;
   }
   else {
-    iVar1 = Get((ulong)this,(char *)0xb0,&_LC14,local_14);
+    iVar1 = Get((ulong)this,(char *)0xb0,&_LC16,local_14);
     if (iVar1 != 0) {
       return iVar1;
     }
   }
-  otLogNote(0xc,_LC2,"RCP API Version: %u",local_14[0]);
+  otLogNote(0xc,_LC3,"RCP API Version: %u",local_14[0]);
   if (local_14[0] - 1U < 3) {
     return iVar1;
   }
-  otLogCrit(0xc,_LC2,"RCP API Version %u is not in the supported range [%u-%u]",1,3);
+  otLogCrit(0xc,_LC3,"RCP API Version %u is not in the supported range [%u-%u]",1,3);
   uVar2 = otExitCodeToString(3);
-  otLogCrit(0xc,_LC2,"%s() at %s:%d: %s","CheckRcpApiVersion",
+  otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","CheckRcpApiVersion",
             "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x19e,uVar2)
   ;
                     /* WARNING: Subroutine does not return */

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
+ * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
+ * Upstream date: 2021-08-13 18:14:00 +0800
+ * Upstream subject: update libopenthread_port.a
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleTransmitDone
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,13 +44,13 @@ HandleTransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
     goto _L0;
   }
   uStack_2c = spinel_datatype_unpack
-                        (param_3,CONCAT22(in_register_0000203a,param_4),&_LC14,auStack_24);
+                        (param_3,CONCAT22(in_register_0000203a,param_4),&_LC16,auStack_24);
   uVar1 = 6;
   uVar2 = uVar1;
   if ((int)uStack_2c < 1) goto _L0;
   puVar6 = param_3 + uStack_2c;
   uVar4 = CONCAT22(in_register_0000203a,param_4) - (uStack_2c & 0xffff) & 0xffff;
-  uStack_2c = spinel_datatype_unpack(puVar6,uVar4,&_LC39,&uStack_25);
+  uStack_2c = spinel_datatype_unpack(puVar6,uVar4,&_LC41,&uStack_25);
   if ((int)uStack_2c < 1) goto _L0;
   puVar6 = puVar6 + uStack_2c;
   uVar4 = uVar4 - (uStack_2c & 0xffff);
@@ -118,7 +118,7 @@ _L0:
   }
   uVar2 = uVar4;
   if (((((byte)this[0x670] & 0x20) != 0) && ((*(byte *)**(undefined4 **)(this + 0x660) & 8) != 0))
-     && (uStack_2c = spinel_datatype_unpack(puVar6,uVar5,&_LC56,&uStack_31,auStack_30),
+     && (uStack_2c = spinel_datatype_unpack(puVar6,uVar5,&_LC58,&uStack_31,auStack_30),
         uVar2 = uVar1, 0 < (int)uStack_2c)) {
     ot::Mac::Frame::SetKeyId((uchar)*(undefined4 *)(this + 0x660));
     ot::Mac::Frame::SetFrameCounter(*(ulong *)(this + 0x660));
@@ -129,7 +129,7 @@ _L0:
   *(uint *)(this + 0x674) = uVar2;
   if (uVar2 != 0) {
     uVar3 = otThreadErrorToString(uVar2);
-    otLogWarn(0xc,_LC2,"%s: %s","Handle transmit done failed",uVar3);
+    otLogWarn(0xc,_LC3,"%s: %s","Handle transmit done failed",uVar3);
   }
   return;
 }
