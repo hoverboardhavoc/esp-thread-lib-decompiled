@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 2fb54104644c7016ba817d08cb7536016bb7c839
- * https://github.com/espressif/esp-thread-lib/commit/2fb54104644c7016ba817d08cb7536016bb7c839
- * Upstream date: 2021-08-20 20:32:33 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
+ * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
+ * Upstream date: 2021-08-23 19:11:20 +0800
+ * Upstream subject: openthread: uses esp log in openthread port
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_transmit
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,13 +16,15 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
   int iVar1;
   int iVar2;
   undefined4 uVar3;
+  undefined4 uVar4;
   int aiStack_14 [2];
   
   esp_openthread_lock_acquire(0xffffffff);
   esp_openthread_get_instance();
   aiStack_14[0] = otIp6NewMessage(0);
   if (aiStack_14[0] == 0) {
-    otLogCrit(0xc,"-PLAT----: ","Failed to allocate OpenThread message");
+    uVar3 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC10,uVar3,"OPENTHREAD");
     iVar2 = 0x101;
     goto _L0;
   }
@@ -36,12 +38,14 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
       }
       goto _L0;
     }
-    otLogCrit(0xc,"-PLAT----: ","Failed to send to Thread netif: packet queue full");
+    uVar3 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC12,uVar3,"OPENTHREAD");
     iVar2 = 0x101;
   }
   else {
-    uVar3 = otThreadErrorToString();
-    otLogCrit(0xc,"-PLAT----: ","Failed to copy to OpenThread message: %s",uVar3);
+    uVar3 = esp_log_timestamp();
+    uVar4 = otThreadErrorToString(iVar1);
+    esp_log_write(1,"OPENTHREAD",&_LC11,uVar3,"OPENTHREAD",uVar4);
     iVar2 = 0x101;
 _L0:
     if (iVar1 == 0) goto _L0;

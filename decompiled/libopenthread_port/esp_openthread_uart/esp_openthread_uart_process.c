@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
+ * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
+ * Upstream date: 2021-08-23 19:11:20 +0800
+ * Upstream subject: openthread: uses esp log in openthread port
  * Source: libopenthread_port -> esp_openthread_uart.o -> esp_openthread_uart_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,8 +26,9 @@ undefined4 esp_openthread_uart_process(void)
         uVar2 = 0;
       }
       else {
+        uVar2 = esp_log_timestamp();
         puVar4 = (undefined4 *)__errno();
-        otLogWarn(0xc,"-PLAT----: ","read uart failed: %d",*puVar4);
+        esp_log_write(2,"OPENTHREAD",&_LC1,uVar2,"OPENTHREAD",*puVar4);
         uVar2 = 0xffffffff;
       }
     }

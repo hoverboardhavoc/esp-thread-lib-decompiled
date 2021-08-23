@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
+ * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
+ * Upstream date: 2021-08-23 19:11:20 +0800
+ * Upstream subject: openthread: uses esp log in openthread port
  * Source: libopenthread_port -> esp_openthread_uart.o -> esp_openthread_uart_init_port
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,17 +26,17 @@ int esp_openthread_uart_init_port(undefined4 *param_1)
       }
       else {
         uVar2 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x4a);
+        esp_log_write(1,"OPENTHREAD",&_LC4,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x4a);
       }
     }
     else {
       uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC4,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x48);
+      esp_log_write(1,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x48);
     }
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x45);
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD","esp_openthread_uart_init_port",0x45);
   }
   return iVar1;
 }

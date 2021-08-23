@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
+ * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
+ * Upstream date: 2021-08-23 19:11:20 +0800
+ * Upstream subject: openthread: uses esp log in openthread port
  * Source: libopenthread_port -> esp_openthread_uart.o -> esp_openthread_uart_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ int esp_openthread_uart_init(int param_1)
   setvbuf(*(FILE **)(iVar1 + 4),(char *)0x0,2,0);
   iVar1 = __getreent();
   setvbuf(*(FILE **)(iVar1 + 8),(char *)0x0,2,0);
-  if (*(int *)(param_1 + 0x2c) - 1U < 2) {
+  if (*(int *)(param_1 + 0x2c) == 1) {
     s_uart_port = *(undefined4 *)(param_1 + 0x30);
     iVar1 = esp_openthread_uart_init_port(param_1 + 0x30);
     if (iVar1 == 0) {
@@ -29,29 +29,26 @@ int esp_openthread_uart_init(int param_1)
       if (*(int *)(param_1 + 0x2c) == 1) {
         esp_vfs_dev_uart_port_set_tx_line_endings(s_uart_port,0);
       }
-      else if (*(int *)(param_1 + 0x2c) == 2) {
-        esp_vfs_dev_uart_port_set_tx_line_endings(s_uart_port,2);
-      }
       snprintf(acStack_20,0x10,"/dev/uart/%d");
       s_uart_fd = open(acStack_20,0x4002);
       if (s_uart_fd < 0) {
         uVar2 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC9,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x68);
+        esp_log_write(1,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x68);
         iVar1 = -1;
       }
       else {
-        iVar1 = esp_openthread_platform_workflow_register
-                          (0x10000,esp_openthread_uart_process,&_LC10);
+        iVar1 = esp_openthread_platform_workflow_register(0x10000,esp_openthread_uart_process,&_LC9)
+        ;
       }
     }
     else {
       uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC7,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x5d);
+      esp_log_write(1,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x5d);
     }
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x5a);
+    esp_log_write(1,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD","esp_openthread_uart_init",0x5a);
     iVar1 = -1;
   }
   return iVar1;

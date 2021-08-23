@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
+ * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
+ * Upstream date: 2021-08-23 19:11:20 +0800
+ * Upstream subject: openthread: uses esp log in openthread port
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,21 +24,23 @@ undefined4 * esp_openthread_netif_glue_init(int param_1)
   }
   else if (s_packet_queue == 0) {
     puVar1 = (undefined4 *)0x0;
-    if (DAT_00010b80 < 0) {
+    if (DAT_00010c98 < 0) {
       iVar3 = otSetStateChangedCallback(esp_openthread_netif_glue_state_callback,0);
       if (iVar3 == 0) {
         s_packet_queue = xQueueGenericCreate(*(undefined1 *)(param_1 + 0x5c),4,0);
         if (s_packet_queue == 0) {
-          otLogCrit(0xc,"-PLAT----: ","Failed to allocate Thread netif packet queue");
+          uVar4 = esp_log_timestamp();
+          esp_log_write(1,"OPENTHREAD",&_LC29,uVar4,"OPENTHREAD");
         }
         else {
           otIp6SetAddressCallback(iVar2,process_thread_address,iVar2);
           otIp6SetReceiveCallback(iVar2,process_thread_receive,iVar2);
           otIp6SetReceiveFilterEnabled(iVar2,1);
           otIcmp6SetEchoMode(iVar2,0);
-          DAT_00010b80 = eventfd(0,0);
-          if (DAT_00010b80 < 0) {
-            otLogCrit(0xc,"-PLAT----: ","Failed to create event fd for Thread netif");
+          DAT_00010c98 = eventfd(0,0);
+          if (DAT_00010c98 < 0) {
+            uVar4 = esp_log_timestamp();
+            esp_log_write(1,"OPENTHREAD",&_LC30,uVar4,"OPENTHREAD");
           }
           else {
             s_openthread_netif_glue = openthread_netif_post_attach;
@@ -52,8 +54,8 @@ undefined4 * esp_openthread_netif_glue_init(int param_1)
       }
       else {
         uVar4 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC29,uVar4,"OPENTHREAD","esp_openthread_netif_glue_init",
-                      0x11a);
+        esp_log_write(1,"OPENTHREAD",&_LC28,uVar4,"OPENTHREAD","esp_openthread_netif_glue_init",
+                      0x11b);
       }
     }
   }
