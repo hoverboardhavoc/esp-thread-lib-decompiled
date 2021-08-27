@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_task_queue.o -> esp_openthread_task_queue_post
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,14 +28,14 @@ undefined4 esp_openthread_task_queue_post(undefined4 param_1,undefined4 param_2)
   iVar1 = xQueueGenericSend(s_task_queue,&uStack_18,0xffffffff,0);
   if (iVar1 == 0) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC7,uVar3,"OPENTHREAD","esp_openthread_task_queue_post",0x3a);
+    esp_log_write(1,"OPENTHREAD",&_LC7,uVar3,"OPENTHREAD","esp_openthread_task_queue_post",0x39);
     uVar3 = 0xffffffff;
   }
   else {
     sVar2 = write(s_task_queue_event_fd,&local_20,8);
     if (sVar2 != 8) {
-      __assert_func("//home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_task_queue.c"
-                    ,0x3c,"esp_openthread_task_queue_post","ret == sizeof(val)");
+      __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_task_queue.c"
+                    ,0x3b,"esp_openthread_task_queue_post","ret == sizeof(val)");
       if (s_task_queue != 0) {
         vQueueDelete();
         s_task_queue = 0;

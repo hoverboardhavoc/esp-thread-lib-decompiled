@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_flash.o -> otPlatFlashWrite
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ void otPlatFlashWrite(int param_1,int param_2,undefined4 param_3,undefined4 para
   if (iVar1 == 0) {
     return;
   }
-  __assert_func("//home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
+  __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
                 ,0x49,"otPlatFlashWrite","err == ESP_OK");
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
- * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
- * Upstream date: 2021-08-23 19:11:20 +0800
- * Upstream subject: openthread: uses esp log in openthread port
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> process_thread_transmit
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,8 +24,8 @@ undefined4 process_thread_transmit(void)
   local_14[0] = 0;
   sVar1 = read(DAT_00010c98,auStack_20,8);
   if (sVar1 != 8) {
-    __assert_func("//home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_netif_glue.c"
-                  ,0x7f,"process_thread_transmit","ret == sizeof(event)");
+    __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_netif_glue.c"
+                  ,0x7e,"process_thread_transmit","ret == sizeof(event)");
     goto _L0;
   }
   do {

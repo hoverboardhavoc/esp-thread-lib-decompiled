@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
- * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
- * Upstream date: 2021-08-23 19:11:20 +0800
- * Upstream subject: openthread: uses esp log in openthread port
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_misc.o -> otPlatAssertFail
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,7 +19,7 @@ void otPlatAssertFail(undefined4 param_1,undefined4 param_2)
   
   uVar1 = esp_log_timestamp();
   esp_log_write(1,"OPENTHREAD",&_LC1,uVar1,"OPENTHREAD",param_1,param_2);
-  __assert_func("//home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_misc.c"
+  __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_misc.c"
                 ,0x57,"otPlatAssertFail","false");
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();

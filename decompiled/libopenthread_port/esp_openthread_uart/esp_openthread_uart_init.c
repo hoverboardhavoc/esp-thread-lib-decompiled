@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
- * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
- * Upstream date: 2021-08-23 19:11:20 +0800
- * Upstream subject: openthread: uses esp log in openthread port
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_uart.o -> esp_openthread_uart_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,13 +21,16 @@ int esp_openthread_uart_init(int param_1)
   setvbuf(*(FILE **)(iVar1 + 4),(char *)0x0,2,0);
   iVar1 = __getreent();
   setvbuf(*(FILE **)(iVar1 + 8),(char *)0x0,2,0);
-  if (*(int *)(param_1 + 0x2c) == 1) {
+  if (*(int *)(param_1 + 0x2c) - 1U < 2) {
     s_uart_port = *(undefined4 *)(param_1 + 0x30);
     iVar1 = esp_openthread_uart_init_port(param_1 + 0x30);
     if (iVar1 == 0) {
       esp_vfs_dev_uart_port_set_rx_line_endings(s_uart_port,2);
       if (*(int *)(param_1 + 0x2c) == 1) {
         esp_vfs_dev_uart_port_set_tx_line_endings(s_uart_port,0);
+      }
+      else if (*(int *)(param_1 + 0x2c) == 2) {
+        esp_vfs_dev_uart_port_set_tx_line_endings(s_uart_port,2);
       }
       snprintf(acStack_20,0x10,"/dev/uart/%d");
       s_uart_fd = open(acStack_20,0x4002);

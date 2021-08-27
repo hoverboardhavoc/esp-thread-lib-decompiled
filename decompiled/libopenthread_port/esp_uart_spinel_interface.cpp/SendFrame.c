@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> SendFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,6 +16,7 @@ int esp::openthread::UartSpinelInterface::SendFrame(uchar *param_1,ushort param_
 
 {
   int iVar1;
+  undefined4 uVar2;
   Encoder aEStack_430 [8];
   uchar *puStack_428;
   undefined2 uStack_424;
@@ -31,7 +32,8 @@ int esp::openthread::UartSpinelInterface::SendFrame(uchar *param_1,ushort param_
                  );
   }
   if (iVar1 != 0) {
-    otLogCrit(0xc,"-PLAT----: ","send radio frame failed");
+    uVar2 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC10,uVar2,"OPENTHREAD");
   }
   return iVar1;
 }

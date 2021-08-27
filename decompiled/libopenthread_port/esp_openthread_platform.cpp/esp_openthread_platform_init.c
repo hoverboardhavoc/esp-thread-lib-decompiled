@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 33c7be202301956874c23c90dd18e4b791d19c1a
- * https://github.com/espressif/esp-thread-lib/commit/33c7be202301956874c23c90dd18e4b791d19c1a
- * Upstream date: 2021-08-23 19:11:20 +0800
- * Upstream subject: openthread: uses esp log in openthread port
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,7 +22,7 @@ int esp_openthread_platform_init(uint *param_1)
   uint *puVar7;
   
   if (*param_1 < 2) {
-    if (param_1[0xb] < 2) {
+    if (param_1[0xb] < 3) {
       iVar1 = esp_partition_find_first(1,0xff,param_1[0x16]);
       if (iVar1 == 0) {
         uVar2 = esp_log_timestamp();
@@ -30,25 +30,25 @@ int esp_openthread_platform_init(uint *param_1)
         iVar1 = 0x102;
       }
       else {
-        puVar6 = &s_platform_config;
-        puVar7 = param_1;
+        puVar7 = &s_platform_config;
+        puVar6 = param_1;
         do {
-          uVar3 = puVar7[1];
-          uVar4 = puVar7[2];
-          uVar5 = puVar7[3];
-          *puVar6 = *puVar7;
-          puVar6[1] = uVar3;
-          puVar6[2] = uVar4;
-          puVar6[3] = uVar5;
-          puVar7 = puVar7 + 4;
+          uVar3 = puVar6[1];
+          uVar4 = puVar6[2];
+          uVar5 = puVar6[3];
+          *puVar7 = *puVar6;
+          puVar7[1] = uVar3;
+          puVar7[2] = uVar4;
+          puVar7[3] = uVar5;
           puVar6 = puVar6 + 4;
-        } while (puVar7 != param_1 + 0x18);
+          puVar7 = puVar7 + 4;
+        } while (puVar6 != param_1 + 0x18);
         esp_openthread_flash_set_partition();
         iVar1 = esp_openthread_lock_init();
         if (iVar1 == 0) {
           iVar1 = esp_openthread_alarm_init();
           if (iVar1 == 0) {
-            if ((param_1[0xb] == 1) && (iVar1 = esp_openthread_uart_init(param_1), iVar1 != 0)) {
+            if ((param_1[0xb] - 1 < 2) && (iVar1 = esp_openthread_uart_init(param_1), iVar1 != 0)) {
               uVar2 = esp_log_timestamp();
               esp_log_write(1,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD","esp_openthread_platform_init",
                             0x76);

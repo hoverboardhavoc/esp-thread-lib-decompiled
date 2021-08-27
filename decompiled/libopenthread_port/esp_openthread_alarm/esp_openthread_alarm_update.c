@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_openthread_alarm.o -> esp_openthread_alarm_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,13 +28,13 @@ void esp_openthread_alarm_update(int param_1)
   else {
     uVar5 = s_alarm_ms_dt + s_alarm_ms_t0;
     uVar2 = uVar5 * 1000 - iVar3;
-    iVar1 = (((uint)(uVar5 < s_alarm_ms_dt) + DAT_000103b4 + DAT_000103bc) * 1000 +
+    iVar1 = (((uint)(uVar5 < s_alarm_ms_dt) + DAT_00010394 + DAT_0001039c) * 1000 +
             (int)((ulonglong)uVar5 * 1000 >> 0x20)) - (uint)(uVar5 * 1000 < uVar2);
   }
   if (s_is_us_running != '\0') {
     uVar6 = s_alarm_us_t0 + s_alarm_us_dt;
     uVar5 = uVar6 - iVar3;
-    iVar3 = ((uint)(uVar6 < s_alarm_us_dt) + DAT_000103c4 + DAT_000103cc) - (uint)(uVar6 < uVar5);
+    iVar3 = ((uint)(uVar6 < s_alarm_us_dt) + DAT_000103a4 + DAT_000103ac) - (uint)(uVar6 < uVar5);
     if ((iVar3 < iVar1) || ((iVar1 == iVar3 && (uVar5 < uVar2)))) {
       iVar1 = iVar3;
       uVar2 = uVar5;

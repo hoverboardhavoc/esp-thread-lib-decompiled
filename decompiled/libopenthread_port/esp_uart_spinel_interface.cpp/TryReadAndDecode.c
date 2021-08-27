@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> TryReadAndDecode
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,8 +33,8 @@ esp::openthread::UartSpinelInterface::TryReadAndDecode(UartSpinelInterface *this
        (iVar3 = TryRecoverUart(this), iVar3 != 0)) {
       pUVar1 = (UartSpinelInterface *)
                _esp_error_check_failed
-                         ("/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
-                          ,0x80,"int esp::openthread::UartSpinelInterface::TryReadAndDecode()",
+                         ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
+                          ,0x7e,"int esp::openthread::UartSpinelInterface::TryReadAndDecode()",
                           "TryRecoverUart()");
       uVar4 = *(uint *)(pUVar1 + 0x4c);
       if ((uVar4 < 0x40) && ((1 << (uVar4 & 0x1f) & *(uint *)(extraout_a1 + (uVar4 >> 5) * 4)) != 0)

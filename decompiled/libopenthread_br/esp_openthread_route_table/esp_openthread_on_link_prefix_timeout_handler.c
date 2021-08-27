@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_on_link_prefix_timeout_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,7 +15,7 @@ void esp_openthread_on_link_prefix_timeout_handler(int *param_1)
 {
   *param_1 = 0;
   while( true ) {
-    if (param_1 == (int *)0x10824) {
+    if (param_1 == (int *)0x10834) {
       return;
     }
     *param_1 = param_1[8];

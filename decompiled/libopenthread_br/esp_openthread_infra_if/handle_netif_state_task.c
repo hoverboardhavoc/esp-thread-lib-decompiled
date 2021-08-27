@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
+ * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
+ * Upstream date: 2021-08-27 13:57:40 +0800
+ * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> handle_netif_state_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,12 +14,14 @@ void handle_netif_state_task(void)
 
 {
   int iVar1;
+  undefined4 uVar2;
   
   esp_openthread_get_instance();
   iVar1 = otPlatInfraIfStateChanged
                     (*(char *)(s_netif + 0x196) + '\x01',*(byte *)(s_netif + 0x193) & 1);
   if (iVar1 != 0) {
-    otLogCrit(0xc,"-PLAT----: ","otPlatInfraIfStateChanged error");
+    uVar2 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD");
   }
   return;
 }
