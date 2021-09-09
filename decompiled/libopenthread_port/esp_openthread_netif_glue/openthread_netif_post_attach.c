@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_post_attach
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,38 +10,105 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void openthread_netif_post_attach(undefined4 param_1,int param_2)
+int openthread_netif_post_attach(undefined4 param_1,int param_2)
 
 {
   int iVar1;
   undefined4 uVar2;
-  undefined4 *local_20;
-  code *pcStack_1c;
-  undefined4 uStack_18;
-  undefined4 uStack_14;
+  undefined4 uVar3;
+  undefined *puVar4;
+  undefined4 *local_30;
+  code *pcStack_2c;
+  undefined4 uStack_28;
+  undefined4 uStack_24;
   
+  local_30 = &s_openthread_netif_glue;
   *(undefined4 *)(param_2 + 4) = param_1;
-  uStack_18 = 0;
-  uStack_14 = 0;
-  local_20 = &s_openthread_netif_glue;
-  pcStack_1c = openthread_netif_transmit;
-  iVar1 = esp_netif_set_driver_config(&local_20);
+  uStack_28 = 0;
+  uStack_24 = 0;
+  pcStack_2c = openthread_netif_transmit;
+  iVar1 = esp_netif_set_driver_config(&local_30);
+  if (iVar1 != 0) {
+                    /* WARNING: Subroutine does not return */
+    abort();
+  }
+  uVar2 = esp_log_timestamp();
+  esp_log_write(3,"OPENTHREAD",&_LC14,uVar2,"OPENTHREAD");
+  iVar1 = esp_event_handler_register(OPENTHREAD_EVENT,0,&esp_netif_action_start,param_1);
   if (iVar1 == 0) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(3,"OPENTHREAD",&_LC23,uVar2,"OPENTHREAD");
-    iVar1 = register_openthread_event_handlers(param_1);
-    s_openthread_netif = param_1;
-    if (iVar1 != 0) {
-      return;
+    iVar1 = esp_event_handler_register(OPENTHREAD_EVENT,1,&esp_netif_action_stop,param_1);
+    if (iVar1 == 0) {
+      iVar1 = esp_event_handler_register(OPENTHREAD_EVENT,2,&esp_netif_action_connected,param_1);
+      if (iVar1 == 0) {
+        iVar1 = esp_event_handler_register
+                          (OPENTHREAD_EVENT,3,&esp_netif_action_disconnected,param_1);
+        if (iVar1 == 0) {
+          iVar1 = esp_event_handler_register
+                            (OPENTHREAD_EVENT,4,&esp_netif_action_add_ip6_address,param_1);
+          if (iVar1 == 0) {
+            iVar1 = esp_event_handler_register
+                              (OPENTHREAD_EVENT,5,&esp_netif_action_remove_ip6_address,param_1);
+            if (iVar1 == 0) {
+              iVar1 = esp_event_handler_register
+                                (OPENTHREAD_EVENT,6,&esp_netif_action_join_ip6_multicast_group,
+                                 param_1);
+              if (iVar1 == 0) {
+                iVar1 = esp_event_handler_register
+                                  (OPENTHREAD_EVENT,7,&esp_netif_action_leave_ip6_multicast_group,
+                                   param_1);
+                if (iVar1 == 0) {
+                  s_openthread_netif = param_1;
+                  iVar1 = esp_event_post(OPENTHREAD_EVENT,0,0,0,0);
+                  return iVar1;
+                }
+                uVar3 = esp_log_timestamp();
+                uVar2 = 0xe9;
+                puVar4 = &_LC22;
+              }
+              else {
+                uVar3 = esp_log_timestamp();
+                uVar2 = 0xe6;
+                puVar4 = &_LC21;
+              }
+            }
+            else {
+              uVar3 = esp_log_timestamp();
+              uVar2 = 0xe3;
+              puVar4 = &_LC20;
+            }
+          }
+          else {
+            uVar3 = esp_log_timestamp();
+            uVar2 = 0xe0;
+            puVar4 = &_LC19;
+          }
+        }
+        else {
+          uVar3 = esp_log_timestamp();
+          uVar2 = 0xdd;
+          puVar4 = &_LC18;
+        }
+      }
+      else {
+        uVar3 = esp_log_timestamp();
+        uVar2 = 0xda;
+        puVar4 = &_LC17;
+      }
+    }
+    else {
+      uVar3 = esp_log_timestamp();
+      uVar2 = 0xd7;
+      puVar4 = &_LC16;
     }
   }
   else {
-    _esp_error_check_failed
-              ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_netif_glue.c"
-               ,0x104,"openthread_netif_post_attach",
-               "esp_netif_set_driver_config(esp_netif, &driver_ifconfig)");
+    uVar3 = esp_log_timestamp();
+    uVar2 = 0xd4;
+    puVar4 = &_LC15;
   }
-  esp_event_post(OPENTHREAD_EVENT,0,0,0,0);
-  return;
+  esp_log_write(1,"OPENTHREAD",puVar4,uVar3,"OPENTHREAD","register_openthread_event_handlers",uVar2)
+  ;
+  s_openthread_netif = param_1;
+  return iVar1;
 }
 

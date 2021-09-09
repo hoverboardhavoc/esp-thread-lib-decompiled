@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_misc.o -> otPlatAssertFail
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,8 +19,7 @@ void otPlatAssertFail(undefined4 param_1,undefined4 param_2)
   
   uVar1 = esp_log_timestamp();
   esp_log_write(1,"OPENTHREAD",&_LC1,uVar1,"OPENTHREAD",param_1,param_2);
-  __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_misc.c"
-                ,0x57,"otPlatAssertFail","false");
+  __assert_func(0,0,0,0);
                     /* WARNING: Bad instruction - Truncating control flow here */
   halt_baddata();
 }

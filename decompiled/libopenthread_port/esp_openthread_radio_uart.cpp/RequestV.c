@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RequestV
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,6 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Removing unreachable block (ram,0x00010aba) */
 /* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
    esp_openthread_mainloop_context_t>::RequestV(unsigned long, unsigned long, char const*, void*) */
 
@@ -21,33 +20,61 @@ RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloo
 
 {
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar1;
-  int iVar2;
+  uint uVar2;
+  uint uVar3;
+  uint extraout_a0;
+  int iVar4;
+  int extraout_a1;
+  uint extraout_a1_00;
+  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar5;
+  ulonglong uVar6;
   
-  iVar2 = GetNextTid(this);
-  if (iVar2 == 0) {
-    iVar2 = 5;
-  }
-  else {
-    RVar1 = SUB41(iVar2,0);
-    iVar2 = SendCommand(this,param_1,param_2,(uchar)RVar1,param_3,param_4);
-    if (iVar2 == 0) {
+  RVar1 = this[0x462];
+  uVar2 = (uint)(byte)RVar1;
+  if (((int)(uint)*(ushort *)(this + 0x460) >> (uVar2 & 0x1f) & 1U) == 0) {
+    RVar5 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)0x1
+    ;
+    if (uVar2 < 0xf) {
+      RVar5 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
+              ((char)RVar1 + 1);
+    }
+    this[0x462] = RVar5;
+    *(ushort *)(this + 0x460) = (ushort)(1 << (uVar2 & 0x1f)) | *(ushort *)(this + 0x460);
+    if (uVar2 != 0) {
+      iVar4 = SendCommand(this,param_1,param_2,(uchar)RVar1,param_3,param_4);
+      if (iVar4 != 0) {
+        return iVar4;
+      }
       if (param_2 == 0x71) {
-        if (this[0x463] ==
+        if (this[0x463] !=
             (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)0x0
            ) {
-          this[0x463] = RVar1;
-          return 0;
+          __assert_func(0,0,0);
         }
-        __assert_func("/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                      0x6e1,
-                      "otError ot::Spinel::RadioSpinel<InterfaceType, ProcessContextType>::RequestV(uint32_t, spinel_prop_key_t, const char*, va_list) [with InterfaceType = esp::openthread::UartSpinelInterface; ProcessContextType = esp_openthread_mainloop_context_t; otError = otError; uint32_t = long unsigned int; spinel_prop_key_t = long unsigned int; va_list = void*]"
-                      ,"mTxRadioTid == 0");
+        this[0x463] = RVar1;
+        return iVar4;
       }
       *(ulong *)(this + 0x468) = param_2;
       this[0x464] = RVar1;
-      iVar2 = WaitResponse(this);
+      uVar3 = otPlatTimeGet();
+      uVar2 = (uint)(uVar3 + 2000000 < uVar3) + extraout_a1;
+      do {
+        uVar6 = otPlatTimeGet();
+        if (extraout_a1_00 < uVar2) goto _L0;
+        if ((uVar2 == extraout_a1_00) && (extraout_a0 < uVar3 + 2000000)) goto _L0;
+        do {
+          uVar6 = HandleRcpTimeout();
+_L0:
+          iVar4 = esp::openthread::UartSpinelInterface::WaitForFrame(uVar6);
+        } while (iVar4 != 0);
+      } while ((this[0x464] !=
+                (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                )0x0) || ((*(uint *)(this + 0x704) >> 1 & 1) == 0));
+      LogIfFail("Error waiting response",*(undefined4 *)(this + 0x478));
+      *(undefined4 *)(this + 0x468) = 0;
+      return *(int *)(this + 0x478);
     }
   }
-  return iVar2;
+  return 5;
 }
 

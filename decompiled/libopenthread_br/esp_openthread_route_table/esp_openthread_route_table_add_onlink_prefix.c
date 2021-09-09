@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_onlink_prefix
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,92 +13,74 @@
 undefined4 esp_openthread_route_table_add_onlink_prefix(int *param_1,int param_2,int param_3)
 
 {
-  undefined1 uVar1;
-  undefined1 uVar2;
-  undefined1 uVar3;
-  int *piVar4;
-  int iVar5;
-  undefined4 uVar6;
-  int iVar7;
-  int iVar8;
-  int iVar9;
-  int iVar10;
-  char cVar11;
-  uint uVar12;
-  int iVar13;
-  int iVar14;
+  int iVar1;
+  undefined4 *__dest;
+  int *piVar2;
+  int iVar3;
+  char cVar4;
+  undefined4 uVar5;
+  int iVar6;
+  int *piVar7;
   
-  iVar14 = *param_1;
-  if (iVar14 == 0) {
-    uVar6 = 0x102;
-  }
-  else if (param_1 == (int *)0x0) {
-    uVar6 = 0x102;
-  }
-  else if ((char)param_1[6] == '@') {
-    piVar4 = (int *)find_on_link_prefix(iVar14,param_1 + 1,0x40);
-    if (piVar4 == (int *)0x0) {
-      piVar4 = (int *)find_empty_onlink_prefix();
-      if (piVar4 == (int *)0x0) {
-        return 0x101;
+  iVar6 = *param_1;
+  uVar5 = 0x102;
+  if ((iVar6 != 0) && (uVar5 = 0x102, (char)param_1[6] == '@')) {
+    piVar7 = &s_on_link_prefixes;
+    piVar2 = &s_on_link_prefixes;
+    iVar1 = 0;
+    do {
+      if (((iVar6 == *piVar2) && ((char)piVar2[6] == '@')) &&
+         (iVar3 = memcmp(piVar2 + 1,param_1 + 1,8), iVar3 == 0)) {
+        __dest = (undefined4 *)((int)&s_on_link_prefixes + iVar1);
+        sys_untimeout(0x10000,__dest);
+        goto _L0;
       }
-      uVar12 = param_1[1];
-      iVar13 = param_1[2];
-      iVar5 = param_1[3];
-      iVar7 = param_1[4];
-      iVar8 = param_1[5];
-      iVar9 = param_1[6];
-      iVar10 = param_1[7];
-      *piVar4 = iVar14;
-      piVar4[1] = uVar12;
-      piVar4[2] = iVar13;
-      piVar4[3] = iVar5;
-      piVar4[4] = iVar7;
-      piVar4[5] = iVar8;
-      piVar4[6] = iVar9;
-      piVar4[7] = iVar10;
-      if ((uVar12 & 0xc0ff) == 0x80fe) {
-        cVar11 = *(char *)(*param_1 + 0x196) + '\x01';
-      }
-      else {
-        cVar11 = '\0';
-      }
-      *(char *)(piVar4 + 5) = cVar11;
-      if ((param_3 != 0) && (*(char *)(iVar14 + 0x197) != '\0')) {
-        *(byte *)(piVar4 + 3) = *(byte *)(iVar14 + 0x18c) ^ 2;
-        *(undefined1 *)((int)piVar4 + 0xd) = *(undefined1 *)(iVar14 + 0x18d);
-        *(undefined1 *)((int)piVar4 + 0xe) = 0xff;
-        *(undefined1 *)((int)piVar4 + 0xf) = 0xf3;
-        uVar1 = *(undefined1 *)(iVar14 + 399);
-        uVar2 = *(undefined1 *)(iVar14 + 400);
-        uVar3 = *(undefined1 *)(iVar14 + 0x191);
-        *(undefined1 *)(piVar4 + 4) = *(undefined1 *)(iVar14 + 0x18e);
-        *(undefined1 *)((int)piVar4 + 0x11) = uVar1;
-        *(undefined1 *)((int)piVar4 + 0x12) = uVar2;
-        *(undefined1 *)((int)piVar4 + 0x13) = uVar3;
-        iVar5 = netif_add_ip6_address(iVar14,piVar4 + 1,0);
-        if (iVar5 != 0) {
-          uVar6 = esp_log_timestamp();
-          esp_log_write(1,"OPENTHREAD",&_LC1,uVar6,"OPENTHREAD");
-          return 0xffffffff;
+      iVar1 = iVar1 + 0x20;
+      piVar2 = piVar2 + 8;
+    } while (iVar1 != 0x140);
+    iVar1 = 0;
+    do {
+      if (*piVar7 == 0) {
+        iVar3 = iVar1 * 0x20;
+        __dest = &s_on_link_prefixes + iVar1 * 8;
+        memcpy(__dest,param_1,0x20);
+        if (((&DAT_0001053c)[iVar1 * 8] & 0xc0ff) == 0x80fe) {
+          cVar4 = *(char *)(*param_1 + 0x196) + '\x01';
         }
+        else {
+          cVar4 = '\0';
+        }
+        (&DAT_0001054c)[iVar3] = cVar4;
+        if ((param_3 != 0) && (*(char *)(iVar6 + 0x197) != '\0')) {
+          (&DAT_00010544)[iVar3] = *(byte *)(iVar6 + 0x18c) ^ 2;
+          (&DAT_00010545)[iVar3] = *(undefined1 *)(iVar6 + 0x18d);
+          (&DAT_00010546)[iVar1 * 0x10] = 0xf3ff;
+          memcpy(&DAT_00010548 + iVar3,(void *)(iVar6 + 0x18e),4);
+          iVar1 = netif_add_ip6_address(iVar6,&DAT_0001053c + iVar1 * 8,0);
+          if (iVar1 != 0) {
+            uVar5 = esp_log_timestamp();
+            esp_log_write(1,"OPENTHREAD",&_LC1,uVar5,"OPENTHREAD");
+            return 0xffffffff;
+          }
+        }
+_L0:
+        iVar1 = netif_get_ip6_addr_match(iVar6,__dest + 1);
+        if (-1 < iVar1) {
+          iVar3 = iVar1 * 4 + iVar6;
+          *(int *)(iVar3 + 0x114) = param_1[7];
+          if ((param_2 != 0) &&
+             (*(int *)(iVar3 + 0x134) = param_2, *(char *)(iVar6 + iVar1 + 0x10c) == '\x10')) {
+            netif_ip6_addr_set_state(iVar6,iVar1,0x30);
+          }
+        }
+        sys_timeout(param_1[7] * 1000,0x10000,__dest);
+        return 0;
       }
-    }
-    else {
-      sys_untimeout(esp_openthread_on_link_prefix_timeout_handler,piVar4);
-    }
-    iVar5 = netif_get_ip6_addr_match(iVar14,piVar4 + 1);
-    if (((-1 < iVar5) && (*(int *)((iVar5 + 0x44) * 4 + iVar14 + 4) = param_1[7], param_2 != 0)) &&
-       (*(int *)((iVar5 + 0x4c) * 4 + iVar14 + 4) = param_2,
-       *(char *)(iVar14 + iVar5 + 0x10c) == '\x10')) {
-      netif_ip6_addr_set_state(iVar14,iVar5,0x30);
-    }
-    sys_timeout(param_1[7] * 1000,esp_openthread_on_link_prefix_timeout_handler,piVar4);
-    uVar6 = 0;
+      iVar1 = iVar1 + 1;
+      piVar7 = piVar7 + 8;
+    } while (iVar1 != 10);
+    uVar5 = 0x101;
   }
-  else {
-    uVar6 = 0x102;
-  }
-  return uVar6;
+  return uVar5;
 }
 

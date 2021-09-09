@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> TryReadAndDecode
  *
  * (C) Espressif, Apache License 2.0.
@@ -12,39 +12,25 @@
 
 /* esp::openthread::UartSpinelInterface::TryReadAndDecode() */
 
-UartSpinelInterface * __thiscall
-esp::openthread::UartSpinelInterface::TryReadAndDecode(UartSpinelInterface *this)
+ssize_t __thiscall esp::openthread::UartSpinelInterface::TryReadAndDecode(UartSpinelInterface *this)
 
 {
-  UartSpinelInterface *pUVar1;
+  ssize_t sVar1;
   int *piVar2;
   int iVar3;
-  int extraout_a1;
-  uint uVar4;
-  undefined1 auStack_90 [132];
+  undefined1 auStack_90 [128];
   
-  while (pUVar1 = (UartSpinelInterface *)read(*(int *)(this + 0x4c),auStack_90,0x80),
-        0 < (int)pUVar1) {
+  while (sVar1 = read(*(int *)(this + 0x4c),auStack_90,0x80), 0 < sVar1) {
     ot::Hdlc::Decoder::Decode((uchar *)(this + 0xc),(ushort)auStack_90);
   }
-  if ((int)pUVar1 < 0) {
+  if (sVar1 != 0) {
     piVar2 = (int *)__errno();
     if (((*piVar2 != 0xb) && (piVar2 = (int *)__errno(), *piVar2 != 0xb)) &&
        (iVar3 = TryRecoverUart(this), iVar3 != 0)) {
-      pUVar1 = (UartSpinelInterface *)
-               _esp_error_check_failed
-                         ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
-                          ,0x7e,"int esp::openthread::UartSpinelInterface::TryReadAndDecode()",
-                          "TryRecoverUart()");
-      uVar4 = *(uint *)(pUVar1 + 0x4c);
-      if ((uVar4 < 0x40) && ((1 << (uVar4 & 0x1f) & *(uint *)(extraout_a1 + (uVar4 >> 5) * 4)) != 0)
-         ) {
-        pUVar1 = (UartSpinelInterface *)TryReadAndDecode(pUVar1);
-        return pUVar1;
-      }
-      return pUVar1;
+                    /* WARNING: Subroutine does not return */
+      abort();
     }
   }
-  return pUVar1;
+  return sVar1;
 }
 

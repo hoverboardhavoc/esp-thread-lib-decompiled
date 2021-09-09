@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> SendCommand
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,30 +20,25 @@ SendCommand(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_main
             *this,ulong param_1,ulong param_2,uchar param_3,char *param_4,void *param_5)
 
 {
-  uint uVar1;
-  int iVar2;
-  undefined4 uVar3;
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
   undefined3 in_register_00002035;
-  undefined1 auStack_420 [1032];
+  undefined1 auStack_420 [1028];
   
-  uVar1 = spinel_datatype_pack
-                    (auStack_420,0x400,&_LC9,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
+  iVar1 = spinel_datatype_pack
+                    (auStack_420,0x400,&_LC7,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
                      param_2);
-  if (0x3ff < uVar1 - 1) {
-    return 3;
+  if ((iVar1 - 1U < 0x400) &&
+     ((param_4 == (char *)0x0 ||
+      ((iVar3 = spinel_datatype_vpack(auStack_420 + iVar1,0x400 - iVar1,param_4,param_5), 0 < iVar3
+       && (iVar1 + iVar3 < 0x401)))))) {
+    uVar2 = esp::openthread::UartSpinelInterface::SendFrame
+                      ((uchar *)(this + 0x410),(ushort)auStack_420);
   }
-  uVar1 = uVar1 & 0xffff;
-  if (param_4 != (char *)0x0) {
-    iVar2 = spinel_datatype_vpack(auStack_420 + uVar1,0x400 - uVar1,param_4,param_5);
-    if (iVar2 < 1) {
-      return 3;
-    }
-    if (0x400 < uVar1 + iVar2) {
-      return 3;
-    }
+  else {
+    uVar2 = 3;
   }
-  uVar3 = esp::openthread::UartSpinelInterface::SendFrame
-                    ((uchar *)(this + 0x410),(ushort)auStack_420);
-  return uVar3;
+  return uVar2;
 }
 

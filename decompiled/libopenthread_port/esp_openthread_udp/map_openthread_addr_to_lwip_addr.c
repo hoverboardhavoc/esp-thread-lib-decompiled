@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_udp.o -> map_openthread_addr_to_lwip_addr
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,31 +10,26 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int * map_openthread_addr_to_lwip_addr(int *param_1,void *param_2)
+void * map_openthread_addr_to_lwip_addr(void *param_1,void *param_2)
 
 {
   int iStack_28;
   int iStack_24;
   int iStack_20;
   int iStack_1c;
-  uint uStack_18;
-  int iStack_14;
+  undefined1 uStack_18;
+  undefined1 uStack_14;
   
   memcpy(&iStack_28,param_2,0x10);
-  if (((iStack_28 == 0) && (iStack_24 == 0)) && (iStack_20 == -0x10000)) {
+  if ((iStack_28 == 0 && iStack_24 == 0) && (iStack_20 == -0x10000)) {
+    uStack_14 = 0;
     iStack_28 = iStack_1c;
-    iStack_14 = (uint)iStack_14._1_3_ << 8;
   }
   else {
-    iStack_14 = CONCAT31(iStack_14._1_3_,6);
-    uStack_18 = uStack_18 & 0xffffff00;
+    uStack_14 = 6;
+    uStack_18 = 0;
   }
-  *param_1 = iStack_28;
-  param_1[1] = iStack_24;
-  param_1[2] = iStack_20;
-  param_1[3] = iStack_1c;
-  param_1[4] = uStack_18;
-  param_1[5] = iStack_14;
+  memcpy(param_1,&iStack_28,0x18);
   return param_1;
 }
 

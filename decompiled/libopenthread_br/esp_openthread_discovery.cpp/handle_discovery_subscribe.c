@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ea50a6be280755ad026c0b1774efe61c48171ad6
- * https://github.com/espressif/esp-thread-lib/commit/ea50a6be280755ad026c0b1774efe61c48171ad6
- * Upstream date: 2021-09-03 15:31:55 +0800
- * Upstream subject: br: add discovery delegate(f7cecf0)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> handle_discovery_subscribe
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,64 +15,95 @@
 void handle_discovery_subscribe(void *param_1,char *param_2)
 
 {
-  char *pcVar1;
+  uint uVar1;
+  size_t __n;
+  char *pcVar2;
   void *__s;
-  int iVar2;
   undefined4 uVar3;
-  uint __n;
-  char acStack_1e8 [68];
-  char acStack_1a4 [132];
-  char acStack_120 [268];
+  size_t sVar4;
+  char acStack_1e9 [69];
+  char acStack_1a4 [131];
+  char acStack_121 [269];
   
-  pcVar1 = strstr(param_2,".default.service.arpa.");
-  __n = (int)pcVar1 - (int)param_2;
+  pcVar2 = strstr(param_2,".default.service.arpa.");
   __s = malloc(0x330);
   if (__s == (void *)0x0) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC6,uVar3,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar3,"OPENTHREAD");
+    return;
   }
-  else {
-    memset(__s,0,0x330);
-    if ((pcVar1 != (char *)0x0) && (__n < 0x100)) {
-      memcpy(acStack_120,param_2,__n);
-      acStack_120[__n] = '\0';
-      iVar2 = split_prefix_suffix(acStack_120,acStack_1a4,0x82,acStack_1e8,0x41);
-      if (iVar2 != 0) {
-        iVar2 = is_service_name(acStack_120);
-        if (iVar2 == 0) {
-          otLogInfo(0xc,"-PLAT----: ","subscribe host %s",acStack_1a4);
-          uVar3 = mdns_query_async_new(acStack_1a4,0,0,0x1c,3000,1,handle_mdns_query_notifitcation);
-          *(undefined4 *)((int)__s + 0x324) = uVar3;
-          *(undefined4 *)((int)__s + 0x328) = 2;
+  memset(__s,0,0x330);
+  if (pcVar2 == (char *)0x0) {
+    return;
+  }
+  uVar1 = (int)pcVar2 - (int)param_2;
+  if (0xff < uVar1) {
+    return;
+  }
+  memcpy(acStack_121 + 1,param_2,uVar1);
+  acStack_121[uVar1 + 1] = '\0';
+  sVar4 = strnlen(acStack_121 + 1,0x100);
+  if (sVar4 == 0) {
+    return;
+  }
+  if (acStack_121[sVar4] == '.') {
+    sVar4 = sVar4 - 1;
+  }
+  for (__n = sVar4 - 1; -1 < (int)__n; __n = __n - 1) {
+    if (acStack_121[__n + 1] == '.') {
+      if (__n != 0) {
+        if (0x81 < (int)__n) {
+          return;
         }
-        else {
-          otLogInfo(0xc,"-PLAT----: ","subscribe %s.%s",acStack_1a4,acStack_1e8);
-          pcVar1 = strchr(acStack_1a4,0x2e);
-          if (pcVar1 == (char *)0x0) {
-            uVar3 = mdns_query_async_new
-                              (0,acStack_1a4,acStack_1e8,0xc,3000,5,handle_mdns_query_notifitcation)
-            ;
-            *(undefined4 *)((int)__s + 800) = uVar3;
-            *(undefined4 *)((int)__s + 0x328) = 0;
-          }
-          else {
-            *pcVar1 = '\0';
-            uVar3 = mdns_query_async_new
-                              (acStack_1a4,pcVar1 + 1,acStack_1e8,0x21,3000,1,
-                               handle_mdns_query_notifitcation);
-            *(undefined4 *)((int)__s + 800) = uVar3;
-            uVar3 = mdns_query_async_new
-                              (acStack_1a4,pcVar1 + 1,acStack_1e8,0x10,3000,1,
-                               handle_mdns_query_notifitcation);
-            *(undefined4 *)((int)__s + 0x324) = uVar3;
-            *(undefined4 *)((int)__s + 0x328) = 1;
-          }
+        uVar1 = (sVar4 - 1) - __n;
+        if (0x40 < uVar1) {
+          return;
         }
-        *(undefined4 *)((int)__s + 0x32c) = s_pending_queries._812_4_;
-        s_pending_queries._812_4_ = __s;
+        strncpy(acStack_1a4,acStack_121 + 1,__n);
+        acStack_1a4[__n] = '\0';
+        strncpy(acStack_1e9 + 1,acStack_121 + __n + 2,uVar1);
+        acStack_1e9[uVar1 + 1] = '\0';
+        goto _L0;
       }
+      break;
     }
   }
+  strncpy(acStack_1a4,acStack_121 + 1,0x82);
+  acStack_1e9[1] = 0;
+_L0:
+  pcVar2 = strstr(acStack_121 + 1,"._tcp");
+  if ((pcVar2 == (char *)0x0) && (pcVar2 = strstr(acStack_121 + 1,"._udp"), pcVar2 == (char *)0x0))
+  {
+    otLogInfo(0xc,"-PLAT----: ","subscribe host %s",acStack_1a4);
+    uVar3 = mdns_query_async_new(acStack_1a4,0,0,0x1c,3000,1,handle_mdns_query_notifitcation);
+    *(undefined4 *)((int)__s + 0x324) = uVar3;
+    uVar3 = 2;
+  }
+  else {
+    otLogInfo(0xc,"-PLAT----: ","subscribe %s.%s",acStack_1a4,acStack_1e9 + 1);
+    pcVar2 = strchr(acStack_1a4,0x2e);
+    if (pcVar2 == (char *)0x0) {
+      uVar3 = mdns_query_async_new
+                        (acStack_1a4,acStack_1e9 + 1,0xc,3000,5,handle_mdns_query_notifitcation);
+      *(undefined4 *)((int)__s + 800) = uVar3;
+      *(undefined4 *)((int)__s + 0x328) = 0;
+      goto _L0;
+    }
+    *pcVar2 = '\0';
+    uVar3 = mdns_query_async_new
+                      (acStack_1a4,pcVar2 + 1,acStack_1e9 + 1,0x21,3000,1,
+                       handle_mdns_query_notifitcation);
+    *(undefined4 *)((int)__s + 800) = uVar3;
+    uVar3 = mdns_query_async_new
+                      (acStack_1a4,pcVar2 + 1,acStack_1e9 + 1,0x10,3000,1,
+                       handle_mdns_query_notifitcation);
+    *(undefined4 *)((int)__s + 0x324) = uVar3;
+    uVar3 = 1;
+  }
+  *(undefined4 *)((int)__s + 0x328) = uVar3;
+_L0:
+  *(undefined4 *)((int)__s + 0x32c) = s_pending_queries._812_4_;
+  s_pending_queries._812_4_ = __s;
   return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ParseRadioFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,13 +10,11 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Removing unreachable block (ram,0x000129ee) */
-/* WARNING: Removing unreachable block (ram,0x000129f6) */
 /* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
    esp_openthread_mainloop_context_t>::ParseRadioFrame(otRadioFrame&, unsigned char const*, unsigned
    short, int&) */
 
-int __thiscall
+uint __thiscall
 ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
 ParseRadioFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                 *this,otRadioFrame *param_1,uchar *param_2,ushort param_3,int *param_4)
@@ -24,53 +22,49 @@ ParseRadioFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
 {
   uint uVar1;
   int iVar2;
-  undefined4 uVar3;
+  int iVar3;
   undefined2 in_register_00002036;
-  int iStack_2c;
+  undefined1 uStack_2b;
+  ushort uStack_2a;
   undefined4 uStack_28;
-  undefined1 uStack_23;
-  ushort auStack_22 [5];
+  uint uStack_24;
   
-  iVar2 = CONCAT22(in_register_00002036,param_3);
-  auStack_22[0] = 0;
-  uStack_23 = 0x80;
+  iVar3 = CONCAT22(in_register_00002036,param_3);
+  uStack_2b = 0x80;
+  uStack_2a = 0;
   uStack_28 = 0x7f;
-  iStack_2c = 0;
-  if (iVar2 == 0) {
+  uStack_24 = 0;
+  if (iVar3 == 0) {
     *(undefined2 *)(param_1 + 4) = 0;
-    iStack_2c = 0;
+    uVar1 = 0;
+    goto _L0;
   }
-  else {
-    uVar1 = spinel_datatype_unpack_in_place
-                      (param_2,iVar2,"dccSt(CCX)t(i)",*(undefined4 *)param_1,&uStack_28,
-                       param_1 + 0x15,&uStack_23,auStack_22);
-    if ((int)uVar1 < 1) {
-      iStack_2c = 6;
+  iVar2 = spinel_datatype_unpack_in_place
+                    (param_2,iVar3,"dccSt(CCX)t(i)",*(undefined4 *)param_1,&uStack_28,param_1 + 0x15
+                     ,&uStack_2b,&uStack_2a);
+  if (0 < iVar2) {
+    *param_4 = iVar2;
+    if (((byte)this[0x670] & 0x20) != 0) {
+      iVar3 = spinel_datatype_unpack_in_place
+                        (param_2 + iVar2,iVar3 - iVar2 & 0xffff,"t(CL)",param_1 + 0x14,
+                         param_1 + 0x10);
+      if (iVar3 < 1) goto _L0;
+      *param_4 = *param_4 + iVar3;
     }
-    else {
-      *param_4 = uVar1;
-      if (((byte)this[0x670] & 0x20) != 0) {
-        iVar2 = spinel_datatype_unpack_in_place
-                          (param_2 + uVar1,iVar2 - (uVar1 & 0xffff) & 0xffff,"t(CL)",param_1 + 0x14,
-                           param_1 + 0x10);
-        if (iVar2 < 1) {
-          iStack_2c = 6;
-          goto _L0;
-        }
-        *param_4 = iVar2 + *param_4;
-      }
+    uVar1 = uStack_24;
+    if (uStack_24 == 0) {
       *(ushort *)(param_1 + 4) = (ushort)(byte)uStack_28;
       param_1[0x17] =
            (otRadioFrame)
-           ((byte)param_1[0x17] & 0xfc | (byte)(auStack_22[0] >> 4) & 1 |
-           (byte)((auStack_22[0] >> 5 & 1) << 1));
+           ((byte)param_1[0x17] & 0xfc | (byte)(uStack_2a >> 4) & 1 | (byte)(uStack_2a >> 4) & 2);
+      goto _L0;
     }
+    if (uStack_24 < 0x25) goto _L0;
   }
 _L0:
-  if (iStack_2c != 0) {
-    uVar3 = otThreadErrorToString(iStack_2c);
-    otLogWarn(0xc,_LC3,"%s: %s","Handle radio frame failed",uVar3);
-  }
-  return iStack_2c;
+  uVar1 = 6;
+_L0:
+  LogIfFail("Handle radio frame failed",uVar1);
+  return uVar1;
 }
 

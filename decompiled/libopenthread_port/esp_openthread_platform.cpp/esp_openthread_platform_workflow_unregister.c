@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_workflow_unregister
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,31 +13,29 @@
 void esp_openthread_platform_workflow_unregister(char *param_1)
 
 {
-  char *pcVar1;
   char *__s1;
   size_t __n;
-  int iVar2;
+  int iVar1;
+  char *pcVar2;
   char *pcVar3;
   
-  pcVar1 = s_workflow_list;
-  pcVar3 = (char *)0x0;
-  while( true ) {
-    __s1 = pcVar1;
+  pcVar2 = s_workflow_list;
+  __s1 = (char *)0x0;
+  do {
+    pcVar3 = __s1;
+    __s1 = pcVar2;
     if (__s1 == (char *)0x0) {
       return;
     }
     __n = strnlen(param_1,0x10);
-    iVar2 = strncmp(__s1,param_1,__n);
-    if (iVar2 == 0) break;
-    pcVar1 = *(char **)(__s1 + 0x18);
-    pcVar3 = __s1;
+    iVar1 = strncmp(__s1,param_1,__n);
+    pcVar2 = *(char **)(__s1 + 0x18);
+  } while (iVar1 != 0);
+  if (pcVar3 != (char *)0x0) {
+    *(char **)(pcVar3 + 0x18) = pcVar2;
+    pcVar2 = s_workflow_list;
   }
-  if (pcVar3 == (char *)0x0) {
-    s_workflow_list = *(char **)(__s1 + 0x18);
-  }
-  else {
-    *(undefined4 *)(pcVar3 + 0x18) = *(undefined4 *)(__s1 + 0x18);
-  }
+  s_workflow_list = pcVar2;
   free(__s1);
   return;
 }

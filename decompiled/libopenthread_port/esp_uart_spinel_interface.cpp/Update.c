@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> Update
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,8 +24,8 @@ esp::openthread::UartSpinelInterface::Update
     *(uint *)(param_1 + (uVar1 >> 5) * 4) =
          *(uint *)(param_1 + (uVar1 >> 5) * 4) | 1 << (uVar1 & 0x1f);
   }
-  if (*(int *)(param_1 + 0x18) < *(int *)(this + 0x4c)) {
-    *(int *)(param_1 + 0x18) = *(int *)(this + 0x4c);
+  if (*(int *)(param_1 + 0x18) < (int)uVar1) {
+    *(uint *)(param_1 + 0x18) = uVar1;
   }
   return;
 }

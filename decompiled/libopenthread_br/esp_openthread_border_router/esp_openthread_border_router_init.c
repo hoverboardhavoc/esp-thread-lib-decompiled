@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ea50a6be280755ad026c0b1774efe61c48171ad6
- * https://github.com/espressif/esp-thread-lib/commit/ea50a6be280755ad026c0b1774efe61c48171ad6
- * Upstream date: 2021-09-03 15:31:55 +0800
- * Upstream subject: br: add discovery delegate(f7cecf0)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,13 +27,11 @@ int esp_openthread_border_router_init(undefined4 param_1)
       uVar1 = esp_netif_get_netif_impl_index(param_1);
       netif_get_by_index(uVar1);
       iVar2 = esp_openthread_infra_if_init();
+      return iVar2;
     }
-    else {
-      uVar3 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC2,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x3a
-                   );
-      iVar2 = -1;
-    }
+    uVar3 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x3a);
+    iVar2 = -1;
   }
   else {
     uVar3 = esp_log_timestamp();

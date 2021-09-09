@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ea50a6be280755ad026c0b1774efe61c48171ad6
- * https://github.com/espressif/esp-thread-lib/commit/ea50a6be280755ad026c0b1774efe61c48171ad6
- * Upstream date: 2021-09-03 15:31:55 +0800
- * Upstream subject: br: add discovery delegate(f7cecf0)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> convert_mdns_addresses_to_array
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,17 +15,17 @@
 void * convert_mdns_addresses_to_array(mdns_result_s *param_1)
 
 {
-  void *__src;
+  mdns_result_s *__src;
   int iVar1;
   size_t __nmemb;
   void *pvVar2;
   
-  __nmemb = get_mdns_num_ipv6_addresses(param_1);
+  __src = *(mdns_result_s **)(param_1 + 0x30);
+  __nmemb = get_mdns_num_ipv6_addresses(__src);
   pvVar2 = calloc(__nmemb,0x10);
   iVar1 = 0;
-  for (__src = *(void **)(param_1 + 0x30); __src != (void *)0x0;
-      __src = *(void **)((int)__src + 0x18)) {
-    if (*(char *)((int)__src + 0x14) == '\x06') {
+  for (; __src != (mdns_result_s *)0x0; __src = *(mdns_result_s **)(__src + 0x18)) {
+    if (__src[0x14] == (mdns_result_s)0x6) {
       memcpy((void *)(iVar1 * 0x10 + (int)pvVar2),__src,0x10);
       iVar1 = iVar1 + 1;
     }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_flash.o -> otPlatFlashErase
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,57 +10,15 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Control flow encountered bad instruction data */
-
-void otPlatFlashErase(int param_1,undefined4 param_2)
+void otPlatFlashErase(int param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  char *pcVar3;
-  char *pcVar4;
   
-  if (param_1 == 0) {
-    uVar2 = 0;
+  iVar1 = esp_partition_erase_range(s_ot_partition,(uint)(param_1 != 0) << 0xc,0x1000);
+  if (iVar1 != 0) {
+    __assert_func(0,0,0,0);
   }
-  else {
-    uVar2 = 0x1000;
-  }
-  iVar1 = esp_partition_erase_range(s_ot_partition,uVar2,0x1000);
-  if (iVar1 == 0) {
-    return;
-  }
-  pcVar4 = "err == ESP_OK";
-  pcVar3 = "otPlatFlashErase";
-  iVar1 = __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                        ,0x33,"otPlatFlashErase","err == ESP_OK");
-  if (iVar1 == 0) {
-    iVar1 = 0;
-  }
-  else {
-    iVar1 = 0x1000;
-  }
-  iVar1 = esp_partition_read(s_ot_partition,pcVar3 + iVar1,pcVar4,param_2);
-  if (iVar1 == 0) {
-    return;
-  }
-  pcVar4 = "err == ESP_OK";
-  pcVar3 = "otPlatFlashRead";
-  iVar1 = __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                        ,0x3e,"otPlatFlashRead","err == ESP_OK");
-  if (iVar1 == 0) {
-    iVar1 = 0;
-  }
-  else {
-    iVar1 = 0x1000;
-  }
-  iVar1 = esp_partition_write(s_ot_partition,pcVar3 + iVar1,pcVar4,param_2);
-  if (iVar1 == 0) {
-    return;
-  }
-  __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_flash.c"
-                ,0x49,"otPlatFlashWrite","err == ESP_OK");
-                    /* WARNING: Bad instruction - Truncating control flow here */
-  halt_baddata();
+  return;
 }
 

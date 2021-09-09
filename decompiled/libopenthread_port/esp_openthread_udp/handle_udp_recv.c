@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_udp.o -> handle_udp_recv
  *
  * (C) Espressif, Apache License 2.0.
@@ -12,58 +12,47 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void handle_udp_recv(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined2 param_4)
+void handle_udp_recv(undefined4 param_1,undefined4 param_2,void *param_3,undefined2 param_4)
 
 {
-  undefined1 uVar1;
-  byte bVar2;
-  int iVar3;
+  char cVar1;
+  undefined1 uVar2;
+  byte bVar3;
   int iVar4;
+  int iVar5;
   undefined4 *__ptr;
-  uint uVar5;
-  int iVar6;
-  undefined4 uVar7;
-  undefined4 uVar8;
-  undefined4 uVar9;
-  undefined4 uVar10;
-  undefined4 uVar11;
+  undefined4 uVar6;
+  uint uVar7;
+  int iVar8;
   
   __ptr = (undefined4 *)malloc(0x24);
-  iVar4 = _esp_openthread_task_queue_post;
-  iVar3 = _esp_netif_get_netif_impl_index;
-  iVar6 = _ip_data;
+  iVar5 = _memcpy;
+  iVar4 = _esp_log_write;
+  iVar8 = _ip_data;
   if (__ptr == (undefined4 *)0x0) {
-    uVar7 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC1,uVar7,"OPENTHREAD");
+    uVar6 = esp_log_timestamp();
+    esp_log_write(1,"OPENTHREAD",&_LC1,uVar6,"OPENTHREAD");
   }
   *__ptr = param_1;
   __ptr[1] = param_2;
-  uVar7 = param_3[1];
-  uVar8 = param_3[2];
-  uVar9 = param_3[3];
-  uVar10 = param_3[4];
-  uVar11 = param_3[5];
-  __ptr[2] = *param_3;
-  __ptr[3] = uVar7;
-  __ptr[4] = uVar8;
-  __ptr[5] = uVar9;
-  __ptr[6] = uVar10;
-  __ptr[7] = uVar11;
+  memcpy(__ptr + 2,param_3,0x18);
+  cVar1 = *(char *)((int)param_3 + 0x14);
   *(undefined2 *)(__ptr + 8) = param_4;
-  if (*(char *)(param_3 + 5) == '\x06') {
-    uVar1 = *(undefined1 *)(iVar4 + 7);
+  if (cVar1 == '\x06') {
+    uVar2 = *(undefined1 *)(iVar5 + 7);
   }
   else {
-    uVar1 = *(undefined1 *)(iVar3 + 8);
+    uVar2 = *(undefined1 *)(iVar4 + 8);
   }
-  *(undefined1 *)((int)__ptr + 0x22) = uVar1;
-  bVar2 = *(byte *)(iVar6 + 0x196);
+  *(undefined1 *)((int)__ptr + 0x22) = uVar2;
+  bVar3 = *(byte *)(iVar8 + 0x196);
   esp_openthread_get_backbone_netif();
-  uVar5 = esp_netif_get_netif_impl_index();
-  *(bool *)((int)__ptr + 0x23) = (bVar2 + 1 & 0xff) == uVar5;
-  iVar6 = esp_openthread_task_queue_post(udp_recv_task,__ptr);
-  if (iVar6 != 0) {
+  uVar7 = esp_netif_get_netif_impl_index();
+  *(bool *)((int)__ptr + 0x23) = (bVar3 + 1 & 0xff) == uVar7;
+  iVar8 = esp_openthread_task_queue_post(udp_recv_task,__ptr);
+  if (iVar8 != 0) {
     free(__ptr);
+    return;
   }
   return;
 }

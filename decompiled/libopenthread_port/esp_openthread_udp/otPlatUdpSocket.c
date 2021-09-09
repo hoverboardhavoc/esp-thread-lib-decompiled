@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_udp.o -> otPlatUdpSocket
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,7 +22,7 @@ bool otPlatUdpSocket(int param_1)
   iStack_14 = 0;
   uStack_1c = xTaskGetCurrentTaskHandle();
   iStack_18 = param_1;
-  tcpip_callback(udp_new_task,&uStack_1c);
+  tcpip_callback(0x10000,&uStack_1c);
   wait_for_task_notification();
   if (iStack_14 != 0) {
     *(int *)(param_1 + 0x2c) = iStack_14;

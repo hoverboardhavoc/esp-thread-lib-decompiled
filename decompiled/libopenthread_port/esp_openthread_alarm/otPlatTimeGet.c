@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_alarm.o -> otPlatTimeGet
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,25 +14,15 @@ int otPlatTimeGet(void)
 
 {
   int iVar1;
-  char *pcVar2;
   timeval atStack_18 [2];
   
   iVar1 = gettimeofday(atStack_18,(__timezone_ptr_t)0x0);
-  if (iVar1 == 0) {
-    return (uint)((uint)(atStack_18[0].tv_usec + atStack_18[0].tv_sec * 1000000) <
-                 (uint)(atStack_18[0].tv_sec * 1000000)) +
-           (atStack_18[0].tv_sec >> 0x1f) * 1000000 +
-           (int)((ulonglong)(uint)atStack_18[0].tv_sec * 1000000 >> 0x20) +
-           (atStack_18[0].tv_usec >> 0x1f);
+  if (iVar1 != 0) {
+    __assert_func(0,0,0,0);
   }
-  pcVar2 = "otPlatTimeGet";
-  s_alarm_ms_t0 =
-       __assert_func("//home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_alarm.c"
-                     ,0x2e,"err == 0");
-  DAT_0001039c = 0;
-  s_alarm_ms_dt = pcVar2;
-  DAT_00010394 = 0;
-  s_is_ms_running = 1;
-  return s_alarm_ms_t0;
+  return (uint)((uint)(atStack_18[0].tv_usec + atStack_18[0].tv_sec * 1000000) <
+               (uint)(atStack_18[0].tv_sec * 1000000)) +
+         (int)((ulonglong)((longlong)atStack_18[0].tv_sec * 1000000) >> 0x20) +
+         (atStack_18[0].tv_usec >> 0x1f);
 }
 

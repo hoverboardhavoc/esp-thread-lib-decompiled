@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ea50a6be280755ad026c0b1774efe61c48171ad6
- * https://github.com/espressif/esp-thread-lib/commit/ea50a6be280755ad026c0b1774efe61c48171ad6
- * Upstream date: 2021-09-03 15:31:55 +0800
- * Upstream subject: br: add discovery delegate(f7cecf0)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,22 +16,83 @@ undefined4
 discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t *param_2)
 
 {
-  int iVar1;
-  mdns_search_once_s *local_20;
-  mdns_result_s *pmStack_1c;
-  undefined1 auStack_18 [20];
+  mdns_result_s *pmVar1;
+  pending_query_t *__ptr;
+  undefined1 *puVar2;
+  int iVar3;
+  char *pcVar4;
+  int iVar5;
+  mdns_result_s *pmVar6;
+  int local_50;
+  mdns_result_s *pmStack_4c;
+  undefined1 auStack_48 [20];
   
-  if (((-1 < (int)s_mdns_event_fd) && (s_mdns_event_fd < 0x40)) &&
-     ((*(uint *)(param_2 + (s_mdns_event_fd >> 5) * 4) & 1 << (s_mdns_event_fd & 0x1f)) != 0)) {
-    read(s_mdns_event_fd,auStack_18,8);
-    while (iVar1 = xQueueReceive(s_mdns_result_queue,&local_20,0), iVar1 == 1) {
-      mdns_query_async_get_results(local_20,0xffffffff,&pmStack_1c);
-      process_finished_search(local_20,pmStack_1c);
-      mdns_query_results_free(pmStack_1c);
-      mdns_query_async_delete(local_20);
-    }
+  if ((0x3f < s_mdns_event_fd) ||
+     ((1 << (s_mdns_event_fd & 0x1f) & *(uint *)(param_2 + (s_mdns_event_fd >> 5) * 4)) == 0)) {
     return 0;
   }
-  return 0;
+  read(s_mdns_event_fd,auStack_48,8);
+  do {
+    iVar3 = xQueueReceive(s_mdns_result_queue,&local_50,0);
+    if (iVar3 != 1) {
+      return 0;
+    }
+    mdns_query_async_get_results(local_50,0xffffffff,&pmStack_4c);
+    pmVar1 = pmStack_4c;
+    iVar3 = local_50;
+    puVar2 = s_pending_queries;
+    __ptr = (pending_query_t *)s_pending_queries._812_4_;
+    while (__ptr != (pending_query_t *)0x0) {
+      if (iVar3 == *(int *)(__ptr + 800)) {
+        *(undefined4 *)(__ptr + 800) = 0;
+        if (iVar3 == *(int *)(__ptr + 0x324)) goto _L0;
+_L0:
+        iVar5 = *(int *)(__ptr + 0x328);
+        if (iVar5 == 1) {
+          append_to_query_result(__ptr,pmVar1);
+          if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
+            pcVar4 = strchr(*(char **)(__ptr + 0x300),0x2e);
+            esp_openthread_get_instance();
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar4 + 1,__ptr + 0x300);
+_L0:
+            free_addresses_in_pending_query(__ptr);
+          }
+        }
+        else if (iVar5 == 0) {
+          for (pmVar6 = pmVar1; pmVar6 != (mdns_result_s *)0x0; pmVar6 = *(mdns_result_s **)pmVar6)
+          {
+            append_to_query_result(__ptr,pmVar6);
+            pcVar4 = strchr(*(char **)(__ptr + 0x300),0x2e);
+            esp_openthread_get_instance();
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar4 + 1,__ptr + 0x300);
+            free_addresses_in_pending_query(__ptr);
+            memset(__ptr + 0x300,0,0x20);
+          }
+        }
+        else if (iVar5 == 2) {
+          append_to_query_result(__ptr,pmVar1);
+          esp_openthread_get_instance();
+          otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
+          goto _L0;
+        }
+      }
+      else if (iVar3 == *(int *)(__ptr + 0x324)) {
+_L0:
+        *(undefined4 *)(__ptr + 0x324) = 0;
+        goto _L0;
+      }
+      if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
+        *(pending_query_t **)(puVar2 + 0x32c) = *(pending_query_t **)(__ptr + 0x32c);
+        free(__ptr);
+        __ptr = *(pending_query_t **)(puVar2 + 0x32c);
+      }
+      else {
+        puVar2 = *(undefined1 **)(puVar2 + 0x32c);
+        __ptr = *(pending_query_t **)(__ptr + 0x32c);
+      }
+    }
+    mdns_query_results_free(pmStack_4c);
+    mdns_query_async_delete(local_50);
+  } while( true );
 }
 

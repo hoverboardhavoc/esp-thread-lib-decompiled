@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> IsRcp
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,74 +22,71 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
   bool bVar1;
   undefined1 *puVar2;
   int iVar3;
-  undefined4 uVar4;
-  int iVar5;
-  int iStack_8c;
-  int iStack_88;
-  undefined1 auStack_84 [108];
+  int iVar4;
+  undefined4 uVar5;
+  undefined4 uVar6;
+  int iStack_9c;
+  int iStack_98;
+  undefined1 auStack_94 [100];
   
-  iStack_88 = 100;
   *param_1 = false;
-  iVar3 = Get((ulong)this,(char *)0x5,&_LC15,auStack_84,&iStack_88);
-  if (iVar3 != 0) {
-    iVar3 = Get((ulong)this,(char *)0x5,&_LC15,auStack_84,&iStack_88);
-    if (iVar3 == 7) {
-      uVar4 = 2;
+  iStack_9c = 100;
+  iVar3 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
+  if (iVar3 == 0) {
+    iVar3 = 0;
+    bVar1 = false;
+    puVar2 = auStack_94;
+    for (; iStack_9c != 0; iStack_9c = iStack_9c - iVar4) {
+      iVar4 = spinel_datatype_unpack(puVar2,&_LC11,&iStack_98);
+      if (iVar4 < 1) {
+        uVar5 = otExitCodeToString(3);
+        uVar6 = 0x13f;
+        goto _L156;
+      }
+      if (iStack_98 == 0x201) {
+        bVar1 = true;
+      }
+      else if (iStack_98 == 0x22) {
+        iVar3 = 1;
+      }
+      else if (iStack_98 == 0x206) {
+        this[0x704] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                       )((byte)this[0x704] | 4);
+      }
+      else if (iStack_98 == 0x40) {
+        *param_1 = true;
+      }
+      puVar2 = puVar2 + iVar4;
     }
-    else {
-      uVar4 = 1;
+    if ((bVar1) || (iVar3 == 0)) {
+      return iVar3;
     }
-    uVar4 = otExitCodeToString(uVar4);
-    otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","IsRcp",
+    otLogCrit(0xc,"-PLAT----: ","RCP capability list does not include support for radio/raw mode");
+    uVar5 = otExitCodeToString(3);
+    uVar6 = 0x15c;
+_L156:
+    otLogCrit(0xc,"-PLAT----: ","%s() at %s:%d: %s","IsRcp",
+              "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",uVar6,
+              uVar5);
+    iVar3 = 3;
+  }
+  else {
+    iVar3 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
+    uVar6 = 2;
+    if (iVar3 != 7) {
+      uVar6 = 1;
+    }
+    uVar6 = otExitCodeToString(uVar6);
+    otLogCrit(0xc,"-PLAT----: ","%s() at %s:%d: %s","IsRcp",
               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x137,
-              uVar4);
-    iVar3 = Get((ulong)this,(char *)0x5,&_LC15,auStack_84,&iStack_88);
-    if (iVar3 == 7) {
-      iVar3 = 2;
-    }
-    else {
+              uVar6);
+    iVar4 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
+    iVar3 = 2;
+    if (iVar4 != 7) {
       iVar3 = 1;
     }
-                    /* WARNING: Subroutine does not return */
-    exit(iVar3);
   }
-  iVar3 = 0;
-  bVar1 = false;
-  puVar2 = auStack_84;
-  for (; iStack_88 != 0; iStack_88 = iStack_88 - iVar5) {
-    iVar5 = spinel_datatype_unpack(puVar2,&_LC16,&iStack_8c);
-    if (iVar5 < 1) {
-      uVar4 = otExitCodeToString(3);
-      otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","IsRcp",
-                "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x13f,
-                uVar4);
                     /* WARNING: Subroutine does not return */
-      exit(3);
-    }
-    if (iStack_8c == 0x201) {
-      bVar1 = true;
-    }
-    if (iStack_8c == 0x22) {
-      iVar3 = 1;
-    }
-    if (iStack_8c == 0x206) {
-      this[0x704] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                     )((byte)this[0x704] | 4);
-    }
-    if (iStack_8c == 0x40) {
-      *param_1 = true;
-    }
-    puVar2 = puVar2 + iVar5;
-  }
-  if ((!bVar1) && (iVar3 != 0)) {
-    otLogCrit(0xc,_LC3,"RCP capability list does not include support for radio/raw mode");
-    uVar4 = otExitCodeToString(3);
-    otLogCrit(0xc,_LC3,"%s() at %s:%d: %s","IsRcp",
-              "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x15c,
-              uVar4);
-                    /* WARNING: Subroutine does not return */
-    exit(3);
-  }
-  return iVar3;
+  exit(iVar3);
 }
 

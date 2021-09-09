@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> SendFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,18 +22,17 @@ int esp::openthread::UartSpinelInterface::SendFrame(uchar *param_1,ushort param_
   undefined2 uStack_424;
   uchar auStack_422 [1038];
   
-  puStack_428 = auStack_422;
   uStack_424 = 0x400;
+  puStack_428 = auStack_422;
   ot::Hdlc::Encoder::Encoder(aEStack_430,(FrameWritePointer *)&puStack_428);
   iVar1 = ot::Hdlc::Encoder::BeginFrame();
-  if (((iVar1 == 0) && (iVar1 = ot::Hdlc::Encoder::Encode((uchar *)aEStack_430,param_2), iVar1 == 0)
-      ) && (iVar1 = ot::Hdlc::Encoder::EndFrame(), iVar1 == 0)) {
-    iVar1 = Write((UartSpinelInterface *)param_1,auStack_422,(short)puStack_428 - (short)auStack_422
-                 );
-  }
-  if (iVar1 != 0) {
+  if ((((iVar1 != 0) ||
+       (iVar1 = ot::Hdlc::Encoder::Encode((uchar *)aEStack_430,param_2), iVar1 != 0)) ||
+      (iVar1 = ot::Hdlc::Encoder::EndFrame(), iVar1 != 0)) ||
+     (iVar1 = Write((UartSpinelInterface *)param_1,auStack_422,
+                    (short)puStack_428 - (short)auStack_422), iVar1 != 0)) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC10,uVar2,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD");
   }
   return iVar1;
 }

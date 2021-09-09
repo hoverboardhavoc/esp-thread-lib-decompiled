@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c9af7b259218417072614ad265e7e896db15b49a
- * https://github.com/espressif/esp-thread-lib/commit/c9af7b259218417072614ad265e7e896db15b49a
- * Upstream date: 2021-08-27 13:57:40 +0800
- * Upstream subject: openthread: support ESP32-H2 chip(00e1885)
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> WaitForFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -12,67 +12,63 @@
 
 /* esp::openthread::UartSpinelInterface::WaitForFrame(unsigned long long) */
 
-undefined4 esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
+uint esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
 
 {
+  uint uVar1;
   UartSpinelInterface *in_a0;
-  int iVar1;
-  uint *puVar2;
-  uint uVar3;
-  uint local_38 [2];
+  uint uVar2;
+  int iVar3;
+  uint uVar4;
+  timeval tStack_38;
   uint local_30 [2];
-  timeval atStack_28 [2];
+  uint local_28 [5];
   
-  puVar2 = local_30;
-  for (uVar3 = 0; uVar3 < 8; uVar3 = uVar3 + 1) {
-    *(undefined1 *)puVar2 = 0;
-    puVar2 = (uint *)((int)puVar2 + 1);
+  iVar3 = 0;
+  do {
+    *(undefined1 *)((int)local_30 + iVar3) = 0;
+    iVar3 = iVar3 + 1;
+  } while (iVar3 != 8);
+  iVar3 = 0;
+  do {
+    *(undefined1 *)((int)local_28 + iVar3) = 0;
+    iVar3 = iVar3 + 1;
+  } while (iVar3 != 8);
+  uVar1 = *(uint *)(in_a0 + 0x4c);
+  if (uVar1 < 0x40) {
+    uVar4 = uVar1 >> 5;
+    uVar2 = 1 << (uVar1 & 0x1f);
+    local_30[uVar4] = local_30[uVar4] | uVar2;
+    local_28[uVar4] = uVar2 | local_28[uVar4];
   }
-  puVar2 = local_38;
-  for (uVar3 = 0; uVar3 < 8; uVar3 = uVar3 + 1) {
-    *(undefined1 *)puVar2 = 0;
-    puVar2 = (uint *)((int)puVar2 + 1);
+  tStack_38.tv_sec = __udivdi3(1000000,0);
+  tStack_38.tv_usec = __umoddi3(1000000,0);
+  uVar1 = select(uVar1 + 1,(fd_set *)local_30,(fd_set *)0x0,(fd_set *)local_28,&tStack_38);
+  if ((int)uVar1 < 1) {
+    uVar2 = 0x1c;
+joined_r0x00010730:
+    if (uVar1 != 0) {
+      iVar3 = TryRecoverUart(in_a0);
+      uVar2 = 1;
+      if (iVar3 != 0) {
+                    /* WARNING: Subroutine does not return */
+        abort();
+      }
+    }
   }
-  uVar3 = *(uint *)(in_a0 + 0x4c);
-  if (uVar3 < 0x40) {
-    local_30[uVar3 >> 5] = local_30[uVar3 >> 5] | 1 << (uVar3 & 0x1f);
-    local_38[uVar3 >> 5] = local_38[uVar3 >> 5] | 1 << (uVar3 & 0x1f);
-  }
-  atStack_28[0].tv_sec = __udivdi3(1000000,0);
-  atStack_28[0].tv_usec = __umoddi3(1000000,0);
-  iVar1 = select(uVar3 + 1,(fd_set *)local_30,(fd_set *)0x0,(fd_set *)local_38,atStack_28);
-  if (0 < iVar1) {
-    uVar3 = *(uint *)(in_a0 + 0x4c);
-    if ((uVar3 < 0x40) && ((local_30[uVar3 >> 5] & 1 << (uVar3 & 0x1f)) != 0)) {
+  else {
+    uVar1 = *(uint *)(in_a0 + 0x4c);
+    if (uVar1 < 0x40) {
+      uVar2 = 1 << (uVar1 & 0x1f);
+      if ((local_30[uVar1 >> 5] & uVar2) == 0) {
+        uVar2 = uVar2 & local_28[uVar1 >> 5];
+        uVar1 = uVar2;
+        goto joined_r0x00010730;
+      }
       TryReadAndDecode(in_a0);
-      return 0;
     }
-    if (0x3f < uVar3) {
-      return 0;
-    }
-    if ((local_38[uVar3 >> 5] & 1 << (uVar3 & 0x1f)) == 0) {
-      return 0;
-    }
-    iVar1 = TryRecoverUart(in_a0);
-    if (iVar1 == 0) {
-      return 1;
-    }
-    iVar1 = _esp_error_check_failed
-                      ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
-                       ,0xe3,"otError esp::openthread::UartSpinelInterface::WaitForFrame(uint64_t)",
-                       "TryRecoverUart()");
+    uVar2 = 0;
   }
-  if (iVar1 == 0) {
-    return 0x1c;
-  }
-  iVar1 = TryRecoverUart(in_a0);
-  if (iVar1 != 0) {
-    _esp_error_check_failed
-              ("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_uart_spinel_interface.cpp"
-               ,0xe9,"otError esp::openthread::UartSpinelInterface::WaitForFrame(uint64_t)",
-               "TryRecoverUart()");
-    return 0;
-  }
-  return 1;
+  return uVar2;
 }
 

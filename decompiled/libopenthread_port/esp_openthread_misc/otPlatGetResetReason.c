@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d84f8967f8ce14490e19433b85c8c363d424f4c1
- * https://github.com/espressif/esp-thread-lib/commit/d84f8967f8ce14490e19433b85c8c363d424f4c1
- * Upstream date: 2021-07-13 21:21:08 +0800
- * Upstream subject: openthread: add ot library for esp32h2
+ * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
+ * Upstream date: 2021-09-09 20:40:32 +0800
+ * Upstream subject: br: fix router solicitation handling(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_misc.o -> otPlatGetResetReason
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,34 +17,20 @@ undefined4 otPlatGetResetReason(void)
   undefined4 uVar2;
   
   uVar1 = esp_reset_reason();
-  if (uVar1 == 3) {
-    uVar2 = 2;
-  }
-  else if (uVar1 < 4) {
-    if (uVar1 == 1) {
+  uVar2 = 2;
+  if (uVar1 != 3) {
+    if (uVar1 < 4) {
       uVar2 = 0;
-    }
-    else if (uVar1 < 2) {
-      uVar2 = 7;
+      if ((uVar1 != 1) && (uVar2 = 1, uVar1 < 2)) {
+        uVar2 = 7;
+      }
     }
     else {
-      uVar2 = 1;
+      uVar2 = 3;
+      if ((uVar1 != 4) && (uVar2 = 6, uVar1 < 8)) {
+        uVar2 = 8;
+      }
     }
-  }
-  else if (uVar1 == 5) {
-    uVar2 = 8;
-  }
-  else if (uVar1 < 5) {
-    uVar2 = 3;
-  }
-  else if (uVar1 == 6) {
-    uVar2 = 8;
-  }
-  else if (uVar1 == 7) {
-    uVar2 = 8;
-  }
-  else {
-    uVar2 = 6;
   }
   return uVar2;
 }
