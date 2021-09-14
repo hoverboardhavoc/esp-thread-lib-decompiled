@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * Upstream date: 2021-09-14 15:31:21 +0800
+ * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetExtendedAddress
  *
  * (C) Espressif, Apache License 2.0.
@@ -45,9 +45,9 @@ void otPlatRadioSetExtendedAddress(otExtAddress *param_1)
     uVar5 = 1;
   }
   uVar5 = otExitCodeToString(uVar5);
-  otLogCrit(0xc,"-PLAT----: ","%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
-            "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
-            ,0x4e,uVar5);
+  _otLogCrit(0xc,"%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
+             "/home/wangqixiang/workspace/gitlab-esp/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+             ,0x4e,uVar5);
   iVar2 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
           SetExtendedAddress((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>

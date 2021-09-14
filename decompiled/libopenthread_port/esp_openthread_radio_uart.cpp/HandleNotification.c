@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * Upstream date: 2021-09-14 15:31:21 +0800
+ * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength
                     ((MultiFrameBuffer<(unsigned_short)1024> *)param_1);
   iVar4 = spinel_datatype_unpack
-                    (uVar2,uVar3,&_LC53,&bStack_21,&uStack_14,&uStack_20,&puStack_18,&uStack_1c);
+                    (uVar2,uVar3,&_LC52,&bStack_21,&uStack_14,&uStack_20,&puStack_18,&uStack_1c);
   if ((iVar4 < 1) || ((bStack_21 & 0xf) != 0)) {
     uVar2 = 6;
   }
@@ -64,7 +64,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
     else {
       uVar2 = 6;
       if ((uStack_14 < 6) || (8 < uStack_14)) goto _L0;
-      otLogInfo(0xc,"-PLAT----: ","Ignored command %d");
+      _otLogInfo(0xc,"Ignored command %d");
     }
     uVar2 = 0;
   }

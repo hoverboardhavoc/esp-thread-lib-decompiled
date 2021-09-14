@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * Upstream date: 2021-09-14 15:31:21 +0800
+ * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     s_mdns_event_fd = eventfd(0,0);
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
+      esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD",
                     "esp_openthread_discovery_delegate_init",0x182);
       uVar1 = 0xffffffff;
     }
@@ -33,14 +33,14 @@ undefined4 esp_openthread_discovery_delegate_init(void)
         return uVar1;
       }
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC12,uVar1,"OPENTHREAD",
+      esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
                     "esp_openthread_discovery_delegate_init",0x185);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
+    esp_log_write(1,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
                   0x180);
     uVar1 = 0x102;
   }

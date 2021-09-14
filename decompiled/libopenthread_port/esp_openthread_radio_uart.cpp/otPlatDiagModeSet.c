@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
+ * Upstream date: 2021-09-14 15:31:21 +0800
+ * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatDiagModeSet
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,15 +15,15 @@ void otPlatDiagModeSet(undefined1 param_1)
 {
   int iVar1;
   
-  DAT_000134b0 = 0;
-  DAT_000134b4 = 0;
+  DAT_000133c8 = 0;
+  DAT_000133cc = 0;
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                    (0x12da8,(char *)0x3bc0);
-  DAT_000134b0 = 0;
-  DAT_000134b4 = 0;
+                    (0x12cc0,(char *)0x3bc0);
+  DAT_000133c8 = 0;
+  DAT_000133cc = 0;
   if (iVar1 == 0) {
-    DAT_000134ac._1_1_ = param_1;
+    DAT_000133c4._1_1_ = param_1;
   }
   return;
 }
