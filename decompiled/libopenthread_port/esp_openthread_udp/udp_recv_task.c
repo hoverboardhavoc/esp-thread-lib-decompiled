@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_port -> esp_openthread_udp.o -> udp_recv_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,8 +22,7 @@ void udp_recv_task(int *param_1)
   int iVar7;
   void *pvVar8;
   void *__ptr;
-  undefined1 auStack_54 [4];
-  undefined4 uStack_50;
+  undefined2 auStack_50 [2];
   undefined4 uStack_4c;
   undefined4 uStack_48;
   undefined4 uStack_44;
@@ -33,10 +32,9 @@ void udp_recv_task(int *param_1)
   undefined2 uStack_2a;
   undefined1 uStack_24;
   
-  uStack_50 = 1;
+  auStack_50[0] = 0x100;
   piVar2 = (int *)param_1[1];
   uStack_24 = *(undefined1 *)((int)param_1 + 0x22);
-  auStack_54[0] = 0;
   pvVar8 = (void *)piVar2[1];
   uStack_2a = (undefined2)param_1[8];
   uStack_2c = 0;
@@ -65,7 +63,7 @@ void udp_recv_task(int *param_1)
       __ptr = pvVar8;
 _L0:
       esp_openthread_get_instance();
-      iVar7 = otUdpNewMessage(auStack_54);
+      iVar7 = otUdpNewMessage(auStack_50);
       if (iVar7 == 0) {
         uVar3 = esp_log_timestamp();
         puVar5 = &_LC3;

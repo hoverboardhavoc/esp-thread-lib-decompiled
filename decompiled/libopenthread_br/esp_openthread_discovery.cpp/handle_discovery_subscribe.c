@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> handle_discovery_subscribe
  *
  * (C) Espressif, Apache License 2.0.
@@ -74,13 +74,13 @@ _L0:
   pcVar2 = strstr(acStack_121 + 1,"._tcp");
   if ((pcVar2 == (char *)0x0) && (pcVar2 = strstr(acStack_121 + 1,"._udp"), pcVar2 == (char *)0x0))
   {
-    _otLogInfo(0xc,"subscribe host %s",acStack_1a4);
+    _otLogInfo(0xd,"subscribe host %s",acStack_1a4);
     uVar3 = mdns_query_async_new(acStack_1a4,0,0,0x1c,3000,1,handle_mdns_query_notifitcation);
     *(undefined4 *)((int)__s + 0x324) = uVar3;
     uVar3 = 2;
   }
   else {
-    _otLogInfo(0xc,"subscribe %s.%s",acStack_1a4,acStack_1e9 + 1);
+    _otLogInfo(0xd,"subscribe %s.%s",acStack_1a4,acStack_1e9 + 1);
     pcVar2 = strchr(acStack_1a4,0x2e);
     if (pcVar2 == (char *)0x0) {
       uVar3 = mdns_query_async_new

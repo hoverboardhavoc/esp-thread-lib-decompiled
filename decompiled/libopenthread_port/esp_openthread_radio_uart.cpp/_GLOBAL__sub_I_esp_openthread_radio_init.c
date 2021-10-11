@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> _GLOBAL__sub_I_esp_openthread_radio_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,39 +15,39 @@
 void _GLOBAL__sub_I_esp_openthread_radio_init(void)
 
 {
-  DAT_000130cc = 0x12cca;
-  uRam00012cc4 = 0x12cce;
-  uRam00012cc8 = 0x3fc;
+  DAT_000130dc = &DAT_00012cda;
+  DAT_00012cd4 = &DAT_00012cde;
+  DAT_00012cd8 = 0x3fc;
   _s_radio = 0;
   ot::Hdlc::MultiFrameBuffer<(unsigned_short)1024>::SetSkipLength
-            ((MultiFrameBuffer<(unsigned_short)1024> *)0x12cc4,0);
+            ((MultiFrameBuffer<(unsigned_short)1024> *)&DAT_00012cd4,0);
   esp::openthread::UartSpinelInterface::UartSpinelInterface
-            ((UartSpinelInterface *)&DAT_000130d0,
+            ((UartSpinelInterface *)&DAT_000130e0,
              ot::Spinel::
              RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-             HandleReceivedFrame,&s_radio,(MultiFrameBuffer *)0x12cc4);
-  _DAT_00013120 = 0x10000;
-  uRam0001332c = 0xffff0000;
-  DAT_000133c4._0_2_ = (ushort)DAT_000133c4 & 0xf0;
-  DAT_000133d4 = 0xffffffff;
-  uRam000133dc = 0xffffffff;
-  uRam00013124 = 0;
-  uRam00013128 = 0;
-  uRam0001312c = 0;
-  uRam00013134 = 0;
-  uRam00013138 = 0;
-  DAT_00013320 = 0;
-  _DAT_00013330 = 0;
-  uRam00013332 = 0;
-  DAT_000133c0 = 0;
-  DAT_000133c8 = 0;
-  DAT_000133cc = 0;
-  DAT_000133d0 = 0xffffffff;
-  uRam000133d8 = 0xffffffff;
-  uRam000133e0 = 0;
-  uRam000133e4 = 0;
-  memset((void *)0x133e8,0x1e,0x10);
-  DAT_00013338 = 0;
+             HandleReceivedFrame,&s_radio,(MultiFrameBuffer *)&DAT_00012cd4);
+  DAT_00013130 = 0x10000;
+  DAT_0001333c = 0xffff0000;
+  DAT_000133d4._0_2_ = (ushort)DAT_000133d4 & 0xf0;
+  DAT_000133e4 = 0xffffffff;
+  DAT_000133ec = 0xffffffff;
+  DAT_00013134 = 0;
+  DAT_00013138 = 0;
+  DAT_0001313c = 0;
+  DAT_00013144 = 0;
+  DAT_00013148 = 0;
+  DAT_00013330 = 0;
+  _DAT_00013340 = 0;
+  DAT_00013342 = 0;
+  DAT_000133d0 = 0;
+  DAT_000133d8 = 0;
+  DAT_000133dc = 0;
+  DAT_000133e0 = 0xffffffff;
+  DAT_000133e8 = 0xffffffff;
+  DAT_000133f0 = 0;
+  DAT_000133f4 = 0;
+  memset(&DAT_000133f8,0x1e,0x10);
+  DAT_00013348 = 0;
   return;
 }
 

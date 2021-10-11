@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> IsRcp
  *
  * (C) Espressif, Apache License 2.0.
@@ -40,7 +40,7 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
       iVar4 = spinel_datatype_unpack(puVar2,&_LC10,&iStack_98);
       if (iVar4 < 1) {
         uVar5 = otExitCodeToString(3);
-        uVar6 = 0x13f;
+        uVar6 = 0x13d;
         goto _L156;
       }
       if (iStack_98 == 0x201) {
@@ -61,11 +61,11 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
     if ((bVar1) || (iVar3 == 0)) {
       return iVar3;
     }
-    _otLogCrit(0xc,"RCP capability list does not include support for radio/raw mode");
+    _otLogCrit(0xd,"RCP capability list does not include support for radio/raw mode");
     uVar5 = otExitCodeToString(3);
-    uVar6 = 0x15c;
+    uVar6 = 0x15a;
 _L156:
-    _otLogCrit(0xc,"%s() at %s:%d: %s","IsRcp",
+    _otLogCrit(0xd,"%s() at %s:%d: %s","IsRcp",
                "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",uVar6,
                uVar5);
     iVar3 = 3;
@@ -77,8 +77,8 @@ _L156:
       uVar6 = 1;
     }
     uVar6 = otExitCodeToString(uVar6);
-    _otLogCrit(0xc,"%s() at %s:%d: %s","IsRcp",
-               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x137,
+    _otLogCrit(0xd,"%s() at %s:%d: %s","IsRcp",
+               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x135,
                uVar6);
     iVar4 = Get((ulong)this,(char *)0x5,&_LC9,auStack_94,&iStack_9c);
     iVar3 = 2;

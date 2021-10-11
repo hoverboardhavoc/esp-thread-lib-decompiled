@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -52,22 +52,22 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
       if (aiStack_b8[0] - 0x70U < 0x11) {
         if (*(int *)(this + 0x700) != 0) {
           uVar2 = spinel_status_to_cstr();
-          _otLogCrit(0xc,"Unexpected RCP reset: %s",uVar2);
+          _otLogCrit(0xd,"Unexpected RCP reset: %s",uVar2);
           uVar2 = otExitCodeToString(4);
-          _otLogCrit(0xc,"%s() at %s:%d: %s","HandleRcpUnexpectedReset",
+          _otLogCrit(0xd,"%s() at %s:%d: %s","HandleRcpUnexpectedReset",
                      "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                     0x892,uVar2);
+                     0x89f,uVar2);
                     /* WARNING: Subroutine does not return */
           exit(4);
         }
         uVar2 = spinel_status_to_cstr();
-        _otLogInfo(0xc,"RCP reset: %s",uVar2);
+        _otLogInfo(0xd,"RCP reset: %s",uVar2);
         this[0x704] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                        )((byte)this[0x704] | 2);
       }
       else {
         uVar2 = spinel_status_to_cstr();
-        _otLogInfo(0xc,"RCP last status: %s",uVar2);
+        _otLogInfo(0xd,"RCP last status: %s",uVar2);
       }
       goto _L0;
     }
@@ -90,17 +90,17 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
         uVar4 = local_bc & 0xff;
         if (uVar4 < 5) {
           if (uVar4 < 3) {
-            _otLogCrit(0xc,"RCP => %s",aiStack_b8[0]);
+            _otLogCrit(0xd,"RCP => %s",aiStack_b8[0]);
           }
           else {
-            _otLogWarn(0xc,"RCP => %s");
+            _otLogWarn(0xd,"RCP => %s");
           }
         }
         else if (uVar4 == 5) {
-          _otLogNote(0xc,"RCP => %s",aiStack_b8[0]);
+          _otLogNote(0xd,"RCP => %s",aiStack_b8[0]);
         }
         else if (uVar4 == 6) {
-          _otLogInfo(0xc,"RCP => %s",aiStack_b8[0]);
+          _otLogInfo(0xd,"RCP => %s",aiStack_b8[0]);
         }
       }
 _L0:

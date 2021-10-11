@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
+ * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
+ * Upstream date: 2021-10-11 18:13:07 +0800
+ * Upstream subject: openthread: update openthread(eb1de3d)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioDisable
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,27 +19,27 @@ int otPlatRadioDisable(void)
   undefined4 uVar2;
   int __status;
   
-  iVar1 = DAT_000133c0;
-  if (DAT_000133c0 != 0) {
-    if (DAT_000133c0 == 1) {
+  iVar1 = DAT_000133d0;
+  if (DAT_000133d0 != 0) {
+    if (DAT_000133d0 == 1) {
       iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-              Set(0x12cc0,(char *)0x20,&_LC34,0);
+              Set(0x12cd0,(char *)0x20,&_LC34,0);
       if (iVar1 != 0) {
         iVar1 = ot::Spinel::
                 RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                ::Set(0x12cc0,(char *)0x20,&_LC34,0);
+                ::Set(0x12cd0,(char *)0x20,&_LC34,0);
         uVar2 = 2;
         if (iVar1 != 7) {
           uVar2 = 1;
         }
         uVar2 = otExitCodeToString(uVar2);
-        _otLogCrit(0xc,"%s() at %s:%d: %s","Disable",
-                   "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x7f6
+        _otLogCrit(0xd,"%s() at %s:%d: %s","Disable",
+                   "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x803
                    ,uVar2);
         iVar1 = ot::Spinel::
                 RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                ::Set(0x12cc0,(char *)0x20,&_LC34,0);
+                ::Set(0x12cd0,(char *)0x20,&_LC34,0);
         __status = 2;
         if (iVar1 != 7) {
           __status = 1;
@@ -47,7 +47,7 @@ int otPlatRadioDisable(void)
                     /* WARNING: Subroutine does not return */
         exit(__status);
       }
-      DAT_000133c0 = 0;
+      DAT_000133d0 = 0;
       _s_radio = 0;
       iVar1 = 0;
     }
