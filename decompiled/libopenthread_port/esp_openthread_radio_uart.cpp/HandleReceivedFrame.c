@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * Upstream date: 2021-10-12 17:30:45 +0800
+ * Upstream subject: openthread: add various features(6c40ca6)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleReceivedFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ HandleReceivedFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthr
   uVar2 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
                     (*(MultiFrameBuffer<(unsigned_short)1024> **)(this + 0x40c));
   uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
-  iVar4 = spinel_datatype_unpack(uVar2,uVar3,&_LC33,&bStack_11);
+  iVar4 = spinel_datatype_unpack(uVar2,uVar3,&_LC35,&bStack_11);
   if (((0 < iVar4) && ((char)bStack_11 < '\0')) && (((int)(uint)bStack_11 >> 4 & 3U) == 0)) {
     if ((bStack_11 & 0xf) == 0) {
       HandleNotification(this,(MultiFrameBuffer *)this_00);

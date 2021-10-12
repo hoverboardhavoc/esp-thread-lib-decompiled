@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * Upstream date: 2021-10-12 17:30:45 +0800
+ * Upstream subject: openthread: add various features(6c40ca6)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ HandleResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_m
   bStack_21 = 0;
   auStack_14[0] = 0;
   iVar2 = spinel_datatype_unpack
-                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC52,&bStack_21,auStack_14,
+                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC54,&bStack_21,auStack_14,
                      &uStack_20,&puStack_1c,&uStack_18);
   uVar3 = 6;
   if (0 < iVar2) {

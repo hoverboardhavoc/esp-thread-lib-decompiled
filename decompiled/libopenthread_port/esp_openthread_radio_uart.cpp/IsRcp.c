@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * Upstream date: 2021-10-12 17:30:45 +0800
+ * Upstream subject: openthread: add various features(6c40ca6)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> IsRcp
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,13 +31,13 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
   
   *param_1 = false;
   iStack_9c = 100;
-  iVar3 = Get((ulong)this,(char *)0x5,&_LC9,auStack_94,&iStack_9c);
+  iVar3 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
   if (iVar3 == 0) {
     iVar3 = 0;
     bVar1 = false;
     puVar2 = auStack_94;
     for (; iStack_9c != 0; iStack_9c = iStack_9c - iVar4) {
-      iVar4 = spinel_datatype_unpack(puVar2,&_LC10,&iStack_98);
+      iVar4 = spinel_datatype_unpack(puVar2,&_LC11,&iStack_98);
       if (iVar4 < 1) {
         uVar5 = otExitCodeToString(3);
         uVar6 = 0x13d;
@@ -71,7 +71,7 @@ _L156:
     iVar3 = 3;
   }
   else {
-    iVar3 = Get((ulong)this,(char *)0x5,&_LC9,auStack_94,&iStack_9c);
+    iVar3 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
     uVar6 = 2;
     if (iVar3 != 7) {
       uVar6 = 1;
@@ -80,7 +80,7 @@ _L156:
     _otLogCrit(0xd,"%s() at %s:%d: %s","IsRcp",
                "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x135,
                uVar6);
-    iVar4 = Get((ulong)this,(char *)0x5,&_LC9,auStack_94,&iStack_9c);
+    iVar4 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
     iVar3 = 2;
     if (iVar4 != 7) {
       iVar3 = 1;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * Upstream date: 2021-10-12 17:30:45 +0800
+ * Upstream subject: openthread: add various features(6c40ca6)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> WaitResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -29,6 +29,7 @@ WaitResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mai
   
   uVar2 = otPlatTimeGet();
   uVar1 = (uint)(uVar2 + 2000000 < uVar2) + extraout_a1;
+  _otLogDebg(0xd,"Wait response: tid=%u key=%u",this[0x464],*(undefined4 *)(this + 0x468));
   do {
     uVar4 = otPlatTimeGet();
     if (extraout_a1_00 < uVar1) goto _L0;

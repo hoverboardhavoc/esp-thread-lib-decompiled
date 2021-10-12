@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
+ * Upstream date: 2021-10-12 17:30:45 +0800
+ * Upstream subject: openthread: add various features(6c40ca6)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetMacKey
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,11 +21,11 @@ void otPlatRadioSetMacKey
   
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          SetMacKey(0xd0,param_1,param_2,param_3,param_4);
+          SetMacKey('\b',param_1,param_2,param_3,param_4);
   if (iVar1 != 0) {
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-            SetMacKey(0xd0,param_1,param_2,param_3,param_4);
+            SetMacKey('\b',param_1,param_2,param_3,param_4);
     uVar2 = 2;
     if (iVar1 != 7) {
       uVar2 = 1;
@@ -36,7 +36,7 @@ void otPlatRadioSetMacKey
                ,0xe9,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-            SetMacKey(0xd0,param_1,param_2,param_3,param_4);
+            SetMacKey('\b',param_1,param_2,param_3,param_4);
     __status = 2;
     if (iVar1 != 7) {
       __status = 1;
