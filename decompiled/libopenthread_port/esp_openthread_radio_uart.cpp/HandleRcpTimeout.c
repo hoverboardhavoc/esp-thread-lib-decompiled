@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * Upstream date: 2021-11-03 15:55:12 +0800
+ * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleRcpTimeout
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
   
   uVar1 = otExitCodeToString(6);
   _otLogCrit(0xd,"%s() at %s:%d: %s","HandleRcpTimeout",
-             "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8a9,uVar1
+             "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8aa,uVar1
             );
                     /* WARNING: Subroutine does not return */
   exit(6);

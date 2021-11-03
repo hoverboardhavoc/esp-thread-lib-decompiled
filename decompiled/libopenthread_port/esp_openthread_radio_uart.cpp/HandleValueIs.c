@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * Upstream date: 2021-11-03 15:55:12 +0800
+ * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&local_c0);
     if (iVar1 != 0) goto _L0;
     if (((*(uint *)(this + 0x704) & 1) != 0) || (1 < *(uint *)(this + 0x700))) {
-      if ((char)s_radio == '\0') {
+      if (s_radio == '\0') {
         otPlatRadioReceiveDone(*(undefined4 *)this,(otRadioFrame *)(this + 0x600),0);
       }
       else {
@@ -56,7 +56,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
           uVar2 = otExitCodeToString(4);
           _otLogCrit(0xd,"%s() at %s:%d: %s","HandleRcpUnexpectedReset",
                      "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                     0x89f,uVar2);
+                     0x8a0,uVar2);
                     /* WARNING: Subroutine does not return */
           exit(4);
         }
@@ -76,7 +76,7 @@ _L0:
   }
   else {
     if (param_1 == 0x39) {
-      local_c0 = spinel_datatype_unpack(param_2,iVar1,&_LC60,&uStack_bc,apppuStack_b8);
+      local_c0 = spinel_datatype_unpack(param_2,iVar1,&_LC61,&uStack_bc,apppuStack_b8);
       if (local_c0 < 1) goto _L0;
       otPlatRadioEnergyScanDone(*(undefined4 *)this,(int)(char)apppuStack_b8[0]);
     }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * Upstream date: 2021-11-03 15:55:12 +0800
+ * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> IsRcp
  *
  * (C) Espressif, Apache License 2.0.
@@ -40,7 +40,7 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
       iVar4 = spinel_datatype_unpack(puVar2,&_LC11,&iStack_98);
       if (iVar4 < 1) {
         uVar5 = otExitCodeToString(3);
-        uVar6 = 0x13d;
+        uVar6 = 0x13e;
         goto _L156;
       }
       if (iStack_98 == 0x201) {
@@ -63,7 +63,7 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
     }
     _otLogCrit(0xd,"RCP capability list does not include support for radio/raw mode");
     uVar5 = otExitCodeToString(3);
-    uVar6 = 0x15a;
+    uVar6 = 0x15b;
 _L156:
     _otLogCrit(0xd,"%s() at %s:%d: %s","IsRcp",
                "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",uVar6,
@@ -78,7 +78,7 @@ _L156:
     }
     uVar6 = otExitCodeToString(uVar6);
     _otLogCrit(0xd,"%s() at %s:%d: %s","IsRcp",
-               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x135,
+               "IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x136,
                uVar6);
     iVar4 = Get((ulong)this,(char *)0x5,&_LC10,auStack_94,&iStack_9c);
     iVar3 = 2;

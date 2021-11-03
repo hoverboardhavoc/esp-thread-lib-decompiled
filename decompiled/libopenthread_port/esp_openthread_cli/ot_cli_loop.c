@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * Upstream date: 2021-11-03 15:55:12 +0800
+ * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
  * Source: libopenthread_port -> esp_openthread_cli.o -> ot_cli_loop
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void ot_cli_loop(void)
   size_t sVar2;
   undefined4 local_20 [4];
   
-  memcpy(local_20,&_L0,0x10);
+  memcpy(local_20,&_LANCHOR2,0x10);
   iVar1 = esp_console_init(local_20);
   if (iVar1 != 0) {
                     /* WARNING: Subroutine does not return */
@@ -29,12 +29,12 @@ void ot_cli_loop(void)
   linenoiseSetMaxLineLen(local_20[0]);
   linenoiseAllowEmpty(0);
   do {
-    putchar(0xd);
-    __string = (char *)linenoise(&_LC3);
+    __string = (char *)linenoise(&_LC1);
     if ((__string != (char *)0x0) && (sVar2 = strnlen(__string,0x100), sVar2 != 0)) {
       puts("\r");
       esp_openthread_cli_input(__string);
       linenoiseHistoryAdd(__string);
+      xTaskGenericNotifyWait(0,0,0,0,0xffffffff);
     }
     linenoiseFree(__string);
   } while( true );

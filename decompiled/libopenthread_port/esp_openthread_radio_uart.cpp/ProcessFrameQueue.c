@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
+ * Upstream date: 2021-11-03 15:55:12 +0800
+ * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessFrameQueue
  *
  * (C) Espressif, Apache License 2.0.
@@ -64,7 +64,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
     uStack_3c = 0;
     puStack_38 = (uchar *)0x0;
     iVar3 = spinel_datatype_unpack
-                      (pRVar1,uVar2,&_LC54,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
+                      (pRVar1,uVar2,&_LC55,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
     uVar4 = 6;
     if (((0 < iVar3) && ((bStack_41 & 0xf) == 0)) && (uVar4 = 0, local_34[0] == 6)) {
       HandleValueIs(this,uStack_40,puStack_38,(ushort)uStack_3c);
