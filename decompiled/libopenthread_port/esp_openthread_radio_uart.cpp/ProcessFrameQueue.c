@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * Upstream date: 2021-11-03 15:55:12 +0800
- * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
+ * Last changed at upstream commit 84ba294781572ce5fbba05e95b6ebb22f3981d93
+ * https://github.com/espressif/esp-thread-lib/commit/84ba294781572ce5fbba05e95b6ebb22f3981d93
+ * Upstream date: 2021-11-05 16:42:38 +0800
+ * Upstream subject: cli: add linenoise probing(1c286a5)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessFrameQueue
  *
  * (C) Espressif, Apache License 2.0.
@@ -40,7 +40,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
     if (pRVar1 != (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                    *)0x0) {
       if ((pRVar1 < __dest) || (this + 0x40a <= pRVar1)) {
-        otPlatAssertFail("IDF/components/openthread/openthread/src/lib/hdlc/hdlc.hpp",0x171);
+        otPlatAssertFail("/IDF/components/openthread/openthread/src/lib/hdlc/hdlc.hpp",0x171);
         do {
                     /* WARNING: Do nothing block with infinite loop */
         } while( true );
