@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * Upstream date: 2021-11-03 15:55:12 +0800
- * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_port -> esp_openthread_ncp.cpp.o -> start_ota
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,13 +31,13 @@ undefined4 start_ota(uchar *param_1,ushort param_2)
   s_update_partition = esp_ota_get_next_update_partition(0);
   if (s_update_partition == 0) {
     uVar2 = esp_log_timestamp();
-    uVar1 = 0x2a;
+    uVar1 = 0x28;
     puVar4 = &_LC1;
   }
   else {
     if (CONCAT22(in_register_0000202e,param_2) < 0x120) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","start_ota",0x2d);
+      esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","start_ota",0x2b);
       return 7;
     }
     memcpy(auStack_320,param_1 + 0x20,0x100);
@@ -46,7 +46,7 @@ undefined4 start_ota(uchar *param_1,ushort param_2)
       iVar3 = esp_ota_get_partition_description(uVar2,auStack_120);
       if ((iVar3 == 0) && (iVar3 = strncmp(acStack_110,acStack_310,0x20), iVar3 == 0)) {
         uVar2 = esp_log_timestamp();
-        uVar1 = 0x38;
+        uVar1 = 0x36;
         puVar4 = &_LC4;
       }
       else {
@@ -56,13 +56,13 @@ undefined4 start_ota(uchar *param_1,ushort param_2)
           return 0;
         }
         uVar2 = esp_log_timestamp();
-        uVar1 = 0x3b;
+        uVar1 = 0x39;
         puVar4 = &_LC5;
       }
     }
     else {
       uVar2 = esp_log_timestamp();
-      uVar1 = 0x32;
+      uVar1 = 0x30;
       puVar4 = &_LC3;
     }
   }

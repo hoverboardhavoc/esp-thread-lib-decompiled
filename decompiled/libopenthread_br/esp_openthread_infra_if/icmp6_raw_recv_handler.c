@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,17 +15,17 @@ undefined4 icmp6_raw_recv_handler(int param_1)
 {
   byte bVar1;
   byte bVar2;
-  byte bVar3;
-  int iVar4;
-  char *pcVar5;
-  char *__ptr;
-  undefined4 uVar6;
-  void *pvVar7;
-  undefined4 uVar8;
-  ushort uVar9;
+  int iVar3;
+  ushort uVar4;
   uint __size;
+  char *__ptr;
+  undefined4 uVar5;
+  void *pvVar6;
+  undefined4 uVar7;
+  undefined *puVar8;
+  uint uVar9;
   uint uVar10;
-  uint uVar11;
+  char *pcVar11;
   undefined1 auStack_b4 [16];
   undefined1 uStack_a4;
   undefined1 auStack_a0 [20];
@@ -43,90 +43,93 @@ undefined4 icmp6_raw_recv_handler(int param_1)
   undefined4 uStack_48;
   undefined4 uStack_44;
   
-  uVar9 = *(ushort *)(param_1 + 8);
-  if (0x28 < uVar9) {
-    iVar4 = *(int *)(param_1 + 4);
-    memcpy(auStack_b4,(void *)(iVar4 + 8),0x10);
-    memcpy(auStack_a0,(void *)(iVar4 + 0x18),0x10);
+  uVar4 = *(ushort *)(param_1 + 8);
+  if (0x28 < uVar4) {
+    iVar3 = *(int *)(param_1 + 4);
+    memcpy(auStack_b4,(void *)(iVar3 + 8),0x10);
+    memcpy(auStack_a0,(void *)(iVar3 + 0x18),0x10);
     uStack_a4 = 0;
-    if ((((*(uint *)(iVar4 + 0x18) & 0xff) != 0xff) ||
-        (((*(uint *)(iVar4 + 0x18) == 0x2ff && (*(int *)(iVar4 + 0x1c) == 0)) &&
-         (((*(int *)(iVar4 + 0x20) == 0 && (*(int *)(iVar4 + 0x24) == 0x1000000)) ||
-          ((*(int *)(iVar4 + 0x20) == 0 && (*(int *)(iVar4 + 0x24) == 0x2000000)))))))) &&
-       ((*(char *)(iVar4 + 7) == -1 && (*(char *)(iVar4 + 6) == ':')))) {
-      uVar9 = uVar9 - 0x28;
-      __size = (uint)uVar9;
+    if ((((*(uint *)(iVar3 + 0x18) & 0xff) != 0xff) ||
+        (((*(uint *)(iVar3 + 0x18) == 0x2ff && (*(int *)(iVar3 + 0x1c) == 0)) &&
+         (((*(int *)(iVar3 + 0x20) == 0 && (*(int *)(iVar3 + 0x24) == 0x1000000)) ||
+          ((*(int *)(iVar3 + 0x20) == 0 && (*(int *)(iVar3 + 0x24) == 0x2000000)))))))) &&
+       ((*(char *)(iVar3 + 7) == -1 && (*(char *)(iVar3 + 6) == ':')))) {
+      uVar4 = uVar4 - 0x28;
+      __size = (uint)uVar4;
       __ptr = (char *)malloc(__size);
       if (__ptr == (char *)0x0) {
-        uVar6 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC2,uVar6,"OPENTHREAD");
+        uVar5 = esp_log_timestamp();
+        esp_log_write(1,"OPENTHREAD",&_LC2,uVar5,"OPENTHREAD");
       }
       else {
         pbuf_copy_partial(param_1,__ptr,__size,0x28);
         if ((byte)(*__ptr + 0x7bU) < 2) {
           if (*__ptr == -0x7a) {
-            for (uVar10 = 0x10; uVar10 + 1 < __size; uVar10 = uVar10 + (bVar1 & 0x1f) * 8 & 0xffff)
-            {
-              pcVar5 = __ptr + uVar10;
-              bVar1 = pcVar5[1];
-              if (*pcVar5 == '\x18') {
-                iVar4 = is_self_address(auStack_b4);
-                if (iVar4 == 0) {
-                  bVar2 = pcVar5[3];
-                  bVar3 = pcVar5[2];
-                  uVar6 = esp_log_timestamp();
-                  esp_log_write(3,"OPENTHREAD",&_LC3,uVar6,"OPENTHREAD");
-                  for (uVar11 = 8; uVar11 < ((bVar1 & 0x1f) << 0x13) >> 0x10;
-                      uVar11 = uVar11 + (bVar3 >> 3) & 0xffff) {
+            for (uVar10 = 0x10; uVar10 + 1 < __size; uVar10 = uVar10 + uVar9 & 0xffff) {
+              pcVar11 = __ptr + uVar10;
+              uVar9 = ((byte)pcVar11[1] & 0x1f) * 8;
+              if (*pcVar11 == '\x18') {
+                iVar3 = is_self_address(auStack_b4);
+                if (iVar3 == 0) {
+                  bVar1 = pcVar11[2];
+                  bVar2 = pcVar11[3];
+                  uVar5 = esp_log_timestamp();
+                  esp_log_write(3,"OPENTHREAD",&_LC3,uVar5,"OPENTHREAD");
+                  if ((bVar1 >> 3) + 8 <= uVar9) {
                     uStack_8c = 0;
                     uStack_88 = 0;
                     uStack_84 = 0;
                     uStack_80 = 0;
                     uStack_7c = 0;
-                    memcpy(&uStack_8c,__ptr + uVar11 + uVar10,(uint)(bVar3 >> 3));
+                    memcpy(&uStack_8c,__ptr + uVar10 + 8,(uint)(bVar1 >> 3));
                     uStack_44 = s_netif;
                     memcpy(&uStack_60,auStack_b4,0x14);
-                    uStack_64 = CONCAT31(uStack_64._1_3_,pcVar5[2]);
+                    uStack_64 = CONCAT31(uStack_64._1_3_,pcVar11[2]);
                     memcpy(&uStack_78,&uStack_8c,0x14);
-                    cStack_4c = (bVar2 >> 4 & 1) * -2 + (bVar2 >> 3 & 1);
-                    uStack_48 = lwip_htonl(*(undefined4 *)(pcVar5 + 4));
-                    uVar6 = esp_log_timestamp();
-                    uVar8 = ip6addr_ntoa(&uStack_8c);
-                    esp_log_write(3,"OPENTHREAD",&_LC4,uVar6,"OPENTHREAD",uVar8,uStack_48);
-                    iVar4 = esp_openthread_route_table_add_route_entry(&uStack_78);
-                    if (iVar4 == 0) {
-                      uVar6 = esp_log_timestamp();
-                      esp_log_write(3,"OPENTHREAD",&_LC5,uVar6,"OPENTHREAD");
+                    cStack_4c = (bVar2 >> 3 & 1) + (bVar2 >> 4 & 1) * -2;
+                    uStack_48 = lwip_htonl(*(undefined4 *)(pcVar11 + 4));
+                    uVar5 = esp_log_timestamp();
+                    uVar7 = ip6addr_ntoa(&uStack_8c);
+                    esp_log_write(3,"OPENTHREAD",&_LC4,uVar5,"OPENTHREAD",uVar7,uStack_48);
+                    iVar3 = esp_openthread_route_table_add_route_entry(&uStack_78);
+                    if (iVar3 == 0) {
+                      uVar7 = esp_log_timestamp();
+                      puVar8 = &_LC5;
+                      uVar5 = 3;
+_L0:
+                      esp_log_write(uVar5,"OPENTHREAD",puVar8,uVar7,"OPENTHREAD");
                     }
                   }
                 }
               }
-              else if (*pcVar5 == '\x03') {
-                uVar6 = esp_log_timestamp();
-                esp_log_write(3,"OPENTHREAD",&_LC6,uVar6,"OPENTHREAD");
-                if (pcVar5[3] < '\0') {
+              else if (*pcVar11 == '\x03') {
+                uVar5 = esp_log_timestamp();
+                esp_log_write(3,"OPENTHREAD",&_LC6,uVar5,"OPENTHREAD");
+                if (pcVar11[3] < '\0') {
                   uStack_64 = 0;
                   uStack_60 = 0;
                   uStack_5c = 0;
-                  memcpy(auStack_74,pcVar5 + 0x10,0x10);
+                  memcpy(auStack_74,pcVar11 + 0x10,0x10);
                   uStack_78 = s_netif;
-                  uStack_60 = CONCAT31(uStack_60._1_3_,pcVar5[2]);
-                  uVar6 = lwip_htonl(*(undefined4 *)(pcVar5 + 8));
-                  iVar4 = esp_openthread_route_table_add_onlink_prefix
-                                    (&uStack_78,uVar6,(byte)pcVar5[3] >> 6 & 1);
-                  if (iVar4 != 0) {
-                    uVar6 = esp_log_timestamp();
-                    esp_log_write(1,"OPENTHREAD",&_LC7,uVar6,"OPENTHREAD");
+                  uStack_60 = CONCAT31(uStack_60._1_3_,pcVar11[2]);
+                  uVar5 = lwip_htonl(*(undefined4 *)(pcVar11 + 8));
+                  iVar3 = esp_openthread_route_table_add_onlink_prefix
+                                    (&uStack_78,uVar5,(byte)pcVar11[3] >> 6 & 1);
+                  if (iVar3 != 0) {
+                    uVar7 = esp_log_timestamp();
+                    puVar8 = &_LC7;
+                    uVar5 = 1;
+                    goto _L0;
                   }
                 }
               }
             }
           }
-          pvVar7 = malloc(0x1c);
-          pvVar7 = memcpy(pvVar7,auStack_b4,0x14);
-          *(char **)((int)pvVar7 + 0x14) = __ptr;
-          *(ushort *)((int)pvVar7 + 0x18) = uVar9;
-          esp_openthread_task_queue_post(handle_netif_receive_task,pvVar7);
+          pvVar6 = malloc(0x1c);
+          pvVar6 = memcpy(pvVar6,auStack_b4,0x14);
+          *(char **)((int)pvVar6 + 0x14) = __ptr;
+          *(ushort *)((int)pvVar6 + 0x18) = uVar4;
+          esp_openthread_task_queue_post(handle_netif_receive_task,pvVar6);
         }
         else {
           free(__ptr);

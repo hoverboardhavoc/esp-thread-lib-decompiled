@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e527d6b8e8720c9bde49fec26e19cf437458e3b3
- * https://github.com/espressif/esp-thread-lib/commit/e527d6b8e8720c9bde49fec26e19cf437458e3b3
- * Upstream date: 2021-12-03 11:59:45 +0800
- * Upstream subject: port: aggressively process pending tasks (eb7a7fb)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_port -> esp_openthread_ncp.cpp.o -> otAppNcpInit
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ void otAppNcpInit(Instance *param_1)
   puVar1 = (undefined1 *)ot::Ncp::NcpBase::GetNcpInstance();
   if (puVar1 != s_ncp) {
     otPlatAssertFail("/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_ncp.cpp"
-                     ,0x9b);
+                     ,0x99);
     do {
                     /* WARNING: Do nothing block with infinite loop */
     } while( true );

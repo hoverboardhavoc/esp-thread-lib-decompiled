@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * Upstream date: 2021-11-03 15:55:12 +0800
- * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_host_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -165,8 +165,8 @@ _L0:
     }
     iVar10 = otSrpServerServiceIsDeleted(iVar3);
     if ((iVar10 != 0) &&
-       (iVar10 = mdns_service_remove_for_host(acStack_c8,acStack_164,auStack_150), iVar10 != 0))
-    break;
+       (iVar10 = mdns_service_remove_for_host(acStack_10c,acStack_c8,acStack_164,auStack_150),
+       iVar10 != 0)) break;
 _L0:
   } while ((bool)uVar12 == false);
   uVar12 = 1;

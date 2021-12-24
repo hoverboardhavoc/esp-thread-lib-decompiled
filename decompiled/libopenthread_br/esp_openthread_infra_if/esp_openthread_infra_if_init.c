@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> esp_openthread_infra_if_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,7 @@ int esp_openthread_infra_if_init(int param_1)
   int iVar1;
   undefined1 auStack_28 [28];
   
-  memcpy(auStack_28,&_LANCHOR2,0x18);
+  memcpy(auStack_28,&_L0,0x18);
   iVar1 = 0x103;
   if ((s_raw_pcb == 0) && (iVar1 = 0x102, param_1 != 0)) {
     iVar1 = mld6_joingroup_netif(param_1,auStack_28);

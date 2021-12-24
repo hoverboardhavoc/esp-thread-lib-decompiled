@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 84ba294781572ce5fbba05e95b6ebb22f3981d93
- * https://github.com/espressif/esp-thread-lib/commit/84ba294781572ce5fbba05e95b6ebb22f3981d93
- * Upstream date: 2021-11-05 16:42:38 +0800
- * Upstream subject: cli: add linenoise probing(1c286a5)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRcpApiVersion
  *
  * (C) Espressif, Apache License 2.0.
@@ -29,8 +29,8 @@ CheckRcpApiVersion(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
      (iVar1 = Get((ulong)this,(char *)0xb0,&_LC11,aiStack_14), iVar1 == 0)) {
     _otLogNote(0xd,"RCP API Version: %u",aiStack_14[0]);
     iVar1 = 0;
-    if (aiStack_14[0] != 4) {
-      _otLogCrit(0xd,"RCP API Version %u is not in the supported range [%u-%u]",4,4);
+    if (1 < aiStack_14[0] - 4U) {
+      _otLogCrit(0xd,"RCP API Version %u is not in the supported range [%u-%u]",4,5);
       uVar2 = otExitCodeToString(3);
       _otLogCrit(0xd,"%s() at %s:%d: %s","CheckRcpApiVersion",
                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x19d,

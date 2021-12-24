@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
+ * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
+ * Upstream date: 2021-12-24 17:07:02 +0800
+ * Upstream subject: br: support new mdns interface
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
     if (iVar3 != 1) {
       return 0;
     }
-    mdns_query_async_get_results(local_50,0xffffffff,&pmStack_4c);
+    mdns_query_async_get_results(local_50,0xffffffff,&pmStack_4c,0);
     pmVar1 = pmStack_4c;
     iVar3 = local_50;
     puVar2 = s_pending_queries;
