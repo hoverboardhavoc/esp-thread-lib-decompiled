@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e527d6b8e8720c9bde49fec26e19cf437458e3b3
- * https://github.com/espressif/esp-thread-lib/commit/e527d6b8e8720c9bde49fec26e19cf437458e3b3
- * Upstream date: 2021-12-03 11:59:45 +0800
- * Upstream subject: port: aggressively process pending tasks (eb7a7fb)
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetExtendedAddress
  *
  * (C) Espressif, Apache License 2.0.
@@ -46,7 +46,7 @@ void otPlatRadioSetExtendedAddress(otExtAddress *param_1)
   }
   uVar5 = otExitCodeToString(uVar5);
   _otLogCrit(0xd,"%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
-             "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+             "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
              ,0x51,uVar5);
   iVar2 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::

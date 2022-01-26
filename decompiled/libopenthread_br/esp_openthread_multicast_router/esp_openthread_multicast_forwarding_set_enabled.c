@@ -3,23 +3,19 @@
  * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
  * Upstream date: 2022-01-26 19:30:41 +0800
  * Upstream subject: br: support multicast routing
- * Source: libopenthread_port -> esp_openthread_udp.o -> udp_bind_netif_task
+ * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forwarding_set_enabled
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void udp_bind_netif_task(undefined4 *param_1)
+void esp_openthread_multicast_forwarding_set_enabled(undefined1 param_1)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  
-  uVar1 = param_1[1];
-  uVar2 = netif_get_by_index(*(undefined1 *)(param_1 + 2));
-  udp_bind_netif(uVar1,uVar2);
-  xTaskGenericNotify(*param_1,0,0,2,0);
+  fence();
+  s_multicast_forwarding_enabled = param_1;
+  fence();
   return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,10 +16,12 @@ int esp_openthread_border_router_init(void)
   int iVar1;
   undefined1 uVar2;
   undefined4 uVar3;
+  undefined4 uVar4;
+  undefined *puVar5;
   
   if (s_backbone_netif == 0) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC1,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x38);
+    esp_log_write(1,"OPENTHREAD",&_LC3,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x52);
     iVar1 = 0x103;
   }
   else {
@@ -28,22 +30,37 @@ int esp_openthread_border_router_init(void)
     if (iVar1 == 0) {
       esp_openthread_get_instance();
       iVar1 = otSetStateChangedCallback(0x10000,0);
-      if (iVar1 == 0) {
-        uVar2 = esp_netif_get_netif_impl_index(s_backbone_netif);
-        netif_get_by_index(uVar2);
-        iVar1 = esp_openthread_infra_if_init();
-        return iVar1;
+      if (iVar1 != 0) {
+        uVar3 = esp_log_timestamp();
+        esp_log_write(1,"OPENTHREAD",&_LC5,uVar3,"OPENTHREAD","esp_openthread_border_router_init",
+                      0x58);
+        return -1;
       }
-      uVar3 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC3,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x3e
-                   );
-      iVar1 = -1;
+      uVar2 = esp_netif_get_netif_impl_index(s_backbone_netif);
+      netif_get_by_index(uVar2);
+      iVar1 = esp_openthread_infra_if_init();
+      if (iVar1 == 0) {
+        iVar1 = esp_openthread_multicast_router_init();
+        if (iVar1 == 0) {
+          return 0;
+        }
+        uVar4 = esp_log_timestamp();
+        uVar3 = 0x5e;
+        puVar5 = &_LC7;
+      }
+      else {
+        uVar4 = esp_log_timestamp();
+        uVar3 = 0x5c;
+        puVar5 = &_LC6;
+      }
     }
     else {
-      uVar3 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC2,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x3b
-                   );
+      uVar4 = esp_log_timestamp();
+      uVar3 = 0x55;
+      puVar5 = &_LC4;
     }
+    esp_log_write(1,"OPENTHREAD",puVar5,uVar4,"OPENTHREAD","esp_openthread_border_router_init",uVar3
+                 );
   }
   return iVar1;
 }

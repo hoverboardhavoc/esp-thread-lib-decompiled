@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
- * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
- * Upstream date: 2021-12-24 17:07:02 +0800
- * Upstream subject: br: support new mdns interface
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchShortEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ void otPlatRadioAddSrcMatchShortEntry
   uStack_c = param_3;
   uStack_8 = param_4;
   uStack_4 = param_5;
-  if (DAT_00013224 != '\0') {
+  if (cRam00013224 != '\0') {
     pcVar2 = (char *)0x0;
     this = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
            __assert_func(0,0,0,0);

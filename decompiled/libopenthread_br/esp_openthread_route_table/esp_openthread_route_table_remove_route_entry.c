@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_remove_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,25 +13,29 @@
 undefined4 esp_openthread_route_table_remove_route_entry(char *param_1)
 
 {
-  void *pvVar1;
+  int *piVar1;
+  undefined4 uVar2;
   
   if (param_1 < s_route_entries) {
-    return 0x102;
+    uVar2 = 0x102;
   }
-  if (param_1 <= "OPENTHREAD") {
-    param_1[0x34] = '\0';
-    param_1[0x35] = '\0';
-    param_1[0x36] = '\0';
-    param_1[0x37] = '\0';
-    do {
-      if (s_route_entries + 0x1f8 <= param_1) {
-        return 0;
-      }
-      pvVar1 = memcpy(param_1,param_1 + 0x38,0x38);
-      param_1 = param_1 + 0x38;
-    } while (*(int *)((int)pvVar1 + 0x34) != 0);
-    return 0;
+  else {
+    uVar2 = 0x102;
+    if (param_1 < "PENTHREAD") {
+      sys_untimeout(route_timeout_handler,param_1);
+      param_1[0x34] = '\0';
+      param_1[0x35] = '\0';
+      param_1[0x36] = '\0';
+      param_1[0x37] = '\0';
+      do {
+        if (s_route_entries + 0x1f8 <= param_1) break;
+        memcpy(param_1,param_1 + 0x38,0x38);
+        piVar1 = (int *)(param_1 + 0x34);
+        param_1 = param_1 + 0x38;
+      } while (*piVar1 != 0);
+      uVar2 = 0;
+    }
   }
-  return 0x102;
+  return uVar2;
 }
 

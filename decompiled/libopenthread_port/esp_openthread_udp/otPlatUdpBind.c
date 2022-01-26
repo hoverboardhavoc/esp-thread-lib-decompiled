@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_port -> esp_openthread_udp.o -> otPlatUdpBind
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,7 +26,7 @@ bool otPlatUdpBind(void *param_1)
   uStack_30 = *(undefined4 *)((int)param_1 + 0x2c);
   uStack_14 = *(undefined2 *)((int)param_1 + 0x10);
   uVar1 = esp_log_timestamp();
-  esp_log_write(3,"OPENTHREAD",&_LC5,uVar1,"OPENTHREAD",*(undefined2 *)((int)param_1 + 0x10));
+  esp_log_write(3,"OPENTHREAD",&_LC7,uVar1,"OPENTHREAD",*(undefined2 *)((int)param_1 + 0x10));
   uStack_18 = 0x2e;
   memcpy(auStack_2c,param_1,0x10);
   tcpip_callback(udp_bind_task,&uStack_34);

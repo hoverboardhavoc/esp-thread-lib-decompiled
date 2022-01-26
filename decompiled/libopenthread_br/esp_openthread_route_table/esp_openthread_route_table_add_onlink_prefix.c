@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
+ * Upstream date: 2022-01-26 19:30:41 +0800
+ * Upstream subject: br: support multicast routing
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_onlink_prefix
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,19 +44,19 @@ undefined4 esp_openthread_route_table_add_onlink_prefix(int *param_1,int param_2
         iVar3 = iVar1 * 0x20;
         __dest = &s_on_link_prefixes + iVar1 * 8;
         memcpy(__dest,param_1,0x20);
-        if (((&DAT_0001053c)[iVar1 * 8] & 0xc0ff) == 0x80fe) {
+        if (((&DAT_00010550)[iVar1 * 8] & 0xc0ff) == 0x80fe) {
           cVar4 = *(char *)(*param_1 + 0x196) + '\x01';
         }
         else {
           cVar4 = '\0';
         }
-        (&DAT_0001054c)[iVar3] = cVar4;
+        (&DAT_00010560)[iVar3] = cVar4;
         if ((param_3 != 0) && (*(char *)(iVar6 + 0x197) != '\0')) {
-          (&DAT_00010544)[iVar3] = *(byte *)(iVar6 + 0x18c) ^ 2;
-          (&DAT_00010545)[iVar3] = *(undefined1 *)(iVar6 + 0x18d);
-          (&DAT_00010546)[iVar1 * 0x10] = 0xf3ff;
-          memcpy(&DAT_00010548 + iVar3,(void *)(iVar6 + 0x18e),4);
-          iVar1 = netif_add_ip6_address(iVar6,&DAT_0001053c + iVar1 * 8,0);
+          (&DAT_00010558)[iVar3] = *(byte *)(iVar6 + 0x18c) ^ 2;
+          (&DAT_00010559)[iVar3] = *(undefined1 *)(iVar6 + 0x18d);
+          (&DAT_0001055a)[iVar1 * 0x10] = 0xf3ff;
+          memcpy(&DAT_0001055c + iVar3,(void *)(iVar6 + 0x18e),4);
+          iVar1 = netif_add_ip6_address(iVar6,&DAT_00010550 + iVar1 * 8,0);
           if (iVar1 != 0) {
             uVar5 = esp_log_timestamp();
             esp_log_write(1,"OPENTHREAD",&_LC1,uVar5,"OPENTHREAD");
