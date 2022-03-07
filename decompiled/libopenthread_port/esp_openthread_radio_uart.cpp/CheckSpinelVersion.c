@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 84ba294781572ce5fbba05e95b6ebb22f3981d93
- * https://github.com/espressif/esp-thread-lib/commit/84ba294781572ce5fbba05e95b6ebb22f3981d93
- * Upstream date: 2021-11-05 16:42:38 +0800
- * Upstream subject: cli: add linenoise probing(1c286a5)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckSpinelVersion
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,17 +21,17 @@ CheckSpinelVersion(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
 {
   int iVar1;
   undefined4 uVar2;
-  int iStack_18;
-  int aiStack_14 [4];
+  int local_18;
+  int local_14 [4];
   
-  iVar1 = Get((ulong)this,(char *)0x1,&_LC8,&iStack_18,aiStack_14);
+  iVar1 = Get((ulong)this,(char *)0x1,&_LC9,&local_18,local_14);
   if (iVar1 == 0) {
-    if ((iStack_18 != 4) || (aiStack_14[0] != 3)) {
-      _otLogCrit(0xd,"Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3);
+    if ((local_18 != 4) || (local_14[0] != 3)) {
+      otLogCritPlat("Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3);
       uVar2 = otExitCodeToString(3);
-      _otLogCrit(0xd,"%s() at %s:%d: %s","CheckSpinelVersion",
-                 "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x124,
-                 uVar2);
+      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+                    "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",300
+                    ,uVar2);
                     /* WARNING: Subroutine does not return */
       exit(3);
     }

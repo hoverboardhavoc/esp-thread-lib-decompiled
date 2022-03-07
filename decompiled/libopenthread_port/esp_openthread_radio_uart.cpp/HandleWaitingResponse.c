@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleWaitingResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ HandleWaitingResponse
   
   uVar4 = CONCAT22(in_register_0000203a,param_4);
   if (param_2 == 0) {
-    iVar1 = spinel_datatype_unpack(&_LC11,apSStack_14);
+    iVar1 = spinel_datatype_unpack(&_LC12,apSStack_14);
     if (0 < iVar1) {
       uVar4 = SpinelStatusToOtError(apSStack_14[0],extraout_a1);
 _L0:
@@ -46,7 +46,7 @@ _L0:
   else {
     if (param_2 == 0x3bc0) {
       if ((*(int *)(this + 0x708) == 0) ||
-         (iVar1 = spinel_datatype_unpack_in_place(&_LC24,this + 0x70c), 0 < iVar1)) goto _L0;
+         (iVar1 = spinel_datatype_unpack_in_place(&_LC25,this + 0x70c), 0 < iVar1)) goto _L0;
       goto _L0;
     }
     if (*(ulong *)(this + 0x468) == param_2) {

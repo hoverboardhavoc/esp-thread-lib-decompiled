@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RequestV
  *
  * (C) Espressif, Apache License 2.0.
@@ -58,7 +58,7 @@ RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloo
       this[0x464] = RVar1;
       uVar3 = otPlatTimeGet();
       uVar2 = (uint)(uVar3 + 2000000 < uVar3) + extraout_a1;
-      _otLogDebg(0xd,"Wait response: tid=%u key=%u",this[0x464],*(undefined4 *)(this + 0x468));
+      otLogDebgPlat("Wait response: tid=%u key=%u",this[0x464],*(undefined4 *)(this + 0x468));
       do {
         uVar6 = otPlatTimeGet();
         if (extraout_a1_00 < uVar2) goto _L0;

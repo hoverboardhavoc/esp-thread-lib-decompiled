@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * Upstream date: 2021-11-03 15:55:12 +0800
- * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,9 +19,9 @@ HandleResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_m
                *this,uchar *param_1,ushort param_2)
 
 {
-  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar1;
-  int iVar2;
+  int iVar1;
   undefined2 in_register_00002032;
+  RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> RVar2;
   undefined4 uVar3;
   byte bStack_21;
   ulong uStack_20;
@@ -33,37 +33,35 @@ HandleResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_m
   uStack_18 = 0;
   bStack_21 = 0;
   auStack_14[0] = 0;
-  iVar2 = spinel_datatype_unpack
-                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC55,&bStack_21,auStack_14,
+  iVar1 = spinel_datatype_unpack
+                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC56,&bStack_21,auStack_14,
                      &uStack_20,&puStack_1c,&uStack_18);
   uVar3 = 6;
-  if (0 < iVar2) {
+  if (0 < iVar1) {
     if (auStack_14[0] - 6 < 3) {
-      if (this[0x464] ==
-          (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
-          (bStack_21 & 0xf)) {
+      RVar2 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
+              (bStack_21 & 0xf);
+      if (this[0x464] == RVar2) {
         HandleWaitingResponse(this,auStack_14[0],uStack_20,puStack_1c,(ushort)uStack_18);
-        RVar1 = this[0x464];
+        RVar2 = this[0x464];
         this[0x464] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                        )0x0;
-        *(ushort *)(this + 0x460) = ~(ushort)(1 << ((byte)RVar1 & 0x1f)) & *(ushort *)(this + 0x460)
+        *(ushort *)(this + 0x460) = ~(ushort)(1 << ((byte)RVar2 & 0x1f)) & *(ushort *)(this + 0x460)
         ;
       }
       else {
-        if (this[0x463] !=
-            (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>)
-            (bStack_21 & 0xf)) {
-          _otLogWarn(0xd,"Unexpected Spinel transaction message: %u");
+        if (this[0x463] != RVar2) {
+          otLogWarnPlat("Unexpected Spinel transaction message: %u",RVar2);
           uVar3 = 2;
           goto _L0;
         }
         if (*(int *)(this + 0x700) == 3) {
           HandleTransmitDone(this,auStack_14[0],uStack_20,puStack_1c,(ushort)uStack_18);
         }
-        RVar1 = this[0x463];
+        RVar2 = this[0x463];
         this[0x463] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                        )0x0;
-        *(ushort *)(this + 0x460) = ~(ushort)(1 << ((byte)RVar1 & 0x1f)) & *(ushort *)(this + 0x460)
+        *(ushort *)(this + 0x460) = ~(ushort)(1 << ((byte)RVar2 & 0x1f)) & *(ushort *)(this + 0x460)
         ;
       }
       uVar3 = 0;

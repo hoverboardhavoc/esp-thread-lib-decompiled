@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntries
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,22 +19,22 @@ void otPlatRadioClearSrcMatchExtEntries(void)
   
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                    (0x12dc0,(char *)0x1305,0);
+                    (0x12d78,(char *)0x1305,0);
   if (iVar1 != 0) {
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                      (0x12dc0,(char *)0x1305,0);
+                      (0x12d78,(char *)0x1305,0);
     uVar2 = 2;
     if (iVar1 != 7) {
       uVar2 = 1;
     }
     uVar2 = otExitCodeToString(uVar2);
-    _otLogCrit(0xd,"%s() at %s:%d: %s","otPlatRadioClearSrcMatchExtEntries",
-               "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
-               ,0xbc,uVar2);
+    otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+                  "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  ,0xbc,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                      (0x12dc0,(char *)0x1305,0);
+                      (0x12d78,(char *)0x1305,0);
     __status = 2;
     if (iVar1 != 7) {
       __status = 1;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
- * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
- * Upstream date: 2021-12-24 17:07:02 +0800
- * Upstream subject: br: support new mdns interface
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRcpApiVersion
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,15 +26,15 @@ CheckRcpApiVersion(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   
   aiStack_14[0] = 1;
   if ((CONCAT31(in_register_0000202d,param_1) == 0) ||
-     (iVar1 = Get((ulong)this,(char *)0xb0,&_LC11,aiStack_14), iVar1 == 0)) {
-    _otLogNote(0xd,"RCP API Version: %u",aiStack_14[0]);
+     (iVar1 = Get((ulong)this,(char *)0xb0,&_LC12,aiStack_14), iVar1 == 0)) {
+    otLogNotePlat("RCP API Version: %u",aiStack_14[0]);
     iVar1 = 0;
     if (1 < aiStack_14[0] - 4U) {
-      _otLogCrit(0xd,"RCP API Version %u is not in the supported range [%u-%u]",4,5);
+      otLogCritPlat("RCP API Version %u is not in the supported range [%u-%u]",4,5);
       uVar2 = otExitCodeToString(3);
-      _otLogCrit(0xd,"%s() at %s:%d: %s","CheckRcpApiVersion",
-                 "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x19d,
-                 uVar2);
+      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+                    "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
+                    0x1a5,uVar2);
                     /* WARNING: Subroutine does not return */
       exit(3);
     }

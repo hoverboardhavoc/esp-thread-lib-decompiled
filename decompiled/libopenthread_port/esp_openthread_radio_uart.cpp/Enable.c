@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 06ac9b875d9791f909572a74898757410582e76c
- * https://github.com/espressif/esp-thread-lib/commit/06ac9b875d9791f909572a74898757410582e76c
- * Upstream date: 2021-10-11 18:13:07 +0800
- * Upstream subject: openthread: update openthread(eb1de3d)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Enable
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ Enable(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_
     }
     else {
       uVar2 = otThreadErrorToString();
-      _otLogWarn(0xd,"RadioSpinel enable: %s",uVar2);
+      otLogWarnPlat("RadioSpinel enable: %s",uVar2);
       uVar2 = 1;
     }
     return uVar2;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 84ba294781572ce5fbba05e95b6ebb22f3981d93
- * https://github.com/espressif/esp-thread-lib/commit/84ba294781572ce5fbba05e95b6ebb22f3981d93
- * Upstream date: 2021-11-05 16:42:38 +0800
- * Upstream subject: cli: add linenoise probing(1c286a5)
+ * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
+ * Upstream date: 2022-03-07 14:30:05 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessFrameQueue
  *
  * (C) Espressif, Apache License 2.0.
@@ -40,7 +40,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
     if (pRVar1 != (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                    *)0x0) {
       if ((pRVar1 < __dest) || (this + 0x40a <= pRVar1)) {
-        otPlatAssertFail("/IDF/components/openthread/openthread/src/lib/hdlc/hdlc.hpp",0x171);
+        otPlatAssertFail("/IDF/components/openthread/openthread/src/lib/hdlc/hdlc.hpp",0x172);
         do {
                     /* WARNING: Do nothing block with infinite loop */
         } while( true );
@@ -64,7 +64,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
     uStack_3c = 0;
     puStack_38 = (uchar *)0x0;
     iVar3 = spinel_datatype_unpack
-                      (pRVar1,uVar2,&_LC55,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
+                      (pRVar1,uVar2,&_LC56,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
     uVar4 = 6;
     if (((0 < iVar3) && ((bStack_41 & 0xf) == 0)) && (uVar4 = 0, local_34[0] == 6)) {
       HandleValueIs(this,uStack_40,puStack_38,(ushort)uStack_3c);
