@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
+ * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
+ * Upstream date: 2022-04-26 15:33:17 +0800
+ * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_post_attach
  *
  * (C) Espressif, Apache License 2.0.
@@ -62,48 +62,48 @@ int openthread_netif_post_attach(undefined4 param_1,int param_2)
                   return iVar1;
                 }
                 uVar3 = esp_log_timestamp();
-                uVar2 = 0xe9;
+                uVar2 = 0xea;
                 puVar4 = &_LC22;
               }
               else {
                 uVar3 = esp_log_timestamp();
-                uVar2 = 0xe6;
+                uVar2 = 0xe7;
                 puVar4 = &_LC21;
               }
             }
             else {
               uVar3 = esp_log_timestamp();
-              uVar2 = 0xe3;
+              uVar2 = 0xe4;
               puVar4 = &_LC20;
             }
           }
           else {
             uVar3 = esp_log_timestamp();
-            uVar2 = 0xe0;
+            uVar2 = 0xe1;
             puVar4 = &_LC19;
           }
         }
         else {
           uVar3 = esp_log_timestamp();
-          uVar2 = 0xdd;
+          uVar2 = 0xde;
           puVar4 = &_LC18;
         }
       }
       else {
         uVar3 = esp_log_timestamp();
-        uVar2 = 0xda;
+        uVar2 = 0xdb;
         puVar4 = &_LC17;
       }
     }
     else {
       uVar3 = esp_log_timestamp();
-      uVar2 = 0xd7;
+      uVar2 = 0xd8;
       puVar4 = &_LC16;
     }
   }
   else {
     uVar3 = esp_log_timestamp();
-    uVar2 = 0xd4;
+    uVar2 = 0xd5;
     puVar4 = &_LC15;
   }
   esp_log_write(1,"OPENTHREAD",puVar4,uVar3,"OPENTHREAD","register_openthread_event_handlers",uVar2)

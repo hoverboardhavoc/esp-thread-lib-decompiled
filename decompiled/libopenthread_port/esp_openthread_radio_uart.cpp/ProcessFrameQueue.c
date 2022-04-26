@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
- * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
- * Upstream date: 2022-03-07 14:30:05 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
+ * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
+ * Upstream date: 2022-04-26 15:33:17 +0800
+ * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessFrameQueue
  *
  * (C) Espressif, Apache License 2.0.
@@ -64,7 +64,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
     uStack_3c = 0;
     puStack_38 = (uchar *)0x0;
     iVar3 = spinel_datatype_unpack
-                      (pRVar1,uVar2,&_LC56,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
+                      (pRVar1,uVar2,&_LC55,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
     uVar4 = 6;
     if (((0 < iVar3) && ((bStack_41 & 0xf) == 0)) && (uVar4 = 0, local_34[0] == 6)) {
       HandleValueIs(this,uStack_40,puStack_38,(ushort)uStack_3c);

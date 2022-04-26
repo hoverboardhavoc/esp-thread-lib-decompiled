@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
- * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
- * Upstream date: 2022-03-07 14:30:05 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
+ * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
+ * Upstream date: 2022-04-26 15:33:17 +0800
+ * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> esp_openthread_radio_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,70 +20,70 @@ void * esp_openthread_radio_process(void)
   uint extraout_a1;
   undefined4 *puVar3;
   
-  if (DAT_00013184 != &s_radio) {
+  if (DAT_0001319c != &s_radio) {
     ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
     ::ProcessFrameQueue((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                          *)&s_radio);
   }
-  esp::openthread::UartSpinelInterface::Process((esp_openthread_mainloop_context_t *)&DAT_00013188);
-  if (DAT_00013184 != &s_radio) {
+  esp::openthread::UartSpinelInterface::Process((esp_openthread_mainloop_context_t *)&DAT_000131a0);
+  if (DAT_0001319c != &s_radio) {
     ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
     ::ProcessFrameQueue((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                          *)&s_radio);
   }
-  if (DAT_00013478 == 4) {
-    DAT_00013488 = 0xffffffff;
-    DAT_00013478 = 2;
-    DAT_0001348c = 0xffffffff;
+  if (DAT_00013490 == 4) {
+    DAT_000134a0 = 0xffffffff;
+    DAT_00013490 = 2;
+    DAT_000134a4 = 0xffffffff;
     puVar3 = (undefined4 *)0x0;
-    if (DAT_000133bc != 0) {
-      puVar3 = &DAT_000133b8;
+    if (DAT_000133d4 != 0) {
+      puVar3 = &DAT_000133d0;
     }
-    if (DAT_0001347c._1_1_ == '\0') {
-      otPlatRadioTxDone(s_radio,DAT_000133d8,puVar3);
+    if (DAT_00013494._1_1_ == '\0') {
+      otPlatRadioTxDone(s_radio,DAT_000133f0,puVar3);
     }
     else {
-      otPlatDiagRadioTransmitDone(DAT_000133ec);
+      otPlatDiagRadioTransmitDone(DAT_00013404);
     }
   }
-  else if (((DAT_00013478 == 3) && (uVar2 = otPlatTimeGet(), DAT_0001348c <= extraout_a1)) &&
-          ((DAT_0001348c != extraout_a1 || (DAT_00013488 <= uVar2)))) {
+  else if (((DAT_00013490 == 3) && (uVar2 = otPlatTimeGet(), DAT_000134a4 <= extraout_a1)) &&
+          ((DAT_000134a4 != extraout_a1 || (DAT_000134a0 <= uVar2)))) {
     otLogWarnPlat("radio tx timeout");
     ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
     ::HandleRcpTimeout();
-    DAT_00013184 = (undefined4 *)&DAT_00012d82;
-    DAT_00012d7c = &DAT_00012d86;
-    DAT_00012d80 = 0x3fc;
+    DAT_0001319c = (undefined4 *)0x12d9a;
+    uRam00012d94 = 0x12d9e;
+    uRam00012d98 = 0x3fc;
     s_radio = 0;
     ot::Hdlc::MultiFrameBuffer<(unsigned_short)1024>::SetSkipLength
-              ((MultiFrameBuffer<(unsigned_short)1024> *)&DAT_00012d7c,0);
+              ((MultiFrameBuffer<(unsigned_short)1024> *)0x12d94,0);
     esp::openthread::UartSpinelInterface::UartSpinelInterface
-              ((UartSpinelInterface *)&DAT_00013188,
+              ((UartSpinelInterface *)&DAT_000131a0,
                ot::Spinel::
                RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-               HandleReceivedFrame,&s_radio,(MultiFrameBuffer *)&DAT_00012d7c);
-    _DAT_000131d8 = 0x10000;
-    DAT_000133e4 = 0xffff0000;
-    DAT_0001347c._0_2_ = (ushort)DAT_0001347c & 0xf0;
-    DAT_0001348c = 0xffffffff;
-    DAT_00013494 = 0xffffffff;
-    DAT_000131dc = 0;
-    DAT_000131e0 = 0;
-    DAT_000131e4 = 0;
-    DAT_000131ec = 0;
-    DAT_000131f0 = 0;
-    DAT_000133d8 = 0;
-    _DAT_000133e8 = 0;
-    DAT_000133ea = 0;
-    DAT_00013478 = 0;
-    DAT_00013480 = 0;
-    DAT_00013484 = 0;
-    DAT_00013488 = 0xffffffff;
-    DAT_00013490 = 0xffffffff;
+               HandleReceivedFrame,&s_radio,(MultiFrameBuffer *)0x12d94);
+    _DAT_000131f0 = 0x10000;
+    uRam000133fc = 0xffff0000;
+    DAT_00013494._0_2_ = (ushort)DAT_00013494 & 0xf0;
+    DAT_000134a4 = 0xffffffff;
+    uRam000134ac = 0xffffffff;
+    uRam000131f4 = 0;
+    uRam000131f8 = 0;
+    uRam000131fc = 0;
+    uRam00013204 = 0;
+    uRam00013208 = 0;
+    DAT_000133f0 = 0;
+    _DAT_00013400 = 0;
+    uRam00013402 = 0;
+    DAT_00013490 = 0;
     DAT_00013498 = 0;
     DAT_0001349c = 0;
-    pvVar1 = memset(&DAT_000134a0,0x1e,0x10);
-    DAT_000133f0 = 0;
+    DAT_000134a0 = 0xffffffff;
+    uRam000134a8 = 0xffffffff;
+    uRam000134b0 = 0;
+    uRam000134b4 = 0;
+    pvVar1 = memset((void *)0x134b8,0x1e,0x10);
+    DAT_00013408 = 0;
     return pvVar1;
   }
   ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::

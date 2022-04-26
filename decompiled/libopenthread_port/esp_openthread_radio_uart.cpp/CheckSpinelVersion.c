@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
- * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
- * Upstream date: 2022-03-07 14:30:05 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
+ * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
+ * Upstream date: 2022-04-26 15:33:17 +0800
+ * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckSpinelVersion
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,12 +24,12 @@ CheckSpinelVersion(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   int local_18;
   int local_14 [4];
   
-  iVar1 = Get((ulong)this,(char *)0x1,&_LC9,&local_18,local_14);
+  iVar1 = Get((ulong)this,(char *)0x1,&_LC8,&local_18,local_14);
   if (iVar1 == 0) {
     if ((local_18 != 4) || (local_14[0] != 3)) {
       otLogCritPlat("Spinel version mismatch - Posix:%d.%d, RCP:%d.%d",4,3);
       uVar2 = otExitCodeToString(3);
-      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+      otLogCritPlat("%s() at %s:%d: %s","CheckSpinelVersion",
                     "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",300
                     ,uVar2);
                     /* WARNING: Subroutine does not return */

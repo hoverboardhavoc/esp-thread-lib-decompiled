@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * https://github.com/espressif/esp-thread-lib/commit/48d9b2a2ccceb75b01cf48d3ad57fabe5f17bf80
- * Upstream date: 2021-09-14 15:31:21 +0800
- * Upstream subject: OpenThread: update openthread submodule to 71bc37b(e82fe0d)
+ * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
+ * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
+ * Upstream date: 2022-04-26 15:33:17 +0800
+ * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x182);
+                    "esp_openthread_discovery_delegate_init",0x183);
       uVar1 = 0xffffffff;
     }
     else {
@@ -34,14 +34,14 @@ undefined4 esp_openthread_discovery_delegate_init(void)
       }
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x185);
+                    "esp_openthread_discovery_delegate_init",0x186);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
-                  0x180);
+                  0x181);
     uVar1 = 0x102;
   }
   return uVar1;
