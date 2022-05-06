@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> WaitForFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -46,7 +46,7 @@ uint esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
   uVar1 = select(uVar1 + 1,(fd_set *)local_30,(fd_set *)0x0,(fd_set *)local_28,&tStack_38);
   if ((int)uVar1 < 1) {
     uVar2 = 0x1c;
-joined_r0x00010730:
+joined_r0x00010734:
     if (uVar1 != 0) {
       iVar3 = TryRecoverUart(in_a0);
       uVar2 = 1;
@@ -63,7 +63,7 @@ joined_r0x00010730:
       if ((local_30[uVar1 >> 5] & uVar2) == 0) {
         uVar2 = uVar2 & local_28[uVar1 >> 5];
         uVar1 = uVar2;
-        goto joined_r0x00010730;
+        goto joined_r0x00010734;
       }
       TryReadAndDecode(in_a0);
     }

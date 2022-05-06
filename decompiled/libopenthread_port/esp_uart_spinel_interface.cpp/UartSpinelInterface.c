@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 852eceaf38f6d6304f3b446a4a26f861389f83be
- * https://github.com/espressif/esp-thread-lib/commit/852eceaf38f6d6304f3b446a4a26f861389f83be
- * Upstream date: 2021-07-06 14:49:24 +0800
- * Upstream subject: openthread: make queue size and partition configurable
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> UartSpinelInterface
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,6 +25,7 @@ esp::openthread::UartSpinelInterface::UartSpinelInterface
   ot::Hdlc::Decoder::Decoder
             ((Decoder *)(this + 0xc),(FrameWritePointer *)param_3,HandleHdlcFrame,this);
   *(undefined4 *)(this + 0x4c) = 0xffffffff;
+  *(undefined4 *)(this + 0x50) = 0;
   return;
 }
 

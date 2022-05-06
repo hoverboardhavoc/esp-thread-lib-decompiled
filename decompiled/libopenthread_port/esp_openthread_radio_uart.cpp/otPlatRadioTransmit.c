@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
- * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
- * Upstream date: 2022-04-26 15:33:17 +0800
- * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioTransmit
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,25 +17,25 @@ int otPlatRadioTransmit(int param_1)
   uint uVar2;
   int extraout_a1;
   
-  if (DAT_00013490 != 2) {
-    if (DAT_00013490 != 1) {
+  if (DAT_000143c8 != 2) {
+    if (DAT_000143c8 != 1) {
       return 0xd;
     }
-    if ((DAT_00013400 & 0x10) == 0) {
+    if ((DAT_00014338 & 0x10) == 0) {
       return 0xd;
     }
   }
-  DAT_000133f0 = param_1;
+  DAT_00014328 = param_1;
   otPlatRadioTxStarted(s_radio);
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Request(0x12d90,3,(char *)0x71);
+          Request(0x13cc8,3,(char *)0x71);
   if (iVar1 == 0) {
-    DAT_00013490 = 3;
+    DAT_000143c8 = 3;
     uVar2 = otPlatTimeGet();
-    DAT_000134a0 = uVar2 + 5000000;
-    DAT_000134a4 = (uint)(DAT_000134a0 < uVar2) + extraout_a1;
-    DAT_00013401 = *(undefined1 *)(DAT_000133f0 + 6);
+    DAT_00014480 = uVar2 + 5000000;
+    DAT_00014484 = (uint)(DAT_00014480 < uVar2) + extraout_a1;
+    DAT_00014339 = *(undefined1 *)(DAT_00014328 + 6);
   }
   return iVar1;
 }

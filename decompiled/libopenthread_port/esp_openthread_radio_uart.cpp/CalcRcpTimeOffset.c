@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
- * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
- * Upstream date: 2022-04-26 15:33:17 +0800
- * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CalcRcpTimeOffset
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,14 +32,14 @@ CalcRcpTimeOffset(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
   
   if ((*(uint *)(this + 0x704) >> 3 & 1) != 0) {
     uVar3 = otPlatTimeGet();
-    if ((extraout_a1_01 < *(uint *)(this + 0x71c)) ||
-       ((*(uint *)(this + 0x71c) == extraout_a1_01 && (uVar3 < *(uint *)(this + 0x718))))) {
+    if ((extraout_a1_01 < *(uint *)(this + 0x7c4)) ||
+       ((*(uint *)(this + 0x7c4) == extraout_a1_01 && (uVar3 < *(uint *)(this + 0x7c0))))) {
       iVar6 = 0;
       goto _L0;
     }
   }
   otLogDebgPlat("Trying to get RCP time offset");
-  pcVar2 = (char *)spinel_datatype_pack(auStack_28,8,&_LC31,0,0);
+  pcVar2 = (char *)spinel_datatype_pack(auStack_28,8,&_LC19,0,0);
   iVar6 = 3;
   if (pcVar2 + -1 < (char *)0x8) {
     uVar3 = otPlatTimeGet();
@@ -49,18 +49,18 @@ CalcRcpTimeOffset(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
       uVar5 = uVar4 >> 1 | extraout_a1_00 << 0x1f;
       uVar3 = (uVar3 >> 1 | extraout_a1 << 0x1f) + uVar5;
       iVar1 = -uVar3;
-      *(int *)(this + 0x720) = iVar1;
+      *(int *)(this + 0x7c8) = iVar1;
       this[0x704] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                      )((byte)this[0x704] | 8);
-      *(uint *)(this + 0x724) =
+      *(uint *)(this + 0x7cc) =
            -(uint)(iVar1 != 0) -
            ((uint)(uVar3 < uVar5) + (extraout_a1 >> 1) + (extraout_a1_00 >> 1));
-      *(uint *)(this + 0x718) = uVar4 + 60000000;
-      *(uint *)(this + 0x71c) = (uVar4 + 60000000 < uVar4) + extraout_a1_00;
+      *(uint *)(this + 0x7c0) = uVar4 + 60000000;
+      *(uint *)(this + 0x7c4) = (uVar4 + 60000000 < uVar4) + extraout_a1_00;
     }
     else {
-      *(uint *)(this + 0x718) = uVar4;
-      *(uint *)(this + 0x71c) = extraout_a1_00;
+      *(uint *)(this + 0x7c0) = uVar4;
+      *(uint *)(this + 0x7c4) = extraout_a1_00;
     }
   }
 _L0:

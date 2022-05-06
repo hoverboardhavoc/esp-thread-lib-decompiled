@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> HandleHdlcFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,7 @@ esp::openthread::UartSpinelInterface::HandleHdlcFrame(UartSpinelInterface *this,
   int *piVar5;
   
   if (param_2 == 0) {
-                    /* WARNING: Could not recover jumptable at 0x00010064. Too many branches */
+                    /* WARNING: Could not recover jumptable at 0x00010068. Too many branches */
                     /* WARNING: Treating indirect jump as call */
     (**(code **)this)(*(undefined4 *)(this + 4));
     return;

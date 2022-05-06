@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Set
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,11 +13,14 @@
 /* ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,
    esp_openthread_mainloop_context_t>::Set(unsigned long, char const*, ...) */
 
-void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-     ::Set(ulong param_1,char *param_2,...)
+int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+    ::Set(ulong param_1,char *param_2,...)
 
 {
-  char *extraout_a1;
+  int iVar1;
+  ulong uVar2;
+  undefined1 extraout_a1;
+  undefined2 uVar3;
   char *in_a2;
   undefined4 in_a3;
   undefined4 in_a4;
@@ -35,16 +38,34 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
   uStack_c = in_a5;
   uStack_8 = in_a6;
   uStack_4 = in_a7;
-  if (*(char *)(param_1 + 0x464) != '\0') {
-    in_a2 = (char *)0x0;
-    param_1 = __assert_func(0,0,0,0);
-    param_2 = extraout_a1;
+  if (*(char *)(param_1 + 0x468) == '\0') {
+    do {
+      RecoverFromRcpFailure
+                ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                  *)param_1);
+      *(undefined4 **)(param_1 + 0x474) = &uStack_14;
+      *(undefined4 *)(param_1 + 0x478) = 6;
+      iVar1 = RequestV((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                        *)param_1,3,(ulong)param_2,in_a2,&uStack_14);
+      *(undefined4 *)(param_1 + 0x478) = 0;
+    } while (*(int *)(param_1 + 0x7a8) << 0x11 < 0);
+    return iVar1;
   }
-  *(undefined4 **)(param_1 + 0x470) = &uStack_14;
-  *(undefined4 *)(param_1 + 0x474) = 6;
-  RequestV((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
-           param_1,3,(ulong)param_2,in_a2,&uStack_14);
-  *(undefined4 *)(param_1 + 0x474) = 0;
-  return;
+  uVar3 = 0;
+  uVar2 = __assert_func(0,0,0);
+  if ((*(byte *)(uVar2 + 0x670) & 2) == 0) {
+    iVar1 = 0x1b;
+  }
+  else {
+    *(undefined1 *)(uVar2 + 0x7a2) = extraout_a1;
+    *(undefined2 *)(uVar2 + 0x7a4) = uVar3;
+    *(byte *)(uVar2 + 0x7a9) = *(byte *)(uVar2 + 0x7a9) | 0x80;
+    iVar1 = Set(uVar2,(char *)0x31);
+    if (((iVar1 == 0) && (iVar1 = Set(uVar2,(char *)0x32), iVar1 == 0)) &&
+       (iVar1 = Set(uVar2,(char *)0x30), iVar1 == 0)) {
+      *(undefined1 *)(uVar2 + 0x671) = extraout_a1;
+    }
+  }
+  return iVar1;
 }
 

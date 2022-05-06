@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
- * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
- * Upstream date: 2022-04-26 15:33:17 +0800
- * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleWaitingResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,11 +33,11 @@ HandleWaitingResponse
   
   uVar4 = CONCAT22(in_register_0000203a,param_4);
   if (param_2 == 0) {
-    iVar1 = spinel_datatype_unpack(&_LC11,apSStack_14);
+    iVar1 = spinel_datatype_unpack(&_LC36,apSStack_14);
     if (0 < iVar1) {
       uVar4 = SpinelStatusToOtError(apSStack_14[0],extraout_a1);
 _L0:
-      *(undefined4 *)(this + 0x478) = uVar4;
+      *(undefined4 *)(this + 0x47c) = uVar4;
       goto _L0;
     }
 _L0:
@@ -45,18 +45,18 @@ _L0:
   }
   else {
     if (param_2 == 0x3bc0) {
-      if ((*(int *)(this + 0x708) == 0) ||
-         (iVar1 = spinel_datatype_unpack_in_place(&_LC24,this + 0x70c), 0 < iVar1)) goto _L0;
+      if ((*(int *)(this + 0x7ac) == 0) ||
+         (iVar1 = spinel_datatype_unpack_in_place(&_LC29,this + 0x7b0), 0 < iVar1)) goto _L0;
       goto _L0;
     }
-    if (*(ulong *)(this + 0x468) == param_2) {
-      if (*(char **)(this + 0x46c) == (char *)0x0) {
-        if (*(ulong *)(this + 0x474) != param_1) goto _L0;
+    if (*(ulong *)(this + 0x46c) == param_2) {
+      if (*(char **)(this + 0x470) == (char *)0x0) {
+        if (*(ulong *)(this + 0x478) != param_1) goto _L0;
       }
       else {
-        puVar2 = *(uint **)(this + 0x470);
-        if (**(char **)(this + 0x46c) == '.') {
-          *(uint **)(this + 0x470) = puVar2 + 2;
+        puVar2 = *(uint **)(this + 0x474);
+        if (**(char **)(this + 0x470) == '.') {
+          *(uint **)(this + 0x474) = puVar2 + 2;
           pcVar5 = (code *)*puVar2;
           uVar3 = puVar2[1];
           if (pcVar5 == (code *)0x0) {
@@ -72,15 +72,15 @@ _L0:
         iVar1 = spinel_datatype_vunpack_in_place();
         if (iVar1 < 1) goto _L0;
       }
-      *(undefined4 *)(this + 0x478) = 0;
+      *(undefined4 *)(this + 0x47c) = 0;
       goto _L0;
     }
 _L0:
     uVar4 = 2;
   }
-  *(undefined4 *)(this + 0x478) = uVar4;
+  *(undefined4 *)(this + 0x47c) = uVar4;
 _L0:
-  LogIfFail("Error processing result",*(undefined4 *)(this + 0x478));
+  LogIfFail("Error processing result",*(undefined4 *)(this + 0x47c));
   return;
 }
 

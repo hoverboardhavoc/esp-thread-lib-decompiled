@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
- * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
- * Upstream date: 2022-04-26 15:33:17 +0800
- * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleTransmitDone
  *
  * (C) Espressif, Apache License 2.0.
@@ -39,15 +39,15 @@ HandleTransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   iVar4 = 1;
   if ((param_1 != 6) || (param_2 != 0)) goto _L0;
   iStack_28 = spinel_datatype_unpack
-                        (param_3,CONCAT22(in_register_0000203a,param_4),&_LC11,&pSStack_2c);
+                        (param_3,CONCAT22(in_register_0000203a,param_4),&_LC36,&pSStack_2c);
   if (0 < iStack_28) {
     puVar3 = param_3 + iStack_28;
     uVar1 = CONCAT22(in_register_0000203a,param_4) - iStack_28 & 0xffff;
-    iStack_28 = spinel_datatype_unpack(puVar3,uVar1,&_LC36,&uStack_2f);
+    iStack_28 = spinel_datatype_unpack(puVar3,uVar1,&_LC16,&uStack_2f);
     if (0 < iStack_28) {
       puVar3 = puVar3 + iStack_28;
       uVar1 = uVar1 - iStack_28 & 0xffff;
-      iStack_28 = spinel_datatype_unpack(puVar3,uVar1,&_LC36,&bStack_2e);
+      iStack_28 = spinel_datatype_unpack(puVar3,uVar1,&_LC16,&bStack_2e);
       if (0 < iStack_28) {
         uVar1 = uVar1 - iStack_28;
         puVar3 = puVar3 + iStack_28;
@@ -66,7 +66,7 @@ HandleTransmitDone(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
              *(byte *)(*(int *)(this + 0x660) + 0x1a) & 0xfe | bStack_2e & 1;
         if (((((byte)this[0x670] & 0x20) == 0) || (bStack_2e == 0)) ||
            ((*(byte *)**(undefined4 **)(this + 0x660) & 8) == 0)) goto _L0;
-        iStack_28 = spinel_datatype_unpack(puVar3,uVar2,&_LC53,&uStack_2d,auStack_24);
+        iStack_28 = spinel_datatype_unpack(puVar3,uVar2,&_LC57,&uStack_2d,auStack_24);
         if (0 < iStack_28) {
           ot::Mac::Frame::SetKeyId((uchar)*(undefined4 *)(this + 0x660));
           ot::Mac::Frame::SetFrameCounter(*(ulong *)(this + 0x660));

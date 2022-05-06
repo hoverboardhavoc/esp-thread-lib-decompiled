@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ int esp_openthread_platform_process(undefined4 param_1,undefined4 param_2)
     iVar1 = *(int *)(iVar1 + 0x18);
   }
   uVar3 = esp_log_timestamp();
-  esp_log_write(1,"OPENTHREAD",&_LC11,uVar3,"OPENTHREAD","esp_openthread_platform_process",0xa6,
+  esp_log_write(1,"OPENTHREAD",&_LC12,uVar3,"OPENTHREAD","esp_openthread_platform_process",0xa7,
                 iVar1);
   return iVar2;
 }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
+ * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
+ * Upstream date: 2022-05-06 21:42:07 +0800
+ * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -38,7 +38,7 @@ esp::openthread::UartSpinelInterface::Init
   }
   else {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","InitUart",0x107);
+    esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","InitUart",0x108);
   }
   return iVar2;
 }
