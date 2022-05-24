@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> WaitForWritable
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,45 +18,40 @@ esp::openthread::UartSpinelInterface::WaitForWritable(UartSpinelInterface *this)
 {
   uint uVar1;
   uint uVar2;
-  int *piVar3;
+  uint uVar3;
+  int *piVar4;
   int extraout_a1;
   uint extraout_a1_00;
-  uint uVar4;
-  int iVar5;
-  uint uVar6;
-  uint uVar7;
-  timeval tStack_48;
-  uint local_40 [2];
-  uint local_38 [5];
+  __fd_mask extraout_a1_01;
+  uint uVar5;
+  int iVar6;
+  uint local_50 [4];
+  timeval tStack_40;
+  __fd_mask _Stack_38;
   
-  tStack_48.tv_sec = 2;
-  tStack_48.tv_usec = 0;
-  uVar1 = otPlatTimeGet();
-  uVar7 = uVar1 + 2000000;
-  uVar1 = (uint)(uVar7 < uVar1) + extraout_a1;
+  tStack_40.tv_sec = 2;
+  tStack_40.tv_usec = 0;
+  _Stack_38 = 0;
+  uVar2 = otPlatTimeGet();
+  uVar1 = uVar2 + 2000000;
+  uVar2 = (uint)(uVar1 < uVar2) + extraout_a1;
   do {
-    iVar5 = 0;
-    do {
-      *(undefined1 *)((int)local_40 + iVar5) = 0;
-      iVar5 = iVar5 + 1;
-    } while (iVar5 != 8);
-    iVar5 = 0;
-    do {
-      *(undefined1 *)((int)local_38 + iVar5) = 0;
-      iVar5 = iVar5 + 1;
-    } while (iVar5 != 8);
-    uVar2 = *(uint *)(this + 0x4c);
-    if (uVar2 < 0x40) {
-      uVar6 = uVar2 >> 5;
-      uVar4 = 1 << (uVar2 & 0x1f);
-      local_40[uVar6] = local_40[uVar6] | uVar4;
-      local_38[uVar6] = uVar4 | local_38[uVar6];
+    uVar3 = *(uint *)(this + 0x4c);
+    local_50[1] = 0;
+    local_50[0] = 0;
+    local_50[3] = 0;
+    local_50[2] = 0;
+    if (uVar3 < 0x40) {
+      iVar6 = (int)uVar3 >> 5;
+      uVar5 = 1 << (uVar3 & 0x1f);
+      local_50[iVar6] = local_50[iVar6] | uVar5;
+      local_50[iVar6 + 2] = uVar5 | local_50[iVar6 + 2];
     }
-    iVar5 = select(uVar2 + 1,(fd_set *)0x0,(fd_set *)local_40,(fd_set *)local_38,&tStack_48);
-    if (iVar5 < 1) {
-      if ((iVar5 != 0) && (piVar3 = (int *)__errno(), *piVar3 != 4)) {
-        iVar5 = TryRecoverUart(this);
-        if (iVar5 == 0) {
+    iVar6 = select(uVar3 + 1,(fd_set *)0x0,(fd_set *)local_50,(fd_set *)(local_50 + 2),&tStack_40);
+    if (iVar6 < 1) {
+      if ((iVar6 != 0) && (piVar4 = (int *)__errno(), *piVar4 != 4)) {
+        iVar6 = TryRecoverUart(this);
+        if (iVar6 == 0) {
           return 1;
         }
                     /* WARNING: Subroutine does not return */
@@ -64,30 +59,31 @@ esp::openthread::UartSpinelInterface::WaitForWritable(UartSpinelInterface *this)
       }
     }
     else {
-      uVar2 = *(uint *)(this + 0x4c);
-      if (uVar2 < 0x40) {
-        uVar4 = 1 << (uVar2 & 0x1f);
-        if ((local_40[uVar2 >> 5] & uVar4) != 0) {
+      uVar3 = *(uint *)(this + 0x4c);
+      if (uVar3 < 0x40) {
+        uVar5 = 1 << (uVar3 & 0x1f);
+        if ((local_50[(int)uVar3 >> 5] & uVar5) != 0) {
           return 0;
         }
-        if ((uVar4 & local_38[uVar2 >> 5]) != 0) {
+        if ((uVar5 & local_50[((int)uVar3 >> 5) + 2]) != 0) {
           return 1;
         }
       }
     }
-    uVar2 = otPlatTimeGet();
-    if (uVar1 <= extraout_a1_00) {
-      if (uVar1 != extraout_a1_00) {
+    uVar3 = otPlatTimeGet();
+    if (uVar2 <= extraout_a1_00) {
+      if (uVar2 != extraout_a1_00) {
         return 1;
       }
-      if (uVar7 <= uVar2) {
+      if (uVar1 <= uVar3) {
         return 1;
       }
     }
-    uVar2 = uVar7 - uVar2;
-    iVar5 = (uVar1 - extraout_a1_00) - (uint)(uVar7 < uVar2);
-    tStack_48.tv_sec = __udivdi3(uVar2,iVar5,1000000,0);
-    tStack_48.tv_usec = __umoddi3(uVar2,iVar5,1000000,0);
+    uVar3 = uVar1 - uVar3;
+    iVar6 = (uVar2 - extraout_a1_00) - (uint)(uVar1 < uVar3);
+    tStack_40.tv_sec = __udivdi3(uVar3,iVar6,1000000,0);
+    tStack_40.tv_usec = extraout_a1_01;
+    _Stack_38 = __umoddi3(uVar3,iVar6,1000000,0);
   } while( true );
 }
 

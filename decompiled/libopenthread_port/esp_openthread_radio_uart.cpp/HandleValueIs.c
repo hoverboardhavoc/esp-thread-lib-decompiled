@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,18 +23,16 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
   int iVar1;
   undefined4 uVar2;
   undefined4 ****ppppuVar3;
-  undefined2 in_register_00002036;
   uint uVar4;
-  int local_c0;
-  uint uStack_bc;
-  undefined4 ***apppuStack_b8 [41];
+  int iStack_b0;
+  uint uStack_ac;
+  undefined4 ***apppuStack_a8 [38];
   
-  iVar1 = CONCAT22(in_register_00002036,param_3);
   if (param_1 == 0x71) {
-    iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&local_c0);
+    iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&iStack_b0);
     if (iVar1 != 0) goto _L0;
     if (((*(uint *)(this + 0x704) & 1) != 0) || (1 < *(uint *)(this + 0x700))) {
-      if ((char)s_radio == '\0') {
+      if (s_radio == '\0') {
         otPlatRadioReceiveDone(*(undefined4 *)this,(otRadioFrame *)(this + 0x600),0);
       }
       else {
@@ -45,11 +43,11 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     goto _L0;
   }
   if (param_1 == 0) {
-    apppuStack_b8[0] = (undefined4 ****)0x0;
-    local_c0 = spinel_datatype_unpack(param_2,iVar1,&_LC36,apppuStack_b8);
-    if (0 < local_c0) {
+    apppuStack_a8[0] = (undefined4 ****)0x0;
+    iStack_b0 = spinel_datatype_unpack(param_2,&_LC49,apppuStack_a8);
+    if (0 < iStack_b0) {
       iVar1 = 0;
-      if (apppuStack_b8[0] + -0x1c < (undefined4 ****)0x11) {
+      if (apppuStack_a8[0] + -0x1c < (undefined4 ****)0x11) {
         if (*(int *)(this + 0x700) == 0) {
           uVar2 = spinel_status_to_cstr();
           otLogInfoPlat("RCP reset: %s",uVar2);
@@ -74,46 +72,47 @@ _L0:
   }
   else {
     if (param_1 == 0x39) {
-      local_c0 = spinel_datatype_unpack(param_2,iVar1,&_LC24,&uStack_bc,apppuStack_b8);
-      if (local_c0 < 1) goto _L0;
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC25,&uStack_ac,apppuStack_a8);
+      if (iStack_b0 < 1) goto _L0;
       this[0x7a9] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                      )((byte)this[0x7a9] & 0x7f);
-      otPlatRadioEnergyScanDone(*(undefined4 *)this,(int)(char)apppuStack_b8[0]);
+      otPlatRadioEnergyScanDone(*(undefined4 *)this,(int)(char)apppuStack_a8[0]);
     }
     else if (param_1 == 0x70) {
-      uStack_bc = 0x97;
-      iVar1 = spinel_datatype_unpack_in_place(param_2,iVar1,&_LC7,apppuStack_b8,&uStack_bc);
-      uVar4 = uStack_bc;
-      local_c0 = iVar1;
-      if (0x96 < uStack_bc) {
+      uStack_ac = 0x97;
+      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10ba4,apppuStack_a8,&uStack_ac);
+      uVar4 = uStack_ac;
+      iStack_b0 = iVar1;
+      if (0x96 < uStack_ac) {
         iVar1 = __assert_func(0,0,0,0);
       }
       if (iVar1 < 1) goto _L0;
-      *(undefined1 *)((int)apppuStack_b8 + uVar4) = 0;
-      ppppuVar3 = apppuStack_b8;
+      *(undefined1 *)((int)apppuStack_a8 + uVar4) = 0;
+      ppppuVar3 = apppuStack_a8;
 _L0:
       otLogDebgPlat("RCP => %s",ppppuVar3);
     }
     else if ((param_1 == 0x74) && ((*(uint *)(this + 0x704) >> 2 & 1) != 0)) {
-      local_c0 = spinel_datatype_unpack(param_2,iVar1,&_LC29,apppuStack_b8);
-      if (-1 < local_c0) {
-        local_c0 = spinel_datatype_unpack
-                             (param_2 + local_c0,iVar1 - local_c0 & 0xffff,&_LC9,&uStack_bc);
-        if (0 < local_c0) {
-          uVar4 = uStack_bc & 0xff;
-          if (uVar4 < 5) {
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC38,apppuStack_a8);
+      if (-1 < iStack_b0) {
+        iStack_b0 = spinel_datatype_unpack
+                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC9,
+                               &uStack_ac);
+        if (0 < iStack_b0) {
+          uVar4 = uStack_ac & 0xff;
+          if (uVar4 == 5) {
+            otLogNotePlat("RCP => %s",apppuStack_a8[0]);
+          }
+          else if (uVar4 < 6) {
             if (uVar4 < 3) {
               otLogCritPlat("RCP => %s");
             }
             else {
-              otLogWarnPlat("RCP => %s");
+              otLogWarnPlat();
             }
           }
-          else if (uVar4 == 5) {
-            otLogNotePlat("RCP => %s",apppuStack_b8[0]);
-          }
           else {
-            ppppuVar3 = (undefined4 ****)apppuStack_b8[0];
+            ppppuVar3 = (undefined4 ****)apppuStack_a8[0];
             if (uVar4 != 6) goto _L0;
             otLogInfoPlat("RCP => %s");
           }

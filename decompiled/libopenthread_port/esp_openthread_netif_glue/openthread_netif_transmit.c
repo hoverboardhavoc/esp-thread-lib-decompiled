@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_transmit
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,14 +16,14 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
   undefined4 uVar1;
   int iVar2;
   undefined4 uVar3;
-  int aiStack_14 [3];
+  int aiStack_14 [2];
   
   esp_openthread_lock_acquire(0xffffffff);
   esp_openthread_get_instance();
   aiStack_14[0] = otIp6NewMessage(0);
   if (aiStack_14[0] == 0) {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",&_LC20,uVar1,"OPENTHREAD");
     iVar2 = 0x101;
   }
   else {
@@ -36,12 +36,12 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
         goto _L0;
       }
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC13,uVar1,"OPENTHREAD");
+      esp_log_write(1,"OPENTHREAD",&_LC22,uVar1,"OPENTHREAD");
     }
     else {
       uVar1 = esp_log_timestamp();
       uVar3 = otThreadErrorToString(iVar2);
-      esp_log_write(1,"OPENTHREAD",&_LC12,uVar1,"OPENTHREAD",uVar3);
+      esp_log_write(1,"OPENTHREAD",&_LC21,uVar1,"OPENTHREAD",uVar3);
     }
     iVar2 = 0x101;
     if (aiStack_14[0] != 0) {

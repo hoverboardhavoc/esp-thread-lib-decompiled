@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,46 +15,48 @@ int otPlatRadioAddSrcMatchExtEntry(undefined1 *param_1)
 {
   bool bVar1;
   short sVar2;
-  undefined4 *puVar3;
+  int iVar3;
   int iVar4;
   int iVar5;
-  int iVar6;
-  undefined1 *puVar7;
-  int iVar8;
+  undefined1 *puVar6;
+  undefined4 *puVar7;
+  int unaff_s3;
+  undefined4 *unaff_s4;
   undefined4 uStack_28;
   undefined4 uStack_24;
   
-  puVar3 = &uStack_28;
-  puVar7 = param_1 + 7;
+  puVar6 = param_1 + 7;
+  puVar7 = &uStack_28;
   do {
-    *(undefined1 *)puVar3 = *puVar7;
-    bVar1 = param_1 != puVar7;
-    puVar3 = (undefined4 *)((int)puVar3 + 1);
-    puVar7 = puVar7 + -1;
+    *(undefined1 *)puVar7 = *puVar6;
+    bVar1 = param_1 != puVar6;
+    puVar6 = puVar6 + -1;
+    puVar7 = (undefined4 *)((int)puVar7 + 1);
   } while (bVar1);
-  iVar5 = ot::Spinel::
+  iVar4 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x13cc8,(char *)0x1305);
-  sVar2 = DAT_00014468;
-  if (iVar5 == 0) {
-    iVar4 = (int)DAT_00014468;
-    if (iVar4 < 10) {
-      puVar3 = &s_radio;
-      for (iVar8 = 0; iVar8 < iVar4; iVar8 = iVar8 + 1) {
-        iVar6 = memcmp(&uStack_28,puVar3 + 0x1d4,8);
-        puVar3 = puVar3 + 2;
-        if (iVar6 == 0) {
-          return 0;
-        }
+          Insert(0x14428,(char *)0x1305);
+  sVar2 = DAT_00014bc8;
+  if (iVar4 == 0) {
+    iVar3 = (int)DAT_00014bc8;
+    if (9 < iVar3) {
+      __assert_func(0,0,0);
+      goto _L0;
+    }
+    unaff_s4 = &DAT_00014b78;
+    for (unaff_s3 = 0; unaff_s3 < iVar3; unaff_s3 = unaff_s3 + 1) {
+_L0:
+      iVar5 = memcmp(&uStack_28,unaff_s4,8);
+      unaff_s4 = unaff_s4 + 2;
+      if (iVar5 == 0) {
+        return 0;
       }
     }
-    else {
-      __assert_func(0,0,0);
-    }
-    (&s_radio)[(iVar4 + 0xea) * 2] = uStack_28;
-    DAT_00014468 = sVar2 + 1;
-    *(undefined4 *)(&DAT_00013ccc + (iVar4 + 0xea) * 8) = uStack_24;
+    iVar3 = (iVar3 + 0xea) * 8;
+    *(undefined4 *)(&s_radio + iVar3) = uStack_28;
+    DAT_00014bc8 = sVar2 + 1;
+    *(undefined4 *)(&DAT_0001442c + iVar3) = uStack_24;
   }
-  return iVar5;
+  return iVar4;
 }
 

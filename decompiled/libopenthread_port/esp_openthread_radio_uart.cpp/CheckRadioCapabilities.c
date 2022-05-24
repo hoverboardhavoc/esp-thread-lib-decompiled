@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRadioCapabilities
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,45 +20,45 @@ CheckRadioCapabilities
           )
 
 {
-  byte bVar1;
-  int iVar2;
-  undefined4 uVar3;
+  int iVar1;
+  undefined4 uVar2;
+  char *pcVar3;
   char *pcVar4;
   char *pcVar5;
-  char *pcVar6;
+  byte bVar6;
   char *pcVar7;
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
   aRStack_14 [12];
   
-  iVar2 = Get((ulong)this,(char *)0x120b,&_LC36,aRStack_14);
-  if ((iVar2 == 0) && (this[0x670] = aRStack_14[0], ((byte)aRStack_14[0] & 0x6d) != 0x6d)) {
-    bVar1 = ~(byte)aRStack_14[0];
+  iVar1 = Get((ulong)this,(char *)0x120b,&_LC49,aRStack_14);
+  if ((iVar1 == 0) && (this[0x670] = aRStack_14[0], ((byte)aRStack_14[0] & 0x6d) != 0x6d)) {
+    bVar6 = ~(byte)aRStack_14[0];
     pcVar7 = "";
-    iVar2 = -0x76c;
-    if ((bVar1 & 1) != 0) {
-      iVar2 = -0x77c;
+    iVar1 = -0x14c;
+    if ((bVar6 & 1) != 0) {
+      iVar1 = -0x15c;
+    }
+    pcVar3 = pcVar7;
+    if ((bVar6 & 4) != 0) {
+      pcVar3 = "tx-retries ";
     }
     pcVar4 = pcVar7;
-    if ((bVar1 & 4) != 0) {
-      pcVar4 = "tx-retries ";
+    if ((bVar6 & 8) != 0) {
+      pcVar4 = "CSMA-backoff ";
     }
     pcVar5 = pcVar7;
-    if ((bVar1 & 8) != 0) {
-      pcVar5 = "CSMA-backoff ";
+    if ((bVar6 & 0x20) != 0) {
+      pcVar5 = "tx-security ";
     }
-    pcVar6 = pcVar7;
-    if ((bVar1 & 0x20) != 0) {
-      pcVar6 = "tx-security ";
-    }
-    if ((bVar1 & 0x40) != 0) {
+    if ((bVar6 & 0x40) != 0) {
       pcVar7 = "tx-timing ";
     }
-    otLogCritPlat("RCP is missing required capabilities: %s%s%s%s%s",
-                  ot::Spinel::Decoder::Decoder + iVar2,pcVar4,pcVar5,pcVar6,pcVar7);
-    uVar3 = otExitCodeToString(3);
-    otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+    otLogCritPlat("RCP is missing required capabilities: %s%s%s%s%s",iVar1 + 0x13000,pcVar3,pcVar4,
+                  pcVar5,pcVar7);
+    uVar2 = otExitCodeToString(3);
+    otLogCritPlat("%s() at %s:%d: %s","CheckRadioCapabilities",
                   "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x187
-                  ,uVar3);
+                  ,uVar2);
                     /* WARNING: Subroutine does not return */
     exit(3);
   }

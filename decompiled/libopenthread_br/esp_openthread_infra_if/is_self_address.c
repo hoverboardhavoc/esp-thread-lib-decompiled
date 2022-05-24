@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> is_self_address
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,18 +13,18 @@
 undefined4 is_self_address(void *param_1)
 
 {
-  int iVar1;
-  int iVar2;
+  byte *__s2;
+  byte *pbVar1;
+  byte *pbVar2;
   int iVar3;
-  int iVar4;
   
-  iVar1 = s_netif;
-  iVar2 = 0;
-  iVar4 = s_netif + 0x4c;
-  while (((*(byte *)(iVar1 + iVar2 + 0x10c) & 0x10) == 0 ||
-         (iVar3 = memcmp(param_1,(void *)(iVar2 * 0x18 + iVar4),0x10), iVar3 != 0))) {
-    iVar2 = iVar2 + 1;
-    if (iVar2 == 8) {
+  pbVar1 = (byte *)(s_netif + 0x10c);
+  __s2 = (byte *)(s_netif + 0x4c);
+  pbVar2 = pbVar1;
+  while (((*pbVar2 & 0x10) == 0 || (iVar3 = memcmp(param_1,__s2,0x10), iVar3 != 0))) {
+    __s2 = __s2 + 0x18;
+    pbVar2 = pbVar2 + 1;
+    if (__s2 == pbVar1) {
       return 0;
     }
   }

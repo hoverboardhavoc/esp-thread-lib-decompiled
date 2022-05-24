@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mld_input.part.0
  *
  * (C) Espressif, Apache License 2.0.
@@ -43,7 +43,7 @@ void handle_mld_input_part_0(int param_1,char *param_2,undefined4 param_3)
     uVar3 = esp_log_timestamp();
     puVar4 = &_LC2;
   }
-  esp_log_write(1,"OPENTHREAD",puVar4,uVar3,"OPENTHREAD");
+  esp_log_write(1,0x10000,puVar4,uVar3,0x10000);
   return;
 }
 

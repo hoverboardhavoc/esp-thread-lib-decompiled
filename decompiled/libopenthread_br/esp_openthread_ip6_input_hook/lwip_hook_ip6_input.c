@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> lwip_hook_ip6_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,8 +21,8 @@ undefined4 lwip_hook_ip6_input(int param_1,int param_2)
   char acStack_21 [9];
   
   uVar2 = (uint)*(ushort *)(param_1 + 10);
-  if (((uVar2 == *(ushort *)(param_1 + 8)) && (0x27 < uVar2)) &&
-     (iVar1 = *(int *)(param_1 + 4), *(char *)(iVar1 + 0x18) == -1)) {
+  iVar1 = *(int *)(param_1 + 4);
+  if (((uVar2 == *(ushort *)(param_1 + 8)) && (0x27 < uVar2)) && (*(char *)(iVar1 + 0x18) == -1)) {
     iVar3 = esp_openthread_get_lwip_backbone_netif();
     if (iVar3 == param_2) {
       pcVar4 = (char *)skip_ipv6_header_and_extensions(iVar1,uVar2,acStack_21);

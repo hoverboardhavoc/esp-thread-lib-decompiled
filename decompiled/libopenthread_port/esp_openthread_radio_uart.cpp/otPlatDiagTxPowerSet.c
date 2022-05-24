@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatDiagTxPowerSet
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,12 +16,12 @@ void otPlatDiagTxPowerSet(void)
   char acStack_110 [264];
   
   snprintf(acStack_110,0x100,"power %d");
-  DAT_00014474 = 0;
-  DAT_00014478 = 0;
+  DAT_00014bd4 = 0;
+  DAT_00014bd8 = 0;
   ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-  Set(0x13cc8,(char *)0x3bc0);
-  DAT_00014474 = 0;
-  DAT_00014478 = 0;
+  Set(0x14428,(char *)0x3bc0);
+  DAT_00014bd4 = 0;
+  DAT_00014bd8 = 0;
   return;
 }
 

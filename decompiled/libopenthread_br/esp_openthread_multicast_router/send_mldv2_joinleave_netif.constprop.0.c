@@ -3,38 +3,43 @@
  * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
  * Upstream date: 2022-05-24 22:56:58 +0800
  * Upstream subject: openthread: rebuild the lib with new toolchain
- * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_probe_backbone_listeners
+ * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_joinleave_netif.constprop.0
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int esp_openthread_probe_backbone_listeners(void)
+int send_mldv2_joinleave_netif_constprop_0(void *param_1,char param_2)
 
 {
   int iVar1;
-  int iVar2;
-  undefined1 *puVar3;
+  undefined1 *puVar2;
+  int iVar3;
   undefined4 uVar4;
-  undefined1 auStack_28 [24];
+  undefined1 auStack_38 [32];
   
-  iVar2 = pbuf_alloc(0x36,0x28,0x280);
+  iVar3 = pbuf_alloc(0x36,0x1c,0x280);
   iVar1 = 0x101;
-  if (iVar2 != 0) {
-    puVar3 = (undefined1 *)memset(*(void **)(iVar2 + 4),0,0x28);
-    *puVar3 = 0x82;
-    puVar3[4] = 3;
-    puVar3[5] = 0xe8;
-    memcpy(auStack_28,&_LANCHOR2,0x18);
+  if (iVar3 != 0) {
+    puVar2 = *(undefined1 **)(iVar3 + 4);
+    memset(puVar2 + 1,0,7);
+    *puVar2 = 0x8f;
+    puVar2[8] = param_2 + '\x03';
+    puVar2[7] = 1;
+    puVar2[9] = 0;
+    puVar2[10] = 0;
+    puVar2[0xb] = 0;
+    memcpy(puVar2 + 0xc,param_1,0x10);
     iVar1 = s_icmp_send_pcb;
     *(undefined2 *)(s_icmp_send_pcb + 0x44) = 2;
     *(undefined1 *)(iVar1 + 0x46) = 1;
     uVar4 = esp_openthread_get_lwip_backbone_netif();
     raw_bind_netif(iVar1,uVar4);
-    iVar1 = raw_sendto(s_icmp_send_pcb,iVar2,auStack_28);
+    memcpy(auStack_38,&_LANCHOR2,0x18);
+    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,auStack_38);
     iVar1 = -(uint)(iVar1 != 0);
-    pbuf_free(iVar2);
+    pbuf_free(iVar3);
   }
   return iVar1;
 }

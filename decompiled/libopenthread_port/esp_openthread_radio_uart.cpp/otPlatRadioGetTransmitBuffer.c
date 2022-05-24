@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e0ff2a014fc5165513405b2e35649eb05be77ec9
- * https://github.com/espressif/esp-thread-lib/commit/e0ff2a014fc5165513405b2e35649eb05be77ec9
- * Upstream date: 2022-03-07 14:30:05 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioGetTransmitBuffer
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,7 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 * otPlatRadioGetTransmitBuffer(void)
+undefined1 * otPlatRadioGetTransmitBuffer(void)
 
 {
   return &s_radio;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_remove_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,7 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 esp_openthread_route_table_remove_route_entry(char *param_1)
+undefined4 esp_openthread_route_table_remove_route_entry(undefined1 *param_1)
 
 {
   int *piVar1;
@@ -21,12 +21,9 @@ undefined4 esp_openthread_route_table_remove_route_entry(char *param_1)
   }
   else {
     uVar2 = 0x102;
-    if (param_1 < "PENTHREAD") {
+    if (param_1 < (undefined1 *)0x10905) {
       sys_untimeout(route_timeout_handler,param_1);
-      param_1[0x34] = '\0';
-      param_1[0x35] = '\0';
-      param_1[0x36] = '\0';
-      param_1[0x37] = '\0';
+      *(undefined4 *)(param_1 + 0x34) = 0;
       do {
         if (s_route_entries + 0x1f8 <= param_1) break;
         memcpy(param_1,param_1 + 0x38,0x38);

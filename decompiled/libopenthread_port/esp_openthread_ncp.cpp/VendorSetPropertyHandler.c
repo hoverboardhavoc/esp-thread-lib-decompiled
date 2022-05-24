@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * https://github.com/espressif/esp-thread-lib/commit/7fe22acb144430d5e688cde8c51e0b2e42a8059d
- * Upstream date: 2021-11-03 15:55:12 +0800
- * Upstream subject: openthread: mdns & RCP ota update(3571cf8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_ncp.cpp.o -> VendorSetPropertyHandler
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,7 +36,7 @@ int __thiscall ot::Ncp::NcpBase::VendorSetPropertyHandler(NcpBase *this,ulong pa
       }
       else {
         uVar3 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC6,uVar3,"OPENTHREAD");
+        esp_log_write(1,"OPENTHREAD",&::_L0,uVar3,"OPENTHREAD");
         iVar1 = 1;
       }
       esp_ota_abort(s_update_handle);
@@ -51,7 +51,7 @@ int __thiscall ot::Ncp::NcpBase::VendorSetPropertyHandler(NcpBase *this,ulong pa
       iVar1 = esp_ota_set_boot_partition(s_update_partition);
       if (iVar1 != 0) {
         uVar3 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC7,uVar3,"OPENTHREAD");
+        esp_log_write(1,"OPENTHREAD",&_LC8,uVar3,"OPENTHREAD");
         return 1;
       }
       esp_restart();

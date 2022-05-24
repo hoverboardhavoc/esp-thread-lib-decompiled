@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleWaitingResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ HandleWaitingResponse
   
   uVar4 = CONCAT22(in_register_0000203a,param_4);
   if (param_2 == 0) {
-    iVar1 = spinel_datatype_unpack(&_LC36,apSStack_14);
+    iVar1 = spinel_datatype_unpack(&_LC49,apSStack_14);
     if (0 < iVar1) {
       uVar4 = SpinelStatusToOtError(apSStack_14[0],extraout_a1);
 _L0:
@@ -46,7 +46,7 @@ _L0:
   else {
     if (param_2 == 0x3bc0) {
       if ((*(int *)(this + 0x7ac) == 0) ||
-         (iVar1 = spinel_datatype_unpack_in_place(&_LC29,this + 0x7b0), 0 < iVar1)) goto _L0;
+         (iVar1 = spinel_datatype_unpack_in_place(&_LC38,this + 0x7b0), 0 < iVar1)) goto _L0;
       goto _L0;
     }
     if (*(ulong *)(this + 0x46c) == param_2) {
@@ -80,7 +80,15 @@ _L0:
   }
   *(undefined4 *)(this + 0x47c) = uVar4;
 _L0:
-  LogIfFail("Error processing result",*(undefined4 *)(this + 0x47c));
+  iVar1 = *(int *)(this + 0x47c);
+  if (iVar1 == 0) {
+    return;
+  }
+  if (iVar1 == 0xe) {
+    return;
+  }
+  uVar4 = otThreadErrorToString(iVar1);
+  otLogWarnPlat("%s: %s","Error processing result",uVar4);
   return;
 }
 

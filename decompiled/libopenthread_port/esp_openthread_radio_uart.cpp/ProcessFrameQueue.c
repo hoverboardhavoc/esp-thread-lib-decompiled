@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ProcessFrameQueue
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,9 +20,9 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
 
 {
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *pRVar1;
-  uint uVar2;
-  int iVar3;
+  int iVar2;
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *__src;
+  uint uVar3;
   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *__dest;
   undefined4 uVar4;
   byte bStack_41;
@@ -31,7 +31,7 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
   uchar *puStack_38;
   int local_34 [4];
   
-  uVar2 = 0;
+  uVar3 = 0;
   pRVar1 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t> *)
            0x0;
   __dest = this + 10;
@@ -45,28 +45,28 @@ ProcessFrameQueue(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
                     /* WARNING: Do nothing block with infinite loop */
         } while( true );
       }
-      __src = pRVar1 + uVar2;
+      __src = pRVar1 + uVar3;
     }
     if (__src == *(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                    **)(this + 0x40c)) {
-      uVar2 = (int)__src - (int)__dest;
-      if ((uVar2 & 0xffff) != 0) {
-        iVar3 = *(int *)(this + 4);
-        memmove(__dest,__src,iVar3 - (int)__src & 0xffff);
-        *(uint *)(this + 4) = iVar3 + -(uVar2 & 0xffff);
-        *(uint *)(this + 0x40c) = -(uVar2 & 0xffff) + *(int *)(this + 0x40c);
-        *(short *)(this + 8) = (short)(uVar2 * 0x10000 >> 0x10) + *(short *)(this + 8);
+      uVar3 = (int)__src - (int)__dest;
+      if ((uVar3 & 0xffff) != 0) {
+        iVar2 = *(int *)(this + 4);
+        memmove(__dest,__src,iVar2 - (int)__src & 0xffff);
+        *(uint *)(this + 4) = iVar2 - (uVar3 & 0xffff);
+        *(uint *)(this + 0x40c) = *(int *)(this + 0x40c) - (uVar3 & 0xffff);
+        *(short *)(this + 8) = (short)(uVar3 * 0x10000 >> 0x10) + *(short *)(this + 8);
       }
       return;
     }
     pRVar1 = __src + *(ushort *)(__src + 2) + 4;
-    uVar2 = (uint)*(ushort *)__src - (uint)*(ushort *)(__src + 2) & 0xffff;
+    uVar3 = (uint)*(ushort *)__src - (uint)*(ushort *)(__src + 2) & 0xffff;
     uStack_3c = 0;
     puStack_38 = (uchar *)0x0;
-    iVar3 = spinel_datatype_unpack
-                      (pRVar1,uVar2,&_LC59,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
+    iVar2 = spinel_datatype_unpack
+                      (pRVar1,uVar3,&::_L0,&bStack_41,local_34,&uStack_40,&puStack_38,&uStack_3c);
     uVar4 = 6;
-    if (((0 < iVar3) && ((bStack_41 & 0xf) == 0)) && (uVar4 = 0, local_34[0] == 6)) {
+    if (((0 < iVar2) && (uVar4 = 6, (bStack_41 & 0xf) == 0)) && (uVar4 = 0, local_34[0] == 6)) {
       HandleValueIs(this,uStack_40,puStack_38,(ushort)uStack_3c);
     }
     LogIfFail("Error processing saved notification",uVar4);

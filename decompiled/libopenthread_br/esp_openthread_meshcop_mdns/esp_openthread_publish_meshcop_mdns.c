@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -54,7 +54,7 @@ int esp_openthread_publish_meshcop_mdns(void)
   iVar2 = otDatasetGetActive(uVar1,&uStack_88);
   if (iVar2 != 0) {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC8,uVar1,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x6e
+    esp_log_write(1,"OPENTHREAD",&_LC8,uVar1,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x6d
                  );
     return -1;
   }
@@ -63,7 +63,7 @@ int esp_openthread_publish_meshcop_mdns(void)
     iVar2 = mdns_service_add(0,"_meshcop",&_LC9,uVar1,0,0);
     if (iVar2 != 0) {
       uVar3 = esp_log_timestamp();
-      uVar1 = 0x72;
+      uVar1 = 0x70;
       puVar5 = &_LC11;
       goto _L0;
     }
@@ -89,36 +89,36 @@ int esp_openthread_publish_meshcop_mdns(void)
               return 0;
             }
             uVar3 = esp_log_timestamp();
-            uVar1 = 0x8d;
+            uVar1 = 0x8a;
             puVar5 = &_LC22;
           }
           else {
             uVar3 = esp_log_timestamp();
-            uVar1 = 0x89;
+            uVar1 = 0x86;
             puVar5 = &_LC20;
           }
         }
         else {
           uVar3 = esp_log_timestamp();
-          uVar1 = 0x85;
+          uVar1 = 0x82;
           puVar5 = &_LC18;
         }
       }
       else {
         uVar3 = esp_log_timestamp();
-        uVar1 = 0x80;
+        uVar1 = 0x7d;
         puVar5 = &_LC16;
       }
     }
     else {
       uVar3 = esp_log_timestamp();
-      uVar1 = 0x7c;
+      uVar1 = 0x79;
       puVar5 = &_LC14;
     }
   }
   else {
     uVar3 = esp_log_timestamp();
-    uVar1 = 0x78;
+    uVar1 = 0x76;
     puVar5 = &_LC12;
   }
 _L0:

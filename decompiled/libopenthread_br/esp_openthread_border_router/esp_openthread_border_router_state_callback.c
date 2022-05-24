@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ void esp_openthread_border_router_state_callback(uint param_1)
       esp_openthread_remove_meshcop_mdns();
     }
   }
-  if (-1 < (int)(param_1 << 6)) {
+  if ((param_1 & 0x2000000) == 0) {
     return;
   }
   esp_openthread_get_instance();
@@ -38,7 +38,7 @@ void esp_openthread_border_router_state_callback(uint param_1)
   }
   if (uVar2 != 2) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC1,uVar3,"OPENTHREAD");
+    esp_log_write(1,0x10000,&_LC1,uVar3,0x10000);
     return;
   }
   esp_openthread_multicast_forwarding_set_enabled(1);

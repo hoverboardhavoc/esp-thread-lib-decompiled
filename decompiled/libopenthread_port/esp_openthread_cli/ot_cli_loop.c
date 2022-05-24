@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 84ba294781572ce5fbba05e95b6ebb22f3981d93
- * https://github.com/espressif/esp-thread-lib/commit/84ba294781572ce5fbba05e95b6ebb22f3981d93
- * Upstream date: 2021-11-05 16:42:38 +0800
- * Upstream subject: cli: add linenoise probing(1c286a5)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_cli.o -> ot_cli_loop
  *
  * (C) Espressif, Apache License 2.0.
@@ -30,7 +30,7 @@ void ot_cli_loop(void)
       linenoiseSetDumbMode(1);
     }
     do {
-      __string = (char *)linenoise(&_LC1);
+      __string = (char *)linenoise(0x10000);
       if ((__string != (char *)0x0) && (sVar2 = strnlen(__string,0x100), sVar2 != 0)) {
         puts("\r");
         esp_openthread_cli_input(__string);

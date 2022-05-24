@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchShortEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,35 +13,39 @@
 int otPlatRadioAddSrcMatchShortEntry(uint param_1)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  int iVar4;
+  ushort *puVar1;
+  undefined1 *puVar2;
+  int iVar3;
+  undefined1 *puVar4;
   int iVar5;
+  int iVar6;
   
-  iVar2 = ot::Spinel::
+  puVar2 = (undefined1 *)0x14000;
+  iVar3 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x13cc8,(char *)0x1304);
-  if (iVar2 == 0) {
-    puVar3 = &s_radio;
-    iVar5 = (int)DAT_00014416;
-    if (iVar5 < 10) {
-      puVar1 = &s_radio;
-      for (iVar4 = 0; iVar4 < iVar5; iVar4 = iVar4 + 1) {
-        if (*(ushort *)((int)puVar1 + 0x73a) == param_1) {
-          return 0;
-        }
-        puVar1 = (undefined4 *)((int)puVar1 + 2);
+          Insert(0x14428,(char *)0x1304);
+  if (iVar3 == 0) {
+    puVar4 = &s_radio;
+    iVar6 = (int)DAT_00014b76;
+    iVar5 = 9;
+    if (9 < iVar6) {
+      iVar3 = 0;
+      puVar4 = (undefined1 *)0x0;
+      __assert_func(0,0);
+      goto _L0;
+    }
+    puVar2 = &s_radio;
+    for (iVar5 = 0; iVar5 < iVar6; iVar5 = iVar5 + 1) {
+_L0:
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
+      if (*puVar1 == param_1) {
+        return iVar3;
       }
     }
-    else {
-      puVar3 = (undefined4 *)0x0;
-      iVar2 = 0;
-      __assert_func(0,0);
-    }
-    *(short *)((int)puVar3 + (iVar5 + 0x398) * 2 + 10) = (short)param_1;
-    *(short *)((int)puVar3 + 0x74e) = (short)iVar5 + 1;
+    *(short *)(puVar4 + (iVar6 + 0x398) * 2 + 10) = (short)param_1;
+    *(short *)(puVar4 + 0x74e) = (short)iVar6 + 1;
   }
-  return iVar2;
+  return iVar3;
 }
 

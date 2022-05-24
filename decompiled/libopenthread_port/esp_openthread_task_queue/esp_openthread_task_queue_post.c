@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_task_queue.o -> esp_openthread_task_queue_post
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ undefined4 esp_openthread_task_queue_post(undefined4 param_1,undefined4 param_2)
   iVar1 = xQueueGenericSend(s_task_queue,&uStack_18,0xffffffff,0);
   if (iVar1 == 0) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD","esp_openthread_task_queue_post",0x39);
+    esp_log_write(1,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD","esp_openthread_task_queue_post",0x38);
     uVar2 = 0xffffffff;
   }
   else {

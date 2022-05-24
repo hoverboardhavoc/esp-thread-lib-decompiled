@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Insert
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,16 +17,17 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
     ::Insert(ulong param_1,char *param_2,...)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
-  uint uVar3;
+  ushort *puVar1;
+  undefined1 *puVar2;
+  int iVar3;
+  uint uVar4;
   char *in_a2;
+  undefined1 *puVar5;
   undefined4 in_a3;
-  undefined4 *puVar4;
   undefined4 in_a4;
-  int iVar5;
-  undefined4 in_a5;
   int iVar6;
+  undefined4 in_a5;
+  int iVar7;
   undefined4 in_a6;
   undefined4 in_a7;
   undefined4 uStack_14;
@@ -47,34 +48,37 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
                   *)param_1);
       *(undefined4 **)(param_1 + 0x474) = &uStack_14;
       *(undefined4 *)(param_1 + 0x478) = 7;
-      iVar2 = RequestV((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+      iVar3 = RequestV((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                         *)param_1,4,(ulong)param_2,in_a2,&uStack_14);
       *(undefined4 *)(param_1 + 0x478) = 0;
-    } while (*(int *)(param_1 + 0x7a8) << 0x11 < 0);
-    return iVar2;
+    } while ((*(uint *)(param_1 + 0x7a8) >> 0xe & 1) != 0);
+    return iVar3;
   }
-  uVar3 = __assert_func(0,0,0,0);
-  iVar2 = Insert(0x13cc8,(char *)0x1304);
-  if (iVar2 == 0) {
-    puVar4 = &s_radio;
-    iVar6 = (int)DAT_00014416;
-    if (iVar6 < 10) {
-      puVar1 = &s_radio;
-      for (iVar5 = 0; iVar5 < iVar6; iVar5 = iVar5 + 1) {
-        if (*(ushort *)((int)puVar1 + 0x73a) == uVar3) {
-          return 0;
-        }
-        puVar1 = (undefined4 *)((int)puVar1 + 2);
+  uVar4 = __assert_func(0,0,0,0);
+  puVar2 = (undefined1 *)0x14000;
+  iVar3 = Insert(0x14428,(char *)0x1304);
+  if (iVar3 == 0) {
+    puVar5 = &s_radio;
+    iVar7 = (int)DAT_00014b76;
+    iVar6 = 9;
+    if (9 < iVar7) {
+      iVar3 = 0;
+      puVar5 = (undefined1 *)0x0;
+      __assert_func(0,0);
+      goto _L0;
+    }
+    puVar2 = &s_radio;
+    for (iVar6 = 0; iVar6 < iVar7; iVar6 = iVar6 + 1) {
+_L0:
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
+      if (*puVar1 == uVar4) {
+        return iVar3;
       }
     }
-    else {
-      puVar4 = (undefined4 *)0x0;
-      iVar2 = 0;
-      __assert_func(0,0);
-    }
-    *(short *)((int)puVar4 + (iVar6 + 0x398) * 2 + 10) = (short)uVar3;
-    *(short *)((int)puVar4 + 0x74e) = (short)iVar6 + 1;
+    *(short *)(puVar5 + (iVar7 + 0x398) * 2 + 10) = (short)uVar4;
+    *(short *)(puVar5 + 0x74e) = (short)iVar7 + 1;
   }
-  return iVar2;
+  return iVar3;
 }
 

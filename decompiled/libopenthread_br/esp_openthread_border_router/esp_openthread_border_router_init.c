@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ int esp_openthread_border_router_init(void)
   
   if (s_backbone_netif == 0) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC3,uVar3,"OPENTHREAD","esp_openthread_border_router_init",0x52);
+    esp_log_write(1,0x10000,&_LC3,uVar3,0x10000,"esp_openthread_border_router_init",0x52);
     iVar1 = 0x103;
   }
   else {
@@ -29,11 +29,10 @@ int esp_openthread_border_router_init(void)
     iVar1 = esp_openthread_discovery_delegate_init();
     if (iVar1 == 0) {
       esp_openthread_get_instance();
-      iVar1 = otSetStateChangedCallback(0x10000,0);
+      iVar1 = otSetStateChangedCallback(esp_openthread_border_router_state_callback,0);
       if (iVar1 != 0) {
         uVar3 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC5,uVar3,"OPENTHREAD","esp_openthread_border_router_init",
-                      0x58);
+        esp_log_write(1,0x10000,&_LC5,uVar3,0x10000,"esp_openthread_border_router_init",0x56);
         return -1;
       }
       uVar2 = esp_netif_get_netif_impl_index(s_backbone_netif);
@@ -45,22 +44,21 @@ int esp_openthread_border_router_init(void)
           return 0;
         }
         uVar4 = esp_log_timestamp();
-        uVar3 = 0x5e;
+        uVar3 = 0x5d;
         puVar5 = &_LC7;
       }
       else {
         uVar4 = esp_log_timestamp();
-        uVar3 = 0x5c;
+        uVar3 = 0x5a;
         puVar5 = &_LC6;
       }
     }
     else {
       uVar4 = esp_log_timestamp();
-      uVar3 = 0x55;
+      uVar3 = 0x54;
       puVar5 = &_LC4;
     }
-    esp_log_write(1,"OPENTHREAD",puVar5,uVar4,"OPENTHREAD","esp_openthread_border_router_init",uVar3
-                 );
+    esp_log_write(1,0x10000,puVar5,uVar4,0x10000,"esp_openthread_border_router_init",uVar3);
   }
   return iVar1;
 }

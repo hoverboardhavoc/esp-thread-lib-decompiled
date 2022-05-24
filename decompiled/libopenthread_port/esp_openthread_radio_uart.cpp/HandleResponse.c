@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ HandleResponse(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_m
   bStack_21 = 0;
   auStack_14[0] = 0;
   iVar1 = spinel_datatype_unpack
-                    (param_1,CONCAT22(in_register_00002032,param_2),&_LC59,&bStack_21,auStack_14,
+                    (param_1,CONCAT22(in_register_00002032,param_2),&::_L0,&bStack_21,auStack_14,
                      &uStack_20,&puStack_1c,&uStack_18);
   uVar3 = 6;
   if (0 < iVar1) {

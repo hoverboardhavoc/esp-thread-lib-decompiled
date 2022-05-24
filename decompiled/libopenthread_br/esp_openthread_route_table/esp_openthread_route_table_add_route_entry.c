@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,7 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-char * esp_openthread_route_table_add_route_entry(char *param_1)
+undefined1 * esp_openthread_route_table_add_route_entry(undefined1 *param_1)
 
 {
   byte bVar1;
@@ -18,11 +18,11 @@ char * esp_openthread_route_table_add_route_entry(char *param_1)
   int iVar3;
   char cVar4;
   undefined1 *__s1;
-  int iVar5;
-  undefined1 *puVar6;
+  undefined1 *puVar5;
+  int iVar6;
   
-  if (param_1 != (char *)0x0) {
-    puVar6 = s_route_entries;
+  if (param_1 != (undefined1 *)0x0) {
+    puVar5 = s_route_entries;
     __s1 = s_route_entries;
     do {
       if (*(int *)(__s1 + 0x34) == 0) break;
@@ -34,17 +34,17 @@ char * esp_openthread_route_table_add_route_entry(char *param_1)
         goto _L0;
       }
       __s1 = __s1 + 0x38;
-    } while (__s1 != "OPENTHREAD");
+    } while (__s1 != (undefined1 *)0x10904);
     iVar3 = 0;
     do {
-      if (*(int *)(puVar6 + 0x34) == 0) {
+      if (*(int *)(puVar5 + 0x34) == 0) {
         iVar2 = iVar3 * 0x38;
-        iVar5 = *(int *)(param_1 + 0x34);
+        iVar6 = *(int *)(param_1 + 0x34);
         __s1 = s_route_entries + iVar2;
-        *(int *)(s_route_entries + iVar2 + 0x34) = iVar5;
+        *(int *)(s_route_entries + iVar2 + 0x34) = iVar6;
         memcpy(s_route_entries + iVar2 + 0x18,param_1 + 0x18,0x14);
         if ((*(uint *)(s_route_entries + iVar2 + 0x18) & 0xc0ff) == 0x80fe) {
-          cVar4 = *(char *)(iVar5 + 0x196) + '\x01';
+          cVar4 = *(char *)(iVar6 + 0x196) + '\x01';
         }
         else {
           cVar4 = '\0';
@@ -61,9 +61,9 @@ _L0:
         return __s1;
       }
       iVar3 = iVar3 + 1;
-      puVar6 = puVar6 + 0x38;
+      puVar5 = puVar5 + 0x38;
     } while (iVar3 != 10);
-    param_1 = (char *)0x0;
+    param_1 = (undefined1 *)0x0;
   }
   return param_1;
 }

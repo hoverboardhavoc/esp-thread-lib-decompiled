@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RestoreProperties
  *
  * (C) Espressif, Apache License 2.0.
@@ -39,9 +39,9 @@ RestoreProperties(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
         uVar4 = 1;
       }
       uVar4 = otExitCodeToString(uVar4);
-      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+      otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                     "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                    0x90b,uVar4);
+                    0x915,uVar4);
       puVar3 = &_LC8;
       pcVar2 = (char *)0x35;
       pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -49,18 +49,18 @@ RestoreProperties(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
       goto _L0;
     }
     pRVar6 = this + 0x664;
-    iVar1 = Set((ulong)this,(char *)0x34,&_LC17,pRVar6);
+    iVar1 = Set((ulong)this,(char *)0x34,&::_L0,pRVar6);
     if (iVar1 != 0) {
-      iVar1 = Set((ulong)this,(char *)0x34,&_LC17,pRVar6);
+      iVar1 = Set((ulong)this,(char *)0x34,&::_L0,pRVar6);
       uVar4 = 2;
       if (iVar1 != 7) {
         uVar4 = 1;
       }
       uVar4 = otExitCodeToString(uVar4);
-      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+      otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                     "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                    0x90c,uVar4);
-      puVar3 = &_LC17;
+                    0x916,uVar4);
+      puVar3 = &::_L0;
       pcVar2 = (char *)0x34;
       pRStack_4c = pRVar6;
       goto _L0;
@@ -73,9 +73,9 @@ RestoreProperties(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
         uVar4 = 1;
       }
       uVar4 = otExitCodeToString(uVar4);
-      otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+      otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                     "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                    0x90d,uVar4);
+                    0x917,uVar4);
       pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                     *)(uint)(byte)this[0x671];
       puVar3 = &_LC9;
@@ -95,25 +95,25 @@ _L0:
             uVar4 = 1;
           }
           uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+          otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                         "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                        ,0x91a,uVar4);
+                        ,0x924,uVar4);
           iVar1 = Settings::Read<ot::SettingsBase::NetworkInfo>
                             ((Settings *)(*(int *)this + 0x4c),aNStack_58);
           goto _L0;
         }
-        iVar1 = Set((ulong)this,(char *)0x801,&_LC22,pRStack_4c);
+        iVar1 = Set((ulong)this,(char *)0x801,&_LC23,pRStack_4c);
         if (iVar1 != 0) {
-          iVar1 = Set((ulong)this,(char *)0x801,&_LC22,pRStack_4c);
+          iVar1 = Set((ulong)this,(char *)0x801,&_LC23,pRStack_4c);
           uVar4 = 2;
           if (iVar1 != 7) {
             uVar4 = 1;
           }
           uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+          otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                         "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                        ,0x91c,uVar4);
-          puVar3 = &_LC22;
+                        ,0x925,uVar4);
+          puVar3 = &_LC23;
           pcVar2 = (char *)0x801;
           goto _L0;
         }
@@ -130,13 +130,13 @@ _L0:
             uVar4 = 1;
           }
           uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+          otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                         "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                        ,0x922,uVar4);
+                        ,0x92b,uVar4);
           pRVar6 = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                     *)(uint)*(ushort *)(this + iVar1 * 2 + 0x73a);
           puVar3 = &_LC8;
-          iVar1 = 0x304;
+          pcVar2 = (char *)0x1304;
           goto _L0;
         }
       }
@@ -144,107 +144,109 @@ _L0:
       pRVar6 = this + 0x750;
 _L0:
       if (iVar1 < *(short *)(this + 0x7a0)) {
-        iVar5 = Insert((ulong)this,(char *)0x1305,&_LC17,pRVar6);
+        iVar5 = Insert((ulong)this,(char *)0x1305,&::_L0,pRVar6);
         if (iVar5 == 0) goto _L0;
-        iVar1 = Insert((ulong)this,(char *)0x1305,&_LC17,pRVar6);
+        iVar1 = Insert((ulong)this,(char *)0x1305,&::_L0,pRVar6);
         uVar4 = 2;
         if (iVar1 != 7) {
           uVar4 = 1;
         }
         uVar4 = otExitCodeToString(uVar4);
-        otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+        otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                       "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                      0x928,uVar4);
-        puVar3 = &_LC17;
-        iVar1 = 0x305;
+                      0x931,uVar4);
+        puVar3 = &::_L0;
+        pcVar2 = (char *)0x1305;
 _L0:
-        iVar1 = Insert((ulong)this,(char *)(iVar1 + 0x1000),puVar3,pRVar6);
+        iVar1 = Insert((ulong)this,pcVar2,puVar3,pRVar6);
         goto _L0;
       }
       if (((*(uint *)(this + 0x7a8) >> 10 & 1) == 0) ||
-         (iVar1 = Set((ulong)this,(char *)0x24,&_LC23,(int)(char)this[0x7a6]), iVar1 == 0)) {
-        if ((*(int *)(this + 0x7a8) << 0x14 < 0) &&
-           (iVar1 = Set((ulong)this,(char *)0x25,&_LC23,(int)(char)this[0x7a7]), iVar1 != 0)) {
-          iVar1 = Set((ulong)this,(char *)0x25,&_LC23,(int)(char)this[0x7a7]);
-          uVar4 = 2;
-          if (iVar1 != 7) {
-            uVar4 = 1;
+         (iVar1 = Set((ulong)this,(char *)0x24,&_LC24,(int)(char)this[0x7a6]), iVar1 == 0)) {
+        if (((*(uint *)(this + 0x7a8) >> 0xb & 1) == 0) ||
+           (iVar1 = Set((ulong)this,(char *)0x25,&_LC24,(int)(char)this[0x7a7]), iVar1 == 0)) {
+          if (((*(uint *)(this + 0x7a8) >> 0xc & 1) == 0) ||
+             (iVar1 = Set((ulong)this,(char *)0x120d,&_LC16,*(uint *)(this + 0x7a8) >> 8 & 1),
+             iVar1 == 0)) {
+            if (((*(uint *)(this + 0x7a8) >> 0xd & 1) == 0) ||
+               (iVar1 = Set((ulong)this,(char *)0x2a,&_LC24,(int)(char)this[0x7a8]), iVar1 == 0)) {
+              iVar1 = 0xb;
+              while (((this[iVar1 + 0x7c5] ==
+                       (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                        )0x7f || (iVar5 = Set((ulong)this,(char *)0x2b,&_LC25,iVar1), iVar5 == 0))
+                     || (iVar5 == 0x17))) {
+                iVar1 = iVar1 + 1;
+                if (iVar1 == 0x1b) {
+                  CalcRcpTimeOffset(this);
+                  return;
+                }
+              }
+              uVar4 = otExitCodeToString(1);
+              otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
+                            "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                            ,0x954,uVar4);
+              iVar5 = 1;
+              goto _L0;
+            }
+            iVar1 = Set((ulong)this,(char *)0x2a,&_LC24,(int)(char)this[0x7a8]);
+            uVar4 = 2;
+            if (iVar1 != 7) {
+              uVar4 = 1;
+            }
+            uVar4 = otExitCodeToString(uVar4);
+            otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
+                          "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                          ,0x946,uVar4);
+            pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                          *)(int)(char)this[0x7a8];
+            puVar3 = &_LC24;
+            pcVar2 = (char *)0x2a;
           }
-          uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
-                        "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                        ,0x932,uVar4);
-          pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                        *)(int)(char)this[0x7a7];
-          puVar3 = &_LC23;
-          pcVar2 = (char *)0x25;
-        }
-        else if (((int)(*(uint *)(this + 0x7a8) << 0x13) < 0) &&
-                (iVar1 = Set((ulong)this,(char *)0x120d,&_LC16,*(uint *)(this + 0x7a8) >> 8 & 1),
-                iVar1 != 0)) {
-          iVar1 = Set((ulong)this,(char *)0x120d,&_LC16,*(uint *)(this + 0x7a8) >> 8 & 1);
-          uVar4 = 2;
-          if (iVar1 != 7) {
-            uVar4 = 1;
+          else {
+            iVar1 = Set((ulong)this,(char *)0x120d,&_LC16,*(uint *)(this + 0x7a8) >> 8 & 1);
+            uVar4 = 2;
+            if (iVar1 != 7) {
+              uVar4 = 1;
+            }
+            uVar4 = otExitCodeToString(uVar4);
+            otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
+                          "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
+                          ,0x941,uVar4);
+            puVar3 = &_LC16;
+            pcVar2 = (char *)0x120d;
+            pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
+                          *)(*(uint *)(this + 0x7a8) >> 8 & 1);
           }
-          uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
-                        "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                        ,0x937,uVar4);
-          puVar3 = &_LC16;
-          pcVar2 = (char *)0x120d;
-          pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                        *)(*(uint *)(this + 0x7a8) >> 8 & 1);
         }
         else {
-          if ((-1 < *(int *)(this + 0x7a8) << 0x12) ||
-             (iVar1 = Set((ulong)this,(char *)0x2a,&_LC23,(int)(char)this[0x7a8]), iVar1 == 0)) {
-            iVar1 = 0xb;
-            while (((this[iVar1 + 0x7c5] ==
-                     (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                      )0x7f || (iVar5 = Set((ulong)this,(char *)0x2b,&_LC24,iVar1), iVar5 == 0)) ||
-                   (iVar5 == 0x17))) {
-              iVar1 = iVar1 + 1;
-              if (iVar1 == 0x1b) {
-                CalcRcpTimeOffset(this);
-                return;
-              }
-            }
-            uVar4 = otExitCodeToString(1);
-            otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
-                          "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
-                          ,0x94a,uVar4);
-            iVar5 = 1;
-            goto _L0;
-          }
-          iVar1 = Set((ulong)this,(char *)0x2a,&_LC23,(int)(char)this[0x7a8]);
+          iVar1 = Set((ulong)this,(char *)0x25,&_LC24,(int)(char)this[0x7a7]);
           uVar4 = 2;
           if (iVar1 != 7) {
             uVar4 = 1;
           }
           uVar4 = otExitCodeToString(uVar4);
-          otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+          otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                         "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
                         ,0x93c,uVar4);
           pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                        *)(int)(char)this[0x7a8];
-          puVar3 = &_LC23;
-          pcVar2 = (char *)0x2a;
+                        *)(int)(char)this[0x7a7];
+          puVar3 = &_LC24;
+          pcVar2 = (char *)0x25;
         }
       }
       else {
-        iVar1 = Set((ulong)this,(char *)0x24,&_LC23,(int)(char)this[0x7a6]);
+        iVar1 = Set((ulong)this,(char *)0x24,&_LC24,(int)(char)this[0x7a6]);
         uVar4 = 2;
         if (iVar1 != 7) {
           uVar4 = 1;
         }
         uVar4 = otExitCodeToString(uVar4);
-        otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
+        otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
                       "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                      0x92d,uVar4);
+                      0x937,uVar4);
         pRStack_4c = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                       *)(int)(char)this[0x7a6];
-        puVar3 = &_LC23;
+        puVar3 = &_LC24;
         pcVar2 = (char *)0x24;
       }
       goto _L0;
@@ -261,8 +263,8 @@ _L0:
       uVar4 = 1;
     }
     uVar4 = otExitCodeToString(uVar4);
-    otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
-                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x915
+    otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
+                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x91b
                   ,uVar4);
     iVar1 = Set((ulong)this,(char *)0x800,"CCddd",(uint)(byte)this[0x708],(uint)(byte)this[0x709],
                 pRVar6,0x10,pRVar7);
@@ -274,8 +276,8 @@ _L0:
       uVar4 = 1;
     }
     uVar4 = otExitCodeToString(uVar4);
-    otLogCritPlat("%s() at %s:%d: %s","BSD TCP function",
-                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x90a
+    otLogCritPlat("%s() at %s:%d: %s","RestoreProperties",
+                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x914
                   ,uVar4);
     puVar3 = &_LC8;
     pcVar2 = (char *)0x36;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ThreadDatasetHandler
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,8 +19,8 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
 {
   short sVar1;
   int iVar2;
-  size_t __n;
   uint uVar3;
+  size_t __n;
   uchar *puVar4;
   int iVar5;
   short sStack_1b2;
@@ -40,7 +40,7 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
   uchar auStack_134 [4];
   uint uStack_130;
   ushort uStack_12c;
-  Dataset aDStack_128 [272];
+  Dataset aDStack_128 [268];
   
   iVar5 = *(int *)(param_1 + 0x46c);
   ot::Spinel::Decoder::Decoder(aDStack_1a8);
@@ -48,7 +48,7 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
   memset(&uStack_190,0,0x68);
   ot::Spinel::Decoder::Init((uchar *)aDStack_1a8,param_2);
   do {
-    if (sStack_1a0 == sStack_1a2) {
+    if (sStack_1a2 == sStack_1a0) {
       uStack_190 = 0;
       uStack_12c = uStack_12c | 1;
       uStack_18c = 0;
@@ -72,33 +72,26 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
     if (iVar2 != 0) {
       return iVar2;
     }
-    if (uStack_1b0 == 0x45) {
+    if (uStack_1b0 == 0x46) {
       iVar2 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_1a8,(ushort *)&local_1ac);
       if (iVar2 != 0) {
         return iVar2;
       }
-      if (sStack_1b2 != 8) {
+      if (sStack_1b2 != 0x10) {
         return 7;
       }
-      memcpy(auStack_15f,local_1ac,8);
-      uStack_12c = uStack_12c | 0x10;
+      memcpy(auStack_180,local_1ac,0x10);
+      uStack_12c = uStack_12c | 4;
     }
-    else if (uStack_1b0 < 0x46) {
-      if (uStack_1b0 == 0x22) {
-        uStack_130 = 0;
-        while (sStack_1a2 != sStack_1a0) {
-          iVar2 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_1a8);
-          if (iVar2 != 0) {
-            return iVar2;
-          }
-          if (0x1f < ((uint)local_1ac & 0xff)) {
-            return 7;
-          }
-          uStack_130 = 1 << ((uint)local_1ac & 0x1f) | uStack_130;
+    else if (uStack_1b0 < 0x47) {
+      if (uStack_1b0 == 0x36) {
+        iVar2 = ot::Spinel::Decoder::ReadUint16((ushort *)aDStack_1a8);
+        if (iVar2 != 0) {
+          return iVar2;
         }
-        uStack_12c = uStack_12c | 0x800;
+        uStack_12c = uStack_12c | 0x80;
       }
-      else if (uStack_1b0 < 0x23) {
+      else if (uStack_1b0 < 0x37) {
         if (uStack_1b0 == 0x21) {
           iVar2 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_1a8);
           if (iVar2 != 0) {
@@ -107,13 +100,20 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
           uStack_146 = (ushort)(byte)local_1ac;
           uStack_12c = uStack_12c | 0x100;
         }
-      }
-      else if (uStack_1b0 == 0x36) {
-        iVar2 = ot::Spinel::Decoder::ReadUint16((ushort *)aDStack_1a8);
-        if (iVar2 != 0) {
-          return iVar2;
+        else if (uStack_1b0 == 0x22) {
+          uStack_130 = 0;
+          while (sStack_1a2 != sStack_1a0) {
+            iVar2 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_1a8);
+            if (iVar2 != 0) {
+              return iVar2;
+            }
+            if (0x1f < ((uint)local_1ac & 0xff)) {
+              return 7;
+            }
+            uStack_130 = 1 << ((uint)local_1ac & 0x1f) | uStack_130;
+          }
+          uStack_12c = uStack_12c | 0x800;
         }
-        uStack_12c = uStack_12c | 0x80;
       }
       else if (uStack_1b0 == 0x44) {
         iVar2 = ot::Spinel::Decoder::ReadUtf8((char **)aDStack_1a8);
@@ -125,35 +125,27 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
         auStack_170[__n] = 0;
         uStack_12c = uStack_12c | 8;
       }
-    }
-    else if (uStack_1b0 == 0x62) {
-      iVar2 = ot::Spinel::Decoder::ReadItem((uchar **)aDStack_1a8,(ushort)&local_1ac);
-      if (iVar2 != 0) {
-        return iVar2;
-      }
-      iVar2 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_1a8);
-      if (iVar2 != 0) {
-        return iVar2;
-      }
-      if ((char)sStack_1b2 != '@') {
-        return 7;
-      }
-      memcpy(auStack_157,local_1ac,8);
-      uStack_12c = uStack_12c | 0x20;
-    }
-    else if (uStack_1b0 < 99) {
-      if (uStack_1b0 == 0x46) {
+      else if (uStack_1b0 == 0x45) {
         iVar2 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_1a8,(ushort *)&local_1ac);
         if (iVar2 != 0) {
           return iVar2;
         }
-        if (sStack_1b2 != 0x10) {
+        if (sStack_1b2 != 8) {
           return 7;
         }
-        memcpy(auStack_180,local_1ac,0x10);
-        uStack_12c = uStack_12c | 4;
+        memcpy(auStack_15f,local_1ac,8);
+        uStack_12c = uStack_12c | 0x10;
       }
-      else if (uStack_1b0 == 0x4b) {
+    }
+    else if (uStack_1b0 == 0x151e) {
+      iVar2 = ot::Spinel::Decoder::ReadUint32((ulong *)aDStack_1a8);
+      if (iVar2 != 0) {
+        return iVar2;
+      }
+      uStack_12c = uStack_12c | 0x40;
+    }
+    else if (uStack_1b0 < 0x151f) {
+      if (uStack_1b0 == 0x4b) {
         iVar2 = ot::Spinel::Decoder::ReadData((uchar **)aDStack_1a8,(ushort *)&local_1ac);
         if (iVar2 != 0) {
           return iVar2;
@@ -164,13 +156,21 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
         memcpy(auStack_144,local_1ac,0x10);
         uStack_12c = uStack_12c | 0x200;
       }
-    }
-    else if (uStack_1b0 == 0x151e) {
-      iVar2 = ot::Spinel::Decoder::ReadUint32((ulong *)aDStack_1a8);
-      if (iVar2 != 0) {
-        return iVar2;
+      else if (uStack_1b0 == 0x62) {
+        iVar2 = ot::Spinel::Decoder::ReadItem((uchar **)aDStack_1a8,(ushort)&local_1ac);
+        if (iVar2 != 0) {
+          return iVar2;
+        }
+        iVar2 = ot::Spinel::Decoder::ReadUint8((uchar *)aDStack_1a8);
+        if (iVar2 != 0) {
+          return iVar2;
+        }
+        if ((char)sStack_1b2 != '@') {
+          return 7;
+        }
+        memcpy(auStack_157,local_1ac,8);
+        uStack_12c = uStack_12c | 0x20;
       }
-      uStack_12c = uStack_12c | 0x40;
     }
     else if (uStack_1b0 == 0x151f) {
       iVar2 = ot::Spinel::Decoder::ReadUint16((ushort *)aDStack_1a8);

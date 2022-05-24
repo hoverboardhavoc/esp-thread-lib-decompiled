@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatDiagProcess
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,23 +15,28 @@
 void otPlatDiagProcess(otInstance *param_1,int param_2,char **param_3,char *param_4,uint param_5)
 
 {
-  int iVar1;
   char *__s;
+  int iVar1;
   int iVar2;
-  char acStack_120 [256];
+  char local_130 [256];
+  undefined1 auStack_30 [12];
   
-  __s = acStack_120;
-  memset(acStack_120,0,0x100);
+  __s = local_130;
+  local_130[0] = '\0';
+  local_130[1] = '\0';
+  local_130[2] = '\0';
+  local_130[3] = '\0';
+  memset(local_130 + 4,0,0xfc);
   for (iVar1 = 0; iVar1 < param_2; iVar1 = iVar1 + 1) {
-    iVar2 = snprintf(__s,(size_t)(&stack0xffffffe0 + -(int)__s),"%s ");
+    iVar2 = snprintf(__s,(size_t)(auStack_30 + -(int)__s),"%s ");
     __s = __s + iVar2;
   }
-  DAT_00014474 = param_4;
-  DAT_00014478 = param_5;
+  DAT_00014bd4 = param_4;
+  DAT_00014bd8 = param_5;
   ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-  Set(0x13cc8,(char *)0x3bc0);
-  DAT_00014474 = (char *)0x0;
-  DAT_00014478 = 0;
+  Set(0x14428,(char *)0x3bc0);
+  DAT_00014bd4 = (char *)0x0;
+  DAT_00014bd8 = 0;
   return;
 }
 

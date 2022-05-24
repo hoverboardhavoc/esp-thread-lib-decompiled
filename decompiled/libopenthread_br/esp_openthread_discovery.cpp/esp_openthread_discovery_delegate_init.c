@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 90d32076b158280332a6f931440e2145c0d51b08
- * https://github.com/espressif/esp-thread-lib/commit/90d32076b158280332a6f931440e2145c0d51b08
- * Upstream date: 2022-04-26 15:33:17 +0800
- * Upstream subject: openthread: support esp32h2beta1 & esp32h2beta2
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     s_mdns_event_fd = eventfd(0,0);
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD",
+      esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
                     "esp_openthread_discovery_delegate_init",0x183);
       uVar1 = 0xffffffff;
     }
@@ -33,15 +33,15 @@ undefined4 esp_openthread_discovery_delegate_init(void)
         return uVar1;
       }
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x186);
+      esp_log_write(1,"OPENTHREAD",&_LC12,uVar1,"OPENTHREAD",
+                    "esp_openthread_discovery_delegate_init",0x185);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
-                  0x181);
+    esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
+                  0x180);
     uVar1 = 0x102;
   }
   return uVar1;

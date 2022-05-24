@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> Update
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,8 +21,8 @@ esp::openthread::UartSpinelInterface::Update
   
   uVar1 = *(uint *)(this + 0x4c);
   if (uVar1 < 0x40) {
-    *(uint *)(param_1 + (uVar1 >> 5) * 4) =
-         *(uint *)(param_1 + (uVar1 >> 5) * 4) | 1 << (uVar1 & 0x1f);
+    *(uint *)(param_1 + ((int)uVar1 >> 5) * 4) =
+         *(uint *)(param_1 + ((int)uVar1 >> 5) * 4) | 1 << (uVar1 & 0x1f);
   }
   if (*(int *)(param_1 + 0x18) < (int)uVar1) {
     *(uint *)(param_1 + 0x18) = uVar1;

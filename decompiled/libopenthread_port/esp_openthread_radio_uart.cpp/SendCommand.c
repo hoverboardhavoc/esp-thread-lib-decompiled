@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> SendCommand
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,17 +24,17 @@ SendCommand(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_main
   undefined4 uVar2;
   int iVar3;
   undefined3 in_register_00002035;
-  undefined1 auStack_420 [1028];
+  undefined1 auStack_534 [1304];
   
   iVar1 = spinel_datatype_pack
-                    (auStack_420,0x400,&_LC5,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
+                    (auStack_534,0x514,&_LC5,CONCAT31(in_register_00002035,param_3) | 0x80,param_1,
                      param_2);
-  if ((iVar1 - 1U < 0x400) &&
+  if ((iVar1 - 1U < 0x514) &&
      ((param_4 == (char *)0x0 ||
-      ((iVar3 = spinel_datatype_vpack(auStack_420 + iVar1,0x400 - iVar1,param_4,param_5), 0 < iVar3
-       && (iVar1 + iVar3 < 0x401)))))) {
+      ((iVar3 = spinel_datatype_vpack(auStack_534 + iVar1,0x514 - iVar1,param_4,param_5), 0 < iVar3
+       && (iVar1 + iVar3 < 0x515)))))) {
     uVar2 = esp::openthread::UartSpinelInterface::SendFrame
-                      ((uchar *)(this + 0x410),(ushort)auStack_420);
+                      ((uchar *)(this + 0x410),(ushort)auStack_534);
   }
   else {
     uVar2 = 3;

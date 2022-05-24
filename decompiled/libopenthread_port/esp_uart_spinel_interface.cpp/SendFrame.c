@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> SendFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,7 +32,7 @@ int esp::openthread::UartSpinelInterface::SendFrame(uchar *param_1,ushort param_
      (iVar1 = Write((UartSpinelInterface *)param_1,auStack_422,
                     (short)puStack_428 - (short)auStack_422), iVar1 != 0)) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD");
   }
   return iVar1;
 }

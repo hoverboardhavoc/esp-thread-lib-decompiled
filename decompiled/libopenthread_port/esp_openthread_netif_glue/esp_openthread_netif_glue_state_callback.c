@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,7 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void esp_openthread_netif_glue_state_callback(int param_1)
+void esp_openthread_netif_glue_state_callback(uint param_1)
 
 {
   int iVar1;
@@ -18,7 +18,7 @@ void esp_openthread_netif_glue_state_callback(int param_1)
   undefined *puVar3;
   
   esp_openthread_get_instance();
-  if ((s_packet_queue != 0) && (param_1 << 7 < 0)) {
+  if ((s_packet_queue != 0) && ((param_1 & 0x1000000) != 0)) {
     iVar1 = otLinkIsEnabled();
     if (iVar1 == 0) {
       uVar2 = esp_log_timestamp();

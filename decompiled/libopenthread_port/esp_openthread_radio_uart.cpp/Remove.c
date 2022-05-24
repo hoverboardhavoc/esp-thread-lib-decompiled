@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,9 +17,10 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
      ::Remove(ulong param_1,char *param_2,...)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
-  uint uVar3;
+  ushort *puVar1;
+  undefined1 *puVar2;
+  int iVar3;
+  uint uVar4;
   char *in_a2;
   undefined4 in_a3;
   undefined4 in_a4;
@@ -47,21 +48,22 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
       RequestV((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                 *)param_1,5,(ulong)param_2,in_a2,&uStack_14);
       *(undefined4 *)(param_1 + 0x478) = 0;
-    } while (*(int *)(param_1 + 0x7a8) << 0x11 < 0);
+    } while ((*(uint *)(param_1 + 0x7a8) >> 0xe & 1) != 0);
     return;
   }
-  uVar3 = __assert_func(0,0,0,0);
-  iVar2 = Remove(0x13cc8,(char *)0x1304);
-  if (iVar2 == 0) {
-    puVar1 = &s_radio;
-    for (iVar2 = 0; iVar2 < DAT_00014416; iVar2 = iVar2 + 1) {
-      if (*(ushort *)((int)puVar1 + 0x73a) == uVar3) {
-        *(undefined2 *)(&DAT_00013cd2 + (iVar2 + 0x398) * 2) =
-             *(undefined2 *)(&DAT_00013cd2 + (DAT_00014416 + 0x397) * 2);
-        DAT_00014416 = DAT_00014416 + -1;
+  uVar4 = __assert_func(0,0,0,0);
+  iVar3 = Remove(0x14428,(char *)0x1304);
+  if (iVar3 == 0) {
+    puVar2 = &s_radio;
+    for (iVar3 = 0; iVar3 < DAT_00014b76; iVar3 = iVar3 + 1) {
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
+      if (*puVar1 == uVar4) {
+        *(undefined2 *)(&DAT_00014432 + (iVar3 + 0x398) * 2) =
+             *(undefined2 *)(&DAT_00014432 + (DAT_00014b76 + 0x397) * 2);
+        DAT_00014b76 = DAT_00014b76 + -1;
         return;
       }
-      puVar1 = (undefined4 *)((int)puVar1 + 2);
     }
   }
   return;

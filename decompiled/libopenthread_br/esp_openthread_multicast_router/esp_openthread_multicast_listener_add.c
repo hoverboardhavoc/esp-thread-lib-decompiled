@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
   }
   uVar2 = esp_log_timestamp();
   uVar3 = ip6addr_ntoa(param_1);
-  esp_log_write(3,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD",uVar3);
+  esp_log_write(3,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD",uVar3);
   iVar4 = find_or_create_netif_listener_list(param_3);
   if (iVar4 == 0) {
     return 0x101;
@@ -61,7 +61,6 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
     return 0x101;
   }
   memcpy(pvVar1,param_1,0x14);
-  *(undefined4 *)((int)pvVar1 + 0x14) = 0;
   *(undefined4 *)((int)pvVar1 + 0x18) = 0;
   pvVar5 = malloc(0x18);
   if (pvVar5 == (void *)0x0) {
@@ -74,7 +73,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
   iVar6 = esp_openthread_get_lwip_backbone_netif();
   if (param_3 != iVar6) {
     esp_openthread_get_lwip_backbone_netif();
-    iVar6 = send_mldv2_joinleave_netif_isra_5(param_1,1);
+    iVar6 = send_mldv2_joinleave_netif_constprop_0(param_1,1);
     if (iVar6 != 0) {
       free_multicast_listener(pvVar1);
       return 0xffffffff;

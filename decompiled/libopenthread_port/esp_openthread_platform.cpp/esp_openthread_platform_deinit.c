@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_deinit
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,13 +17,13 @@ undefined4 esp_openthread_platform_deinit(void)
   
   if (s_openthread_platform_initialized == '\0') {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC2,uVar1,"OPENTHREAD","esp_openthread_platform_deinit",0x8d);
+    esp_log_write(1,"OPENTHREAD",&_LC4,uVar1,"OPENTHREAD","esp_openthread_platform_deinit",0x8c);
     uVar1 = 0x103;
   }
   else {
     esp_openthread_task_queue_deinit();
     esp_openthread_radio_deinit();
-    if (s_platform_config == 1) {
+    if (s_platform_config._44_4_ == 1) {
       esp_openthread_uart_deinit();
     }
     esp_openthread_lock_deinit();

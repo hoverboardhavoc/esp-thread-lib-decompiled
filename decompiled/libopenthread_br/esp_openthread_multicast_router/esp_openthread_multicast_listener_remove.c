@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,74 +25,69 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
   if ((*param_1 & 0xff) != 0xff) {
     return 0x102;
   }
-  if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
-    uVar1 = esp_log_timestamp();
-    uVar2 = ip6addr_ntoa(param_1);
-    esp_log_write(3,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD",uVar2);
-    piVar5 = s_netif_listener_lists;
-    while( true ) {
-      if (piVar5 == (int *)0x0) {
-        return 0x105;
-      }
-      if (param_3 == *piVar5) break;
-      piVar5 = (int *)piVar5[2];
+  if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) == 0) {
+    return 0;
+  }
+  uVar1 = esp_log_timestamp();
+  uVar2 = ip6addr_ntoa(param_1);
+  esp_log_write(3,"OPENTHREAD",&_L0,uVar1,"OPENTHREAD",uVar2);
+  piVar5 = s_netif_listener_lists;
+  while( true ) {
+    if (piVar5 == (int *)0x0) {
+      return 0x105;
     }
-    pvVar4 = (void *)piVar5[1];
-    pvVar7 = (void *)0x0;
-    while( true ) {
-      __s1 = pvVar4;
-      if (__s1 == (void *)0x0) {
-        return 0x105;
-      }
-      iVar3 = memcmp(__s1,param_1,0x10);
-      if (iVar3 == 0) break;
-      pvVar4 = *(void **)((int)__s1 + 0x18);
-      pvVar7 = __s1;
+    if (param_3 == *piVar5) break;
+    piVar5 = (int *)piVar5[2];
+  }
+  pvVar4 = (void *)piVar5[1];
+  pvVar7 = (void *)0x0;
+  while( true ) {
+    __s1 = pvVar4;
+    if (__s1 == (void *)0x0) {
+      return 0x105;
     }
-    pvVar4 = *(void **)((int)__s1 + 0x14);
-    if (*(int *)((int)pvVar4 + 0x14) == 0) {
-      iVar3 = memcmp(pvVar4,param_2,0x10);
-      pvVar6 = (void *)0x0;
-      if (iVar3 == 0) {
-        iVar3 = esp_openthread_get_lwip_backbone_netif();
-        if (param_3 != iVar3) {
-          esp_openthread_get_lwip_backbone_netif();
-          iVar3 = send_mldv2_joinleave_netif_isra_5(param_1,0);
-          if (iVar3 != 0) {
-            return iVar3;
-          }
-        }
-        if (pvVar7 == (void *)0x0) {
-          piVar5[1] = *(int *)((int)__s1 + 0x18);
-        }
-        else {
-          *(int *)((int)pvVar7 + 0x18) = *(int *)((int)__s1 + 0x18);
-        }
-        free_multicast_listener(__s1);
-        return 0;
+    iVar3 = memcmp(__s1,param_1,0x10);
+    if (iVar3 == 0) break;
+    pvVar4 = *(void **)((int)__s1 + 0x18);
+    pvVar7 = __s1;
+  }
+  pvVar4 = *(void **)((int)__s1 + 0x14);
+  iVar3 = memcmp(pvVar4,param_2,0x10);
+  pvVar6 = (void *)0x0;
+  if ((*(int *)((int)pvVar4 + 0x14) == 0) && (pvVar6 = (void *)0x0, iVar3 == 0)) {
+    iVar3 = esp_openthread_get_lwip_backbone_netif();
+    if (param_3 != iVar3) {
+      esp_openthread_get_lwip_backbone_netif();
+      iVar3 = send_mldv2_joinleave_netif_constprop_0(param_1,0);
+      if (iVar3 != 0) {
+        return iVar3;
       }
+    }
+    if (pvVar7 == (void *)0x0) {
+      piVar5[1] = *(int *)((int)__s1 + 0x18);
     }
     else {
-      pvVar6 = (void *)0x0;
+      *(int *)((int)pvVar7 + 0x18) = *(int *)((int)__s1 + 0x18);
     }
-    do {
-      pvVar7 = pvVar4;
-      iVar3 = memcmp(pvVar7,param_2,0x10);
-      pvVar4 = *(void **)((int)pvVar7 + 0x14);
-      if (iVar3 == 0) {
-        if (pvVar6 == (void *)0x0) {
-          *(void **)((int)__s1 + 0x14) = pvVar4;
-        }
-        else {
-          *(void **)((int)pvVar6 + 0x14) = pvVar4;
-        }
-        free(pvVar7);
-        return 0;
-      }
-      pvVar6 = pvVar7;
-    } while (pvVar4 != (void *)0x0);
-    return 0x105;
+    free_multicast_listener(__s1);
+    return 0;
   }
-  return 0;
+  do {
+    pvVar7 = pvVar4;
+    iVar3 = memcmp(pvVar7,param_2,0x10);
+    pvVar4 = *(void **)((int)pvVar7 + 0x14);
+    if (iVar3 == 0) {
+      if (pvVar6 == (void *)0x0) {
+        *(void **)((int)__s1 + 0x14) = pvVar4;
+      }
+      else {
+        *(void **)((int)pvVar6 + 0x14) = pvVar4;
+      }
+      free(pvVar7);
+      return 0;
+    }
+    pvVar6 = pvVar7;
+  } while (pvVar4 != (void *)0x0);
+  return 0x105;
 }
 

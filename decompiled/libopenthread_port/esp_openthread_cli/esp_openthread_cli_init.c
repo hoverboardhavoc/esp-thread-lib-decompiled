@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_cli.o -> esp_openthread_cli_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,7 +14,7 @@ void esp_openthread_cli_init(void)
 
 {
   esp_openthread_get_instance();
-  otCliInit(0x10000,0);
+  otCliInit(cli_output_callback,0);
   return;
 }
 

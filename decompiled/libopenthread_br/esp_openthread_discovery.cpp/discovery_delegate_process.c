@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit d5196d896db7230669366a6468859aacccc0f68a
- * https://github.com/espressif/esp-thread-lib/commit/d5196d896db7230669366a6468859aacccc0f68a
- * Upstream date: 2021-12-24 17:07:02 +0800
- * Upstream subject: br: support new mdns interface
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,8 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
   undefined1 auStack_48 [20];
   
   if ((0x3f < s_mdns_event_fd) ||
-     ((1 << (s_mdns_event_fd & 0x1f) & *(uint *)(param_2 + (s_mdns_event_fd >> 5) * 4)) == 0)) {
+     ((1 << (s_mdns_event_fd & 0x1f) & *(uint *)(param_2 + ((int)s_mdns_event_fd >> 5) * 4)) == 0))
+  {
     return 0;
   }
   read(s_mdns_event_fd,auStack_48,8);
@@ -54,9 +55,15 @@ _L0:
             pcVar4 = strchr(*(char **)(__ptr + 0x300),0x2e);
             esp_openthread_get_instance();
             otDnssdQueryHandleDiscoveredServiceInstance(pcVar4 + 1,__ptr + 0x300);
-_L0:
-            free_addresses_in_pending_query(__ptr);
+            goto _L0;
           }
+        }
+        else if (iVar5 == 2) {
+          append_to_query_result(__ptr,pmVar1);
+          esp_openthread_get_instance();
+          otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
+_L0:
+          free_addresses_in_pending_query(__ptr);
         }
         else if (iVar5 == 0) {
           for (pmVar6 = pmVar1; pmVar6 != (mdns_result_s *)0x0; pmVar6 = *(mdns_result_s **)pmVar6)
@@ -68,12 +75,6 @@ _L0:
             free_addresses_in_pending_query(__ptr);
             memset(__ptr + 0x300,0,0x20);
           }
-        }
-        else if (iVar5 == 2) {
-          append_to_query_result(__ptr,pmVar1);
-          esp_openthread_get_instance();
-          otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
-          goto _L0;
         }
       }
       else if (iVar3 == *(int *)(__ptr + 0x324)) {

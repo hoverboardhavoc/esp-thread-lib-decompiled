@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   ulong uStack_20;
   undefined4 uStack_1c;
   uchar *puStack_18;
-  uint uStack_14;
+  int iStack_14;
   
   uStack_1c = 0;
   puStack_18 = (uchar *)0x0;
@@ -37,12 +37,12 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength
                     ((MultiFrameBuffer<(unsigned_short)1024> *)param_1);
   iVar4 = spinel_datatype_unpack
-                    (uVar2,uVar3,&_LC59,&bStack_21,&uStack_14,&uStack_20,&puStack_18,&uStack_1c);
+                    (uVar2,uVar3,&::_L0,&bStack_21,&iStack_14,&uStack_20,&puStack_18,&uStack_1c);
   if ((iVar4 < 1) || ((bStack_21 & 0xf) != 0)) {
     uVar2 = 6;
   }
   else {
-    if (uStack_14 == 6) {
+    if (iStack_14 == 6) {
       if ((uStack_20 == 0x71) || (uStack_20 == 0x39)) {
         puVar1 = *(undefined1 **)(param_1 + 0x408);
         iVar4 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength
@@ -63,7 +63,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
     }
     else {
       uVar2 = 6;
-      if ((uStack_14 < 6) || (8 < uStack_14)) goto _L0;
+      if (1 < iStack_14 - 7U) goto _L0;
       otLogInfoPlat("Ignored command %d");
     }
     uVar2 = 0;

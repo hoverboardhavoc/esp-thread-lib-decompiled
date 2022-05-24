@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_br -> esp_openthread_route_table.o -> lwip_hook_nd6_get_gw
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,45 +10,37 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-char * lwip_hook_nd6_get_gw(int param_1,char *param_2)
+undefined1 * lwip_hook_nd6_get_gw(int param_1,undefined1 *param_2)
 
 {
-  byte bVar1;
-  int *piVar2;
+  int *piVar1;
   undefined1 *__s2;
-  char *pcVar3;
-  int iVar4;
+  undefined1 *puVar2;
+  int iVar3;
   
-  piVar2 = &s_on_link_prefixes;
+  piVar1 = &s_on_link_prefixes;
   do {
-    if (*piVar2 == 0) break;
-    iVar4 = memcmp(param_2,piVar2 + 1,(uint)(*(byte *)(piVar2 + 6) >> 3));
-    if (iVar4 == 0) {
+    if (*piVar1 == 0) break;
+    iVar3 = memcmp(param_2,piVar1 + 1,(uint)(*(byte *)(piVar1 + 6) >> 3));
+    if (iVar3 == 0) {
       return param_2;
     }
-    piVar2 = piVar2 + 8;
-  } while (piVar2 != (int *)s_route_entries);
+    piVar1 = piVar1 + 8;
+  } while (piVar1 != (int *)s_route_entries);
   __s2 = s_route_entries;
-  pcVar3 = (char *)0x0;
+  puVar2 = (undefined1 *)0x0;
   do {
     if (*(int *)(__s2 + 0x34) == 0) break;
-    if (*(int *)(__s2 + 0x34) == param_1) {
-      bVar1 = __s2[0x14];
-      iVar4 = memcmp(param_2,__s2,(uint)(bVar1 >> 3));
-      if (iVar4 == 0) {
-        if (pcVar3 != (char *)0x0) {
-          if (((char)__s2[0x2c] <= pcVar3[0x2c]) &&
-             ((__s2[0x2c] != pcVar3[0x2c] || (bVar1 <= (byte)pcVar3[0x14])))) goto _L0;
-        }
-        pcVar3 = __s2;
-      }
+    if (((*(int *)(__s2 + 0x34) == param_1) &&
+        (iVar3 = memcmp(param_2,__s2,(uint)((byte)__s2[0x14] >> 3)), iVar3 == 0)) &&
+       (iVar3 = is_better_route(__s2,puVar2), iVar3 != 0)) {
+      puVar2 = __s2;
     }
-_L0:
     __s2 = __s2 + 0x38;
-  } while (__s2 != "OPENTHREAD");
-  if (pcVar3 != (char *)0x0) {
-    pcVar3 = pcVar3 + 0x18;
+  } while (__s2 != (undefined1 *)0x10904);
+  if (puVar2 != (undefined1 *)0x0) {
+    puVar2 = puVar2 + 0x18;
   }
-  return pcVar3;
+  return puVar2;
 }
 

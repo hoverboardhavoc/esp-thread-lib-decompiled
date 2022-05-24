@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
+ * Upstream date: 2022-05-24 22:56:58 +0800
+ * Upstream subject: openthread: rebuild the lib with new toolchain
  * Source: libopenthread_port -> esp_openthread_uart.o -> esp_openthread_uart_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ int esp_openthread_uart_init(int param_1)
     iVar1 = esp_openthread_uart_init_port(param_1 + 0x30);
     if (iVar1 != 0) {
       uVar4 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC6,uVar4,"OPENTHREAD","esp_openthread_uart_init",0x5e);
+      esp_log_write(1,"OPENTHREAD",&_LC6,uVar4,"OPENTHREAD","esp_openthread_uart_init",0x5d);
       return iVar1;
     }
     if (*(int *)(param_1 + 0x2c) != 2) {
@@ -48,7 +48,7 @@ int esp_openthread_uart_init(int param_1)
   }
   else {
     uVar2 = esp_log_timestamp();
-    uVar4 = 0x5b;
+    uVar4 = 0x59;
     puVar3 = &_LC5;
   }
   esp_log_write(1,"OPENTHREAD",puVar3,uVar2,"OPENTHREAD","esp_openthread_uart_init",uVar4);
