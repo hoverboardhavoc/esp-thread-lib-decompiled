@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RecoverFromRcpFailure
  *
  * (C) Espressif, Apache License 2.0.
@@ -38,7 +38,7 @@ RecoverFromRcpFailure
     otLogCritPlat("Too many rcp failures, exiting");
     uVar1 = otExitCodeToString(1);
     otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
-                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8d3
+                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8cc
                   ,uVar1);
     iVar4 = 1;
     goto _L0;
@@ -65,20 +65,20 @@ RecoverFromRcpFailure
   if (((*(uint *)(this + 0x704) >> 4 & 1) == 0) || (iVar2 = SendReset(this,'\x02'), iVar2 == 0)) {
     iVar2 = WaitResponse(this);
     if (iVar2 == 0) {
-      iVar2 = Set((ulong)this,(char *)0x20,&_LC16,1);
+      iVar2 = Set((ulong)this,(char *)0x20,&_LC17,1);
       if (iVar2 == 0) {
         *(undefined4 *)(this + 0x700) = 1;
         RestoreProperties(this);
         if (iVar4 == 2) {
-          iVar4 = Set((ulong)this,(char *)0x37,&_LC16,1);
+          iVar4 = Set((ulong)this,(char *)0x37,&_LC17,1);
           if (iVar4 != 0) {
-            iVar4 = Set((ulong)this,(char *)0x37,&_LC16,1);
+            iVar4 = Set((ulong)this,(char *)0x37,&_LC17,1);
             uVar1 = 2;
             if (iVar4 != 7) {
               uVar1 = 1;
             }
             uVar1 = otExitCodeToString(uVar1);
-            iVar4 = -0x709;
+            iVar4 = -0x710;
 _L0:
             otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
                           "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
@@ -89,15 +89,15 @@ _L0:
           *(undefined4 *)(this + 0x700) = 2;
         }
         else if (iVar4 - 3U < 2) {
-          iVar4 = Set((ulong)this,(char *)0x37,&_LC16,1);
+          iVar4 = Set((ulong)this,(char *)0x37,&_LC17,1);
           if (iVar4 != 0) {
-            iVar4 = Set((ulong)this,(char *)0x37,&_LC16,1);
+            iVar4 = Set((ulong)this,(char *)0x37,&_LC17,1);
             uVar1 = 2;
             if (iVar4 != 7) {
               uVar1 = 1;
             }
             uVar1 = otExitCodeToString(uVar1);
-            iVar4 = -0x704;
+            iVar4 = -0x70b;
             goto _L0;
           }
           *(undefined4 *)(this + 0x674) = 0xb;
@@ -106,6 +106,7 @@ _L0:
         if (((*(uint *)(this + 0x7a8) >> 0xf & 1) == 0) ||
            (iVar4 = EnergyScan(this,(uchar)this[0x7a2],*(ushort *)(this + 0x7a4)), iVar4 == 0)) {
           *(short *)(this + 0x706) = *(short *)(this + 0x706) + -1;
+          otLogNotePlat("RCP recovery is done");
           return;
         }
         iVar4 = EnergyScan(this,(uchar)this[0x7a2],*(ushort *)(this + 0x7a4));
@@ -116,11 +117,11 @@ _L0:
         uVar1 = otExitCodeToString(uVar1);
         otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
                       "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                      0x904,uVar1);
+                      0x8fd,uVar1);
         iVar2 = EnergyScan(this,(uchar)this[0x7a2],*(ushort *)(this + 0x7a4));
       }
       else {
-        iVar4 = Set((ulong)this,(char *)0x20,&_LC16,1);
+        iVar4 = Set((ulong)this,(char *)0x20,&_LC17,1);
         uVar1 = 2;
         if (iVar4 != 7) {
           uVar1 = 1;
@@ -128,10 +129,10 @@ _L0:
         uVar1 = otExitCodeToString(uVar1);
         otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
                       "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                      0x8ec,uVar1);
+                      0x8e5,uVar1);
         pcVar3 = (char *)0x20;
 _L0:
-        iVar2 = Set((ulong)this,pcVar3,&_LC16,1);
+        iVar2 = Set((ulong)this,pcVar3,&_LC17,1);
       }
     }
     else {
@@ -143,7 +144,7 @@ _L0:
       uVar1 = otExitCodeToString(uVar1);
       otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
                     "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",
-                    0x8ea,uVar1);
+                    0x8e3,uVar1);
       iVar2 = WaitResponse(this);
     }
   }
@@ -155,7 +156,7 @@ _L0:
     }
     uVar1 = otExitCodeToString(uVar1);
     otLogCritPlat("%s() at %s:%d: %s","RecoverFromRcpFailure",
-                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8e6
+                  "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x8df
                   ,uVar1);
     iVar2 = SendReset(this,'\x02');
   }

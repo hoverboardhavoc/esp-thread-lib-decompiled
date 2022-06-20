@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit cab1c6e26ac83c30886f00567c15643b5a501cec
- * https://github.com/espressif/esp-thread-lib/commit/cab1c6e26ac83c30886f00567c15643b5a501cec
- * Upstream date: 2022-05-06 21:42:07 +0800
- * Upstream subject: br: update host openthread libraries for rcp update(af058a8)
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> WaitResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -42,6 +42,7 @@ _L0:
       return *(undefined4 *)(this + 0x47c);
     }
   }
+  otLogWarnPlat("Wait for response timeout");
   *(undefined4 *)(this + 0x47c) = 0;
   this[0x7a9] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                 )((byte)this[0x7a9] | 0x40);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> esp_openthread_radio_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,13 +18,13 @@ int esp_openthread_radio_init(void)
   int __status;
   bool bStack_11;
   
-  iVar1 = esp::openthread::UartSpinelInterface::Init((esp_openthread_uart_config_t *)&DAT_00014838);
+  iVar1 = esp::openthread::UartSpinelInterface::Init((esp_openthread_uart_config_t *)&DAT_00014898);
   if (iVar1 != 0) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_LC68,uVar2,"OPENTHREAD","esp_openthread_radio_init",0x27);
+    esp_log_write(1,"OPENTHREAD",&_LC70,uVar2,"OPENTHREAD","esp_openthread_radio_init",0x27);
     return iVar1;
   }
-  DAT_00014b2c = DAT_00014b2c | 0x10;
+  DAT_00014b8c = DAT_00014b8c | 0x10;
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
           SendReset((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -34,14 +34,14 @@ int esp_openthread_radio_init(void)
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
               WaitResponse((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                             *)&s_radio), iVar1 == 0)) {
-    while ((DAT_00014bd0 >> 0xe & 1) != 0) {
+    while ((DAT_00014c30 >> 0xe & 1) != 0) {
       ot::Spinel::
       RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
       RecoverFromRcpFailure
                 ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                   *)&s_radio);
     }
-    if ((DAT_00014b2c >> 1 & 1) != 0) {
+    if ((DAT_00014b8c >> 1 & 1) != 0) {
       iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
               CheckSpinelVersion((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -49,17 +49,17 @@ int esp_openthread_radio_init(void)
       if (((iVar1 == 0) &&
           (iVar1 = ot::Spinel::
                    RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                   ::Get(0x14428,(char *)0x2,&_LC38,&DAT_00014aa0,0x80), iVar1 == 0)) &&
+                   ::Get(0x14488,(char *)0x2,&_LC40,&DAT_00014b00,0x80), iVar1 == 0)) &&
          (iVar1 = ot::Spinel::
                   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                  ::Get(0x14428,(char *)0x8,&_L0,&DAT_00014b20), iVar1 == 0)) {
+                  ::Get(0x14488,(char *)0x8,&_L0,&DAT_00014b80), iVar1 == 0)) {
         iVar1 = ot::Spinel::
                 RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                 ::IsRcp((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                          *)&s_radio,&bStack_11);
         if (iVar1 == 0) {
           uVar2 = otExitCodeToString(3);
-          otLogCritPlat("%s() at %s:%d: %s",&_LC69,
+          otLogCritPlat("%s() at %s:%d: %s",&_LC71,
                         "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
                         ,0x10b,uVar2);
           __status = 3;
@@ -77,9 +77,9 @@ int esp_openthread_radio_init(void)
                               ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                                 *)&s_radio);
             if (iVar1 == 0) {
-              DAT_00014a28 = &DAT_000148a8;
-              DAT_00014a48 = &DAT_00014927;
-              DAT_00014a68 = &DAT_000149a6;
+              DAT_00014a88 = &DAT_00014908;
+              DAT_00014aa8 = &DAT_00014987;
+              DAT_00014ac8 = &DAT_00014a06;
               iVar1 = esp_openthread_platform_workflow_register
                                 (esp_openthread_radio_update,esp_openthread_radio_process,
                                  "radio_uart");
@@ -95,7 +95,7 @@ int esp_openthread_radio_init(void)
               uVar2 = 1;
             }
             uVar2 = otExitCodeToString(uVar2);
-            otLogCritPlat("%s() at %s:%d: %s",&_LC69,
+            otLogCritPlat("%s() at %s:%d: %s",&_LC71,
                           "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
                           ,0x111,uVar2);
             iVar1 = ot::Spinel::
@@ -115,7 +115,7 @@ int esp_openthread_radio_init(void)
               uVar2 = 1;
             }
             uVar2 = otExitCodeToString(uVar2);
-            otLogCritPlat("%s() at %s:%d: %s",&_LC69,
+            otLogCritPlat("%s() at %s:%d: %s",&_LC71,
                           "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp"
                           ,0x110,uVar2);
             iVar1 = ot::Spinel::
@@ -144,7 +144,7 @@ _L0:
     }
   }
   uVar2 = otExitCodeToString(uVar2);
-  otLogCritPlat("%s() at %s:%d: %s",&_LC69,
+  otLogCritPlat("%s() at %s:%d: %s",&_LC71,
                 "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",0x119,
                 uVar2);
   __status = 2;

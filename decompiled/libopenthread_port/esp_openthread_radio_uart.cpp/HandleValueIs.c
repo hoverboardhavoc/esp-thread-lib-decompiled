@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,7 +32,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&iStack_b0);
     if (iVar1 != 0) goto _L0;
     if (((*(uint *)(this + 0x704) & 1) != 0) || (1 < *(uint *)(this + 0x700))) {
-      if (s_radio == '\0') {
+      if ((char)s_radio == '\0') {
         otPlatRadioReceiveDone(*(undefined4 *)this,(otRadioFrame *)(this + 0x600),0);
       }
       else {
@@ -44,7 +44,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
   }
   if (param_1 == 0) {
     apppuStack_a8[0] = (undefined4 ****)0x0;
-    iStack_b0 = spinel_datatype_unpack(param_2,&_LC49,apppuStack_a8);
+    iStack_b0 = spinel_datatype_unpack(param_2,&_LC51,apppuStack_a8);
     if (0 < iStack_b0) {
       iVar1 = 0;
       if (apppuStack_a8[0] + -0x1c < (undefined4 ****)0x11) {
@@ -72,7 +72,7 @@ _L0:
   }
   else {
     if (param_1 == 0x39) {
-      iStack_b0 = spinel_datatype_unpack(param_2,&_LC25,&uStack_ac,apppuStack_a8);
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC27,&uStack_ac,apppuStack_a8);
       if (iStack_b0 < 1) goto _L0;
       this[0x7a9] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                      )((byte)this[0x7a9] & 0x7f);
@@ -80,7 +80,7 @@ _L0:
     }
     else if (param_1 == 0x70) {
       uStack_ac = 0x97;
-      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10ba4,apppuStack_a8,&uStack_ac);
+      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10bd0,apppuStack_a8,&uStack_ac);
       uVar4 = uStack_ac;
       iStack_b0 = iVar1;
       if (0x96 < uStack_ac) {
@@ -93,10 +93,10 @@ _L0:
       otLogDebgPlat("RCP => %s",ppppuVar3);
     }
     else if ((param_1 == 0x74) && ((*(uint *)(this + 0x704) >> 2 & 1) != 0)) {
-      iStack_b0 = spinel_datatype_unpack(param_2,&_LC38,apppuStack_a8);
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC40,apppuStack_a8);
       if (-1 < iStack_b0) {
         iStack_b0 = spinel_datatype_unpack
-                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC9,
+                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC10,
                                &uStack_ac);
         if (0 < iStack_b0) {
           uVar4 = uStack_ac & 0xff;

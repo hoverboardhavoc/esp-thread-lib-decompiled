@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,39 +19,39 @@ int esp_openthread_publish_meshcop_mdns(void)
   undefined4 uVar4;
   undefined4 extraout_a1;
   undefined *puVar5;
-  undefined4 uStack_ac;
-  undefined4 auStack_a8 [2];
+  undefined4 uStack_bc;
+  undefined4 auStack_b8 [2];
+  undefined *puStack_b0;
+  undefined *puStack_ac;
+  undefined *puStack_a8;
+  undefined4 uStack_a4;
   undefined *puStack_a0;
-  undefined *puStack_9c;
-  undefined *puStack_98;
+  char *pcStack_9c;
+  undefined4 uStack_98;
   undefined4 uStack_94;
-  undefined *puStack_90;
-  char *pcStack_8c;
-  undefined4 uStack_88;
-  undefined4 uStack_84;
   
   uVar1 = esp_openthread_get_instance();
-  puStack_a0 = &_LC3;
-  puStack_9c = &_LC4;
-  puStack_98 = &_LC5;
-  uStack_94 = otThreadGetNetworkName();
-  puStack_90 = &_LC6;
+  puStack_b0 = &_LC3;
+  puStack_ac = &_LC4;
+  puStack_a8 = &_LC5;
+  uStack_a4 = otThreadGetNetworkName();
+  puStack_a0 = &_LC6;
   iVar2 = otThreadGetVersion();
   if (iVar2 == 2) {
-    pcStack_8c = "1.1.1";
+    pcStack_9c = "1.1.1";
   }
   else if (iVar2 == 3) {
-    pcStack_8c = "1.2.0";
+    pcStack_9c = "1.2.0";
   }
   else {
-    pcStack_8c = "";
+    pcStack_9c = "";
   }
   uVar3 = otThreadGetExtendedPanId(uVar1);
   uVar4 = otLinkGetExtendedAddress(uVar1);
-  uStack_88 = 0x32000000;
-  uStack_ac = 0x32000000;
-  auStack_a8[0] = otThreadGetPartitionId(uVar1);
-  iVar2 = otDatasetGetActive(uVar1,&uStack_88);
+  uStack_98 = 0x32000000;
+  uStack_bc = 0x32000000;
+  auStack_b8[0] = otThreadGetPartitionId(uVar1);
+  iVar2 = otDatasetGetActive(uVar1,&uStack_98);
   if (iVar2 != 0) {
     uVar1 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC8,uVar1,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x6d
@@ -69,32 +69,32 @@ int esp_openthread_publish_meshcop_mdns(void)
     }
     s_service_published = '\x01';
   }
-  iVar2 = mdns_service_txt_set("_meshcop",&_LC9,&puStack_a0,3);
+  iVar2 = mdns_service_txt_set("_meshcop",&_LC9,&puStack_b0,3);
   if (iVar2 == 0) {
     iVar2 = mdns_service_txt_item_set_with_explicit_value_len("_meshcop",&_LC9,&_LC13,uVar3,8);
     if (iVar2 == 0) {
       iVar2 = mdns_service_txt_item_set_with_explicit_value_len("_meshcop",&_LC9,&_LC15,uVar4,8);
       if (iVar2 == 0) {
-        uStack_88 = __bswapdi2(uStack_88,uStack_84);
-        uStack_84 = extraout_a1;
+        uStack_98 = __bswapdi2(uStack_98,uStack_94);
+        uStack_94 = extraout_a1;
         iVar2 = mdns_service_txt_item_set_with_explicit_value_len
-                          ("_meshcop",&_LC9,&_LC17,&uStack_88,8);
+                          ("_meshcop",&_LC9,&_LC17,&uStack_98,8);
         if (iVar2 == 0) {
           iVar2 = mdns_service_txt_item_set_with_explicit_value_len
-                            ("_meshcop",&_LC9,&_LC19,auStack_a8,4);
+                            ("_meshcop",&_LC9,&_LC19,auStack_b8,4);
           if (iVar2 == 0) {
             iVar2 = mdns_service_txt_item_set_with_explicit_value_len
-                              ("_meshcop",&_LC9,&_LC21,&uStack_ac,4);
+                              ("_meshcop",&_LC9,&_LC21,&uStack_bc,4);
             if (iVar2 == 0) {
               return 0;
             }
             uVar3 = esp_log_timestamp();
-            uVar1 = 0x8a;
+            uVar1 = 0x8b;
             puVar5 = &_LC22;
           }
           else {
             uVar3 = esp_log_timestamp();
-            uVar1 = 0x86;
+            uVar1 = 0x87;
             puVar5 = &_LC20;
           }
         }

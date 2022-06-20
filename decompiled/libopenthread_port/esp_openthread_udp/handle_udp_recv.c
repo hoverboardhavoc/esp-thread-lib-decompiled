@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
+ * Upstream date: 2022-06-20 16:22:56 +0800
+ * Upstream subject: openthread: update OpenThread submodule
  * Source: libopenthread_port -> esp_openthread_udp.o -> handle_udp_recv
  *
  * (C) Espressif, Apache License 2.0.
@@ -45,7 +45,7 @@ void handle_udp_recv(undefined4 param_1,undefined4 param_2,void *param_3,undefin
     uVar2 = *(undefined1 *)(iVar4 + 8);
   }
   *(undefined1 *)((int)__ptr + 0x22) = uVar2;
-  bVar3 = *(byte *)(iVar8 + 0x196);
+  bVar3 = *(byte *)(iVar8 + 0x18a);
   esp_openthread_get_backbone_netif();
   uVar7 = esp_netif_get_netif_impl_index();
   *(bool *)((int)__ptr + 0x23) = (bVar3 + 1 & 0xff) == uVar7;
