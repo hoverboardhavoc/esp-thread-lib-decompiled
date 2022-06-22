@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * Upstream date: 2022-06-22 21:59:57 +0800
+ * Upstream subject: update ot-lib
  * Source: libopenthread_port -> esp_openthread_ncp.cpp.o -> otAppNcpInit
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,7 +19,7 @@ void otAppNcpInit(Instance *param_1)
   ot::Ncp::NcpHdlc::NcpHdlc((NcpHdlc *)s_ncp,param_1,NcpSend);
   puVar1 = (undefined1 *)ot::Ncp::NcpBase::GetNcpInstance();
   if (puVar1 != s_ncp) {
-    otPlatAssertFail("/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_ncp.cpp"
+    otPlatAssertFail("/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_ncp.cpp"
                      ,0x99);
     do {
                     /* WARNING: Do nothing block with infinite loop */

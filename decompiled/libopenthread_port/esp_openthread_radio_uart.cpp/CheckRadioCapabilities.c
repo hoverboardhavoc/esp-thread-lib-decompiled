@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * Upstream date: 2022-06-22 21:59:57 +0800
+ * Upstream subject: update ot-lib
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRadioCapabilities
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,9 +34,9 @@ CheckRadioCapabilities
   if ((iVar1 == 0) && (this[0x670] = aRStack_14[0], ((byte)aRStack_14[0] & 0x6d) != 0x6d)) {
     bVar6 = ~(byte)aRStack_14[0];
     pcVar7 = "";
-    iVar1 = -0xec;
+    iVar1 = -0xe4;
     if ((bVar6 & 1) != 0) {
-      iVar1 = -0xfc;
+      iVar1 = -0xf4;
     }
     pcVar3 = pcVar7;
     if ((bVar6 & 4) != 0) {

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * Upstream date: 2022-06-22 21:59:57 +0800
+ * Upstream subject: update ot-lib
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSleep
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,11 +16,11 @@ int otPlatRadioSleep(void)
   int iVar1;
   
   iVar1 = 0;
-  if (((DAT_00014b88 != 1) && (iVar1 = 0xd, DAT_00014b88 == 2)) &&
+  if (((DAT_00014b90 != 1) && (iVar1 = 0xd, DAT_00014b90 == 2)) &&
      (iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-              Set(0x14488,(char *)0x37), iVar1 == 0)) {
-    DAT_00014b88 = 1;
+              Set(0x14490,(char *)0x37), iVar1 == 0)) {
+    DAT_00014b90 = 1;
   }
   return iVar1;
 }

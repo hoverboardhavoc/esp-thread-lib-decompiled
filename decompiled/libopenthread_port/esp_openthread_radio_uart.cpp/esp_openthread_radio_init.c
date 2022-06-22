@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
+ * Upstream date: 2022-06-22 21:59:57 +0800
+ * Upstream subject: update ot-lib
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> esp_openthread_radio_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,13 +18,13 @@ int esp_openthread_radio_init(void)
   int __status;
   bool bStack_11;
   
-  iVar1 = esp::openthread::UartSpinelInterface::Init((esp_openthread_uart_config_t *)&DAT_00014898);
+  iVar1 = esp::openthread::UartSpinelInterface::Init((esp_openthread_uart_config_t *)&DAT_000148a0);
   if (iVar1 != 0) {
     uVar2 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC70,uVar2,"OPENTHREAD","esp_openthread_radio_init",0x27);
     return iVar1;
   }
-  DAT_00014b8c = DAT_00014b8c | 0x10;
+  DAT_00014b94 = DAT_00014b94 | 0x10;
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
           SendReset((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -34,14 +34,14 @@ int esp_openthread_radio_init(void)
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
               WaitResponse((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                             *)&s_radio), iVar1 == 0)) {
-    while ((DAT_00014c30 >> 0xe & 1) != 0) {
+    while ((DAT_00014c38 >> 0xe & 1) != 0) {
       ot::Spinel::
       RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
       RecoverFromRcpFailure
                 ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                   *)&s_radio);
     }
-    if ((DAT_00014b8c >> 1 & 1) != 0) {
+    if ((DAT_00014b94 >> 1 & 1) != 0) {
       iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
               CheckSpinelVersion((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -49,10 +49,10 @@ int esp_openthread_radio_init(void)
       if (((iVar1 == 0) &&
           (iVar1 = ot::Spinel::
                    RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                   ::Get(0x14488,(char *)0x2,&_LC40,&DAT_00014b00,0x80), iVar1 == 0)) &&
+                   ::Get(0x14490,(char *)0x2,&_LC40,&DAT_00014b08,0x80), iVar1 == 0)) &&
          (iVar1 = ot::Spinel::
                   RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                  ::Get(0x14488,(char *)0x8,&_L0,&DAT_00014b80), iVar1 == 0)) {
+                  ::Get(0x14490,(char *)0x8,&_L0,&DAT_00014b88), iVar1 == 0)) {
         iVar1 = ot::Spinel::
                 RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                 ::IsRcp((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -77,9 +77,9 @@ int esp_openthread_radio_init(void)
                               ((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                                 *)&s_radio);
             if (iVar1 == 0) {
-              DAT_00014a88 = &DAT_00014908;
-              DAT_00014aa8 = &DAT_00014987;
-              DAT_00014ac8 = &DAT_00014a06;
+              DAT_00014a90 = &DAT_00014910;
+              DAT_00014ab0 = &DAT_0001498f;
+              DAT_00014ad0 = &DAT_00014a0e;
               iVar1 = esp_openthread_platform_workflow_register
                                 (esp_openthread_radio_update,esp_openthread_radio_process,
                                  "radio_uart");
