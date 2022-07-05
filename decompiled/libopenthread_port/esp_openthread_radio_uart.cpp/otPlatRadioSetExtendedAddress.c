@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetExtendedAddress
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,7 +44,7 @@ void otPlatRadioSetExtendedAddress(otExtAddress *param_1)
     }
     uVar5 = otExitCodeToString(uVar5);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
-                  "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
                   ,0x5c,uVar5);
     iVar2 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::

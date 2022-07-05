@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioGetCcaEnergyDetectThreshold
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,7 +19,7 @@ undefined4 otPlatRadioGetCcaEnergyDetectThreshold(int param_1)
   if (param_1 != 0) {
     uVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Get
-                      (0x14490,(char *)0x24);
+                      (0x14488,(char *)0x24);
     ot::Spinel::LogIfFail("Get CCA ED threshold failed",uVar1);
   }
   return uVar1;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 890c02a030889a748de31dd01d156f69430d6f15
- * https://github.com/espressif/esp-thread-lib/commit/890c02a030889a748de31dd01d156f69430d6f15
- * Upstream date: 2021-08-13 18:14:00 +0800
- * Upstream subject: update libopenthread_port.a
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_alarm.o -> esp_openthread_alarm_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,8 +13,7 @@
 void esp_openthread_alarm_init(void)
 
 {
-  esp_openthread_platform_workflow_register
-            (esp_openthread_alarm_update,esp_openthread_alarm_process,"alarm");
+  esp_openthread_platform_workflow_register(0x10000,esp_openthread_alarm_process,"alarm");
   return;
 }
 

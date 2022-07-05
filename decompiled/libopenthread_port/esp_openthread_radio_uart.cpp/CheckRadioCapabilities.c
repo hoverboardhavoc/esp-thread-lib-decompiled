@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRadioCapabilities
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,9 +34,9 @@ CheckRadioCapabilities
   if ((iVar1 == 0) && (this[0x670] = aRStack_14[0], ((byte)aRStack_14[0] & 0x6d) != 0x6d)) {
     bVar6 = ~(byte)aRStack_14[0];
     pcVar7 = "";
-    iVar1 = -0xe4;
+    iVar1 = -0xec;
     if ((bVar6 & 1) != 0) {
-      iVar1 = -0xf4;
+      iVar1 = -0xfc;
     }
     pcVar3 = pcVar7;
     if ((bVar6 & 4) != 0) {

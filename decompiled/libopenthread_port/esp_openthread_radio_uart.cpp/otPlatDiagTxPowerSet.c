@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatDiagTxPowerSet
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,12 +16,12 @@ void otPlatDiagTxPowerSet(void)
   char acStack_110 [264];
   
   snprintf(acStack_110,0x100,"power %d");
-  DAT_00014c3c = 0;
-  DAT_00014c40 = 0;
+  DAT_00014c34 = 0;
+  DAT_00014c38 = 0;
   ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-  Set(0x14490,(char *)0x3bc0);
-  DAT_00014c3c = 0;
-  DAT_00014c40 = 0;
+  Set(0x14488,(char *)0x3bc0);
+  DAT_00014c34 = 0;
+  DAT_00014c38 = 0;
   return;
 }
 

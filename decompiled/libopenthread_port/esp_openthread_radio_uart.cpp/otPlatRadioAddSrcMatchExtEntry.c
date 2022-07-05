@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,15 +35,15 @@ int otPlatRadioAddSrcMatchExtEntry(undefined1 *param_1)
   } while (bVar1);
   iVar4 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x14490,(char *)0x1305);
-  sVar2 = DAT_00014c30;
+          Insert(0x14488,(char *)0x1305);
+  sVar2 = DAT_00014c28;
   if (iVar4 == 0) {
-    iVar3 = (int)DAT_00014c30;
+    iVar3 = (int)DAT_00014c28;
     if (9 < iVar3) {
       __assert_func(0,0,0);
       goto _L0;
     }
-    unaff_s4 = &DAT_00014be0;
+    unaff_s4 = &DAT_00014bd8;
     for (unaff_s3 = 0; unaff_s3 < iVar3; unaff_s3 = unaff_s3 + 1) {
 _L0:
       iVar5 = memcmp(&uStack_28,unaff_s4,8);
@@ -53,8 +53,8 @@ _L0:
       }
     }
     (&s_radio)[(iVar3 + 0xea) * 2] = uStack_28;
-    DAT_00014c30 = sVar2 + 1;
-    *(undefined4 *)(&DAT_00014494 + (iVar3 + 0xea) * 8) = uStack_24;
+    DAT_00014c28 = sVar2 + 1;
+    *(undefined4 *)(&DAT_0001448c + (iVar3 + 0xea) * 8) = uStack_24;
   }
   return iVar4;
 }

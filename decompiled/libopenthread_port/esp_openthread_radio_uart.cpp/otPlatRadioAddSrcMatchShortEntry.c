@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * https://github.com/espressif/esp-thread-lib/commit/8d29f7588d91ff83ec61461e0b2dfae76d50eb0f
- * Upstream date: 2022-06-22 21:59:57 +0800
- * Upstream subject: update ot-lib
+ * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
+ * Upstream date: 2022-07-05 19:22:08 +0800
+ * Upstream subject: bugfix: fix timer overflow
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchShortEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,10 +23,10 @@ int otPlatRadioAddSrcMatchShortEntry(uint param_1)
   puVar2 = (undefined4 *)0x14000;
   iVar3 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x14490,(char *)0x1304);
+          Insert(0x14488,(char *)0x1304);
   if (iVar3 == 0) {
     puVar4 = &s_radio;
-    iVar6 = (int)DAT_00014bde;
+    iVar6 = (int)DAT_00014bd6;
     iVar5 = 9;
     if (9 < iVar6) {
       iVar3 = 0;
