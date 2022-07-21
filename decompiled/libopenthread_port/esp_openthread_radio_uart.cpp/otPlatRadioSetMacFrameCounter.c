@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * Upstream date: 2022-07-05 19:22:08 +0800
- * Upstream subject: bugfix: fix timer overflow
+ * Last changed at upstream commit 9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * https://github.com/espressif/esp-thread-lib/commit/9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * Upstream date: 2022-07-21 09:58:37 +0200
+ * Upstream subject: ot_port: Update libs per esp_netif/lwip deps (1937df32)
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetMacFrameCounter
  *
  * (C) Espressif, Apache License 2.0.
@@ -30,7 +30,7 @@ void otPlatRadioSetMacFrameCounter(undefined4 param_1)
     }
     uVar2 = otExitCodeToString(uVar2);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioSetMacFrameCounter",
-                  "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  "/home/david/repos/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
                   ,0xfc,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set

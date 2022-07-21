@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * https://github.com/espressif/esp-thread-lib/commit/9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * Upstream date: 2022-07-21 09:58:37 +0200
+ * Upstream subject: ot_port: Update libs per esp_netif/lwip deps (1937df32)
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,10 +20,10 @@ undefined4 esp_openthread_netif_glue_process(int param_1)
   int local_1c;
   undefined1 auStack_18 [8];
   
-  if ((DAT_0001127c < 0x40) &&
-     ((1 << (DAT_0001127c & 0x1f) & *(uint *)(param_1 + ((int)DAT_0001127c >> 5) * 4)) != 0)) {
+  if ((DAT_00011290 < 0x40) &&
+     ((1 << (DAT_00011290 & 0x1f) & *(uint *)(param_1 + ((int)DAT_00011290 >> 5) * 4)) != 0)) {
     local_1c = 0;
-    sVar1 = read(DAT_0001127c,auStack_18,8);
+    sVar1 = read(DAT_00011290,auStack_18,8);
     if (sVar1 == 8) {
       do {
         do {

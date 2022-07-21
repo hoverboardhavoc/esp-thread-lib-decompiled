@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * https://github.com/espressif/esp-thread-lib/commit/9fabccb43c2318d45d7d893902a614d94d0f2e2a
+ * Upstream date: 2022-07-21 09:58:37 +0200
+ * Upstream subject: ot_port: Update libs per esp_netif/lwip deps (1937df32)
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> notify_packets_pending
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ undefined4 notify_packets_pending(void)
   
   uStack_14 = 0;
   uStack_18 = 1;
-  sVar1 = write(DAT_0001127c,&uStack_18,8);
+  sVar1 = write(DAT_00011290,&uStack_18,8);
   uVar2 = 0;
   if (sVar1 != 8) {
     uVar2 = esp_log_timestamp();
