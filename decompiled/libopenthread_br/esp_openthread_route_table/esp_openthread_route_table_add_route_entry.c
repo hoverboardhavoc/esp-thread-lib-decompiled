@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ undefined1 * esp_openthread_route_table_add_route_entry(void *param_1)
         goto _L0;
       }
       __s1 = __s1 + 0x38;
-      if (__s1 == (undefined1 *)0x10930) break;
+      if (__s1 == (undefined1 *)0x1093c) break;
     }
     iVar3 = 0;
     do {

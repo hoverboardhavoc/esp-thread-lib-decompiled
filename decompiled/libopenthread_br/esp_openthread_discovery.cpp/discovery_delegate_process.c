@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,10 +18,10 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
 {
   mdns_result_s *pmVar1;
   pending_query_t *__ptr;
-  undefined1 *puVar2;
-  int iVar3;
-  char *pcVar4;
-  int iVar5;
+  int iVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined1 *puVar5;
   mdns_result_s *pmVar6;
   int local_50;
   mdns_result_s *pmStack_4c;
@@ -34,61 +34,65 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
   }
   read(s_mdns_event_fd,auStack_48,8);
   do {
-    iVar3 = xQueueReceive(s_mdns_result_queue,&local_50,0);
-    if (iVar3 != 1) {
+    iVar2 = xQueueReceive(s_mdns_result_queue,&local_50,0);
+    if (iVar2 != 1) {
       return 0;
     }
     mdns_query_async_get_results(local_50,0xffffffff,&pmStack_4c,0);
     pmVar1 = pmStack_4c;
-    iVar3 = local_50;
-    puVar2 = s_pending_queries;
+    iVar2 = local_50;
+    puVar5 = s_pending_queries;
     __ptr = (pending_query_t *)s_pending_queries._812_4_;
     while (__ptr != (pending_query_t *)0x0) {
-      if (iVar3 == *(int *)(__ptr + 800)) {
+      if (iVar2 == *(int *)(__ptr + 800)) {
         *(undefined4 *)(__ptr + 800) = 0;
-        if (iVar3 == *(int *)(__ptr + 0x324)) goto _L0;
+        if (iVar2 == *(int *)(__ptr + 0x324)) goto _L0;
 _L0:
-        iVar5 = *(int *)(__ptr + 0x328);
-        if (iVar5 == 1) {
-          append_to_query_result(__ptr,pmVar1);
+        iVar4 = *(int *)(__ptr + 0x328);
+        if (iVar4 == 1) {
+          if (pmVar1 != (mdns_result_s *)0x0) {
+            append_to_query_result(__ptr,pmVar1);
+          }
           if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
-            pcVar4 = strchr(*(char **)(__ptr + 0x300),0x2e);
+            pcVar3 = strchr(*(char **)(__ptr + 0x300),0x2e);
             esp_openthread_get_instance();
-            otDnssdQueryHandleDiscoveredServiceInstance(pcVar4 + 1,__ptr + 0x300);
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar3 + 1,__ptr + 0x300);
             goto _L0;
           }
         }
-        else if (iVar5 == 2) {
-          append_to_query_result(__ptr,pmVar1);
+        else if (iVar4 == 2) {
+          if (pmVar1 != (mdns_result_s *)0x0) {
+            append_to_query_result(__ptr,pmVar1);
+          }
           esp_openthread_get_instance();
           otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
 _L0:
           free_addresses_in_pending_query(__ptr);
         }
-        else if (iVar5 == 0) {
+        else if (iVar4 == 0) {
           for (pmVar6 = pmVar1; pmVar6 != (mdns_result_s *)0x0; pmVar6 = *(mdns_result_s **)pmVar6)
           {
             append_to_query_result(__ptr,pmVar6);
-            pcVar4 = strchr(*(char **)(__ptr + 0x300),0x2e);
+            pcVar3 = strchr(*(char **)(__ptr + 0x300),0x2e);
             esp_openthread_get_instance();
-            otDnssdQueryHandleDiscoveredServiceInstance(pcVar4 + 1,__ptr + 0x300);
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar3 + 1,__ptr + 0x300);
             free_addresses_in_pending_query(__ptr);
             memset(__ptr + 0x300,0,0x20);
           }
         }
       }
-      else if (iVar3 == *(int *)(__ptr + 0x324)) {
+      else if (iVar2 == *(int *)(__ptr + 0x324)) {
 _L0:
         *(undefined4 *)(__ptr + 0x324) = 0;
         goto _L0;
       }
       if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
-        *(pending_query_t **)(puVar2 + 0x32c) = *(pending_query_t **)(__ptr + 0x32c);
+        *(pending_query_t **)(puVar5 + 0x32c) = *(pending_query_t **)(__ptr + 0x32c);
         free(__ptr);
-        __ptr = *(pending_query_t **)(puVar2 + 0x32c);
+        __ptr = *(pending_query_t **)(puVar5 + 0x32c);
       }
       else {
-        puVar2 = *(undefined1 **)(puVar2 + 0x32c);
+        puVar5 = *(undefined1 **)(puVar5 + 0x32c);
         __ptr = *(pending_query_t **)(__ptr + 0x32c);
       }
     }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> get_mdns_num_ipv6_addresses
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,10 +16,12 @@ char get_mdns_num_ipv6_addresses(mdns_result_s *param_1)
 
 {
   char cVar1;
+  int iVar2;
   
   cVar1 = '\0';
   for (; param_1 != (mdns_result_s *)0x0; param_1 = *(mdns_result_s **)(param_1 + 0x18)) {
-    if (param_1[0x14] == (mdns_result_s)0x6) {
+    if ((param_1[0x14] == (mdns_result_s)0x6) &&
+       (iVar2 = esp_netif_ip6_get_addr_type(param_1), iVar2 != 2)) {
       cVar1 = cVar1 + '\x01';
     }
   }

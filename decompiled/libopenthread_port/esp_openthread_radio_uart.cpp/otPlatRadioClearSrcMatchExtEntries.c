@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 9fabccb43c2318d45d7d893902a614d94d0f2e2a
- * https://github.com/espressif/esp-thread-lib/commit/9fabccb43c2318d45d7d893902a614d94d0f2e2a
- * Upstream date: 2022-07-21 09:58:37 +0200
- * Upstream subject: ot_port: Update libs per esp_netif/lwip deps (1937df32)
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntries
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ void otPlatRadioClearSrcMatchExtEntries(void)
     }
     uVar2 = otExitCodeToString(uVar2);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioClearSrcMatchExtEntries",
-                  "/home/david/repos/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
                   ,199,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::

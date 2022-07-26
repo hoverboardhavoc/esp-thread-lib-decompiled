@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_remove_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 esp_openthread_route_table_remove_route_entry(undefined1 *param_1)
   }
   else {
     uVar2 = 0x102;
-    if (param_1 < (undefined1 *)0x10931) {
+    if (param_1 < (undefined1 *)0x1093d) {
       if (*(int *)(param_1 + 0x30) != -1) {
         sys_untimeout(route_timeout_handler,param_1);
       }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
+ * Upstream date: 2022-07-26 19:02:38 +0800
+ * Upstream subject: br: add NAT64 and fix discovery delegate crashes
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x183);
+                    "esp_openthread_discovery_delegate_init",0x18b);
       uVar1 = 0xffffffff;
     }
     else {
@@ -34,14 +34,14 @@ undefined4 esp_openthread_discovery_delegate_init(void)
       }
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC12,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x185);
+                    "esp_openthread_discovery_delegate_init",0x18d);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
-                  0x180);
+                  0x188);
     uVar1 = 0x102;
   }
   return uVar1;

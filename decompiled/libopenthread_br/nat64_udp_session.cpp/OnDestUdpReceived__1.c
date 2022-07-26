@@ -3,25 +3,21 @@
  * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
  * Upstream date: 2022-07-26 19:02:38 +0800
  * Upstream subject: br: add NAT64 and fix discovery delegate crashes
- * Source: libopenthread_br -> esp_openthread_border_router.o -> multicast_probe_task
+ * Source: libopenthread_br -> nat64_udp_session.cpp.o -> OnDestUdpReceived__1
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void multicast_probe_task(void)
+/* idf::UdpSession::OnDestUdpReceived(void*, udp_pcb*, pbuf*, ip_addr const*, unsigned short) */
+
+void idf::UdpSession::OnDestUdpReceived
+               (void *param_1,udp_pcb *param_2,pbuf *param_3,ip_addr *param_4,ushort param_5)
 
 {
-  int iVar1;
-  undefined4 uVar2;
-  
-  iVar1 = esp_openthread_probe_backbone_listeners();
-  if (iVar1 != 0) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(1,0x10000,&_LC4,uVar2,0x10000);
-    return;
-  }
+  OnDestUdpReceived((UdpSession *)param_1,param_3);
+  pbuf_free(param_3);
   return;
 }
 
