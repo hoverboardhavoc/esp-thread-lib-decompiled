@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,28 +15,26 @@ undefined1 * esp_openthread_route_table_add_route_entry(void *param_1)
 {
   byte bVar1;
   int iVar2;
-  undefined1 *__s1;
   int iVar3;
   char cVar4;
+  undefined1 *__s1;
   undefined1 *puVar5;
   int iVar6;
   
   if (param_1 != (void *)0x0) {
     puVar5 = s_route_entries;
     __s1 = s_route_entries;
-    while (*(int *)(__s1 + 0x34) != 0) {
+    do {
+      if (*(int *)(__s1 + 0x34) == 0) break;
       if ((((*(int *)(__s1 + 0x34) == *(int *)((int)param_1 + 0x34)) &&
            (bVar1 = __s1[0x14], bVar1 == *(byte *)((int)param_1 + 0x14))) &&
           (iVar3 = memcmp(__s1 + 0x18,(void *)((int)param_1 + 0x18),0x10), iVar3 == 0)) &&
          (iVar3 = memcmp(__s1,param_1,(uint)(bVar1 >> 3)), iVar3 == 0)) {
-        if (*(int *)(__s1 + 0x30) != -1) {
-          sys_untimeout(route_timeout_handler,__s1);
-        }
+        sys_untimeout(route_timeout_handler,__s1);
         goto _L0;
       }
       __s1 = __s1 + 0x38;
-      if (__s1 == (undefined1 *)0x1093c) break;
-    }
+    } while (__s1 != (undefined1 *)0x10924);
     iVar3 = 0;
     do {
       if (*(int *)(puVar5 + 0x34) == 0) {

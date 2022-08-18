@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * Upstream date: 2022-07-05 19:22:08 +0800
- * Upstream subject: bugfix: fix timer overflow
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
 
 {
   ushort *puVar1;
-  undefined4 *puVar2;
+  undefined1 *puVar2;
   int iVar3;
   uint uVar4;
   char *in_a2;
@@ -52,16 +52,16 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
     return;
   }
   uVar4 = __assert_func(0,0,0,0);
-  iVar3 = Remove(0x14488,(char *)0x1304);
+  iVar3 = Remove(0x14560,(char *)0x1304);
   if (iVar3 == 0) {
     puVar2 = &s_radio;
-    for (iVar3 = 0; iVar3 < DAT_00014bd6; iVar3 = iVar3 + 1) {
-      puVar1 = (ushort *)((int)puVar2 + 0x73a);
-      puVar2 = (undefined4 *)((int)puVar2 + 2);
+    for (iVar3 = 0; iVar3 < DAT_00014cae; iVar3 = iVar3 + 1) {
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
       if (*puVar1 == uVar4) {
-        *(undefined2 *)(&DAT_00014492 + (iVar3 + 0x398) * 2) =
-             *(undefined2 *)(&DAT_00014492 + (DAT_00014bd6 + 0x397) * 2);
-        DAT_00014bd6 = DAT_00014bd6 + -1;
+        *(undefined2 *)(&DAT_0001456a + (iVar3 + 0x398) * 2) =
+             *(undefined2 *)(&DAT_0001456a + (DAT_00014cae + 0x397) * 2);
+        DAT_00014cae = DAT_00014cae + -1;
         return;
       }
     }

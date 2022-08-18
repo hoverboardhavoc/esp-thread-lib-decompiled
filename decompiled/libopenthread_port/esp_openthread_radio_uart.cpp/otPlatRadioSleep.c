@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * Upstream date: 2022-07-05 19:22:08 +0800
- * Upstream subject: bugfix: fix timer overflow
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSleep
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,11 +16,11 @@ int otPlatRadioSleep(void)
   int iVar1;
   
   iVar1 = 0;
-  if (((DAT_00014b88 != 1) && (iVar1 = 0xd, DAT_00014b88 == 2)) &&
+  if (((DAT_00014c60 != 1) && (iVar1 = 0xd, DAT_00014c60 == 2)) &&
      (iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-              Set(0x14488,(char *)0x37), iVar1 == 0)) {
-    DAT_00014b88 = 1;
+              Set(0x14560,(char *)0x37), iVar1 == 0)) {
+    DAT_00014c60 = 1;
   }
   return iVar1;
 }

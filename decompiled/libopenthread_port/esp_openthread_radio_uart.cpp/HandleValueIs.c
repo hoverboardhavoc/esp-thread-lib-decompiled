@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,7 +32,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&iStack_b0);
     if (iVar1 != 0) goto _L0;
     if (((*(uint *)(this + 0x704) & 1) != 0) || (1 < *(uint *)(this + 0x700))) {
-      if ((char)s_radio == '\0') {
+      if (s_radio == '\0') {
         otPlatRadioReceiveDone(*(undefined4 *)this,(otRadioFrame *)(this + 0x600),0);
       }
       else {
@@ -55,6 +55,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
                          )((byte)this[0x704] | 2);
         }
         else {
+          *(int *)(this + 0x7e4) = *(int *)(this + 0x7e4) + 1;
           uVar2 = spinel_status_to_cstr();
           otLogCritPlat("Unexpected RCP reset: %s",uVar2);
           this[0x7a9] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
@@ -80,7 +81,7 @@ _L0:
     }
     else if (param_1 == 0x70) {
       uStack_ac = 0x97;
-      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10bd0,apppuStack_a8,&uStack_ac);
+      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10bfc,apppuStack_a8,&uStack_ac);
       uVar4 = uStack_ac;
       iStack_b0 = iVar1;
       if (0x96 < uStack_ac) {
@@ -125,6 +126,7 @@ _L0:
     iVar1 = 0;
   }
 _L0:
+  UpdateParseErrorCount(this,iVar1);
   LogIfFail("Failed to handle ValueIs",iVar1);
   return;
 }

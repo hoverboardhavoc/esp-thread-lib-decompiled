@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> FindNextLocalPort
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,10 @@ ushort idf::TcpSession::FindNextLocalPort(void)
   do {
     while( true ) {
       if (iVar2 == 0) {
-        s_next_port = s_next_port + 1;
+        s_next_port = uVar1 + 1;
+        if (0xc0ff < s_next_port) {
+          s_next_port = 0xc000;
+        }
         return uVar1;
       }
       if (*(ushort *)(iVar2 + 0x20) == uVar1) break;

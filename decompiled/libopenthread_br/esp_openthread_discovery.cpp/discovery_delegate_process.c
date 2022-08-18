@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -54,9 +54,11 @@ _L0:
             append_to_query_result(__ptr,pmVar1);
           }
           if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
-            pcVar3 = strchr(*(char **)(__ptr + 0x300),0x2e);
-            esp_openthread_get_instance();
-            otDnssdQueryHandleDiscoveredServiceInstance(pcVar3 + 1,__ptr + 0x300);
+            if (*(char **)(__ptr + 0x300) != (char *)0x0) {
+              pcVar3 = strchr(*(char **)(__ptr + 0x300),0x2e);
+              esp_openthread_get_instance();
+              otDnssdQueryHandleDiscoveredServiceInstance(pcVar3 + 1,__ptr + 0x300);
+            }
             goto _L0;
           }
         }

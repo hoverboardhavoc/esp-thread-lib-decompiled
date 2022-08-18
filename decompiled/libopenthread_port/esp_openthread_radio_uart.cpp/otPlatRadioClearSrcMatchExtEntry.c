@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * Upstream date: 2022-07-05 19:22:08 +0800
- * Upstream subject: bugfix: fix timer overflow
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ int otPlatRadioClearSrcMatchExtEntry(undefined1 *param_1)
   undefined1 *puVar6;
   undefined1 *puVar7;
   int iVar8;
-  undefined *__s1;
+  undefined4 *__s1;
   undefined1 auStack_28 [12];
   
   puVar6 = param_1 + 7;
@@ -34,20 +34,20 @@ int otPlatRadioClearSrcMatchExtEntry(undefined1 *param_1)
   } while (bVar1);
   iVar4 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Remove(0x14488,(char *)0x1305);
-  sVar2 = DAT_00014c28;
+          Remove(0x14560,(char *)0x1305);
+  sVar2 = DAT_00014d00;
   if (iVar4 == 0) {
-    iVar8 = (int)DAT_00014c28;
-    __s1 = &DAT_00014bd8;
+    iVar8 = (int)DAT_00014d00;
+    __s1 = &DAT_00014cb0;
     for (iVar3 = 0; iVar3 < iVar8; iVar3 = iVar3 + 1) {
       iVar5 = memcmp(__s1,auStack_28,8);
-      __s1 = __s1 + 8;
+      __s1 = __s1 + 2;
       if (iVar5 == 0) {
-        iVar8 = iVar8 + 0xe9;
-        (&s_radio)[(iVar3 + 0xea) * 2] = (&s_radio)[iVar8 * 2];
-        DAT_00014c28 = sVar2 + -1;
-        *(undefined4 *)(&DAT_0001448c + (iVar3 + 0xea) * 8) =
-             *(undefined4 *)(&DAT_0001448c + iVar8 * 8);
+        iVar8 = (iVar8 + 0xe9) * 8;
+        iVar4 = (iVar3 + 0xea) * 8;
+        *(undefined4 *)(&s_radio + iVar4) = *(undefined4 *)(&s_radio + iVar8);
+        DAT_00014d00 = sVar2 + -1;
+        *(undefined4 *)(&DAT_00014564 + iVar4) = *(undefined4 *)(&DAT_00014564 + iVar8);
         return 0;
       }
     }

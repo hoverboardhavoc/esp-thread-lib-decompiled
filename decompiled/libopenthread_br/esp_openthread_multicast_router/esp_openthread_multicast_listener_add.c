@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
   }
   uVar2 = esp_log_timestamp();
   uVar3 = ip6addr_ntoa(param_1);
-  esp_log_write(3,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD",uVar3);
+  esp_log_write(3,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD",uVar3);
   iVar4 = find_or_create_netif_listener_list(param_3);
   if (iVar4 == 0) {
     return 0x101;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> WaitForFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,7 +41,7 @@ uint esp::openthread::UartSpinelInterface::WaitForFrame(ulonglong param_1)
   uVar1 = select(uVar1 + 1,(fd_set *)local_40,(fd_set *)0x0,(fd_set *)(local_40 + 2),&tStack_30);
   if ((int)uVar1 < 1) {
     uVar2 = 0x1c;
-joined_r0x00010852:
+joined_r0x0001085a:
     if (uVar1 != 0) {
       iVar3 = TryRecoverUart(in_a0);
       uVar2 = 1;
@@ -58,7 +58,7 @@ joined_r0x00010852:
       if ((local_40[(int)uVar1 >> 5] & uVar2) == 0) {
         uVar2 = uVar2 & local_40[((int)uVar1 >> 5) + 2];
         uVar1 = uVar2;
-        goto joined_r0x00010852;
+        goto joined_r0x0001085a;
       }
       TryReadAndDecode(in_a0);
     }

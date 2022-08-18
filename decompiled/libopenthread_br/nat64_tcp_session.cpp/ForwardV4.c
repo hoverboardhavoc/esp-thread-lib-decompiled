@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV4
  *
  * (C) Espressif, Apache License 2.0.
@@ -66,9 +66,8 @@ undefined4 __thiscall idf::TcpSession::ForwardV4(TcpSession *this,uchar *param_1
     uVar8 = 2;
   }
   *(undefined4 *)(this + 0x24) = uVar8;
-  uVar8 = 24000;
+  uVar8 = 240000;
 _L0:
-  sys_untimeout(OnSessionTimeout,this);
   sys_timeout(uVar8,OnSessionTimeout,this);
   puVar2 = *(undefined1 **)(iVar5 + 4);
   uVar8 = lwip_htonl((uint)param_1[1] << 0x14 | 0x60000000);

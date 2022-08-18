@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioEnableSrcMatch
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,22 +19,22 @@ void otPlatRadioEnableSrcMatch(undefined4 param_1)
   
   iVar1 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                    (0x14488,(char *)0x1303,&_LC17,param_1);
+                    (0x14560,(char *)0x1303,&_LC17,param_1);
   if (iVar1 != 0) {
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                      (0x14488,(char *)0x1303,&_LC17,param_1);
+                      (0x14560,(char *)0x1303,&_LC17,param_1);
     uVar2 = 2;
     if (iVar1 != 7) {
       uVar2 = 1;
     }
     uVar2 = otExitCodeToString(uVar2);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioEnableSrcMatch",
-                  "/home/guojiacheng/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
                   ,0x9d,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::Set
-                      (0x14488,(char *)0x1303,&_LC17,param_1);
+                      (0x14560,(char *)0x1303,&_LC17,param_1);
     __status = 2;
     if (iVar1 != 7) {
       __status = 1;

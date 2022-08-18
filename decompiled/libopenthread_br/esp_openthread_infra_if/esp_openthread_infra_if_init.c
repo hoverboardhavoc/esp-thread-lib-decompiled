@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> esp_openthread_infra_if_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,7 @@ int esp_openthread_infra_if_init(int param_1)
   int iVar1;
   undefined1 auStack_28 [28];
   
-  memcpy(auStack_28,&_L0,0x18);
+  memcpy(auStack_28,&_LANCHOR2,0x18);
   iVar1 = 0x103;
   if ((s_raw_pcb == 0) && (iVar1 = 0x102, param_1 != 0)) {
     iVar1 = mld6_joingroup_netif(param_1,auStack_28);

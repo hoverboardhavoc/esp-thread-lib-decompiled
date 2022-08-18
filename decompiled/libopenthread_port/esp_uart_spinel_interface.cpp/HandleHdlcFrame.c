@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_uart_spinel_interface.cpp.o -> HandleHdlcFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,7 @@ esp::openthread::UartSpinelInterface::HandleHdlcFrame(UartSpinelInterface *this,
   int *piVar5;
   
   if (param_2 == 0) {
-                    /* WARNING: Could not recover jumptable at 0x000100b4. Too many branches */
+                    /* WARNING: Could not recover jumptable at 0x000100b6. Too many branches */
                     /* WARNING: Treating indirect jump as call */
     (**(code **)this)(*(undefined4 *)(this + 4),*(code **)this);
     return;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> ParseRadioFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -64,6 +64,7 @@ ParseRadioFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
 _L0:
   uVar1 = 6;
 _L0:
+  UpdateParseErrorCount(this,uVar1);
   LogIfFail("Handle radio frame failed",uVar1);
   return uVar1;
 }

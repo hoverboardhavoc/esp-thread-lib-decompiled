@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,11 +35,11 @@ void multicast_router_init_on_lwip_task(int *param_1)
     iVar2 = esp_openthread_get_lwip_backbone_netif();
     if (iVar3 == iVar2) {
       iVar4 = *piVar1;
-      memcpy(auStack_50,&DAT_00010b90,0x18);
+      memcpy(auStack_50,&DAT_00010b9c,0x18);
       iVar2 = mld6_joingroup_netif(iVar4,auStack_50);
       iVar3 = -1;
       if (iVar2 == 0) {
-        memcpy(auStack_38,&_LANCHOR2,0x18);
+        memcpy(auStack_38,&_L0,0x18);
         iVar2 = mld6_joingroup_netif(iVar4,auStack_38);
         iVar3 = -(uint)(iVar2 != 0);
       }

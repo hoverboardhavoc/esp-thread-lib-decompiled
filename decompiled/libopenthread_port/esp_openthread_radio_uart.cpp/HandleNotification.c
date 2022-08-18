@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification
  *
  * (C) Espressif, Apache License 2.0.
@@ -47,8 +47,8 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
         puVar1 = *(undefined1 **)(param_1 + 0x408);
         iVar4 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength
                           ((MultiFrameBuffer<(unsigned_short)1024> *)param_1);
-        *puVar1 = (char)((iVar4 + (uint)*(ushort *)(puVar1 + 2)) * 0x10000 >> 0x10);
-        puVar1[1] = (char)(iVar4 + (uint)*(ushort *)(puVar1 + 2) >> 8);
+        *puVar1 = (char)(((uint)*(ushort *)(puVar1 + 2) + iVar4) * 0x10000 >> 0x10);
+        puVar1[1] = (char)((uint)*(ushort *)(puVar1 + 2) + iVar4 >> 8);
         uVar2 = 0;
         *(undefined4 *)(param_1 + 0x408) = *(undefined4 *)param_1;
         Hdlc::MultiFrameBuffer<(unsigned_short)1024>::SetSkipLength
@@ -72,6 +72,7 @@ _L0:
   Hdlc::MultiFrameBuffer<(unsigned_short)1024>::DiscardFrame
             ((MultiFrameBuffer<(unsigned_short)1024> *)param_1);
 _L0:
+  UpdateParseErrorCount(this,uVar2);
   LogIfFail("Error processing notification",uVar2);
   return;
 }

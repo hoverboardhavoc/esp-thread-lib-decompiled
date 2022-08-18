@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_multicast_adapter.o -> add_multicast_listener_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ void add_multicast_listener_task(void *param_1)
   iVar2 = esp_openthread_multicast_listener_add(param_1,&uStack_24,uVar1);
   if (iVar2 != 0) {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,0x10000,&_L0,uVar1,0x10000);
+    esp_log_write(1,0x10000,&_LC2,uVar1,0x10000);
   }
   free(param_1);
   return;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 9fabccb43c2318d45d7d893902a614d94d0f2e2a
- * https://github.com/espressif/esp-thread-lib/commit/9fabccb43c2318d45d7d893902a614d94d0f2e2a
- * Upstream date: 2022-07-21 09:58:37 +0200
- * Upstream subject: ot_port: Update libs per esp_netif/lwip deps (1937df32)
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> notify_packets_pending
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ undefined4 notify_packets_pending(void)
   
   uStack_14 = 0;
   uStack_18 = 1;
-  sVar1 = write(DAT_00011290,&uStack_18,8);
+  sVar1 = write(DAT_000112a8,&uStack_18,8);
   uVar2 = 0;
   if (sVar1 != 8) {
     uVar2 = esp_log_timestamp();

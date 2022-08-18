@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CalcRcpTimeOffset
  *
  * (C) Espressif, Apache License 2.0.
@@ -38,7 +38,7 @@ CalcRcpTimeOffset(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
       goto _L0;
     }
   }
-  otLogDebgPlat(0x11380);
+  otLogDebgPlat(0x113b8);
   pcVar2 = (char *)spinel_datatype_pack(auStack_28,8,&_LC21,0,0);
   iVar6 = 3;
   if (pcVar2 + -1 < (char *)0x8) {

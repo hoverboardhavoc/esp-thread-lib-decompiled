@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
+ * Upstream date: 2022-08-18 14:47:55 +0800
+ * Upstream subject: br: support nat64 icmp
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mldv2_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -55,7 +55,7 @@ _L0:
       else {
 _L0:
         uVar6 = esp_log_timestamp();
-        esp_log_write(2,0x10000,&_L0,uVar6,0x10000,*pcVar4);
+        esp_log_write(2,0x10000,&_LC3,uVar6,0x10000,*pcVar4);
       }
     }
     else {
