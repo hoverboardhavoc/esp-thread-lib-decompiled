@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC11,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",0x18d);
+                    "esp_openthread_discovery_delegate_init",0x192);
       uVar1 = 0xffffffff;
     }
     else {
@@ -34,14 +34,14 @@ undefined4 esp_openthread_discovery_delegate_init(void)
       }
       uVar1 = esp_log_timestamp();
       esp_log_write(1,"OPENTHREAD",&_LC12,uVar1,"OPENTHREAD",
-                    "esp_openthread_discovery_delegate_init",399);
+                    "esp_openthread_discovery_delegate_init",0x194);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC10,uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",
-                  0x18a);
+                  399);
     uVar1 = 0x102;
   }
   return uVar1;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatDiagProcess
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,12 +31,12 @@ void otPlatDiagProcess(otInstance *param_1,int param_2,char **param_3,char *para
     iVar2 = snprintf(__s,(size_t)(auStack_30 + -(int)__s),"%s ");
     __s = __s + iVar2;
   }
-  DAT_00014d0c = param_4;
-  DAT_00014d10 = param_5;
+  DAT_00014d1c = param_4;
+  DAT_00014d20 = param_5;
   ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-  Set(0x14560,(char *)0x3bc0);
-  DAT_00014d0c = (char *)0x0;
-  DAT_00014d10 = 0;
+  Set(0x14570,(char *)0x3bc0);
+  DAT_00014d1c = (char *)0x0;
+  DAT_00014d20 = 0;
   return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,10 +20,10 @@ undefined4 esp_openthread_netif_glue_process(int param_1)
   int local_1c;
   undefined1 auStack_18 [8];
   
-  if ((DAT_000112a8 < 0x40) &&
-     ((1 << (DAT_000112a8 & 0x1f) & *(uint *)(param_1 + ((int)DAT_000112a8 >> 5) * 4)) != 0)) {
+  if ((DAT_00011304 < 0x40) &&
+     ((1 << (DAT_00011304 & 0x1f) & *(uint *)(param_1 + ((int)DAT_00011304 >> 5) * 4)) != 0)) {
     local_1c = 0;
-    sVar1 = read(DAT_000112a8,auStack_18,8);
+    sVar1 = read(DAT_00011304,auStack_18,8);
     if (sVar1 == 8) {
       do {
         do {

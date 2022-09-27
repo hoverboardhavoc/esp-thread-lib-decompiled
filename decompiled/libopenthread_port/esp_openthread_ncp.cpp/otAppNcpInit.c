@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_ncp.cpp.o -> otAppNcpInit
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,7 +19,7 @@ void otAppNcpInit(Instance *param_1)
   ot::Ncp::NcpHdlc::NcpHdlc((NcpHdlc *)s_ncp,param_1,NcpSend);
   puVar1 = (undefined1 *)ot::Ncp::NcpBase::GetNcpInstance();
   if (puVar1 != s_ncp) {
-    otPlatAssertFail("/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_ncp.cpp"
+    otPlatAssertFail("/home/wangqixiang/workspace/gitlab-esp/esp-openthread/components/openthread_port/src/esp_openthread_ncp.cpp"
                      ,0x99);
     do {
                     /* WARNING: Do nothing block with infinite loop */

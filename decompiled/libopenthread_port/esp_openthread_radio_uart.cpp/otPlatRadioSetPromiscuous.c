@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetPromiscuous
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,8 +32,8 @@ void otPlatRadioSetPromiscuous(bool param_1)
     }
     uVar2 = otExitCodeToString(uVar2);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioSetPromiscuous",
-                  "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
-                  ,0x66,uVar2);
+                  "/home/wangqixiang/workspace/gitlab-esp/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  ,0x67,uVar2);
     iVar1 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
             SetPromiscuous((RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>

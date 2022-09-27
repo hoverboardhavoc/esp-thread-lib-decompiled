@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> process_thread_receive
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void process_thread_receive(undefined4 param_1)
   undefined4 uVar3;
   
   uVar1 = otMessageGetLength();
-  iVar2 = esp_netif_receive(DAT_000112a4,param_1,uVar1,0);
+  iVar2 = esp_netif_receive(DAT_00011300,param_1,uVar1,0);
   if (iVar2 != 0) {
     uVar1 = esp_log_timestamp();
     uVar3 = esp_err_to_name(iVar2);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchShortEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,10 +23,10 @@ int otPlatRadioAddSrcMatchShortEntry(uint param_1)
   puVar2 = (undefined1 *)0x14000;
   iVar3 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x14560,(char *)0x1304);
+          Insert(0x14570,(char *)0x1304);
   if (iVar3 == 0) {
     puVar4 = &s_radio;
-    iVar6 = (int)DAT_00014cae;
+    iVar6 = (int)DAT_00014cbe;
     iVar5 = 9;
     if (9 < iVar6) {
       iVar3 = 0;

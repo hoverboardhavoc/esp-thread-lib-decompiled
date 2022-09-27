@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -59,17 +59,21 @@ _L0:
               esp_openthread_get_instance();
               otDnssdQueryHandleDiscoveredServiceInstance(pcVar3 + 1,__ptr + 0x300);
             }
-            goto _L0;
+_L0:
+            free_addresses_in_pending_query(__ptr);
           }
         }
         else if (iVar4 == 2) {
           if (pmVar1 != (mdns_result_s *)0x0) {
             append_to_query_result(__ptr,pmVar1);
           }
-          esp_openthread_get_instance();
-          otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
-_L0:
-          free_addresses_in_pending_query(__ptr);
+          if ((*(int *)(__ptr + 800) == 0) && (*(int *)(__ptr + 0x324) == 0)) {
+            if (__ptr[0x100] != (pending_query_t)0x0) {
+              esp_openthread_get_instance();
+              otDnssdQueryHandleDiscoveredHost(__ptr + 0x100,__ptr + 0x300);
+            }
+            goto _L0;
+          }
         }
         else if (iVar4 == 0) {
           for (pmVar6 = pmVar1; pmVar6 != (mdns_result_s *)0x0; pmVar6 = *(mdns_result_s **)pmVar6)

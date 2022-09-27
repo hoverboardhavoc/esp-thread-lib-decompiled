@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * https://github.com/espressif/esp-thread-lib/commit/0e7deba20b77f23c9f431ae3e05236bf6f06957d
- * Upstream date: 2022-07-05 19:22:08 +0800
- * Upstream subject: bugfix: fix timer overflow
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_alarm.o -> esp_openthread_alarm_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,13 +32,13 @@ void esp_openthread_alarm_update(int param_1)
   else {
     uVar6 = s_alarm_ms_t0 + s_alarm_ms_dt;
     uVar2 = uVar6 * 1000 - iVar3;
-    iVar1 = ((((uint)(uVar6 < s_alarm_ms_dt) + DAT_00010304 + DAT_0001030c) * 1000 +
+    iVar1 = ((((uint)(uVar6 < s_alarm_ms_dt) + DAT_00010314 + DAT_0001031c) * 1000 +
              (int)((ulonglong)uVar6 * 1000 >> 0x20)) - extraout_a1) - (uint)(uVar6 * 1000 < uVar2);
   }
   if (s_is_us_running != '\0') {
     uVar7 = s_alarm_us_t0 + s_alarm_us_dt;
     uVar6 = uVar7 - iVar3;
-    iVar3 = (((uint)(uVar7 < s_alarm_us_dt) + DAT_0001031c + DAT_00010314) - extraout_a1) -
+    iVar3 = (((uint)(uVar7 < s_alarm_us_dt) + DAT_0001032c + DAT_00010324) - extraout_a1) -
             (uint)(uVar7 < uVar6);
     if ((iVar3 < iVar1) || ((iVar1 == iVar3 && (uVar6 < uVar2)))) {
       iVar1 = iVar3;

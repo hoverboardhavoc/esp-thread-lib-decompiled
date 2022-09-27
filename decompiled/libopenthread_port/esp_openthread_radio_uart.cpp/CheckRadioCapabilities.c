@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
+ * Upstream date: 2022-09-27 14:18:34 +0800
+ * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CheckRadioCapabilities
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,9 +34,9 @@ CheckRadioCapabilities
   if ((iVar1 == 0) && (this[0x670] = aRStack_14[0], ((byte)aRStack_14[0] & 0x6d) != 0x6d)) {
     bVar6 = ~(byte)aRStack_14[0];
     pcVar7 = "";
-    iVar1 = -0xac;
+    iVar1 = -0xa0;
     if ((bVar6 & 1) != 0) {
-      iVar1 = -0xbc;
+      iVar1 = -0xb0;
     }
     pcVar3 = pcVar7;
     if ((bVar6 & 4) != 0) {
