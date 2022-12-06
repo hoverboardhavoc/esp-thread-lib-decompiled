@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
- * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
- * Upstream date: 2022-09-27 14:18:34 +0800
- * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,23 +22,23 @@ void esp_openthread_netif_glue_state_callback(uint param_1)
     iVar1 = otLinkIsEnabled();
     if (iVar1 == 0) {
       uVar2 = esp_log_timestamp();
-      esp_log_write(3,"OPENTHREAD",&_LC7,uVar2,"OPENTHREAD");
+      esp_log_write(3,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD");
       iVar1 = esp_event_post(OPENTHREAD_EVENT,3,0,0,0);
       if (iVar1 == 0) {
         return;
       }
       uVar2 = esp_log_timestamp();
-      puVar3 = &_LC8;
+      puVar3 = &_LC4;
     }
     else {
       uVar2 = esp_log_timestamp();
-      esp_log_write(3,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD");
+      esp_log_write(3,"OPENTHREAD",&_LC1,uVar2,"OPENTHREAD");
       iVar1 = esp_event_post(OPENTHREAD_EVENT,2,0,0,0);
       if (iVar1 == 0) {
         return;
       }
       uVar2 = esp_log_timestamp();
-      puVar3 = &_LC6;
+      puVar3 = &_LC2;
     }
     esp_log_write(1,"OPENTHREAD",puVar3,uVar2,"OPENTHREAD");
     return;

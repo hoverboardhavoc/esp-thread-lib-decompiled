@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleReceivedFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,39 +21,43 @@ HandleReceivedFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthr
 {
   MultiFrameBuffer<(unsigned_short)1024> *this_00;
   ushort uVar1;
-  undefined4 uVar2;
+  uchar *puVar2;
   undefined4 uVar3;
-  int iVar4;
-  uchar *puVar5;
+  undefined4 uVar4;
+  int iVar5;
   byte bStack_11;
   
   this_00 = (MultiFrameBuffer<(unsigned_short)1024> *)(this + 4);
-  uVar2 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
+  puVar2 = (uchar *)Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
+                              (*(MultiFrameBuffer<(unsigned_short)1024> **)(this + 0x40c));
+  uVar1 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
+  LogSpinelFrame(this,puVar2,uVar1,false);
+  uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
                     (*(MultiFrameBuffer<(unsigned_short)1024> **)(this + 0x40c));
-  uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
-  iVar4 = spinel_datatype_unpack(uVar2,uVar3,&_LC10,&bStack_11);
-  if (0 < iVar4) {
+  uVar4 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
+  iVar5 = spinel_datatype_unpack(uVar3,uVar4,&_LC37,&bStack_11);
+  if (0 < iVar5) {
     if (((char)bStack_11 < '\0') && (((int)(uint)bStack_11 >> 4 & 3U) == 0)) {
       if ((bStack_11 & 0xf) == 0) {
         HandleNotification(this,(MultiFrameBuffer *)this_00);
       }
       else {
-        puVar5 = (uchar *)Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
+        puVar2 = (uchar *)Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
                                     (*(MultiFrameBuffer<(unsigned_short)1024> **)(this + 0x40c));
         uVar1 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
-        HandleResponse(this,puVar5,uVar1);
+        HandleResponse(this,puVar2,uVar1);
         Hdlc::MultiFrameBuffer<(unsigned_short)1024>::DiscardFrame(this_00);
       }
-      uVar2 = 0;
+      uVar3 = 0;
       goto _L0;
     }
   }
   Hdlc::MultiFrameBuffer<(unsigned_short)1024>::DiscardFrame(this_00);
-  uVar2 = otThreadErrorToString(6);
-  otLogWarnPlat("Error handling hdlc frame: %s",uVar2);
-  uVar2 = 6;
+  uVar3 = otThreadErrorToString(6);
+  otLogWarnPlat("Error handling hdlc frame: %s",uVar3);
+  uVar3 = 6;
 _L0:
-  UpdateParseErrorCount(this,uVar2);
+  UpdateParseErrorCount(this,uVar3);
   return;
 }
 

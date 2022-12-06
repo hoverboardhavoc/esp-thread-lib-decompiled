@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleNotification
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
   uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength
                     ((MultiFrameBuffer<(unsigned_short)1024> *)param_1);
   iVar4 = spinel_datatype_unpack
-                    (uVar2,uVar3,&::_L0,&bStack_21,&iStack_14,&uStack_20,&puStack_18,&uStack_1c);
+                    (uVar2,uVar3,&_LC27,&bStack_21,&iStack_14,&uStack_20,&puStack_18,&uStack_1c);
   if ((iVar4 < 1) || ((bStack_21 & 0xf) != 0)) {
     uVar2 = 6;
   }
@@ -64,7 +64,7 @@ HandleNotification(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthre
     else {
       uVar2 = 6;
       if (1 < iStack_14 - 7U) goto _L0;
-      otLogInfoPlat("Ignored command %d");
+      otLogInfoPlat("Ignored command %lu");
     }
     uVar2 = 0;
   }

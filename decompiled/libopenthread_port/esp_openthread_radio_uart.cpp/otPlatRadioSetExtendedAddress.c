@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
- * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
- * Upstream date: 2022-09-27 14:18:34 +0800
- * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioSetExtendedAddress
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,7 +44,7 @@ void otPlatRadioSetExtendedAddress(otExtAddress *param_1)
     }
     uVar5 = otExitCodeToString(uVar5);
     otLogCritPlat("%s() at %s:%d: %s","otPlatRadioSetExtendedAddress",
-                  "/home/wangqixiang/workspace/gitlab-esp/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
+                  "/home/zhangwenxu/ieee802154/esp-openthread/components/openthread_port/src/esp_openthread_radio_uart.cpp"
                   ,0x5d,uVar5);
     iVar2 = ot::Spinel::
             RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::

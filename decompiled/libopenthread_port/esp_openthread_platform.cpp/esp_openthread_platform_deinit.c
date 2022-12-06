@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_platform.cpp.o -> esp_openthread_platform_deinit
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,6 +21,7 @@ undefined4 esp_openthread_platform_deinit(void)
     uVar1 = 0x103;
   }
   else {
+    s_openthread_platform_initialized = '\0';
     esp_openthread_task_queue_deinit();
     esp_openthread_radio_deinit();
     if (s_platform_config._44_4_ == 1) {

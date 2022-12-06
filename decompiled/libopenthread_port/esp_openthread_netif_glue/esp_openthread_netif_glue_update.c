@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
- * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
- * Upstream date: 2022-09-27 14:18:34 +0800
- * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,11 +16,11 @@ void esp_openthread_netif_glue_update(int param_1)
   uint uVar1;
   uint *puVar2;
   
-  uVar1 = DAT_00011304;
-  if (-1 < (int)DAT_00011304) {
-    if ((int)DAT_00011304 < 0x40) {
-      puVar2 = (uint *)(((int)DAT_00011304 >> 5) * 4 + param_1);
-      *puVar2 = *puVar2 | 1 << (DAT_00011304 & 0x1f);
+  uVar1 = DAT_00011384;
+  if (-1 < (int)DAT_00011384) {
+    if ((int)DAT_00011384 < 0x40) {
+      puVar2 = (uint *)(((int)DAT_00011384 >> 5) * 4 + param_1);
+      *puVar2 = *puVar2 | 1 << (DAT_00011384 & 0x1f);
     }
     if (*(int *)(param_1 + 0x18) < (int)uVar1) {
       *(uint *)(param_1 + 0x18) = uVar1;

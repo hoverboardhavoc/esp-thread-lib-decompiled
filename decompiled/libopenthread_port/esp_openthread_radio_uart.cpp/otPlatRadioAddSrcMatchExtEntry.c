@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8351966d029cd95b6d0b22f0168defc1c713e0ab
- * https://github.com/espressif/esp-thread-lib/commit/8351966d029cd95b6d0b22f0168defc1c713e0ab
- * Upstream date: 2022-09-27 14:18:34 +0800
- * Upstream subject: port: add flash optimization options  * esp_openthread: bbf5b0ac8  * ot-repo: e64ba13fa
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioAddSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,15 +35,15 @@ int otPlatRadioAddSrcMatchExtEntry(undefined1 *param_1)
   } while (bVar1);
   iVar4 = ot::Spinel::
           RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-          Insert(0x14570,(char *)0x1305);
-  sVar2 = DAT_00014d10;
+          Insert(0x15920,(char *)0x1305);
+  sVar2 = DAT_000160c0;
   if (iVar4 == 0) {
-    iVar3 = (int)DAT_00014d10;
+    iVar3 = (int)DAT_000160c0;
     if (9 < iVar3) {
       __assert_func(0,0,0);
       goto _L0;
     }
-    unaff_s4 = &DAT_00014cc0;
+    unaff_s4 = &DAT_00016070;
     for (unaff_s3 = 0; unaff_s3 < iVar3; unaff_s3 = unaff_s3 + 1) {
 _L0:
       iVar5 = memcmp(&uStack_28,unaff_s4,8);
@@ -54,8 +54,8 @@ _L0:
     }
     iVar3 = (iVar3 + 0xea) * 8;
     *(undefined4 *)(&s_radio + iVar3) = uStack_28;
-    DAT_00014d10 = sVar2 + 1;
-    *(undefined4 *)(&DAT_00014574 + iVar3) = uStack_24;
+    DAT_000160c0 = sVar2 + 1;
+    *(undefined4 *)(&DAT_00015924 + iVar3) = uStack_24;
   }
   return iVar4;
 }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RequestV
  *
  * (C) Espressif, Apache License 2.0.
@@ -59,7 +59,7 @@ RequestV(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloo
         *(ulong *)(this + 0x46c) = param_2;
         uVar3 = otPlatTimeGet();
         uVar2 = (uint)(uVar3 + 2000000 < uVar3) + extraout_a1;
-        otLogDebgPlat("Wait response: tid=%u key=%u",this[0x468],*(undefined4 *)(this + 0x46c));
+        otLogDebgPlat("Wait response: tid=%u key=%lu",this[0x468],*(undefined4 *)(this + 0x46c));
         break;
       }
       if (this[0x467] ==

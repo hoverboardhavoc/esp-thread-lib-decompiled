@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleWaitingResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ HandleWaitingResponse
   
   uVar4 = CONCAT22(in_register_0000203a,param_4);
   if (param_2 == 0) {
-    iVar1 = spinel_datatype_unpack(&_LC51,apSStack_14);
+    iVar1 = spinel_datatype_unpack(&_LC31,apSStack_14);
     if (0 < iVar1) {
       uVar4 = SpinelStatusToOtError(apSStack_14[0],extraout_a1);
 _L0:
@@ -45,8 +45,9 @@ _L0:
   }
   else {
     if (param_2 == 0x3bc0) {
+      *(undefined4 *)(this + 0x47c) = 0;
       if ((*(int *)(this + 0x7ac) == 0) ||
-         (iVar1 = spinel_datatype_unpack_in_place(&_LC40,this + 0x7b0), 0 < iVar1)) goto _L0;
+         (iVar1 = spinel_datatype_unpack_in_place(&_LC52,this + 0x7b0), 0 < iVar1)) goto _L0;
       goto _L0;
     }
     if (*(ulong *)(this + 0x46c) == param_2) {

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> SpinelStatusToOtError
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,10 +15,10 @@
 Spinel * __thiscall ot::Spinel::SpinelStatusToOtError(Spinel *this,ulong param_1)
 
 {
-  if (this == (Spinel *)0xb) {
-    return (Spinel *)0x3;
+  if (this == (Spinel *)0xc) {
+    return (Spinel *)0x5;
   }
-  if (this < (Spinel *)0xc) {
+  if (this < (Spinel *)0xd) {
     if (this == (Spinel *)0x3) {
       return (Spinel *)0x7;
     }
@@ -34,27 +34,30 @@ Spinel * __thiscall ot::Spinel::SpinelStatusToOtError(Spinel *this,ulong param_1
       }
     }
     else {
-      if (this == (Spinel *)0x4) {
-        return (Spinel *)0xd;
-      }
       if (this == (Spinel *)0x9) {
         return (Spinel *)0x6;
+      }
+      if (this == (Spinel *)0xb) {
+        return (Spinel *)0x3;
+      }
+      if (this == (Spinel *)0x4) {
+        return (Spinel *)0xd;
       }
     }
   }
   else {
-    if (this == (Spinel *)0x11) {
-      return (Spinel *)0xe;
+    if (this == (Spinel *)0x12) {
+      return (Spinel *)0xf;
     }
-    if (this < (Spinel *)0x12) {
-      if (this == (Spinel *)0xd) {
-        return (Spinel *)0x17;
-      }
+    if (this < (Spinel *)0x13) {
       if (this == (Spinel *)0xe) {
         return (Spinel *)0x2;
       }
-      if (this == (Spinel *)0xc) {
-        return (Spinel *)0x5;
+      if (this == (Spinel *)0x11) {
+        return (Spinel *)0xe;
+      }
+      if (this == (Spinel *)0xd) {
+        return (Spinel *)0xc;
       }
     }
     else {
@@ -63,9 +66,6 @@ Spinel * __thiscall ot::Spinel::SpinelStatusToOtError(Spinel *this,ulong param_1
       }
       if (this == (Spinel *)0x14) {
         return (Spinel *)0x17;
-      }
-      if (this == (Spinel *)0x12) {
-        return (Spinel *)0xf;
       }
     }
   }

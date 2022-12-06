@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
+ * Upstream date: 2022-12-06 21:56:45 +0800
+ * Upstream subject: lib: fix multi br forwarding ping reply
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,7 +44,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
   }
   if (param_1 == 0) {
     apppuStack_a8[0] = (undefined4 ****)0x0;
-    iStack_b0 = spinel_datatype_unpack(param_2,&_LC51,apppuStack_a8);
+    iStack_b0 = spinel_datatype_unpack(param_2,&_LC31,apppuStack_a8);
     if (0 < iStack_b0) {
       iVar1 = 0;
       if (apppuStack_a8[0] + -0x1c < (undefined4 ****)0x11) {
@@ -73,7 +73,7 @@ _L0:
   }
   else {
     if (param_1 == 0x39) {
-      iStack_b0 = spinel_datatype_unpack(param_2,&_LC27,&uStack_ac,apppuStack_a8);
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC44,&uStack_ac,apppuStack_a8);
       if (iStack_b0 < 1) goto _L0;
       this[0x7a9] = (RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
                      )((byte)this[0x7a9] & 0x7f);
@@ -81,7 +81,7 @@ _L0:
     }
     else if (param_1 == 0x70) {
       uStack_ac = 0x97;
-      iVar1 = spinel_datatype_unpack_in_place(param_2,0x10bfc,apppuStack_a8,&uStack_ac);
+      iVar1 = spinel_datatype_unpack_in_place(param_2,&_LC50,apppuStack_a8,&uStack_ac);
       uVar4 = uStack_ac;
       iStack_b0 = iVar1;
       if (0x96 < uStack_ac) {
@@ -94,10 +94,10 @@ _L0:
       otLogDebgPlat("RCP => %s",ppppuVar3);
     }
     else if ((param_1 == 0x74) && ((*(uint *)(this + 0x704) >> 2 & 1) != 0)) {
-      iStack_b0 = spinel_datatype_unpack(param_2,&_LC40,apppuStack_a8);
+      iStack_b0 = spinel_datatype_unpack(param_2,&_LC52,apppuStack_a8);
       if (-1 < iStack_b0) {
         iStack_b0 = spinel_datatype_unpack
-                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC10,
+                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC37,
                                &uStack_ac);
         if (0 < iStack_b0) {
           uVar4 = uStack_ac & 0xff;

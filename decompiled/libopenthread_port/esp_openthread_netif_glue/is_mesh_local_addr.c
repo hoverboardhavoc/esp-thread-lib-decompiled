@@ -3,30 +3,22 @@
  * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
  * Upstream date: 2022-12-06 21:56:45 +0800
  * Upstream subject: lib: fix multi br forwarding ping reply
- * Source: libopenthread_port -> esp_openthread_netif_glue.o -> notify_packets_pending
+ * Source: libopenthread_port -> esp_openthread_netif_glue.o -> is_mesh_local_addr
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 notify_packets_pending(void)
+bool is_mesh_local_addr(void *param_1)
 
 {
-  ssize_t sVar1;
-  undefined4 uVar2;
-  undefined4 uStack_18;
-  undefined4 uStack_14;
+  void *__s2;
+  int iVar1;
   
-  uStack_14 = 0;
-  uStack_18 = 1;
-  sVar1 = write(DAT_00011384,&uStack_18,8);
-  uVar2 = 0;
-  if (sVar1 != 8) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(2,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD");
-    uVar2 = 0xffffffff;
-  }
-  return uVar2;
+  esp_openthread_get_instance();
+  __s2 = (void *)otThreadGetMeshLocalPrefix();
+  iVar1 = memcmp(param_1,__s2,8);
+  return iVar1 == 0;
 }
 
