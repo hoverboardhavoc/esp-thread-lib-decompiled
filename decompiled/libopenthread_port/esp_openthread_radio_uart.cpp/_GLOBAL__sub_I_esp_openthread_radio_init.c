@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * Upstream date: 2022-12-09 21:46:40 +0800
+ * Upstream subject: lib: fix nat64 enable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> _GLOBAL__sub_I_esp_openthread_radio_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,7 +15,7 @@
 void _GLOBAL__sub_I_esp_openthread_radio_init(void)
 
 {
-  _s_radio = 0;
+  s_radio = 0;
   DAT_00015d2c = &DAT_0001592a;
   _DAT_00015924 = 0x1592e;
   uRam00015928 = 0x3fc;

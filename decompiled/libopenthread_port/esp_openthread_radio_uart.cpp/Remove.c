@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * Upstream date: 2022-12-09 21:46:40 +0800
+ * Upstream subject: lib: fix nat64 enable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
 
 {
   ushort *puVar1;
-  undefined1 *puVar2;
+  undefined4 *puVar2;
   int iVar3;
   uint uVar4;
   char *in_a2;
@@ -56,8 +56,8 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
   if (iVar3 == 0) {
     puVar2 = &s_radio;
     for (iVar3 = 0; iVar3 < DAT_0001606e; iVar3 = iVar3 + 1) {
-      puVar1 = (ushort *)(puVar2 + 0x73a);
-      puVar2 = puVar2 + 2;
+      puVar1 = (ushort *)((int)puVar2 + 0x73a);
+      puVar2 = (undefined4 *)((int)puVar2 + 2);
       if (*puVar1 == uVar4) {
         *(undefined2 *)(&DAT_0001592a + (iVar3 + 0x398) * 2) =
              *(undefined2 *)(&DAT_0001592a + (DAT_0001606e + 0x397) * 2);

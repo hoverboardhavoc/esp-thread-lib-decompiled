@@ -1,16 +1,14 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * Upstream date: 2022-12-09 21:46:40 +0800
+ * Upstream subject: lib: fix nat64 enable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> esp_openthread_radio_process
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
-
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 esp_openthread_radio_process(void)
 
@@ -51,7 +49,7 @@ undefined4 esp_openthread_radio_process(void)
       puVar2 = &DAT_00015f60;
     }
     if (DAT_000160c8._2_1_ == '\0') {
-      otPlatRadioTxDone(_s_radio,DAT_00015f80,puVar2);
+      otPlatRadioTxDone(s_radio,DAT_00015f80,puVar2);
     }
     else {
       otPlatDiagRadioTransmitDone(DAT_00015f94);

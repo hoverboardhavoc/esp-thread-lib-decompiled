@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
+ * Upstream date: 2022-12-09 21:46:40 +0800
+ * Upstream subject: lib: fix nat64 enable
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioClearSrcMatchExtEntry
  *
  * (C) Espressif, Apache License 2.0.
@@ -43,11 +43,11 @@ int otPlatRadioClearSrcMatchExtEntry(undefined1 *param_1)
       iVar5 = memcmp(__s1,auStack_28,8);
       __s1 = __s1 + 2;
       if (iVar5 == 0) {
-        iVar8 = (iVar8 + 0xe9) * 8;
-        iVar4 = (iVar3 + 0xea) * 8;
-        *(undefined4 *)(&s_radio + iVar4) = *(undefined4 *)(&s_radio + iVar8);
+        iVar8 = iVar8 + 0xe9;
+        (&s_radio)[(iVar3 + 0xea) * 2] = (&s_radio)[iVar8 * 2];
         DAT_000160c0 = sVar2 + -1;
-        *(undefined4 *)(&DAT_00015924 + iVar4) = *(undefined4 *)(&DAT_00015924 + iVar8);
+        *(undefined4 *)(&DAT_00015924 + (iVar3 + 0xea) * 8) =
+             *(undefined4 *)(&DAT_00015924 + iVar8 * 8);
         return 0;
       }
     }
