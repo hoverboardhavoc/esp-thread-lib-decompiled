@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_deinit
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,9 +23,9 @@ void esp_openthread_netif_glue_deinit(void)
     vQueueDelete();
     s_packet_queue = 0;
   }
-  if (-1 < DAT_00011384) {
-    close(DAT_00011384);
-    DAT_00011384 = -1;
+  if (-1 < DAT_00011380) {
+    close(DAT_00011380);
+    DAT_00011380 = -1;
   }
   iVar2 = esp_event_post(OPENTHREAD_EVENT,1,0,0,0);
   if (iVar2 != 0) {

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> IsRcp
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,11 +37,11 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
     bVar1 = false;
     puVar2 = auStack_94;
     for (; iStack_9c != 0; iStack_9c = iStack_9c - iVar4) {
-      iVar4 = spinel_datatype_unpack(puVar2,&_LC31,&iStack_98);
+      iVar4 = spinel_datatype_unpack(puVar2,&_LC30,&iStack_98);
       if (iVar4 < 1) {
         uVar5 = otExitCodeToString(3);
         uVar6 = 0x14a;
-        goto _L690;
+        goto _L692;
       }
       if (iStack_98 == 0x201) {
         bVar1 = true;
@@ -64,7 +64,7 @@ IsRcp(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_c
     otLogCritPlat("RCP capability list does not include support for radio/raw mode");
     uVar5 = otExitCodeToString(3);
     uVar6 = 0x167;
-_L690:
+_L692:
     otLogCritPlat("%s() at %s:%d: %s","IsRcp",
                   "/IDF/components/openthread/openthread/src/lib/spinel/radio_spinel_impl.hpp",uVar6
                   ,uVar5);

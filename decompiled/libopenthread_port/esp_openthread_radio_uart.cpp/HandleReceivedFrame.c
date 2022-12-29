@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleReceivedFrame
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ HandleReceivedFrame(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthr
   uVar3 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetFrame
                     (*(MultiFrameBuffer<(unsigned_short)1024> **)(this + 0x40c));
   uVar4 = Hdlc::MultiFrameBuffer<(unsigned_short)1024>::GetLength(this_00);
-  iVar5 = spinel_datatype_unpack(uVar3,uVar4,&_LC37,&bStack_11);
+  iVar5 = spinel_datatype_unpack(uVar3,uVar4,&_LC36,&bStack_11);
   if (0 < iVar5) {
     if (((char)bStack_11 < '\0') && (((int)(uint)bStack_11 >> 4 & 3U) == 0)) {
       if ((bStack_11 & 0xf) == 0) {

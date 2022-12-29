@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> otPlatRadioReceive
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,26 +17,26 @@ int otPlatRadioReceive(uint param_1)
   uint uVar2;
   
   iVar1 = 0xd;
-  if (DAT_00016020 != 0) {
-    if (DAT_00015f91 != param_1) {
+  if (DAT_000160b0 != 0) {
+    if (DAT_00016021 != param_1) {
       iVar1 = ot::Spinel::
               RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>::
-              Set(0x15920,(char *)0x21);
+              Set(0x159b0,(char *)0x21);
       if (iVar1 != 0) {
         return iVar1;
       }
-      DAT_00015f91 = (byte)param_1;
+      DAT_00016021 = (byte)param_1;
     }
-    if ((DAT_00016020 != 1) ||
+    if ((DAT_000160b0 != 1) ||
        (iVar1 = ot::Spinel::
                 RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_mainloop_context_t>
-                ::Set(0x15920,(char *)0x37), iVar1 == 0)) {
-      uVar2 = (uint)DAT_00015d87;
+                ::Set(0x159b0,(char *)0x37), iVar1 == 0)) {
+      uVar2 = (uint)DAT_00015e17;
       if (uVar2 != 0) {
-        DAT_00015d87 = 0;
-        DAT_00015d84 = ~(ushort)(1 << (uVar2 & 0x1f)) & DAT_00015d84;
+        DAT_00015e17 = 0;
+        DAT_00015e14 = ~(ushort)(1 << (uVar2 & 0x1f)) & DAT_00015e14;
       }
-      DAT_00016020 = 2;
+      DAT_000160b0 = 2;
       iVar1 = 0;
     }
   }

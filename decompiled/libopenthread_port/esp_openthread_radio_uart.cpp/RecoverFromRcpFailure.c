@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> RecoverFromRcpFailure
  *
  * (C) Espressif, Apache License 2.0.
@@ -66,14 +66,14 @@ RecoverFromRcpFailure
   if (((*(uint *)(this + 0x704) >> 4 & 1) == 0) || (iVar2 = SendReset(this,'\x02'), iVar2 == 0)) {
     iVar2 = WaitResponse(this);
     if (iVar2 == 0) {
-      iVar2 = Set((ulong)this,(char *)0x20,&_LC33,1);
+      iVar2 = Set((ulong)this,(char *)0x20,&_LC32,1);
       if (iVar2 == 0) {
         *(undefined4 *)(this + 0x700) = 1;
         RestoreProperties(this);
         if (iVar4 == 2) {
-          iVar4 = Set((ulong)this,(char *)0x37,&_LC33,1);
+          iVar4 = Set((ulong)this,(char *)0x37,&_LC32,1);
           if (iVar4 != 0) {
-            iVar4 = Set((ulong)this,(char *)0x37,&_LC33,1);
+            iVar4 = Set((ulong)this,(char *)0x37,&_LC32,1);
             uVar1 = 2;
             if (iVar4 != 7) {
               uVar1 = 1;
@@ -90,9 +90,9 @@ _L0:
           *(undefined4 *)(this + 0x700) = 2;
         }
         else if (iVar4 - 3U < 2) {
-          iVar4 = Set((ulong)this,(char *)0x37,&_LC33,1);
+          iVar4 = Set((ulong)this,(char *)0x37,&_LC32,1);
           if (iVar4 != 0) {
-            iVar4 = Set((ulong)this,(char *)0x37,&_LC33,1);
+            iVar4 = Set((ulong)this,(char *)0x37,&_LC32,1);
             uVar1 = 2;
             if (iVar4 != 7) {
               uVar1 = 1;
@@ -122,7 +122,7 @@ _L0:
         iVar2 = EnergyScan(this,(uchar)this[0x7a2],*(ushort *)(this + 0x7a4));
       }
       else {
-        iVar4 = Set((ulong)this,(char *)0x20,&_LC33,1);
+        iVar4 = Set((ulong)this,(char *)0x20,&_LC32,1);
         uVar1 = 2;
         if (iVar4 != 7) {
           uVar1 = 1;
@@ -133,7 +133,7 @@ _L0:
                       0x8f9,uVar1);
         pcVar3 = (char *)0x20;
 _L0:
-        iVar2 = Set((ulong)this,pcVar3,&_LC33,1);
+        iVar2 = Set((ulong)this,pcVar3,&_LC32,1);
       }
     }
     else {

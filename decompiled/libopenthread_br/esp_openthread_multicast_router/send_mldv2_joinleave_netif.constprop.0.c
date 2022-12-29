@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_joinleave_netif.constprop.0
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,7 +36,7 @@ int send_mldv2_joinleave_netif_constprop_0(void *param_1,char param_2)
     *(undefined1 *)(iVar1 + 0x46) = 1;
     uVar4 = esp_openthread_get_lwip_backbone_netif();
     raw_bind_netif(iVar1,uVar4);
-    memcpy(auStack_38,&_L0,0x18);
+    memcpy(auStack_38,&_LANCHOR2,0x18);
     iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,auStack_38);
     iVar1 = -(uint)(iVar1 != 0);
     pbuf_free(iVar3);

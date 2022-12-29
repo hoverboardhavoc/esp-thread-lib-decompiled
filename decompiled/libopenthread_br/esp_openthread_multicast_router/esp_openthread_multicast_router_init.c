@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit f8871fa4d9a7ad74c861d0108152165fc89044f5
- * https://github.com/espressif/esp-thread-lib/commit/f8871fa4d9a7ad74c861d0108152165fc89044f5
- * Upstream date: 2022-01-26 19:30:41 +0800
- * Upstream subject: br: support multicast routing
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,10 +36,10 @@ int esp_openthread_multicast_router_init(void)
       else {
         iStack_18 = 0;
         uStack_14 = xTaskGetCurrentTaskHandle();
-        esp_openthread_lock_release();
+        esp_openthread_task_switching_lock_release();
         tcpip_callback(multicast_router_init_on_lwip_task,&iStack_18);
         ulTaskGenericNotifyTake(0,1,0xffffffff);
-        esp_openthread_lock_acquire(0xffffffff);
+        esp_openthread_task_switching_lock_acquire();
         if (iStack_18 == 0) {
           esp_openthread_get_instance();
           otBackboneRouterSetMulticastListenerCallback

@@ -3,30 +3,19 @@
  * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
  * Upstream date: 2022-12-29 12:50:13 +0800
  * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
- * Source: libopenthread_port -> esp_openthread_netif_glue.o -> notify_packets_pending
+ * Source: libopenthread_port -> esp_openthread_lock.o -> esp_openthread_task_switching_lock_acquire
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 notify_packets_pending(void)
+bool esp_openthread_task_switching_lock_acquire(void)
 
 {
-  ssize_t sVar1;
-  undefined4 uVar2;
-  undefined4 uStack_18;
-  undefined4 uStack_14;
+  int iVar1;
   
-  uStack_14 = 0;
-  uStack_18 = 1;
-  sVar1 = write(DAT_00011380,&uStack_18,8);
-  uVar2 = 0;
-  if (sVar1 != 8) {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(2,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD");
-    uVar2 = 0xffffffff;
-  }
-  return uVar2;
+  iVar1 = xQueueTakeMutexRecursive(s_openthread_task_mutex,0xffffffff);
+  return iVar1 == 1;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> openthread_netif_transmit
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
   undefined4 uVar3;
   int aiStack_14 [2];
   
-  esp_openthread_lock_acquire(0xffffffff);
+  esp_openthread_task_switching_lock_acquire();
   esp_openthread_get_instance();
   aiStack_14[0] = otIp6NewMessage(0);
   if (aiStack_14[0] == 0) {
@@ -50,7 +50,7 @@ int openthread_netif_transmit(undefined4 param_1,undefined2 param_2)
     }
   }
 _L0:
-  esp_openthread_lock_release();
+  esp_openthread_task_switching_lock_release();
   return iVar2;
 }
 

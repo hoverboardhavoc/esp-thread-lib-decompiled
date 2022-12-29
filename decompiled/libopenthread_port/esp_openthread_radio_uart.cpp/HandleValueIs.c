@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * Upstream date: 2022-12-09 21:46:40 +0800
- * Upstream subject: lib: fix nat64 enable
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> HandleValueIs
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,7 +32,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
     iVar1 = ParseRadioFrame(this,(otRadioFrame *)(this + 0x600),param_2,param_3,&iStack_b0);
     if (iVar1 != 0) goto _L0;
     if (((*(uint *)(this + 0x704) & 1) != 0) || (1 < *(uint *)(this + 0x700))) {
-      if ((char)s_radio == '\0') {
+      if (s_radio == '\0') {
         otPlatRadioReceiveDone(*(undefined4 *)this,(otRadioFrame *)(this + 0x600),0);
       }
       else {
@@ -44,7 +44,7 @@ HandleValueIs(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_ma
   }
   if (param_1 == 0) {
     apppuStack_a8[0] = (undefined4 ****)0x0;
-    iStack_b0 = spinel_datatype_unpack(param_2,&_LC31,apppuStack_a8);
+    iStack_b0 = spinel_datatype_unpack(param_2,&_LC30,apppuStack_a8);
     if (0 < iStack_b0) {
       iVar1 = 0;
       if (apppuStack_a8[0] + -0x1c < (undefined4 ****)0x11) {
@@ -97,7 +97,7 @@ _L0:
       iStack_b0 = spinel_datatype_unpack(param_2,&_LC52,apppuStack_a8);
       if (-1 < iStack_b0) {
         iStack_b0 = spinel_datatype_unpack
-                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC37,
+                              (param_2 + iStack_b0,(uint)param_3 - iStack_b0 & 0xffff,&_LC36,
                                &uStack_ac);
         if (0 < iStack_b0) {
           uVar4 = uStack_ac & 0xff;

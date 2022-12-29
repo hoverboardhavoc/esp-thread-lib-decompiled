@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * Upstream date: 2022-12-09 21:46:40 +0800
- * Upstream subject: lib: fix nat64 enable
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
 
 {
   ushort *puVar1;
-  undefined4 *puVar2;
+  undefined1 *puVar2;
   int iVar3;
   uint uVar4;
   char *in_a2;
@@ -52,16 +52,16 @@ void ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread
     return;
   }
   uVar4 = __assert_func(0,0,0,0);
-  iVar3 = Remove(0x15920,(char *)0x1304);
+  iVar3 = Remove(0x159b0,(char *)0x1304);
   if (iVar3 == 0) {
     puVar2 = &s_radio;
-    for (iVar3 = 0; iVar3 < DAT_0001606e; iVar3 = iVar3 + 1) {
-      puVar1 = (ushort *)((int)puVar2 + 0x73a);
-      puVar2 = (undefined4 *)((int)puVar2 + 2);
+    for (iVar3 = 0; iVar3 < DAT_000160fe; iVar3 = iVar3 + 1) {
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
       if (*puVar1 == uVar4) {
-        *(undefined2 *)(&DAT_0001592a + (iVar3 + 0x398) * 2) =
-             *(undefined2 *)(&DAT_0001592a + (DAT_0001606e + 0x397) * 2);
-        DAT_0001606e = DAT_0001606e + -1;
+        *(undefined2 *)(&DAT_000159ba + (iVar3 + 0x398) * 2) =
+             *(undefined2 *)(&DAT_000159ba + (DAT_000160fe + 0x397) * 2);
+        DAT_000160fe = DAT_000160fe + -1;
         return;
       }
     }

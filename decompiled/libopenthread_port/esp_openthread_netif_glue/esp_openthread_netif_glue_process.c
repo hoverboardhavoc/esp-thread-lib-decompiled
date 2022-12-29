@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_netif_glue.o -> esp_openthread_netif_glue_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,10 +20,10 @@ undefined4 esp_openthread_netif_glue_process(int param_1)
   int local_1c;
   undefined1 auStack_18 [8];
   
-  if ((DAT_00011384 < 0x40) &&
-     ((1 << (DAT_00011384 & 0x1f) & *(uint *)(param_1 + ((int)DAT_00011384 >> 5) * 4)) != 0)) {
+  if ((DAT_00011380 < 0x40) &&
+     ((1 << (DAT_00011380 & 0x1f) & *(uint *)(param_1 + ((int)DAT_00011380 >> 5) * 4)) != 0)) {
     local_1c = 0;
-    sVar1 = read(DAT_00011384,auStack_18,8);
+    sVar1 = read(DAT_00011380,auStack_18,8);
     if (sVar1 == 8) {
       do {
         do {
@@ -36,7 +36,7 @@ undefined4 esp_openthread_netif_glue_process(int param_1)
       if (iVar2 != 2) {
         uVar3 = esp_log_timestamp();
         uVar4 = otThreadErrorToString(iVar2);
-        esp_log_write(2,"OPENTHREAD",&_LC19,uVar3,"OPENTHREAD",uVar4);
+        esp_log_write(2,"OPENTHREAD",&_L0,uVar3,"OPENTHREAD",uVar4);
       }
 _L0:
       iVar2 = uxQueueMessagesWaiting(s_packet_queue);

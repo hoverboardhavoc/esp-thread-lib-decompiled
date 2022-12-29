@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * https://github.com/espressif/esp-thread-lib/commit/c5c5e57918a0eef7aae95e888df2c1a2572d6ecd
- * Upstream date: 2022-12-09 21:46:40 +0800
- * Upstream subject: lib: fix nat64 enable
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> Insert
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,11 +18,11 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
 
 {
   ushort *puVar1;
-  undefined4 *puVar2;
+  undefined1 *puVar2;
   int iVar3;
   uint uVar4;
   char *in_a2;
-  undefined4 *puVar5;
+  undefined1 *puVar5;
   undefined4 in_a3;
   undefined4 in_a4;
   int iVar6;
@@ -55,29 +55,29 @@ int ot::Spinel::RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthread_
     return iVar3;
   }
   uVar4 = __assert_func(0,0,0,0);
-  puVar2 = (undefined4 *)&DAT_00016000;
-  iVar3 = Insert(0x15920,(char *)0x1304);
+  puVar2 = &DAT_00016000;
+  iVar3 = Insert(0x159b0,(char *)0x1304);
   if (iVar3 == 0) {
     puVar5 = &s_radio;
-    iVar7 = (int)DAT_0001606e;
+    iVar7 = (int)DAT_000160fe;
     iVar6 = 9;
     if (9 < iVar7) {
       iVar3 = 0;
-      puVar5 = (undefined4 *)0x0;
+      puVar5 = (undefined1 *)0x0;
       __assert_func(0,0);
       goto _L0;
     }
     puVar2 = &s_radio;
     for (iVar6 = 0; iVar6 < iVar7; iVar6 = iVar6 + 1) {
 _L0:
-      puVar1 = (ushort *)((int)puVar2 + 0x73a);
-      puVar2 = (undefined4 *)((int)puVar2 + 2);
+      puVar1 = (ushort *)(puVar2 + 0x73a);
+      puVar2 = puVar2 + 2;
       if (*puVar1 == uVar4) {
         return iVar3;
       }
     }
-    *(short *)((int)puVar5 + (iVar7 + 0x398) * 2 + 10) = (short)uVar4;
-    *(short *)((int)puVar5 + 0x74e) = (short)iVar7 + 1;
+    *(short *)(puVar5 + (iVar7 + 0x398) * 2 + 10) = (short)uVar4;
+    *(short *)(puVar5 + 0x74e) = (short)iVar7 + 1;
   }
   return iVar3;
 }

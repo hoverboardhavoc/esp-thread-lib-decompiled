@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * https://github.com/espressif/esp-thread-lib/commit/bae77aafb352b24fe8b4ccb14c27a5eb65824d06
- * Upstream date: 2021-10-12 17:30:45 +0800
- * Upstream subject: openthread: add various features(6c40ca6)
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_udp.o -> udp_send_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,9 +41,9 @@ void udp_send_task(undefined4 *param_1)
   otMessageRead(param_1[1],0,*(undefined4 *)(iVar4 + 4),uVar3);
   udp_sendto(*param_1,iVar4,param_1 + 9,*(undefined2 *)(param_1 + 0xf));
   pbuf_free(iVar4);
-  esp_openthread_lock_acquire(0xffffffff);
+  esp_openthread_task_switching_lock_acquire();
   otMessageFree(param_1[1]);
-  esp_openthread_lock_release();
+  esp_openthread_task_switching_lock_release();
   free(param_1);
   return;
 }

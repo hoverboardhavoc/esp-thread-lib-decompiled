@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
+ * Upstream date: 2022-12-29 12:50:13 +0800
+ * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
  * Source: libopenthread_port -> esp_openthread_radio_uart.cpp.o -> CalcRcpTimeOffset
  *
  * (C) Espressif, Apache License 2.0.
@@ -38,8 +38,8 @@ CalcRcpTimeOffset(RadioSpinel<esp::openthread::UartSpinelInterface,esp_openthrea
       goto _L0;
     }
   }
-  otLogDebgPlat(0x127b4);
-  pcVar2 = (char *)spinel_datatype_pack(auStack_28,8,&_LC106,0,0);
+  otLogDebgPlat(0x128b8);
+  pcVar2 = (char *)spinel_datatype_pack(auStack_28,8,&_LC111,0,0);
   iVar6 = 3;
   if (pcVar2 + -1 < (char *)0x8) {
     uVar3 = otPlatTimeGet();
