@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * Upstream date: 2023-01-09 11:37:28 +0100
+ * Upstream subject: lib: Address lwip thread safety
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,14 +14,13 @@ int esp_openthread_border_router_init(void)
 
 {
   int iVar1;
-  undefined1 uVar2;
+  undefined4 uVar2;
   undefined4 uVar3;
-  undefined4 uVar4;
-  undefined *puVar5;
+  undefined *puVar4;
   
   if (s_backbone_netif == 0) {
-    uVar3 = esp_log_timestamp();
-    esp_log_write(1,0x10000,&_L0,uVar3,0x10000,"esp_openthread_border_router_init",100);
+    uVar2 = esp_log_timestamp();
+    esp_log_write(1,0x10000,&_L0,uVar2,0x10000,"esp_openthread_border_router_init",0x65);
     iVar1 = 0x103;
   }
   else {
@@ -31,34 +30,33 @@ int esp_openthread_border_router_init(void)
       esp_openthread_get_instance();
       iVar1 = otSetStateChangedCallback(esp_openthread_border_router_state_callback,0);
       if (iVar1 != 0) {
-        uVar3 = esp_log_timestamp();
-        esp_log_write(1,0x10000,&_LC7,uVar3,0x10000,"esp_openthread_border_router_init",0x69);
+        uVar2 = esp_log_timestamp();
+        esp_log_write(1,0x10000,&_LC7,uVar2,0x10000,"esp_openthread_border_router_init",0x6a);
         return -1;
       }
-      uVar2 = esp_netif_get_netif_impl_index(s_backbone_netif);
-      netif_get_by_index(uVar2);
+      esp_netif_get_netif_impl(s_backbone_netif);
       iVar1 = esp_openthread_infra_if_init();
       if (iVar1 == 0) {
         iVar1 = esp_openthread_multicast_router_init();
         if (iVar1 == 0) {
           return 0;
         }
-        uVar4 = esp_log_timestamp();
-        uVar3 = 0x70;
-        puVar5 = &_LC9;
+        uVar3 = esp_log_timestamp();
+        uVar2 = 0x70;
+        puVar4 = &_LC9;
       }
       else {
-        uVar4 = esp_log_timestamp();
-        uVar3 = 0x6d;
-        puVar5 = &_LC8;
+        uVar3 = esp_log_timestamp();
+        uVar2 = 0x6e;
+        puVar4 = &_LC8;
       }
     }
     else {
-      uVar4 = esp_log_timestamp();
-      uVar3 = 0x67;
-      puVar5 = &_LC6;
+      uVar3 = esp_log_timestamp();
+      uVar2 = 0x68;
+      puVar4 = &_LC6;
     }
-    esp_log_write(1,0x10000,puVar5,uVar4,0x10000,"esp_openthread_border_router_init",uVar3);
+    esp_log_write(1,0x10000,puVar4,uVar3,0x10000,"esp_openthread_border_router_init",uVar2);
   }
   return iVar1;
 }

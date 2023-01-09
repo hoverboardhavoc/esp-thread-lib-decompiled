@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * Upstream date: 2023-01-09 11:37:28 +0100
+ * Upstream subject: lib: Address lwip thread safety
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_translate_ip6
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
   nat64_get_prefix(auStack_38);
   if (uVar4 < 0x29) {
     uVar5 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC6,uVar5,"NAT64","nat64_translate_ip6",0x66);
+    esp_log_write(1,"NAT64",&_LC10,uVar5,"NAT64","nat64_translate_ip6",0x67);
     return 0xfffffff4;
   }
   iVar6 = memcmp(param_3,auStack_38,(uint)(bStack_24 >> 3));
@@ -55,7 +55,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     __ptr = pvVar7;
     if (pvVar7 == (void *)0x0) {
       uVar5 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC7,uVar5,"NAT64","nat64_translate_ip6",0x70);
+      esp_log_write(1,"NAT64",&_LC11,uVar5,"NAT64","nat64_translate_ip6",0x71);
       return 0xffffffff;
     }
   }
@@ -76,8 +76,8 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
       goto _L0;
     }
     uVar9 = esp_log_timestamp();
-    uVar5 = 0x7f;
-    puVar11 = &_LC8;
+    uVar5 = 0x80;
+    puVar11 = &_LC12;
   }
   else if (cStack_51 == ':') {
     if (7 < uVar4) {
@@ -94,13 +94,13 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
       goto _L0;
     }
     uVar9 = esp_log_timestamp();
-    uVar5 = 0x89;
-    puVar11 = &_LC10;
+    uVar5 = 0x8a;
+    puVar11 = &_LC14;
   }
   else {
     if (cStack_51 != '\x06') {
       uVar5 = esp_log_timestamp();
-      esp_log_write(2,"NAT64",&_LC11,uVar5,"NAT64");
+      esp_log_write(2,"NAT64",&_LC15,uVar5,"NAT64");
       goto _L0;
     }
     if (0x13 < uVar4) {
@@ -113,8 +113,8 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
       goto _L0;
     }
     uVar9 = esp_log_timestamp();
-    uVar5 = 0x84;
-    puVar11 = &_LC9;
+    uVar5 = 0x85;
+    puVar11 = &_LC13;
   }
   esp_log_write(1,"NAT64",puVar11,uVar9,"NAT64","nat64_translate_ip6",uVar5);
 _L0:

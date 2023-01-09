@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 129ebba53c17a4b142a39d1799cb5aa0e49b231d
- * https://github.com/espressif/esp-thread-lib/commit/129ebba53c17a4b142a39d1799cb5aa0e49b231d
- * Upstream date: 2022-12-29 12:50:13 +0800
- * Upstream subject: lib: add openthread support for ESP32C6 * esp_openthread: aaa08bfe * ot-repo: 19e18753
+ * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * Upstream date: 2023-01-09 11:37:28 +0100
+ * Upstream subject: lib: Address lwip thread safety
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -39,7 +39,7 @@ void multicast_router_init_on_lwip_task(int *param_1)
       iVar2 = mld6_joingroup_netif(iVar4,auStack_50);
       iVar3 = -1;
       if (iVar2 == 0) {
-        memcpy(auStack_38,&_LANCHOR2,0x18);
+        memcpy(auStack_38,&_L0,0x18);
         iVar2 = mld6_joingroup_netif(iVar4,auStack_38);
         iVar3 = -(uint)(iVar2 != 0);
       }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * Upstream date: 2023-01-09 11:37:28 +0100
+ * Upstream subject: lib: Address lwip thread safety
  * Source: libopenthread_br -> nat64_netif.cpp.o -> icmp_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,7 +41,7 @@ undefined4 icmp_raw_recv_handler(void *param_1,raw_pcb *param_2,pbuf *param_3,ip
         return 1;
       }
       uVar4 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC2,uVar4,"NAT64",0x10000,0xc1);
+      esp_log_write(1,"NAT64",&_LC6,uVar4,"NAT64","icmp_raw_recv_handler",0xc2);
     }
   }
   return 0;

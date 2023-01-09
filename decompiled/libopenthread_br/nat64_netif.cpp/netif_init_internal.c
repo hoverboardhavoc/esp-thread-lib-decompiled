@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
+ * Upstream date: 2023-01-09 11:37:28 +0100
+ * Upstream subject: lib: Address lwip thread safety
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ int netif_init_internal(netif *param_1)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC4,uVar2,"NAT64","netif_init_internal",0xa9);
+    esp_log_write(1,"NAT64",&_LC8,uVar2,"NAT64","netif_init_internal",0xaa);
   }
   return iVar1;
 }
