@@ -3,28 +3,20 @@
  * https://github.com/espressif/esp-thread-lib/commit/7d57b18006da6e182ddb87698abdced1566f3b56
  * Upstream date: 2023-01-10 14:40:17 +0800
  * Upstream subject: openthread: add thread_br lib for esp32c2 and esp32c6 * esp_openthread: c558ac0 * ot-repo: 19e1875
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> esp_openthread_infra_if_deinit
+ * Source: libopenthread_br -> esp_openthread_net_utils.o -> to_underlying_lwip_netif
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int esp_openthread_infra_if_deinit(void)
+void to_underlying_lwip_netif(void)
 
 {
-  int iVar1;
+  undefined1 uVar1;
   
-  iVar1 = 0x103;
-  if (s_raw_pcb != 0) {
-    raw_remove(s_raw_pcb);
-    s_raw_pcb = 0;
-    netif_set_status_callback(s_netif,0);
-    s_netif = 0;
-    esp_openthread_get_instance();
-    iVar1 = otBorderRoutingSetEnabled(0);
-    iVar1 = -(uint)(iVar1 != 0);
-  }
-  return iVar1;
+  uVar1 = esp_netif_get_netif_impl_index();
+  netif_get_by_index(uVar1);
+  return;
 }
 
