@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 7d57b18006da6e182ddb87698abdced1566f3b56
- * https://github.com/espressif/esp-thread-lib/commit/7d57b18006da6e182ddb87698abdced1566f3b56
- * Upstream date: 2023-01-10 14:40:17 +0800
- * Upstream subject: openthread: add thread_br lib for esp32c2 and esp32c6 * esp_openthread: c558ac0 * ot-repo: 19e1875
+ * Last changed at upstream commit 99779af83df3c13d358e1dab7f19699237b1ffdc
+ * https://github.com/espressif/esp-thread-lib/commit/99779af83df3c13d358e1dab7f19699237b1ffdc
+ * Upstream date: 2023-01-16 10:21:19 +0100
+ * Upstream subject: lib: Address lwip thread-safety/core-locking
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,49 +13,13 @@
 undefined4 nat64_netif_init(void)
 
 {
-  int iVar1;
-  undefined4 uVar2;
-  undefined *puVar3;
-  undefined4 uVar4;
+  undefined4 uVar1;
   
-  uVar4 = 0;
   if ((s_nat64_netif[0x187] & 1) == 0) {
     memset(s_nat64_netif,0,0x1a4);
-    esp_openthread_get_backbone_netif();
-    uVar4 = to_underlying_lwip_netif();
-    iVar1 = netif_add(s_nat64_netif,0,0,0,0,netif_init_internal,&tcpip_input);
-    if (iVar1 == 0) {
-      uVar2 = esp_log_timestamp();
-      uVar4 = 0xe8;
-      puVar3 = &_LC13;
-    }
-    else {
-      netif_set_link_up(s_nat64_netif);
-      netif_set_up(s_nat64_netif);
-      s_nat64_netif._360_4_ = 0;
-      s_backbone_raw_pcb = raw_new_ip_type(0,6);
-      if (s_backbone_raw_pcb == 0) {
-        uVar2 = esp_log_timestamp();
-        uVar4 = 0xf0;
-        puVar3 = &_LC14;
-      }
-      else {
-        s_backbone_icmp_raw_pcb = raw_new_ip_type(0,1);
-        if (s_backbone_icmp_raw_pcb != 0) {
-          raw_bind_netif(s_backbone_raw_pcb,uVar4);
-          raw_bind_netif(s_backbone_icmp_raw_pcb,uVar4);
-          raw_recv(s_backbone_raw_pcb,tcp_raw_recv_handler,0);
-          raw_recv(s_backbone_icmp_raw_pcb,icmp_raw_recv_handler,0);
-          return 0;
-        }
-        uVar2 = esp_log_timestamp();
-        uVar4 = 0xf2;
-        puVar3 = &_LC15;
-      }
-    }
-    esp_log_write(1,"NAT64",puVar3,uVar2,"NAT64","nat64_netif_init",uVar4);
-    uVar4 = 0xffffffff;
+    uVar1 = esp_netif_tcpip_exec(nat64_netif_do_init,0);
+    return uVar1;
   }
-  return uVar4;
+  return 0;
 }
 
