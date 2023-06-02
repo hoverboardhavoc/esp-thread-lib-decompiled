@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit af5d67ed3acb06cac9e06986b08781b93bd6dade
- * https://github.com/espressif/esp-thread-lib/commit/af5d67ed3acb06cac9e06986b08781b93bd6dade
- * Upstream date: 2023-01-09 11:37:28 +0100
- * Upstream subject: lib: Address lwip thread safety
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_probe_backbone_listeners
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,27 +14,28 @@ int esp_openthread_probe_backbone_listeners(void)
 
 {
   int iVar1;
-  int iVar2;
-  undefined1 *puVar3;
+  undefined1 *puVar2;
+  int iVar3;
   undefined4 uVar4;
   undefined1 auStack_28 [24];
   
-  iVar2 = pbuf_alloc(0x36,0x28,0x280);
+  iVar3 = pbuf_alloc(0x36,0x28,0x280);
   iVar1 = 0x101;
-  if (iVar2 != 0) {
-    puVar3 = (undefined1 *)memset(*(void **)(iVar2 + 4),0,0x28);
-    *puVar3 = 0x82;
-    puVar3[4] = 3;
-    puVar3[5] = 0xe8;
-    memcpy(auStack_28,&_L0,0x18);
+  if (iVar3 != 0) {
+    puVar2 = *(undefined1 **)(iVar3 + 4);
+    memset(puVar2 + 1,0,0x27);
+    *puVar2 = 0x82;
+    puVar2[4] = 3;
+    puVar2[5] = 0xe8;
+    memcpy(auStack_28,&_LANCHOR0,0x18);
     iVar1 = s_icmp_send_pcb;
     *(undefined2 *)(s_icmp_send_pcb + 0x44) = 2;
     *(undefined1 *)(iVar1 + 0x46) = 1;
     uVar4 = esp_openthread_get_lwip_backbone_netif();
     raw_bind_netif(iVar1,uVar4);
-    iVar1 = raw_sendto(s_icmp_send_pcb,iVar2,auStack_28);
+    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,auStack_28);
     iVar1 = -(uint)(iVar1 != 0);
-    pbuf_free(iVar2);
+    pbuf_free(iVar3);
   }
   return iVar1;
 }

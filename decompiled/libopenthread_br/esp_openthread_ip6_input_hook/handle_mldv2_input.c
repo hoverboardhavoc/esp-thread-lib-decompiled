@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mldv2_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,64 +15,62 @@ undefined4 handle_mldv2_input(int param_1,int param_2,uint param_3,undefined4 pa
 {
   byte *pbVar1;
   ushort uVar2;
-  ushort uVar3;
-  char *pcVar4;
-  int iVar5;
-  undefined4 uVar6;
-  undefined *puVar7;
-  uint uVar8;
-  undefined1 auStack_68 [16];
-  undefined1 uStack_58;
-  undefined1 auStack_54 [16];
-  undefined1 uStack_44;
+  char *pcVar3;
+  int iVar4;
+  undefined4 uVar5;
+  undefined *puVar6;
+  uint uVar7;
+  undefined1 auStack_58 [16];
+  undefined1 uStack_48;
+  undefined1 auStack_44 [16];
+  undefined1 uStack_34;
   
   if (param_3 < 8) {
     return 0;
   }
   uVar2 = *(ushort *)(param_2 + 6);
   param_3 = param_3 - 8;
-  pcVar4 = (char *)(param_2 + 8);
-  memcpy(auStack_68,(void *)(param_1 + 8),0x10);
-  uStack_58 = 0;
-  uVar8 = 0;
+  pcVar3 = (char *)(param_2 + 8);
+  memcpy(auStack_58,(void *)(param_1 + 8),0x10);
+  uStack_48 = 0;
+  uVar7 = 0;
   do {
-    if ((((uVar2 & 0xff) << 8 | (uint)(uVar2 >> 8)) == uVar8) || ((param_3 & 0xffff) < 0x14)) {
+    if ((((uVar2 & 0xff) << 8 | (uint)(uVar2 >> 8)) == uVar7) || ((param_3 & 0xffff) < 0x14)) {
       return 0;
     }
-    uVar3 = *(ushort *)(pcVar4 + 2);
-    if (*pcVar4 == '\x04') {
-      if (uVar3 >> 8 == 0 && (uVar3 & 0xff) == 0) {
-        memcpy(auStack_54,pcVar4 + 4,0x10);
-        uStack_44 = 0;
-        iVar5 = esp_openthread_multicast_listener_add(auStack_54,auStack_68,param_4);
-        if (iVar5 != 0) {
-          uVar6 = esp_log_timestamp();
-          puVar7 = &_LC1;
+    if (*pcVar3 == '\x04') {
+      if (*(short *)(pcVar3 + 2) == 0) {
+        memcpy(auStack_44,pcVar3 + 4,0x10);
+        uStack_34 = 0;
+        iVar4 = esp_openthread_multicast_listener_add(auStack_44,auStack_58,param_4);
+        if (iVar4 != 0) {
+          uVar5 = esp_log_timestamp();
+          puVar6 = &_LC1;
 _L0:
-          esp_log_write(1,0x10000,puVar7,uVar6,0x10000);
+          esp_log_write(1,0x10000,puVar6,uVar5,0x10000);
         }
       }
       else {
 _L0:
-        uVar6 = esp_log_timestamp();
-        esp_log_write(2,0x10000,&_LC3,uVar6,0x10000,*pcVar4);
+        uVar5 = esp_log_timestamp();
+        esp_log_write(2,0x10000,&_LC3,uVar5,0x10000,*pcVar3);
       }
     }
     else {
-      if ((*pcVar4 != '\x03') || (uVar3 >> 8 != 0 || (uVar3 & 0xff) != 0)) goto _L0;
-      memcpy(auStack_54,pcVar4 + 4,0x10);
-      uStack_44 = 0;
-      iVar5 = esp_openthread_multicast_listener_remove(auStack_54,auStack_68,param_4);
-      if (iVar5 != 0) {
-        uVar6 = esp_log_timestamp();
-        puVar7 = &_LC2;
+      if ((*pcVar3 != '\x03') || (*(short *)(pcVar3 + 2) != 0)) goto _L0;
+      memcpy(auStack_44,pcVar3 + 4,0x10);
+      uStack_34 = 0;
+      iVar4 = esp_openthread_multicast_listener_remove(auStack_44,auStack_58,param_4);
+      if (iVar4 != 0) {
+        uVar5 = esp_log_timestamp();
+        puVar6 = &_LC2;
         goto _L0;
       }
     }
-    pbVar1 = (byte *)(pcVar4 + 1);
-    pcVar4 = pcVar4 + (*pbVar1 + 5) * 4;
+    pbVar1 = (byte *)(pcVar3 + 1);
+    pcVar3 = pcVar3 + (*pbVar1 + 5) * 4;
     param_3 = (param_3 & 0xffff) + (*pbVar1 + 5) * -4;
-    uVar8 = uVar8 + 1 & 0xffff;
+    uVar7 = uVar7 + 1 & 0xffff;
   } while( true );
 }
 

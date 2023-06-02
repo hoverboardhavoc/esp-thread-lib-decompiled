@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,13 +17,13 @@ undefined4 icmp6_raw_recv_handler(int param_1)
   byte bVar2;
   int iVar3;
   char *pcVar4;
-  char *__ptr;
-  undefined4 uVar5;
-  void *__dest;
-  undefined4 uVar6;
-  undefined *puVar7;
-  ushort uVar8;
+  ushort uVar5;
   uint __size;
+  char *__ptr;
+  undefined4 uVar6;
+  void *__dest;
+  undefined4 uVar7;
+  undefined *puVar8;
   uint uVar9;
   uint uVar10;
   undefined1 auStack_b4 [16];
@@ -43,23 +43,23 @@ undefined4 icmp6_raw_recv_handler(int param_1)
   undefined4 uStack_48;
   undefined4 uStack_44;
   
-  uVar8 = *(ushort *)(param_1 + 8);
+  uVar5 = *(ushort *)(param_1 + 8);
   iVar3 = *(int *)(param_1 + 4);
-  if (0x28 < uVar8) {
+  if (0x28 < uVar5) {
     memcpy(auStack_b4,(void *)(iVar3 + 8),0x10);
     memcpy(auStack_a0,(void *)(iVar3 + 0x18),0x10);
     uStack_a4 = 0;
     if ((((*(uint3 *)(iVar3 + 0x18) & 0xff) != 0xff) ||
-        (((*(int *)(iVar3 + 0x18) == 0x2ff && (*(int *)(iVar3 + 0x1c) == 0)) &&
-         (((*(int *)(iVar3 + 0x20) == 0 && (*(int *)(iVar3 + 0x24) == 0x1000000)) ||
-          ((*(int *)(iVar3 + 0x20) == 0 && (*(int *)(iVar3 + 0x24) == 0x2000000)))))))) &&
+        ((((*(int *)(iVar3 + 0x18) == 0x2ff && (*(int *)(iVar3 + 0x1c) == 0)) &&
+          (*(int *)(iVar3 + 0x20) == 0)) &&
+         ((*(int *)(iVar3 + 0x24) == 0x1000000 || (*(int *)(iVar3 + 0x24) == 0x2000000)))))) &&
        ((*(char *)(iVar3 + 7) == -1 && (*(char *)(iVar3 + 6) == ':')))) {
-      uVar8 = uVar8 - 0x28;
-      __size = (uint)uVar8;
+      uVar5 = uVar5 - 0x28;
+      __size = (uint)uVar5;
       __ptr = (char *)malloc(__size);
       if (__ptr == (char *)0x0) {
-        uVar5 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD",&_LC2,uVar5,"OPENTHREAD");
+        uVar6 = esp_log_timestamp();
+        esp_log_write(1,"OPENTHREAD",&_L0,uVar6,"OPENTHREAD");
       }
       else {
         pbuf_copy_partial(param_1,__ptr,__size,0x28);
@@ -73,8 +73,8 @@ undefined4 icmp6_raw_recv_handler(int param_1)
                 if (iVar3 == 0) {
                   bVar1 = pcVar4[2];
                   bVar2 = pcVar4[3];
-                  uVar5 = esp_log_timestamp();
-                  esp_log_write(3,"OPENTHREAD",&_LC3,uVar5,"OPENTHREAD");
+                  uVar6 = esp_log_timestamp();
+                  esp_log_write(3,"OPENTHREAD",&_LC4,uVar6,"OPENTHREAD");
                   if ((bVar1 >> 3) + 8 <= uVar9) {
                     uStack_8c = 0;
                     uStack_88 = 0;
@@ -88,23 +88,23 @@ undefined4 icmp6_raw_recv_handler(int param_1)
                     memcpy(&uStack_78,&uStack_8c,0x14);
                     cStack_4c = (bVar2 >> 4 & 1) * -2 + (bVar2 >> 3 & 1);
                     uStack_48 = lwip_htonl(*(undefined4 *)(pcVar4 + 4));
-                    uVar5 = esp_log_timestamp();
-                    uVar6 = ip6addr_ntoa(&uStack_8c);
-                    esp_log_write(3,"OPENTHREAD",&_LC4,uVar5,"OPENTHREAD",uVar6,uStack_48);
+                    uVar6 = esp_log_timestamp();
+                    uVar7 = ip6addr_ntoa(&uStack_8c);
+                    esp_log_write(3,"OPENTHREAD",&_LC5,uVar6,"OPENTHREAD",uVar7,uStack_48);
                     iVar3 = esp_openthread_route_table_add_route_entry(&uStack_78);
                     if (iVar3 == 0) {
-                      uVar6 = esp_log_timestamp();
-                      puVar7 = &_LC5;
-                      uVar5 = 3;
+                      uVar7 = esp_log_timestamp();
+                      puVar8 = &_LC6;
+                      uVar6 = 3;
 _L0:
-                      esp_log_write(uVar5,"OPENTHREAD",puVar7,uVar6,"OPENTHREAD");
+                      esp_log_write(uVar6,"OPENTHREAD",puVar8,uVar7,"OPENTHREAD");
                     }
                   }
                 }
               }
               else if (*pcVar4 == '\x03') {
-                uVar5 = esp_log_timestamp();
-                esp_log_write(3,"OPENTHREAD",&_LC6,uVar5,"OPENTHREAD");
+                uVar6 = esp_log_timestamp();
+                esp_log_write(3,"OPENTHREAD",&_LC7,uVar6,"OPENTHREAD");
                 if (pcVar4[3] < '\0') {
                   uStack_64 = 0;
                   uStack_60 = 0;
@@ -112,13 +112,13 @@ _L0:
                   memcpy(auStack_74,pcVar4 + 0x10,0x10);
                   uStack_78 = s_netif;
                   uStack_60 = CONCAT31(uStack_60._1_3_,pcVar4[2]);
-                  uVar5 = lwip_htonl(*(undefined4 *)(pcVar4 + 8));
+                  uVar6 = lwip_htonl(*(undefined4 *)(pcVar4 + 8));
                   iVar3 = esp_openthread_route_table_add_onlink_prefix
-                                    (&uStack_78,uVar5,(byte)pcVar4[3] >> 6 & 1);
+                                    (&uStack_78,uVar6,(byte)pcVar4[3] >> 6 & 1);
                   if (iVar3 != 0) {
-                    uVar6 = esp_log_timestamp();
-                    puVar7 = &_LC7;
-                    uVar5 = 1;
+                    uVar7 = esp_log_timestamp();
+                    puVar8 = &_LC8;
+                    uVar6 = 1;
                     goto _L0;
                   }
                 }
@@ -128,7 +128,7 @@ _L0:
           __dest = malloc(0x1c);
           memcpy(__dest,auStack_b4,0x14);
           *(char **)((int)__dest + 0x14) = __ptr;
-          *(ushort *)((int)__dest + 0x18) = uVar8;
+          *(ushort *)((int)__dest + 0x18) = uVar5;
           esp_openthread_task_queue_post(handle_netif_receive_task,__dest);
         }
         else {

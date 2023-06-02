@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_remove_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,11 +15,13 @@ int esp_openthread_remove_meshcop_mdns(void)
 {
   int iVar1;
   
-  iVar1 = 0;
-  if ((s_service_published != '\0') && (iVar1 = mdns_service_remove("_meshcop",&_LC9), iVar1 == 0))
-  {
+  if (s_service_published != '\0') {
+    iVar1 = mdns_service_remove("_meshcop",&_LC7);
+    if (iVar1 != 0) {
+      return iVar1;
+    }
     s_service_published = '\0';
   }
-  return iVar1;
+  return 0;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 99779af83df3c13d358e1dab7f19699237b1ffdc
- * https://github.com/espressif/esp-thread-lib/commit/99779af83df3c13d358e1dab7f19699237b1ffdc
- * Upstream date: 2023-01-16 10:21:19 +0100
- * Upstream subject: lib: Address lwip thread-safety/core-locking
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> infra_if_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,7 @@ int infra_if_do_init(void)
   int iVar1;
   undefined1 auStack_28 [28];
   
-  memcpy(auStack_28,&_L0,0x18);
+  memcpy(auStack_28,&_LANCHOR0,0x18);
   iVar1 = mld6_joingroup_netif(s_netif,auStack_28);
   if (iVar1 == 0) {
     s_raw_pcb = raw_new_ip_type(6,0x3a);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_host_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,174 +13,215 @@
 void handle_host_update(undefined4 param_1,undefined4 param_2)
 
 {
-  undefined1 uVar1;
-  undefined4 uVar2;
+  undefined4 uVar1;
+  int iVar2;
   int iVar3;
-  void *__src;
+  void *__s1;
   undefined4 uVar4;
-  int iVar5;
+  char *pcVar5;
   char *pcVar6;
   char *pcVar7;
   char *pcVar8;
-  char *pcVar9;
-  int iVar10;
+  int iVar9;
   undefined4 *__s;
+  int iVar10;
+  undefined1 *puVar11;
+  undefined *puVar12;
   uint __n;
-  undefined *puVar11;
-  uint uVar12;
   size_t __n_00;
-  undefined4 *puVar13;
+  uint uVar13;
+  undefined1 uVar14;
   size_t __n_01;
-  size_t sVar14;
-  undefined2 uStack_166;
-  char acStack_164 [8];
-  char *pcStack_15c;
-  char *pcStack_158;
-  ushort uStack_154;
+  undefined4 *puVar15;
+  size_t sVar16;
+  undefined1 uStack_183;
+  undefined2 uStack_182;
+  char acStack_180 [8];
+  char *pcStack_178;
+  char *pcStack_174;
+  ushort uStack_170;
+  undefined1 auStack_16c [16];
+  undefined1 uStack_15c;
+  undefined1 uStack_158;
+  undefined4 uStack_154;
   undefined1 auStack_150 [68];
   char acStack_10c [68];
   char acStack_c8 [68];
   undefined1 auStack_84 [16];
-  undefined1 uStack_74;
-  undefined1 uStack_70;
-  undefined4 uStack_6c;
+  byte bStack_74;
   
   otSrpServerHostGetFullName(param_2);
   split_hostname_constprop_0(auStack_150);
-  uVar2 = esp_log_timestamp();
-  esp_log_write(3,"OPENTHREAD",&_LC1,uVar2,"OPENTHREAD",auStack_150);
-  iVar3 = mdns_hostname_exists(auStack_150);
-  uVar1 = false;
-  if (iVar3 == 0) {
-    __src = (void *)otSrpServerHostGetAddresses(param_2,acStack_c8);
-    uStack_70 = 6;
-    memcpy(auStack_84,__src,0x10);
-    uStack_74 = 0;
-    uStack_6c = 0;
-    uVar2 = esp_log_timestamp();
-    uVar4 = ip6addr_ntoa(auStack_84);
-    esp_log_write(3,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD",uVar4);
-    iVar3 = mdns_delegate_hostname_add(auStack_150,auStack_84);
-    uVar1 = iVar3 != 0;
+  uVar1 = esp_log_timestamp();
+  esp_log_write(3,"OPENTHREAD",&_LC1,uVar1,"OPENTHREAD",auStack_150);
+  iVar2 = mdns_hostname_exists(auStack_150);
+  if (iVar2 == 0) {
+    __s1 = (void *)otSrpServerHostGetAddresses(param_2,&uStack_183);
+    if (__s1 != (void *)0x0) goto _L0;
+_L0:
+    uVar1 = esp_log_timestamp();
+    puVar12 = &_LC5;
   }
-  iVar3 = 0;
+  else {
+    iVar3 = mdns_delegate_hostname_remove(auStack_150);
+    if (iVar3 != 0) {
+                    /* WARNING: Subroutine does not return */
+      abort();
+    }
+    __s1 = (void *)otSrpServerHostGetAddresses(param_2,&uStack_183);
+    if (__s1 != (void *)0x0) {
+_L0:
+      esp_openthread_get_instance();
+      iVar3 = otBorderRoutingGetOmrPrefix(auStack_84);
+      if ((iVar3 == 0) && (iVar3 = memcmp(__s1,auStack_84,(uint)(bStack_74 >> 3)), iVar3 == 0)) {
+        uStack_158 = 6;
+        memcpy(auStack_16c,__s1,0x10);
+        uStack_15c = 0;
+        uStack_154 = 0;
+        if (iVar2 == 0) {
+          uVar1 = esp_log_timestamp();
+          uVar4 = ip6addr_ntoa(auStack_16c);
+          puVar12 = &_LC4;
+        }
+        else {
+          uVar1 = esp_log_timestamp();
+          uVar4 = ip6addr_ntoa(auStack_16c);
+          puVar12 = &_LC3;
+        }
+        esp_log_write(3,"OPENTHREAD",puVar12,uVar1,"OPENTHREAD",uVar4);
+        puVar11 = auStack_16c;
+        goto _L0;
+      }
+      if (iVar2 == 0) goto _L0;
+    }
+    uVar1 = esp_log_timestamp();
+    puVar12 = &_LC2;
+  }
+  esp_log_write(3,"OPENTHREAD",puVar12,uVar1,"OPENTHREAD");
+  puVar11 = (undefined1 *)0x0;
+_L0:
+  iVar3 = mdns_delegate_hostname_add(auStack_150,puVar11);
+  iVar2 = 0;
   do {
-    iVar3 = otSrpServerHostFindNextService(param_2,iVar3,0xd,0,0);
-    if (iVar3 == 0) goto _L0;
-    pcVar6 = (char *)otSrpServerServiceGetFullName();
+    iVar2 = otSrpServerHostFindNextService(param_2,iVar2,0xd,0,0);
+    if (iVar2 == 0) {
+      uVar14 = iVar3 != 0;
+      goto _L0;
+    }
+    pcVar5 = (char *)otSrpServerServiceGetFullName();
+    pcVar6 = strchr(pcVar5,0x2e);
+    sVar16 = (int)pcVar6 - (int)pcVar5;
+    if (0x40 < sVar16) {
+      sVar16 = 0x40;
+    }
+    pcVar6 = pcVar6 + 1;
     pcVar7 = strchr(pcVar6,0x2e);
-    sVar14 = (int)pcVar7 - (int)pcVar6;
-    if (0x40 < sVar14) {
-      sVar14 = 0x40;
+    __n_01 = (int)pcVar7 - (int)pcVar6;
+    if (0x40 < __n_01) {
+      __n_01 = 0x40;
     }
     pcVar7 = pcVar7 + 1;
     pcVar8 = strchr(pcVar7,0x2e);
     __n_00 = (int)pcVar8 - (int)pcVar7;
-    if (0x40 < __n_00) {
-      __n_00 = 0x40;
+    if (5 < __n_00) {
+      __n_00 = 5;
     }
-    pcVar8 = pcVar8 + 1;
-    pcVar9 = strchr(pcVar8,0x2e);
-    __n_01 = (int)pcVar9 - (int)pcVar8;
-    if (5 < __n_01) {
-      __n_01 = 5;
-    }
-    strncpy(acStack_10c,pcVar6,sVar14);
-    acStack_10c[sVar14] = '\0';
-    strncpy(acStack_c8,pcVar7,__n_00);
-    acStack_c8[__n_00] = '\0';
-    strncpy(acStack_164,pcVar8,__n_01);
-    acStack_164[__n_01] = '\0';
-    uVar2 = esp_log_timestamp();
-    esp_log_write(3,"OPENTHREAD",&_LC3,uVar2,"OPENTHREAD",acStack_10c,acStack_c8,acStack_164);
-    iVar10 = otSrpServerServiceIsDeleted(iVar3);
-    if ((iVar10 == 0) &&
-       (iVar10 = mdns_service_exists_with_instance(acStack_10c,acStack_c8,acStack_164,auStack_150),
-       iVar10 == 0)) {
-      uVar2 = esp_log_timestamp();
-      esp_log_write(3,"OPENTHREAD",&_LC4,uVar2,"OPENTHREAD");
-      uStack_166 = 0;
-      uVar2 = otSrpServerServiceGetTxtData(iVar3,&uStack_166);
-      otDnsInitTxtEntryIterator(auStack_84,uVar2,uStack_166);
-      uVar12 = 0;
-      while (iVar10 = otDnsGetNextTxtEntry(auStack_84,&pcStack_15c), iVar10 == 0) {
-        uVar12 = uVar12 + 1 & 0xff;
+    strncpy(acStack_10c,pcVar5,sVar16);
+    acStack_10c[sVar16] = '\0';
+    strncpy(acStack_c8,pcVar6,__n_01);
+    acStack_c8[__n_01] = '\0';
+    strncpy(acStack_180,pcVar7,__n_00);
+    acStack_180[__n_00] = '\0';
+    uVar1 = esp_log_timestamp();
+    esp_log_write(3,"OPENTHREAD",&_LC6,uVar1,"OPENTHREAD",acStack_10c,acStack_c8,acStack_180);
+    iVar9 = otSrpServerServiceIsDeleted(iVar2);
+    if ((iVar9 == 0) &&
+       (iVar9 = mdns_service_exists_with_instance(acStack_10c,acStack_c8,acStack_180,auStack_150),
+       iVar9 == 0)) {
+      uVar1 = esp_log_timestamp();
+      esp_log_write(3,"OPENTHREAD",&_LC7,uVar1,"OPENTHREAD");
+      uStack_182 = 0;
+      uVar1 = otSrpServerServiceGetTxtData(iVar2,&uStack_182);
+      otDnsInitTxtEntryIterator(auStack_84,uVar1,uStack_182);
+      uVar13 = 0;
+      while (iVar9 = otDnsGetNextTxtEntry(auStack_84,&pcStack_178), iVar9 == 0) {
+        uVar13 = uVar13 + 1 & 0xff;
       }
-      if (uVar12 == 0) {
+      if (uVar13 == 0) {
         __s = (undefined4 *)0x0;
       }
       else {
-        __s = (undefined4 *)malloc(uVar12 << 3);
+        __s = (undefined4 *)malloc(uVar13 << 3);
         if (__s == (undefined4 *)0x0) {
 _L0:
-          uVar1 = 3;
+          uVar14 = 3;
           goto _L0;
         }
-        memset(__s,0,uVar12 << 3);
-        otDnsInitTxtEntryIterator(auStack_84,uVar2,uStack_166);
-        puVar13 = __s;
-        while (iVar10 = otDnsGetNextTxtEntry(auStack_84,&pcStack_15c), iVar10 == 0) {
-          pcVar7 = (char *)malloc(0x41);
-          pcVar6 = pcStack_15c;
-          if ((pcVar7 == (char *)0x0) || (sVar14 = strnlen(pcStack_15c,0x41), 0x40 < sVar14)) {
+        memset(__s,0,uVar13 << 3);
+        otDnsInitTxtEntryIterator(auStack_84,uVar1,uStack_182);
+        puVar15 = __s;
+        while (iVar9 = otDnsGetNextTxtEntry(auStack_84,&pcStack_178), iVar9 == 0) {
+          pcVar6 = (char *)malloc(0x41);
+          pcVar5 = pcStack_178;
+          if ((pcVar6 == (char *)0x0) || (sVar16 = strnlen(pcStack_178,0x41), 0x40 < sVar16)) {
 _L0:
-            free_txt_list(__s,uVar12);
+            free_txt_list(__s,uVar13);
             goto _L0;
           }
-          strncpy(pcVar7,pcVar6,0x40);
-          pcVar7[0x40] = '\0';
-          *puVar13 = pcVar7;
-          pcVar6 = (char *)malloc(0x41);
-          if ((pcVar6 == (char *)0x0) || (__n = (uint)uStack_154, 0x40 < __n)) goto _L0;
-          strncpy(pcVar6,pcStack_158,__n);
-          puVar13[1] = pcVar6;
-          pcVar6[__n] = '\0';
-          puVar13 = puVar13 + 2;
+          strncpy(pcVar6,pcVar5,0x40);
+          pcVar6[0x40] = '\0';
+          *puVar15 = pcVar6;
+          pcVar5 = (char *)malloc(0x41);
+          if ((pcVar5 == (char *)0x0) || (__n = (uint)uStack_170, 0x40 < __n)) goto _L0;
+          strncpy(pcVar5,pcStack_174,__n);
+          puVar15[1] = pcVar5;
+          pcVar5[__n] = '\0';
+          puVar15 = puVar15 + 2;
         }
       }
-      uVar2 = otSrpServerServiceGetPort(iVar3);
-      iVar10 = mdns_service_add_for_host
-                         (acStack_10c,acStack_c8,acStack_164,auStack_150,uVar2,__s,uVar12);
-      free_txt_list(__s,uVar12);
-      if (iVar10 == 0) {
-        iVar10 = 0;
+      uVar1 = otSrpServerServiceGetPort(iVar2);
+      iVar9 = mdns_service_add_for_host
+                        (acStack_10c,acStack_c8,acStack_180,auStack_150,uVar1,__s,uVar13);
+      free_txt_list(__s,uVar13);
+      if (iVar9 == 0) {
+        iVar9 = 0;
 _L0:
-        uVar2 = otSrpServerServiceGetInstanceName(iVar3);
-        iVar10 = otSrpServerHostFindNextService(param_2,iVar10,6,0,uVar2);
-        if (iVar10 != 0) {
-          iVar5 = otSrpServerServiceGetServiceSubTypeLabel(auStack_84,0x41);
-          if (iVar5 == 0) goto _L0;
-          uVar2 = esp_log_timestamp();
-          puVar11 = &_LC8;
+        uVar1 = otSrpServerServiceGetInstanceName(iVar2);
+        iVar9 = otSrpServerHostFindNextService(param_2,iVar9,6,0,uVar1);
+        if (iVar9 != 0) {
+          iVar10 = otSrpServerServiceGetServiceSubTypeLabel(auStack_84,0x41);
+          if (iVar10 == 0) goto _L0;
+          uVar1 = esp_log_timestamp();
+          puVar12 = &_LC11;
           goto _L0;
         }
         goto _L0;
       }
-      uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD");
+      uVar1 = esp_log_timestamp();
+      esp_log_write(1,"OPENTHREAD",&_LC8,uVar1,"OPENTHREAD");
       break;
     }
-    iVar10 = otSrpServerServiceIsDeleted(iVar3);
-    if ((iVar10 != 0) &&
-       (iVar10 = mdns_service_remove_for_host(acStack_10c,acStack_c8,acStack_164,auStack_150),
-       iVar10 != 0)) break;
+    iVar9 = otSrpServerServiceIsDeleted(iVar2);
+    if ((iVar9 != 0) &&
+       (iVar9 = mdns_service_remove_for_host(acStack_10c,acStack_c8,acStack_180,auStack_150),
+       iVar9 != 0)) break;
 _L0:
-  } while ((bool)uVar1 == false);
-  uVar1 = 1;
+  } while (iVar3 == 0);
+  uVar14 = 1;
 _L0:
   esp_openthread_get_instance();
-  otSrpServerHandleServiceUpdateResult(param_1,uVar1);
+  otSrpServerHandleServiceUpdateResult(param_1,uVar14);
   return;
 _L0:
-  uVar2 = esp_log_timestamp();
-  esp_log_write(3,"OPENTHREAD",&_LC6,uVar2,"OPENTHREAD",auStack_84);
-  iVar5 = mdns_service_subtype_add_for_host
-                    (acStack_10c,acStack_c8,acStack_164,auStack_150,auStack_84);
-  if (iVar5 != 0) {
-    uVar2 = esp_log_timestamp();
-    puVar11 = &_LC7;
+  uVar1 = esp_log_timestamp();
+  esp_log_write(3,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD",auStack_84);
+  iVar10 = mdns_service_subtype_add_for_host
+                     (acStack_10c,acStack_c8,acStack_180,auStack_150,auStack_84);
+  if (iVar10 != 0) {
+    uVar1 = esp_log_timestamp();
+    puVar12 = &_LC10;
 _L0:
-    esp_log_write(1,"OPENTHREAD",puVar11,uVar2,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",puVar12,uVar1,"OPENTHREAD");
   }
   goto _L0;
 }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV6
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,26 +41,29 @@ undefined4 __thiscall idf::TcpSession::ForwardV6(TcpSession *this,uchar *param_1
   if (((uVar4 & 2) != 0) && (*(int *)(this + 0x24) == 0)) {
     *(undefined4 *)(this + 0x24) = 1;
   }
-  if ((uVar4 & 4) == 0) {
-    if ((uVar4 & 1) == 0) {
-      uVar7 = 9000000;
-      if (*(int *)(this + 0x24) == 2) {
-        *(undefined4 *)(this + 0x24) = 3;
-      }
+  if ((uVar4 & 4) != 0) {
+    uVar7 = 2;
+_L0:
+    *(undefined4 *)(this + 0x24) = uVar7;
+    uVar7 = 240000;
+    goto _L0;
+  }
+  if ((uVar4 & 1) == 0) {
+    if (*(int *)(this + 0x24) == 2) {
+      uVar7 = 3;
       goto _L0;
     }
-    if (*(int *)(this + 0x24) != 4) {
-      *(undefined4 *)(this + 0x24) = 5;
-      uVar7 = 9000000;
-      goto _L0;
-    }
-    uVar7 = 6;
   }
   else {
-    uVar7 = 2;
+    if (*(int *)(this + 0x24) == 4) {
+      uVar7 = 6;
+      goto _L0;
+    }
+    uVar7 = 5;
+_L0:
+    *(undefined4 *)(this + 0x24) = uVar7;
   }
-  *(undefined4 *)(this + 0x24) = uVar7;
-  uVar7 = 240000;
+  uVar7 = 9000000;
 _L0:
   sys_timeout(uVar7,OnSessionTimeout,this);
   if (*(int *)(this + 0x24) != 0) {

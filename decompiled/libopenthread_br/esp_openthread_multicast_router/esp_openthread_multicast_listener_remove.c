@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
+ * Upstream date: 2023-06-02 12:00:23 +0800
+ * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,80 +14,87 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
 
 {
   void *__s1;
-  undefined4 uVar1;
+  void *pvVar1;
   undefined4 uVar2;
-  int iVar3;
-  void *pvVar4;
+  undefined4 uVar3;
+  int iVar4;
   int *piVar5;
   void *pvVar6;
-  void *pvVar7;
+  int iVar7;
+  void *pvVar8;
   
   if ((*param_1 & 0xff) != 0xff) {
     return 0x102;
   }
-  if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) == 0) {
-    return 0;
-  }
-  uVar1 = esp_log_timestamp();
-  uVar2 = ip6addr_ntoa(param_1);
-  esp_log_write(3,"OPENTHREAD",&_LC9,uVar1,"OPENTHREAD",uVar2);
-  piVar5 = s_netif_listener_lists;
-  while( true ) {
-    if (piVar5 == (int *)0x0) {
-      return 0x105;
-    }
-    if (param_3 == *piVar5) break;
-    piVar5 = (int *)piVar5[2];
-  }
-  pvVar4 = (void *)piVar5[1];
-  pvVar7 = (void *)0x0;
-  while( true ) {
-    __s1 = pvVar4;
-    if (__s1 == (void *)0x0) {
-      return 0x105;
-    }
-    iVar3 = memcmp(__s1,param_1,0x10);
-    if (iVar3 == 0) break;
-    pvVar4 = *(void **)((int)__s1 + 0x18);
-    pvVar7 = __s1;
-  }
-  pvVar4 = *(void **)((int)__s1 + 0x14);
-  iVar3 = memcmp(pvVar4,param_2,0x10);
-  pvVar6 = (void *)0x0;
-  if ((*(int *)((int)pvVar4 + 0x14) == 0) && (pvVar6 = (void *)0x0, iVar3 == 0)) {
-    iVar3 = esp_openthread_get_lwip_backbone_netif();
-    if (param_3 != iVar3) {
-      esp_openthread_get_lwip_backbone_netif();
-      iVar3 = send_mldv2_joinleave_netif_constprop_0(param_1,0);
-      if (iVar3 != 0) {
-        return iVar3;
+  if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
+    uVar2 = esp_log_timestamp();
+    uVar3 = ip6addr_ntoa(param_1);
+    esp_log_write(3,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD",uVar3);
+    piVar5 = s_netif_listener_lists;
+    while( true ) {
+      if (piVar5 == (int *)0x0) {
+        return 0x105;
       }
+      if (param_3 == *piVar5) break;
+      piVar5 = (int *)piVar5[2];
     }
-    if (pvVar7 == (void *)0x0) {
-      piVar5[1] = *(int *)((int)__s1 + 0x18);
+    pvVar1 = (void *)piVar5[1];
+    pvVar8 = (void *)0x0;
+    while( true ) {
+      __s1 = pvVar1;
+      if (__s1 == (void *)0x0) {
+        return 0x105;
+      }
+      iVar4 = memcmp(__s1,param_1,0x10);
+      if (iVar4 == 0) break;
+      pvVar1 = *(void **)((int)__s1 + 0x18);
+      pvVar8 = __s1;
+    }
+    pvVar1 = *(void **)((int)__s1 + 0x14);
+    iVar7 = *(int *)((int)pvVar1 + 0x14);
+    iVar4 = memcmp(pvVar1,param_2,0x10);
+    if (iVar7 == 0) {
+      pvVar6 = (void *)0x0;
+      if (iVar4 == 0) {
+        iVar4 = esp_openthread_get_lwip_backbone_netif();
+        if (param_3 != iVar4) {
+          esp_openthread_get_lwip_backbone_netif();
+          iVar4 = send_mldv2_joinleave_netif_constprop_0(param_1,0);
+          if (iVar4 != 0) {
+            return iVar4;
+          }
+        }
+        if (pvVar8 == (void *)0x0) {
+          piVar5[1] = *(int *)((int)__s1 + 0x18);
+        }
+        else {
+          *(int *)((int)pvVar8 + 0x18) = *(int *)((int)__s1 + 0x18);
+        }
+        free_multicast_listener(__s1);
+        return 0;
+      }
     }
     else {
-      *(int *)((int)pvVar7 + 0x18) = *(int *)((int)__s1 + 0x18);
+      pvVar6 = (void *)0x0;
     }
-    free_multicast_listener(__s1);
-    return 0;
+    do {
+      pvVar8 = pvVar1;
+      iVar4 = memcmp(pvVar8,param_2,0x10);
+      pvVar1 = *(void **)((int)pvVar8 + 0x14);
+      if (iVar4 == 0) {
+        if (pvVar6 == (void *)0x0) {
+          *(void **)((int)__s1 + 0x14) = pvVar1;
+        }
+        else {
+          *(void **)((int)pvVar6 + 0x14) = pvVar1;
+        }
+        free(pvVar8);
+        return 0;
+      }
+      pvVar6 = pvVar8;
+    } while (pvVar1 != (void *)0x0);
+    return 0x105;
   }
-  do {
-    pvVar7 = pvVar4;
-    iVar3 = memcmp(pvVar7,param_2,0x10);
-    pvVar4 = *(void **)((int)pvVar7 + 0x14);
-    if (iVar3 == 0) {
-      if (pvVar6 == (void *)0x0) {
-        *(void **)((int)__s1 + 0x14) = pvVar4;
-      }
-      else {
-        *(void **)((int)pvVar6 + 0x14) = pvVar4;
-      }
-      free(pvVar7);
-      return 0;
-    }
-    pvVar6 = pvVar7;
-  } while (pvVar4 != (void *)0x0);
-  return 0x105;
+  return 0;
 }
 
