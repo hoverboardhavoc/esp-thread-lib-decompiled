@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 99779af83df3c13d358e1dab7f19699237b1ffdc
- * https://github.com/espressif/esp-thread-lib/commit/99779af83df3c13d358e1dab7f19699237b1ffdc
- * Upstream date: 2023-01-16 10:21:19 +0100
- * Upstream subject: lib: Address lwip thread-safety/core-locking
+ * Last changed at upstream commit 8b9de73a2e7b480096155298de34de510173b675
+ * https://github.com/espressif/esp-thread-lib/commit/8b9de73a2e7b480096155298de34de510173b675
+ * Upstream date: 2023-06-14 12:30:19 +0800
+ * Upstream subject: BR: fix dead lock issue for ot and lwip
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,7 +25,7 @@ undefined4 nat64_netif_do_init(void *param_1)
   iVar2 = netif_add(s_nat64_netif,0,0,0,0,netif_init_internal,&tcpip_input);
   if (iVar2 == 0) {
     uVar3 = esp_log_timestamp();
-    uVar1 = 0xe5;
+    uVar1 = 0xe6;
     puVar4 = &_LC2;
   }
   else {
@@ -35,7 +35,7 @@ undefined4 nat64_netif_do_init(void *param_1)
     s_backbone_raw_pcb = raw_new_ip_type(0,6);
     if (s_backbone_raw_pcb == 0) {
       uVar3 = esp_log_timestamp();
-      uVar1 = 0xed;
+      uVar1 = 0xee;
       puVar4 = &_LC3;
     }
     else {
@@ -48,7 +48,7 @@ undefined4 nat64_netif_do_init(void *param_1)
         return 0;
       }
       uVar3 = esp_log_timestamp();
-      uVar1 = 0xef;
+      uVar1 = 0xf0;
       puVar4 = &_LC4;
     }
   }
