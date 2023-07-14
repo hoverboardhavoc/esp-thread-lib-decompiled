@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit 785e946222f6c6ab453d7d47c15c551d4a181f79
+ * https://github.com/espressif/esp-thread-lib/commit/785e946222f6c6ab453d7d47c15c551d4a181f79
+ * Upstream date: 2023-07-14 09:44:51 +0800
+ * Upstream subject: lib(openthread): update ot lib
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -47,7 +47,7 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
     uVar4 = 0x4b;
     puVar3 = &_LC7;
   }
-  esp_log_write(1,"NAT64",puVar3,uVar2,"NAT64",&_LC5,uVar4);
+  esp_log_write(1,"NAT64",puVar3,uVar2,"NAT64",&::_L0,uVar4);
   Close(this);
   return 0xffffffff;
 }
