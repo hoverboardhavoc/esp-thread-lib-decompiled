@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit 6d739fee07d4758fc2fa200b1d3edec99663a930
+ * https://github.com/espressif/esp-thread-lib/commit/6d739fee07d4758fc2fa200b1d3edec99663a930
+ * Upstream date: 2023-07-31 15:11:37 +0800
+ * Upstream subject: feat(br): Fix memory leak and setting mcast forwarding enable
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> lwip_hook_ip6_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -45,8 +45,7 @@ undefined4 lwip_hook_ip6_input(int param_1,int param_2)
           return uVar6;
         }
         if ((cVar1 == -0x7e) && (0x1b < uVar2)) {
-          uVar6 = send_mldv2_report_netif(param_2,pcVar5);
-          return uVar6;
+          send_mldv2_report_netif(param_2,pcVar5);
         }
       }
     }
