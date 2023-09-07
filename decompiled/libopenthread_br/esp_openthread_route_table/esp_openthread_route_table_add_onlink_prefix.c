@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_onlink_prefix
  *
  * (C) Espressif, Apache License 2.0.
@@ -48,21 +48,21 @@ undefined4 esp_openthread_route_table_add_onlink_prefix(int *param_1,int param_2
           iVar4 = iVar1 * 0x20;
           __dest = &s_on_link_prefixes + iVar1 * 8;
           memcpy(__dest,param_1,0x20);
-          if (((&DAT_00010600)[iVar1 * 8] & 0xc0ff) == 0x80fe) {
+          if (((&DAT_000106a0)[iVar1 * 8] & 0xc0ff) == 0x80fe) {
             cVar5 = *(char *)(*param_1 + 0x18a) + '\x01';
           }
           else {
             cVar5 = '\0';
           }
-          (&DAT_00010610)[iVar4] = cVar5;
+          (&DAT_000106b0)[iVar4] = cVar5;
           if ((param_3 != 0) && (*(char *)(iVar2 + 0x18b) != '\0')) {
-            (&DAT_00010608)[iVar4] = *(byte *)(iVar2 + 0x180) ^ 2;
-            (&DAT_00010609)[iVar4] = *(undefined1 *)(iVar2 + 0x181);
-            (&DAT_0001060a)[iVar4] = *(undefined1 *)(iVar2 + 0x182);
-            (&DAT_0001060b)[iVar4] = 0xff;
-            (&DAT_0001060c)[iVar4] = 0xfe;
-            memcpy(&DAT_0001060d + iVar4,(void *)(iVar2 + 0x183),3);
-            iVar1 = netif_add_ip6_address(iVar2,&DAT_00010600 + iVar1 * 8,0);
+            (&DAT_000106a8)[iVar4] = *(byte *)(iVar2 + 0x180) ^ 2;
+            (&DAT_000106a9)[iVar4] = *(undefined1 *)(iVar2 + 0x181);
+            (&DAT_000106aa)[iVar4] = *(undefined1 *)(iVar2 + 0x182);
+            (&DAT_000106ab)[iVar4] = 0xff;
+            (&DAT_000106ac)[iVar4] = 0xfe;
+            memcpy(&DAT_000106ad + iVar4,(void *)(iVar2 + 0x183),3);
+            iVar1 = netif_add_ip6_address(iVar2,&DAT_000106a0 + iVar1 * 8,0);
             if (iVar1 != 0) {
               uVar3 = esp_log_timestamp();
               esp_log_write(1,"OPENTHREAD",&_LC1,uVar3,"OPENTHREAD");

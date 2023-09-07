@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * https://github.com/espressif/esp-thread-lib/commit/62d501187e49d6ccf7b99bd6a59fdf47e0243219
- * Upstream date: 2022-12-06 21:56:45 +0800
- * Upstream subject: lib: fix multi br forwarding ping reply
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_route_table.o -> lwip_hook_nd6_get_gw
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ undefined1 * lwip_hook_nd6_get_gw(int param_1,undefined1 *param_2)
       puVar2 = __s2;
     }
     __s2 = __s2 + 0x38;
-  } while (__s2 != (undefined1 *)0x1096c);
+  } while (__s2 != (undefined1 *)0x10a0c);
   if (puVar2 != (undefined1 *)0x0) {
     puVar2 = puVar2 + 0x18;
   }

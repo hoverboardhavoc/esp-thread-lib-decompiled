@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ undefined1 * esp_openthread_route_table_add_route_entry(undefined1 *param_1)
         goto _L0;
       }
       __s1 = __s1 + 0x38;
-    } while (__s1 != (undefined1 *)0x1096c);
+    } while (__s1 != (undefined1 *)0x10a0c);
     iVar3 = 0;
     do {
       if (*(int *)(puVar5 + 0x34) == 0) {

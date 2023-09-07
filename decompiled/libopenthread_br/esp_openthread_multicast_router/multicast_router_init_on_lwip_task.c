@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6d739fee07d4758fc2fa200b1d3edec99663a930
- * https://github.com/espressif/esp-thread-lib/commit/6d739fee07d4758fc2fa200b1d3edec99663a930
- * Upstream date: 2023-07-31 15:11:37 +0800
- * Upstream subject: feat(br): Fix memory leak and setting mcast forwarding enable
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ void multicast_router_init_on_lwip_task(int *param_1)
     iVar2 = esp_openthread_get_lwip_backbone_netif();
     if (iVar3 == iVar2) {
       iVar4 = *piVar1;
-      memcpy(auStack_50,&DAT_00010cf8,0x18);
+      memcpy(auStack_50,&DAT_00010d6c,0x18);
       iVar2 = mld6_joingroup_netif(iVar4,auStack_50);
       iVar3 = -1;
       if (iVar2 == 0) {

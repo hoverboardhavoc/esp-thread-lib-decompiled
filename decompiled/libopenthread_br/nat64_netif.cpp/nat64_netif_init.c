@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8b9de73a2e7b480096155298de34de510173b675
- * https://github.com/espressif/esp-thread-lib/commit/8b9de73a2e7b480096155298de34de510173b675
- * Upstream date: 2023-06-14 12:30:19 +0800
- * Upstream subject: BR: fix dead lock issue for ot and lwip
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,15 +13,20 @@
 undefined4 nat64_netif_init(void)
 
 {
-  undefined4 uVar1;
+  code *pcVar1;
+  undefined4 uVar2;
   
-  uVar1 = 0;
-  if ((s_nat64_netif[0x187] & 1) == 0) {
+  if ((s_nat64_netif_initialized == '\0') || ((s_nat64_netif[0x187] & 1) != 0)) {
     memset(s_nat64_netif,0,0x1a4);
     esp_openthread_task_switching_lock_release();
-    uVar1 = esp_netif_tcpip_exec(nat64_netif_do_init,0);
-    esp_openthread_task_switching_lock_acquire(0xffffffff);
+    pcVar1 = nat64_netif_do_init;
   }
-  return uVar1;
+  else {
+    esp_openthread_task_switching_lock_release();
+    pcVar1 = nat64_rebind_netif;
+  }
+  uVar2 = esp_netif_tcpip_exec(pcVar1,0);
+  esp_openthread_task_switching_lock_acquire(0xffffffff);
+  return uVar2;
 }
 

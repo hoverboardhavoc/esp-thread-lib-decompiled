@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8b9de73a2e7b480096155298de34de510173b675
- * https://github.com/espressif/esp-thread-lib/commit/8b9de73a2e7b480096155298de34de510173b675
- * Upstream date: 2023-06-14 12:30:19 +0800
- * Upstream subject: BR: fix dead lock issue for ot and lwip
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,7 +25,7 @@ undefined4 nat64_netif_do_init(void *param_1)
   iVar2 = netif_add(s_nat64_netif,0,0,0,0,netif_init_internal,&tcpip_input);
   if (iVar2 == 0) {
     uVar3 = esp_log_timestamp();
-    uVar1 = 0xe6;
+    uVar1 = 0xe8;
     puVar4 = &_LC2;
   }
   else {
@@ -35,7 +35,7 @@ undefined4 nat64_netif_do_init(void *param_1)
     s_backbone_raw_pcb = raw_new_ip_type(0,6);
     if (s_backbone_raw_pcb == 0) {
       uVar3 = esp_log_timestamp();
-      uVar1 = 0xee;
+      uVar1 = 0xf0;
       puVar4 = &_LC3;
     }
     else {
@@ -45,14 +45,15 @@ undefined4 nat64_netif_do_init(void *param_1)
         raw_bind_netif(s_backbone_icmp_raw_pcb,uVar1);
         raw_recv(s_backbone_raw_pcb,tcp_raw_recv_handler,0);
         raw_recv(s_backbone_icmp_raw_pcb,icmp_raw_recv_handler,0);
+        s_nat64_netif_initialized = 1;
         return 0;
       }
       uVar3 = esp_log_timestamp();
-      uVar1 = 0xf0;
+      uVar1 = 0xf2;
       puVar4 = &_LC4;
     }
   }
-  esp_log_write(1,"NAT64",puVar4,uVar3,"NAT64",0x10000,uVar1);
+  esp_log_write(1,"NAT64",puVar4,uVar3,"NAT64","nat64_netif_do_init",uVar1);
   return 0xffffffff;
 }
 

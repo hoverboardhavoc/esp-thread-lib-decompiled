@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,9 +14,9 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
 
 {
   void *pvVar1;
-  undefined4 uVar2;
+  int iVar2;
   undefined4 uVar3;
-  int iVar4;
+  undefined4 uVar4;
   void *pvVar5;
   int iVar6;
   
@@ -24,12 +24,21 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
     return 0x102;
   }
   if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
-    uVar2 = esp_log_timestamp();
-    uVar3 = ip6addr_ntoa(param_1);
-    esp_log_write(3,"OPENTHREAD",&_LC8,uVar2,"OPENTHREAD",uVar3);
-    iVar4 = find_or_create_netif_listener_list(param_3);
-    if (iVar4 != 0) {
-      for (pvVar1 = *(void **)(iVar4 + 4); pvVar1 != (void *)0x0;
+    esp_openthread_get_backbone_netif();
+    iVar2 = to_underlying_lwip_netif();
+    if (param_3 != iVar2) {
+      esp_netif_get_handle_from_ifkey("OT_DEF");
+      iVar2 = to_underlying_lwip_netif();
+      if (param_3 != iVar2) {
+        return 0;
+      }
+    }
+    uVar3 = esp_log_timestamp();
+    uVar4 = ip6addr_ntoa(param_1);
+    esp_log_write(3,"OPENTHREAD",&_LC9,uVar3,"OPENTHREAD",uVar4);
+    iVar2 = find_or_create_netif_listener_list(param_3);
+    if (iVar2 != 0) {
+      for (pvVar1 = *(void **)(iVar2 + 4); pvVar1 != (void *)0x0;
           pvVar1 = *(void **)((int)pvVar1 + 0x18)) {
         iVar6 = memcmp(pvVar1,param_1,0x10);
         if (iVar6 == 0) {
@@ -45,8 +54,8 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
               *(void **)((int)pvVar1 + 0x14) = pvVar5;
               return 0;
             }
-            iVar4 = memcmp(pvVar5,param_2,0x10);
-            if (iVar4 == 0) break;
+            iVar2 = memcmp(pvVar5,param_2,0x10);
+            if (iVar2 == 0) break;
             pvVar5 = *(void **)((int)pvVar5 + 0x14);
           }
           return 0;
@@ -70,8 +79,8 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
               return 0xffffffff;
             }
           }
-          *(undefined4 *)((int)pvVar1 + 0x18) = *(undefined4 *)(iVar4 + 4);
-          *(void **)(iVar4 + 4) = pvVar1;
+          *(undefined4 *)((int)pvVar1 + 0x18) = *(undefined4 *)(iVar2 + 4);
+          *(void **)(iVar2 + 4) = pvVar1;
           return 0;
         }
         free(pvVar1);

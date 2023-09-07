@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8b9de73a2e7b480096155298de34de510173b675
- * https://github.com/espressif/esp-thread-lib/commit/8b9de73a2e7b480096155298de34de510173b675
- * Upstream date: 2023-06-14 12:30:19 +0800
- * Upstream subject: BR: fix dead lock issue for ot and lwip
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ int netif_init_internal(netif *param_1)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC8,uVar2,"NAT64","netif_init_internal",0xab);
+    esp_log_write(1,"NAT64",&_LC8,uVar2,"NAT64","netif_init_internal",0xac);
   }
   return iVar1;
 }

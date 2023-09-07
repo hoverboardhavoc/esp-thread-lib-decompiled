@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> OnDestUdpReceived
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,12 +34,12 @@ void __thiscall idf::UdpSession::OnDestUdpReceived(UdpSession *this,pbuf *param_
   sys_timeout(3600000,OnSessionTimeout,this);
   if (iVar7 == 0) {
     uVar8 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC2,uVar8,"NAT64","OnDestUdpReceived",0x7d);
+    esp_log_write(1,"NAT64",&_LC2,uVar8,"NAT64","OnDestUdpReceived",0x83);
   }
   else {
     if (*(byte *)(iVar9 + 8) < 2) {
       uVar8 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC3,uVar8,"NAT64","OnDestUdpReceived",0x7f);
+      esp_log_write(1,"NAT64",&_LC3,uVar8,"NAT64","OnDestUdpReceived",0x85);
     }
     else {
       puVar4 = *(undefined1 **)(iVar7 + 4);

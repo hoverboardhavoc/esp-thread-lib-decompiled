@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8b9de73a2e7b480096155298de34de510173b675
- * https://github.com/espressif/esp-thread-lib/commit/8b9de73a2e7b480096155298de34de510173b675
- * Upstream date: 2023-06-14 12:30:19 +0800
- * Upstream subject: BR: fix dead lock issue for ot and lwip
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_netif.cpp.o -> icmp_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,7 +41,7 @@ undefined4 icmp_raw_recv_handler(void *param_1,raw_pcb *param_2,pbuf *param_3,ip
         return 1;
       }
       uVar4 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC6,uVar4,"NAT64","icmp_raw_recv_handler",0xc3);
+      esp_log_write(1,"NAT64",&_LC6,uVar4,"NAT64","icmp_raw_recv_handler",0xc4);
     }
   }
   return 0;

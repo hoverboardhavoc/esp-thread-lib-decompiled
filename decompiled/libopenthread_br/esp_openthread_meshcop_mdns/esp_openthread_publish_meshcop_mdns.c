@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8943a3f95e316b1cdbca8680addf0474651235db
- * https://github.com/espressif/esp-thread-lib/commit/8943a3f95e316b1cdbca8680addf0474651235db
- * Upstream date: 2023-07-19 18:50:59 +0800
- * Upstream subject: feat(openthread): enable openthread border agent id esp-openthread: b703068 openthread:5beae14
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,54 +20,54 @@ int esp_openthread_publish_meshcop_mdns(void)
   int iVar5;
   undefined4 uVar6;
   undefined4 extraout_a1;
-  undefined1 uStack_10b;
-  undefined2 uStack_10a;
-  undefined4 uStack_108;
-  undefined4 auStack_104 [2];
-  undefined1 auStack_fc [8];
-  undefined1 uStack_f4;
-  undefined1 auStack_f0 [16];
-  byte bStack_e0;
-  byte bStack_dc;
-  undefined1 auStack_db [19];
+  undefined1 uStack_113;
+  undefined2 uStack_112;
+  undefined4 uStack_110;
+  undefined4 auStack_10c [2];
+  undefined1 auStack_104 [8];
+  undefined1 uStack_fc;
+  undefined1 auStack_f8 [16];
+  byte bStack_e8;
+  byte bStack_e4;
+  undefined1 auStack_e3 [19];
+  undefined *puStack_d0;
+  undefined4 uStack_cc;
   undefined *puStack_c8;
-  undefined4 uStack_c4;
+  undefined *puStack_c4;
   undefined *puStack_c0;
-  undefined *puStack_bc;
+  undefined4 uStack_bc;
   undefined *puStack_b8;
-  undefined4 uStack_b4;
+  char *pcStack_b4;
   undefined *puStack_b0;
   char *pcStack_ac;
   undefined *puStack_a8;
-  char *pcStack_a4;
-  undefined *puStack_a0;
-  undefined *puStack_9c;
-  undefined4 uStack_98;
-  undefined4 uStack_94;
+  undefined *puStack_a4;
+  undefined4 uStack_a0;
+  undefined4 uStack_9c;
   
   uVar2 = esp_openthread_get_instance();
   uVar3 = otThreadGetExtendedPanId();
   uVar4 = otLinkGetExtendedAddress(uVar2);
   esp_openthread_get_instance();
-  uStack_98 = 0;
+  uStack_a0 = 0;
   iVar5 = otBackboneRouterGetState();
-  uStack_98 = CONCAT22((ushort)(iVar5 != 0) << 0xf | iVar5 == 2 | 0x3100 |
-                       (ushort)((uint)uStack_98 >> 0x10) & 0xfe,(undefined2)uStack_98);
-  uStack_108 = uStack_98;
+  uStack_a0 = CONCAT22((ushort)(iVar5 != 0) << 0xf | iVar5 == 2 | 0x3100 |
+                       (ushort)((uint)uStack_a0 >> 0x10) & 0xfe,(undefined2)uStack_a0);
+  uStack_110 = uStack_a0;
   otThreadGetPartitionId(uVar2);
-  auStack_104[0] = __bswapsi2();
-  uStack_10a = 0xbff0;
-  otBackboneRouterGetConfig(uVar2,auStack_fc);
-  uStack_10b = uStack_f4;
-  iVar5 = otDatasetGetActive(uVar2,&uStack_98);
+  auStack_10c[0] = __bswapsi2();
+  uStack_112 = 0xbff0;
+  otBackboneRouterGetConfig(uVar2,auStack_104);
+  uStack_113 = uStack_fc;
+  iVar5 = otDatasetGetActive(uVar2,&uStack_a0);
   if (iVar5 != 0) {
     uVar2 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC5,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x85
                  );
     return -1;
   }
-  uStack_98 = __bswapdi2(uStack_98,uStack_94);
-  uStack_94 = extraout_a1;
+  uStack_a0 = __bswapdi2(uStack_a0,uStack_9c);
+  uStack_9c = extraout_a1;
   uVar6 = otThreadGetDomainName(uVar2);
   iVar5 = otThreadGetVersion();
   if (iVar5 == 3) {
@@ -82,18 +82,18 @@ int esp_openthread_publish_meshcop_mdns(void)
   else {
     puVar1 = &_LC3;
   }
-  uStack_b4 = otThreadGetNetworkName(uVar2);
-  puStack_c8 = &_LC6;
-  puStack_c0 = &_LC7;
-  puStack_b8 = &_LC8;
-  puStack_b0 = &_LC9;
-  pcStack_ac = "BorderRouter";
-  puStack_a8 = &_LC11;
-  pcStack_a4 = "OpenThread";
-  puStack_a0 = &_LC13;
-  puStack_9c = &_LC14;
-  uStack_c4 = uVar6;
-  puStack_bc = puVar1;
+  uStack_bc = otThreadGetNetworkName(uVar2);
+  puStack_d0 = &_LC6;
+  puStack_c8 = &_LC7;
+  puStack_c0 = &_LC8;
+  puStack_b8 = &_LC9;
+  pcStack_b4 = "BorderRouter";
+  puStack_b0 = &_LC11;
+  pcStack_ac = "OpenThread";
+  puStack_a8 = &_LC13;
+  puStack_a4 = &_LC14;
+  uStack_cc = uVar6;
+  puStack_c4 = puVar1;
   if (s_service_published == '\0') {
     uVar6 = otBorderAgentGetUdpPort(uVar2);
     iVar5 = mdns_service_add(0,"_meshcop",&_LC15,uVar6,0,0);
@@ -105,22 +105,22 @@ int esp_openthread_publish_meshcop_mdns(void)
     }
     s_service_published = '\x01';
   }
-  iVar5 = mdns_service_txt_set("_meshcop",&_LC15,&puStack_c8,6);
+  iVar5 = mdns_service_txt_set("_meshcop",&_LC15,&puStack_d0,6);
   if (iVar5 == 0) {
     iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                      ("_meshcop",&_LC15,&_LC19,&uStack_10a,2);
+                      ("_meshcop",&_LC15,&_LC19,&uStack_112,2);
     if (iVar5 == 0) {
       iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                        ("_meshcop",&_LC15,&_LC21,&uStack_10b,1);
+                        ("_meshcop",&_LC15,&_LC21,&uStack_113,1);
       if (iVar5 == 0) {
         iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                          ("_meshcop",&_LC15,&_LC23,auStack_104,4);
+                          ("_meshcop",&_LC15,&_LC23,auStack_10c,4);
         if (iVar5 == 0) {
           iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                            ("_meshcop",&_LC15,&_LC25,&uStack_98,8);
+                            ("_meshcop",&_LC15,&_LC25,&uStack_a0,8);
           if (iVar5 == 0) {
             iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                              ("_meshcop",&_LC15,&_LC27,&uStack_108,4);
+                              ("_meshcop",&_LC15,&_LC27,&uStack_110,4);
             if (iVar5 == 0) {
               iVar5 = mdns_service_txt_item_set_with_explicit_value_len
                                 ("_meshcop",&_LC15,&_LC29,uVar4,8);
@@ -128,12 +128,12 @@ int esp_openthread_publish_meshcop_mdns(void)
                 iVar5 = mdns_service_txt_item_set_with_explicit_value_len
                                   ("_meshcop",&_LC15,&_LC31,uVar3,8);
                 if (iVar5 == 0) {
-                  iVar5 = otBorderRoutingGetOmrPrefix(uVar2,auStack_f0);
+                  iVar5 = otBorderRoutingGetOmrPrefix(uVar2,auStack_f8);
                   if (iVar5 == 0) {
-                    bStack_dc = bStack_e0;
-                    memcpy(auStack_db,auStack_f0,(uint)(bStack_e0 >> 3));
+                    bStack_e4 = bStack_e8;
+                    memcpy(auStack_e3,auStack_f8,(uint)(bStack_e8 >> 3));
                     iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                                      ("_meshcop",&_LC15,&_LC33,&bStack_dc,(bStack_e0 >> 3) + 1);
+                                      ("_meshcop",&_LC15,&_LC33,&bStack_e4,(bStack_e8 >> 3) + 1);
                     if (iVar5 != 0) {
                       uVar2 = esp_log_timestamp();
                       esp_log_write(1,"OPENTHREAD",&_LC34,uVar2,"OPENTHREAD",
@@ -141,12 +141,12 @@ int esp_openthread_publish_meshcop_mdns(void)
                       return iVar5;
                     }
                   }
-                  iVar5 = otBorderAgentGetId(uVar2,&bStack_dc);
+                  iVar5 = otBorderAgentGetId(uVar2,&bStack_e4);
                   if (iVar5 != 0) {
                     return 0;
                   }
                   iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                                    ("_meshcop",&_LC15,&_LC35,&bStack_dc,0x10);
+                                    ("_meshcop",&_LC15,&_LC35,&bStack_e4,0x10);
                   if (iVar5 == 0) {
                     return 0;
                   }

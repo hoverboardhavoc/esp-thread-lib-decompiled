@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
+ * Upstream date: 2023-09-07 16:10:51 +0800
+ * Upstream subject: feat(br): support br deinit
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> GetSession
  *
  * (C) Espressif, Apache License 2.0.
@@ -20,7 +20,7 @@ idf::UdpSession::GetSession(ip6_addr *param_1,ushort param_2,ip6_addr *param_3,u
   UdpSession *this;
   int iVar2;
   
-  pUVar1 = (anonymous_namespace)::s_session_list;
+  pUVar1 = s_session_list;
   while( true ) {
     if (pUVar1 == (UdpSession *)0x0) {
       this = (UdpSession *)operator_new(0x30);
@@ -28,12 +28,12 @@ idf::UdpSession::GetSession(ip6_addr *param_1,ushort param_2,ip6_addr *param_3,u
       iVar2 = Init(this,param_2);
       pUVar1 = (UdpSession *)0x0;
       if (iVar2 == 0) {
-        if ((anonymous_namespace)::s_session_list != (UdpSession *)0x0) {
-          *(UdpSession **)((anonymous_namespace)::s_session_list + 0x2c) = this;
+        if (s_session_list != (UdpSession *)0x0) {
+          *(UdpSession **)(s_session_list + 0x2c) = this;
         }
-        *(UdpSession **)(this + 0x28) = (anonymous_namespace)::s_session_list;
+        *(UdpSession **)(this + 0x28) = s_session_list;
         pUVar1 = this;
-        (anonymous_namespace)::s_session_list = this;
+        s_session_list = this;
       }
       return pUVar1;
     }

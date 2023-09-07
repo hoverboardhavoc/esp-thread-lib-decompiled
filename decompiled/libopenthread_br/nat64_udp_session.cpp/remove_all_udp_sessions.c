@@ -3,28 +3,21 @@
  * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
  * Upstream date: 2023-09-07 16:10:51 +0800
  * Upstream subject: feat(br): support br deinit
- * Source: libopenthread_br -> nat64.cpp.o -> nat64_init
+ * Source: libopenthread_br -> nat64_udp_session.cpp.o -> remove_all_udp_sessions
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int nat64_init(void)
+/* idf::UdpSession::remove_all_udp_sessions() */
+
+void idf::UdpSession::remove_all_udp_sessions(void)
 
 {
-  int iVar1;
-  undefined4 uVar2;
-  
-  iVar1 = nat64_netif_init();
-  if (iVar1 == 0) {
-    esp_openthread_get_instance();
-    otNat64SetEnabled(1);
+  while (s_session_list != (UdpSession *)0x0) {
+    Close(s_session_list);
   }
-  else {
-    uVar2 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC2,uVar2,"NAT64",0x10000,0x1c);
-  }
-  return iVar1;
+  return;
 }
 
