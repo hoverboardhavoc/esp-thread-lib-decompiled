@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * https://github.com/espressif/esp-thread-lib/commit/8fdeda2b9b6e94761ab7fead714391e6bd27d486
- * Upstream date: 2021-09-09 20:40:32 +0800
- * Upstream subject: br: fix router solicitation handling(e82fe0d)
+ * Last changed at upstream commit 12f563ee490236f7332eb22f568e71c7c1d4a3b7
+ * https://github.com/espressif/esp-thread-lib/commit/12f563ee490236f7332eb22f568e71c7c1d4a3b7
+ * Upstream date: 2023-09-25 16:27:03 +0800
+ * Upstream subject: lib(openthread): update otbr lib
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> free_addresses_in_pending_query
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,11 +17,11 @@ void free_addresses_in_pending_query(pending_query_t *param_1)
 {
   void *__ptr;
   
-  if (*(int *)(param_1 + 0x328) == 2) {
-    __ptr = *(void **)(param_1 + 0x304);
+  if (*(int *)(param_1 + 1000) == 2) {
+    __ptr = *(void **)(param_1 + 0x3c4);
   }
   else {
-    __ptr = *(void **)(param_1 + 0x30c);
+    __ptr = *(void **)(param_1 + 0x3cc);
   }
   if (__ptr != (void *)0x0) {
     free(__ptr);

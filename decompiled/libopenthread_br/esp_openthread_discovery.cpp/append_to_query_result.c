@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 12f563ee490236f7332eb22f568e71c7c1d4a3b7
+ * https://github.com/espressif/esp-thread-lib/commit/12f563ee490236f7332eb22f568e71c7c1d4a3b7
+ * Upstream date: 2023-09-25 16:27:03 +0800
+ * Upstream subject: lib(openthread): update otbr lib
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> append_to_query_result
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,7 +15,7 @@
 void append_to_query_result(pending_query_t *param_1,mdns_result_s *param_2)
 
 {
-  mdns_result_s *pmVar1;
+  mdns_ip_addr_s *pmVar1;
   int iVar2;
   undefined4 uVar3;
   size_t __n;
@@ -28,23 +28,23 @@ void append_to_query_result(pending_query_t *param_1,mdns_result_s *param_2)
   
   if (*(int *)(param_2 + 0x1c) != 0) {
     snprintf((char *)(param_1 + 0x100),0x100,"%s%s");
-    pmVar1 = *(mdns_result_s **)(param_2 + 0x30);
-    if (*(int *)(param_1 + 0x328) == 2) {
+    pmVar1 = *(mdns_ip_addr_s **)(param_2 + 0x30);
+    if (*(int *)(param_1 + 1000) == 2) {
       iVar2 = get_mdns_num_ipv6_addresses(pmVar1);
-      param_1[0x300] = SUB41(iVar2,0);
-      *(undefined4 *)(param_1 + 0x308) = *(undefined4 *)(param_2 + 8);
+      param_1[0x3c0] = SUB41(iVar2,0);
+      *(undefined4 *)(param_1 + 0x3c8) = *(undefined4 *)(param_2 + 8);
       if (iVar2 != 0) {
-        uVar3 = convert_mdns_addresses_to_array(param_2);
-        *(undefined4 *)(param_1 + 0x304) = uVar3;
+        uVar3 = convert_mdns_addresses_to_array(*(mdns_ip_addr_s **)(param_2 + 0x30));
+        *(undefined4 *)(param_1 + 0x3c4) = uVar3;
       }
     }
     else {
-      *(pending_query_t **)(param_1 + 0x304) = param_1 + 0x100;
+      *(pending_query_t **)(param_1 + 0x3c4) = param_1 + 0x100;
       iVar2 = get_mdns_num_ipv6_addresses(pmVar1);
-      param_1[0x308] = SUB41(iVar2,0);
+      param_1[0x3c8] = SUB41(iVar2,0);
       if (iVar2 != 0) {
-        uVar3 = convert_mdns_addresses_to_array(param_2);
-        *(undefined4 *)(param_1 + 0x30c) = uVar3;
+        uVar3 = convert_mdns_addresses_to_array(*(mdns_ip_addr_s **)(param_2 + 0x30));
+        *(undefined4 *)(param_1 + 0x3cc) = uVar3;
       }
     }
   }
@@ -71,14 +71,14 @@ void append_to_query_result(pending_query_t *param_1,mdns_result_s *param_2)
         ppVar4 = ppVar4 + 1 + __n_00;
       }
     }
-    *(short *)(param_1 + 0x316) = (short)uVar7;
-    *(pending_query_t **)(param_1 + 0x318) = param_1 + 0x200;
+    *(short *)(param_1 + 0x3d6) = (short)uVar7;
+    *(pending_query_t **)(param_1 + 0x3d8) = param_1 + 0x200;
   }
   if (*(int *)(param_2 + 0x18) != 0) {
     snprintf((char *)param_1,0x100,"%s.%s.%s%s");
-    *(pending_query_t **)(param_1 + 0x300) = param_1;
-    *(undefined2 *)(param_1 + 0x310) = *(undefined2 *)(param_2 + 0x20);
-    *(undefined4 *)(param_1 + 0x31c) = *(undefined4 *)(param_2 + 8);
+    *(pending_query_t **)(param_1 + 0x3c0) = param_1;
+    *(undefined2 *)(param_1 + 0x3d0) = *(undefined2 *)(param_2 + 0x20);
+    *(undefined4 *)(param_1 + 0x3dc) = *(undefined4 *)(param_2 + 8);
   }
   return;
 }
