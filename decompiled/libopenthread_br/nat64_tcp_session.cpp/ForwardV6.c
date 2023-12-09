@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV6
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,30 +41,30 @@ undefined4 __thiscall idf::TcpSession::ForwardV6(TcpSession *this,uchar *param_1
   if (((uVar4 & 2) != 0) && (*(int *)(this + 0x24) == 0)) {
     *(undefined4 *)(this + 0x24) = 1;
   }
-  if ((uVar4 & 4) != 0) {
+  if ((uVar4 & 4) == 0) {
+    if ((uVar4 & 1) == 0) {
+      if (*(int *)(this + 0x24) == 2) {
+        uVar7 = 3;
+        goto _L0;
+      }
+    }
+    else {
+      if (*(int *)(this + 0x24) == 4) {
+        uVar7 = 6;
+        goto _L0;
+      }
+      uVar7 = 5;
+_L0:
+      *(undefined4 *)(this + 0x24) = uVar7;
+    }
+    uVar7 = 9000000;
+  }
+  else {
     uVar7 = 2;
 _L0:
     *(undefined4 *)(this + 0x24) = uVar7;
     uVar7 = 240000;
-    goto _L0;
   }
-  if ((uVar4 & 1) == 0) {
-    if (*(int *)(this + 0x24) == 2) {
-      uVar7 = 3;
-      goto _L0;
-    }
-  }
-  else {
-    if (*(int *)(this + 0x24) == 4) {
-      uVar7 = 6;
-      goto _L0;
-    }
-    uVar7 = 5;
-_L0:
-    *(undefined4 *)(this + 0x24) = uVar7;
-  }
-  uVar7 = 9000000;
-_L0:
   sys_timeout(uVar7,OnSessionTimeout,this);
   if (*(int *)(this + 0x24) != 0) {
     pbuf_take(iVar3,param_1,uVar6);

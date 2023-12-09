@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,15 +13,14 @@
 int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int param_3)
 
 {
-  void *__s1;
   void *pvVar1;
+  void *__s1;
+  void *__s1_00;
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
   int *piVar5;
   void *pvVar6;
-  int iVar7;
-  void *pvVar8;
   
   if ((*param_1 & 0xff) != 0xff) {
     return 0x102;
@@ -39,61 +38,60 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
       piVar5 = (int *)piVar5[2];
     }
     pvVar1 = (void *)piVar5[1];
-    pvVar8 = (void *)0x0;
+    pvVar6 = (void *)0x0;
     while( true ) {
-      __s1 = pvVar1;
-      if (__s1 == (void *)0x0) {
+      __s1_00 = pvVar1;
+      if (__s1_00 == (void *)0x0) {
         return 0x105;
       }
-      iVar4 = memcmp(__s1,param_1,0x10);
+      iVar4 = memcmp(__s1_00,param_1,0x10);
       if (iVar4 == 0) break;
-      pvVar1 = *(void **)((int)__s1 + 0x18);
-      pvVar8 = __s1;
+      pvVar1 = *(void **)((int)__s1_00 + 0x18);
+      pvVar6 = __s1_00;
     }
-    pvVar1 = *(void **)((int)__s1 + 0x14);
-    iVar7 = *(int *)((int)pvVar1 + 0x14);
-    iVar4 = memcmp(pvVar1,param_2,0x10);
-    if (iVar7 == 0) {
-      pvVar6 = (void *)0x0;
+    pvVar1 = *(void **)((int)__s1_00 + 0x14);
+    if (*(int *)((int)pvVar1 + 0x14) == 0) {
+      iVar4 = memcmp(pvVar1,param_2,0x10);
+      __s1 = (void *)0x0;
       if (iVar4 == 0) {
         iVar4 = esp_openthread_get_lwip_backbone_netif();
         if (param_3 != iVar4) {
           esp_openthread_get_lwip_backbone_netif();
-          iVar4 = send_mldv2_joinleave_netif_constprop_0(param_1,0);
+          iVar4 = send_mldv2_joinleave_netif_isra_0(param_1,0);
           if (iVar4 != 0) {
             return iVar4;
           }
         }
-        if (pvVar8 == (void *)0x0) {
-          piVar5[1] = *(int *)((int)__s1 + 0x18);
+        if (pvVar6 == (void *)0x0) {
+          piVar5[1] = *(int *)((int)__s1_00 + 0x18);
         }
         else {
-          *(int *)((int)pvVar8 + 0x18) = *(int *)((int)__s1 + 0x18);
+          *(int *)((int)pvVar6 + 0x18) = *(int *)((int)__s1_00 + 0x18);
         }
-        free_multicast_listener(__s1);
+        free_multicast_listener(__s1_00);
         return 0;
       }
     }
     else {
-      pvVar6 = (void *)0x0;
+      __s1 = (void *)0x0;
     }
     do {
-      pvVar8 = pvVar1;
-      iVar4 = memcmp(pvVar8,param_2,0x10);
-      pvVar1 = *(void **)((int)pvVar8 + 0x14);
-      if (iVar4 == 0) {
-        if (pvVar6 == (void *)0x0) {
-          *(void **)((int)__s1 + 0x14) = pvVar1;
-        }
-        else {
-          *(void **)((int)pvVar6 + 0x14) = pvVar1;
-        }
-        free(pvVar8);
-        return 0;
+      pvVar6 = __s1;
+      __s1 = pvVar1;
+      if (__s1 == (void *)0x0) {
+        return 0x105;
       }
-      pvVar6 = pvVar8;
-    } while (pvVar1 != (void *)0x0);
-    return 0x105;
+      iVar4 = memcmp(__s1,param_2,0x10);
+      pvVar1 = *(void **)((int)__s1 + 0x14);
+    } while (iVar4 != 0);
+    if (pvVar6 == (void *)0x0) {
+      *(void **)((int)__s1_00 + 0x14) = pvVar1;
+    }
+    else {
+      *(void **)((int)pvVar6 + 0x14) = pvVar1;
+    }
+    free(__s1);
+    return 0;
   }
   return 0;
 }

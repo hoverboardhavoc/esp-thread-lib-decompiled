@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,6 +24,7 @@ undefined4 icmp6_raw_recv_handler(int param_1)
   void *__dest;
   undefined4 uVar7;
   undefined *puVar8;
+  uint __n;
   uint uVar9;
   uint uVar10;
   undefined1 auStack_b4 [16];
@@ -75,36 +76,46 @@ undefined4 icmp6_raw_recv_handler(int param_1)
                   bVar2 = pcVar4[3];
                   uVar6 = esp_log_timestamp();
                   esp_log_write(3,"OPENTHREAD",&_LC4,uVar6,"OPENTHREAD");
-                  if ((bVar1 >> 3) + 8 <= uVar9) {
-                    uStack_8c = 0;
-                    uStack_88 = 0;
-                    uStack_84 = 0;
-                    uStack_80 = 0;
-                    uStack_7c = 0;
-                    memcpy(&uStack_8c,__ptr + uVar10 + 8,(uint)(bVar1 >> 3));
-                    uStack_44 = s_netif;
-                    memcpy(&uStack_60,auStack_b4,0x14);
-                    uStack_64 = CONCAT31(uStack_64._1_3_,pcVar4[2]);
-                    memcpy(&uStack_78,&uStack_8c,0x14);
-                    cStack_4c = (bVar2 >> 4 & 1) * -2 + (bVar2 >> 3 & 1);
-                    uStack_48 = lwip_htonl(*(undefined4 *)(pcVar4 + 4));
-                    uVar6 = esp_log_timestamp();
-                    uVar7 = ip6addr_ntoa(&uStack_8c);
-                    esp_log_write(3,"OPENTHREAD",&_LC5,uVar6,"OPENTHREAD",uVar7,uStack_48);
-                    iVar3 = esp_openthread_route_table_add_route_entry(&uStack_78);
-                    if (iVar3 == 0) {
-                      uVar7 = esp_log_timestamp();
-                      puVar8 = &_LC6;
-                      uVar6 = 3;
+                  if (bVar1 < 8) {
+                    uVar7 = esp_log_timestamp();
+                    puVar8 = &_LC5;
 _L0:
-                      esp_log_write(uVar6,"OPENTHREAD",puVar8,uVar7,"OPENTHREAD");
+                    uVar6 = 3;
+_L0:
+                    esp_log_write(uVar6,"OPENTHREAD",puVar8,uVar7,"OPENTHREAD");
+                  }
+                  else {
+                    __n = (uint)(bVar1 >> 3);
+                    if (__n + 8 <= uVar9) {
+                      uStack_8c = 0;
+                      uStack_88 = 0;
+                      uStack_84 = 0;
+                      uStack_80 = 0;
+                      uStack_7c = 0;
+                      memcpy(&uStack_8c,__ptr + uVar10 + 8,__n);
+                      uStack_44 = s_netif;
+                      memcpy(&uStack_60,auStack_b4,0x14);
+                      uStack_64 = CONCAT31(uStack_64._1_3_,pcVar4[2]);
+                      memcpy(&uStack_78,&uStack_8c,0x14);
+                      cStack_4c = ((byte)((int)((uint)bVar2 << 0x1b) >> 0x1f) & 0xfe) +
+                                  (bVar2 >> 3 & 1);
+                      uStack_48 = lwip_htonl(*(undefined4 *)(pcVar4 + 4));
+                      uVar6 = esp_log_timestamp();
+                      uVar7 = ip6addr_ntoa(&uStack_8c);
+                      esp_log_write(3,"OPENTHREAD",&_LC6,uVar6,"OPENTHREAD",uVar7,uStack_48);
+                      iVar3 = esp_openthread_route_table_add_route_entry(&uStack_78);
+                      if (iVar3 == 0) {
+                        uVar7 = esp_log_timestamp();
+                        puVar8 = &_LC7;
+                        goto _L0;
+                      }
                     }
                   }
                 }
               }
               else if (*pcVar4 == '\x03') {
                 uVar6 = esp_log_timestamp();
-                esp_log_write(3,"OPENTHREAD",&_LC7,uVar6,"OPENTHREAD");
+                esp_log_write(3,"OPENTHREAD",&_LC8,uVar6,"OPENTHREAD");
                 if (pcVar4[3] < '\0') {
                   uStack_64 = 0;
                   uStack_60 = 0;
@@ -117,7 +128,7 @@ _L0:
                                     (&uStack_78,uVar6,(byte)pcVar4[3] >> 6 & 1);
                   if (iVar3 != 0) {
                     uVar7 = esp_log_timestamp();
-                    puVar8 = &_LC8;
+                    puVar8 = &_LC9;
                     uVar6 = 1;
                     goto _L0;
                   }

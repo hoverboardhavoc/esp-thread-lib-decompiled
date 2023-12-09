@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -73,7 +73,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
           iVar6 = esp_openthread_get_lwip_backbone_netif();
           if (param_3 != iVar6) {
             esp_openthread_get_lwip_backbone_netif();
-            iVar6 = send_mldv2_joinleave_netif_constprop_0(param_1,1);
+            iVar6 = send_mldv2_joinleave_netif_isra_0(param_1,1);
             if (iVar6 != 0) {
               free_multicast_listener(pvVar1);
               return 0xffffffff;

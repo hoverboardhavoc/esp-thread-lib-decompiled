@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 12f563ee490236f7332eb22f568e71c7c1d4a3b7
- * https://github.com/espressif/esp-thread-lib/commit/12f563ee490236f7332eb22f568e71c7c1d4a3b7
- * Upstream date: 2023-09-25 16:27:03 +0800
- * Upstream subject: lib(openthread): update otbr lib
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> handle_discovery_subscribe
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,6 +17,7 @@ void handle_discovery_subscribe(void *param_1,char *param_2)
 {
   uint uVar1;
   size_t sVar2;
+  uint __n;
   char *pcVar3;
   void *__s;
   undefined4 uVar4;
@@ -48,14 +49,14 @@ _L0:
     if (acStack_121[sVar5] != '.') {
       sVar2 = sVar5;
     }
-    for (sVar5 = sVar2 - 1; -1 < (int)sVar5; sVar5 = sVar5 - 1) {
-      if (acStack_121[sVar5 + 1] == '.') {
-        if (sVar5 != 0) {
-          if ((0x81 < (int)sVar5) || (uVar1 = (sVar2 - 1) - sVar5, 0x40 < uVar1)) goto _L0;
-          strncpy(acStack_1a4,acStack_121 + 1,sVar5);
-          acStack_1a4[sVar5] = '\0';
-          strncpy(acStack_1e9 + 1,acStack_121 + sVar5 + 2,uVar1);
-          acStack_1e9[uVar1 + 1] = '\0';
+    for (uVar1 = sVar2 - 1; -1 < (int)uVar1; uVar1 = uVar1 - 1) {
+      if (acStack_121[uVar1 + 1] == '.') {
+        if (uVar1 != 0) {
+          if ((0x81 < uVar1) || (__n = (sVar2 - 1) - uVar1, 0x40 < __n)) goto _L0;
+          strncpy(acStack_1a4,acStack_121 + 1,uVar1);
+          acStack_1a4[uVar1] = '\0';
+          strncpy(acStack_1e9 + 1,acStack_121 + uVar1 + 2,__n);
+          acStack_1e9[__n + 1] = '\0';
           goto _L0;
         }
         break;

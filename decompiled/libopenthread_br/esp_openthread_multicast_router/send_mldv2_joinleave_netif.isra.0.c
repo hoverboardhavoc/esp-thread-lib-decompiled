@@ -1,16 +1,16 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
- * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_joinleave_netif.constprop.0
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
+ * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_joinleave_netif.isra.0
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int send_mldv2_joinleave_netif_constprop_0(void *param_1,char param_2)
+int send_mldv2_joinleave_netif_isra_0(void *param_1,char param_2)
 
 {
   int iVar1;

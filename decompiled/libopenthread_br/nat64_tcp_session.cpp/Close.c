@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6520d5e47f259df6f895b7994dd6cfda4b04d195
- * https://github.com/espressif/esp-thread-lib/commit/6520d5e47f259df6f895b7994dd6cfda4b04d195
- * Upstream date: 2022-07-26 19:02:38 +0800
- * Upstream subject: br: add NAT64 and fix discovery delegate crashes
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> Close
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,6 @@ void __thiscall idf::TcpSession::Close(TcpSession *this)
 
 {
   sys_untimeout(OnSessionTimeout,this);
-  *(undefined4 *)(this + 0x24) = 0;
   ~TcpSession(this);
   operator_delete(this,0x30);
   return;

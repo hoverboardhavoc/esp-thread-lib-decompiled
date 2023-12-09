@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> free_all_netif_listener_list
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ void free_all_netif_listener_list(void)
       iVar2 = esp_openthread_get_lwip_backbone_netif();
       if (iVar6 != iVar2) {
         esp_openthread_get_lwip_backbone_netif();
-        iVar2 = send_mldv2_joinleave_netif_constprop_0(iVar1,0);
+        iVar2 = send_mldv2_joinleave_netif_isra_0(iVar1,0);
         if (iVar2 != 0) {
           uVar3 = esp_log_timestamp();
           esp_log_write(1,"OPENTHREAD",&_LC4,uVar3,"OPENTHREAD");

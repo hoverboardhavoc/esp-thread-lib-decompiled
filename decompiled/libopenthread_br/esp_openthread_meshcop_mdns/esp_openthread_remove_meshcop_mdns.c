@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8943a3f95e316b1cdbca8680addf0474651235db
- * https://github.com/espressif/esp-thread-lib/commit/8943a3f95e316b1cdbca8680addf0474651235db
- * Upstream date: 2023-07-19 18:50:59 +0800
- * Upstream subject: feat(openthread): enable openthread border agent id esp-openthread: b703068 openthread:5beae14
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_remove_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,13 +15,11 @@ int esp_openthread_remove_meshcop_mdns(void)
 {
   int iVar1;
   
-  if (s_service_published != '\0') {
-    iVar1 = mdns_service_remove("_meshcop",&_LC15);
-    if (iVar1 != 0) {
-      return iVar1;
-    }
+  iVar1 = 0;
+  if ((s_service_published != '\0') && (iVar1 = mdns_service_remove("_meshcop",&_LC15), iVar1 == 0))
+  {
     s_service_published = '\0';
   }
-  return 0;
+  return iVar1;
 }
 

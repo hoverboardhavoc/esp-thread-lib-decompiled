@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
+ * Upstream date: 2023-12-09 16:01:37 +0800
+ * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -150,14 +150,15 @@ int esp_openthread_publish_meshcop_mdns(void)
                   if (iVar5 == 0) {
                     return 0;
                   }
-                  uVar2 = esp_log_timestamp();
-                  esp_log_write(1,"OPENTHREAD",&_LC36,uVar2,"OPENTHREAD",
-                                "esp_openthread_publish_meshcop_mdns",200);
-                  return iVar5;
+                  uVar3 = esp_log_timestamp();
+                  uVar2 = 200;
+                  puVar1 = &_LC36;
                 }
-                uVar3 = esp_log_timestamp();
-                uVar2 = 0xb6;
-                puVar1 = &_LC32;
+                else {
+                  uVar3 = esp_log_timestamp();
+                  uVar2 = 0xb6;
+                  puVar1 = &_LC32;
+                }
               }
               else {
                 uVar3 = esp_log_timestamp();
