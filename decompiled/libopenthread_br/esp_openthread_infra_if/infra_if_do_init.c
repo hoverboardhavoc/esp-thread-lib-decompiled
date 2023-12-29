@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit e0969fc15c1991d91446a0dc5e4625ed2c0bb014
+ * https://github.com/espressif/esp-thread-lib/commit/e0969fc15c1991d91446a0dc5e4625ed2c0bb014
+ * Upstream date: 2023-12-29 15:19:41 +0800
+ * Upstream subject: feat(br): update border router lib         esp-openthread: 3db472c         openthread: 41ef807
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> infra_if_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,6 +22,8 @@ undefined4 infra_if_do_init(void)
   uVar2 = 0xffffffff;
   if (iVar1 == 0) {
     s_raw_pcb = raw_new_ip_type(6,0x3a);
+    *(undefined1 *)(s_raw_pcb + 0x33) = 0xff;
+    *(undefined1 *)(s_raw_pcb + 0x3b) = 0xff;
     uVar2 = s_netif;
     *(byte *)(s_raw_pcb + 0x39) = *(byte *)(s_raw_pcb + 0x39) | 4;
     *(undefined1 *)(s_raw_pcb + 0x46) = 1;
