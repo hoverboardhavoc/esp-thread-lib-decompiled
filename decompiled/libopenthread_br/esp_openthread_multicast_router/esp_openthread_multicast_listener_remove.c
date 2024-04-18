@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * Upstream date: 2023-12-09 16:01:37 +0800
- * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
+ * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * Upstream date: 2024-04-18 16:47:55 +0800
+ * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -57,7 +57,7 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
         iVar4 = esp_openthread_get_lwip_backbone_netif();
         if (param_3 != iVar4) {
           esp_openthread_get_lwip_backbone_netif();
-          iVar4 = send_mldv2_joinleave_netif_isra_0(param_1,0);
+          iVar4 = send_mldv2_joinleave_netif(param_1,0);
           if (iVar4 != 0) {
             return iVar4;
           }

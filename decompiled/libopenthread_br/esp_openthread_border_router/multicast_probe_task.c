@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * Upstream date: 2024-04-18 16:47:55 +0800
+ * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
  * Source: libopenthread_br -> esp_openthread_border_router.o -> multicast_probe_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,7 +19,7 @@ void multicast_probe_task(void)
   iVar1 = esp_openthread_probe_backbone_listeners();
   if (iVar1 != 0) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,0x10000,&_LC4,uVar2,0x10000);
+    esp_log_write(1,0x10000,&_L0,uVar2,0x10000);
     return;
   }
   return;

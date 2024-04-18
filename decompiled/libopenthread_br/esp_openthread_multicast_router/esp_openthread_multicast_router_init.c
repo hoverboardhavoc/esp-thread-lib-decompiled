@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 6d739fee07d4758fc2fa200b1d3edec99663a930
- * https://github.com/espressif/esp-thread-lib/commit/6d739fee07d4758fc2fa200b1d3edec99663a930
- * Upstream date: 2023-07-31 15:11:37 +0800
- * Upstream subject: feat(br): Fix memory leak and setting mcast forwarding enable
+ * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
+ * Upstream date: 2024-04-18 16:47:55 +0800
+ * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,46 +13,41 @@
 int esp_openthread_multicast_router_init(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   undefined4 uVar2;
-  int iVar3;
-  int iStack_18;
-  undefined4 uStack_14;
+  undefined4 uVar3;
   
   esp_openthread_get_backbone_netif();
-  uVar1 = to_underlying_lwip_netif();
-  esp_openthread_get_netif();
   uVar2 = to_underlying_lwip_netif();
-  iVar3 = 0x103;
+  esp_openthread_get_netif();
+  uVar3 = to_underlying_lwip_netif();
+  iVar1 = 0x103;
   if (s_netif_listener_lists == 0) {
-    iVar3 = find_or_create_netif_listener_list(uVar1);
-    if (iVar3 != 0) {
-      iVar3 = find_or_create_netif_listener_list(uVar2);
-      if (iVar3 != 0) {
-        iStack_18 = 0;
-        uStack_14 = xTaskGetCurrentTaskHandle();
+    iVar1 = find_or_create_netif_listener_list(uVar2);
+    if (iVar1 != 0) {
+      iVar1 = find_or_create_netif_listener_list(uVar3);
+      if (iVar1 != 0) {
         esp_openthread_task_switching_lock_release();
-        tcpip_callback(multicast_router_init_on_lwip_task,&iStack_18);
-        ulTaskGenericNotifyTake(0,1,0xffffffff);
+        iVar1 = esp_netif_tcpip_exec(multicast_router_init_on_lwip_task,0);
         esp_openthread_task_switching_lock_acquire(0xffffffff);
-        if (iStack_18 != 0) {
-          return iStack_18;
+        if (iVar1 != 0) {
+          return iVar1;
         }
         esp_openthread_get_instance();
         otBackboneRouterSetMulticastListenerCallback
                   (&esp_openthread_handle_thread_multicast_listener,0);
         esp_openthread_get_instance();
-        iVar3 = otBackboneRouterGetState();
-        if (iVar3 != 2) {
-          return iStack_18;
+        iVar1 = otBackboneRouterGetState();
+        if (iVar1 != 2) {
+          return 0;
         }
         esp_openthread_multicast_forwarding_set_enabled(1);
-        return iStack_18;
+        return 0;
       }
       free_all_netif_listener_list();
     }
-    iVar3 = 0x101;
+    iVar1 = 0x101;
   }
-  return iVar3;
+  return iVar1;
 }
 
