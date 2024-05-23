@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * Upstream date: 2023-12-09 16:01:37 +0800
- * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
+ * Last changed at upstream commit 5ae57e156e4cd2ccd8dc51e90266b16b284e64de
+ * https://github.com/espressif/esp-thread-lib/commit/5ae57e156e4cd2ccd8dc51e90266b16b284e64de
+ * Upstream date: 2024-05-23 11:00:44 +0800
+ * Upstream subject: feat(br): update border router lib
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,7 +22,7 @@ void esp_openthread_border_router_state_callback(uint param_1)
     esp_openthread_get_instance();
     iVar1 = otThreadGetDeviceRole();
     if (iVar1 - 2U < 3) {
-      esp_openthread_publish_meshcop_mdns();
+      esp_openthread_publish_meshcop_mdns(s_meshcop_instance_name);
     }
     else {
       esp_openthread_remove_meshcop_mdns();
@@ -59,7 +59,9 @@ _L0:
       return;
     }
     esp_openthread_multicast_forwarding_set_enabled(1);
+    esp_openthread_task_switching_lock_release();
     tcpip_callback(multicast_probe_task,0);
+    esp_openthread_task_switching_lock_acquire(0xffffffff);
     return;
   }
   esp_openthread_multicast_forwarding_set_enabled(0);
