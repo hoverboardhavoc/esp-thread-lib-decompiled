@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * Upstream date: 2024-04-18 16:47:55 +0800
- * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
+ * Last changed at upstream commit 34d698a274940730901b934caa023a3281aca53e
+ * https://github.com/espressif/esp-thread-lib/commit/34d698a274940730901b934caa023a3281aca53e
+ * Upstream date: 2024-06-04 12:02:17 +0800
+ * Upstream subject: feat(openthread): update br lib
  * Source: libopenthread_br -> esp_openthread_route_table.o -> route_timeout_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ undefined4 route_timeout_handler(undefined1 *param_1)
     return 0x102;
   }
   uVar2 = 0x102;
-  if (param_1 < (undefined1 *)0x10839) {
+  if (param_1 < (undefined1 *)0x103c5) {
     if (*(int *)(param_1 + 0x30) != -1) {
       sys_untimeout(route_timeout_handler,param_1);
     }
