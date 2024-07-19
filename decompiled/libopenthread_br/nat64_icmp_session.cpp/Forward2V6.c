@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> Forward2V6
  *
  * (C) Espressif, Apache License 2.0.
@@ -62,7 +62,7 @@ undefined4 __thiscall idf::IcmpSession::Forward2V6(IcmpSession *this,uchar *para
     puVar3[0x2b] = (char)((ushort)uVar5 >> 8);
     pbuf_add_header(iVar6,0x28);
     iVar8 = nat64_netif_get();
-    pcVar4 = *(code **)(iVar8 + 0x154);
+    pcVar4 = *(code **)(iVar8 + 0x1d8);
     uVar7 = nat64_netif_get();
     iVar8 = (*pcVar4)(iVar6,uVar7);
   }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 12f563ee490236f7332eb22f568e71c7c1d4a3b7
- * https://github.com/espressif/esp-thread-lib/commit/12f563ee490236f7332eb22f568e71c7c1d4a3b7
- * Upstream date: 2023-09-25 16:27:03 +0800
- * Upstream subject: lib(openthread): update otbr lib
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> get_openthread_netif_ip6_addr
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,11 +22,11 @@ void * get_openthread_netif_ip6_addr(void)
   void *pvVar2;
   undefined4 uVar3;
   int iVar4;
-  undefined1 auStack_c0 [164];
+  undefined1 auStack_110 [244];
   
-  __src = auStack_c0;
+  __src = auStack_110;
   esp_openthread_get_netif();
-  iVar1 = esp_netif_get_all_ip6(auStack_c0);
+  iVar1 = esp_netif_get_all_ip6(auStack_110);
   iVar4 = 0;
   __ptr = (void *)0x0;
   while( true ) {

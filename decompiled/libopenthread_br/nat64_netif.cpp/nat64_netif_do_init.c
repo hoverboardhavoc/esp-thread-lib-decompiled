@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,7 +31,7 @@ undefined4 nat64_netif_do_init(void *param_1)
   else {
     netif_set_link_up(s_nat64_netif);
     netif_set_up(s_nat64_netif);
-    s_nat64_netif._360_4_ = 0;
+    s_nat64_netif._492_4_ = 0;
     s_backbone_raw_pcb = raw_new_ip_type(0,6);
     if (s_backbone_raw_pcb == 0) {
       uVar3 = esp_log_timestamp();

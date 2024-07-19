@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 5ae57e156e4cd2ccd8dc51e90266b16b284e64de
- * https://github.com/espressif/esp-thread-lib/commit/5ae57e156e4cd2ccd8dc51e90266b16b284e64de
- * Upstream date: 2024-05-23 11:00:44 +0800
- * Upstream subject: feat(br): update border router lib
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,7 +33,7 @@ void esp_openthread_border_router_state_callback(uint param_1)
   if (iVar1 == 0) {
     if (s_nat64_initialized != '\0') {
       iVar1 = nat64_netif_get();
-      if ((*(byte *)(iVar1 + 0x187) & 1) != 0) goto _L0;
+      if ((*(byte *)(iVar1 + 0x20b) & 1) != 0) goto _L0;
     }
     iVar1 = nat64_init();
     if (iVar1 == 0) {

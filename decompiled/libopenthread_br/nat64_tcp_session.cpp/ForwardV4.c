@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * https://github.com/espressif/esp-thread-lib/commit/b00731fc12cbd7aa49c00b5828ee468bbd51c9b3
- * Upstream date: 2023-12-09 16:01:37 +0800
- * Upstream subject: feat(br): update border router lib     esp-openthread: 8d18b44     openthread: 41ef807
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV4
  *
  * (C) Espressif, Apache License 2.0.
@@ -102,7 +102,7 @@ _L0:
   puVar2[0x39] = (char)((ushort)uVar4 >> 8);
   pbuf_add_header(iVar5,0x28);
   iVar7 = nat64_netif_get();
-  pcVar3 = *(code **)(iVar7 + 0x154);
+  pcVar3 = *(code **)(iVar7 + 0x1d8);
   uVar8 = nat64_netif_get();
   iVar7 = (*pcVar3)(iVar5,uVar8);
   if (iVar7 == 0) {

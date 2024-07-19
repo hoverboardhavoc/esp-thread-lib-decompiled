@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b6b61e3d4891c01e9b44cc1a27e741288192b537
- * https://github.com/espressif/esp-thread-lib/commit/b6b61e3d4891c01e9b44cc1a27e741288192b537
- * Upstream date: 2022-06-20 16:22:56 +0800
- * Upstream subject: openthread: update OpenThread submodule
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> handle_netif_receive_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,7 +15,7 @@ void handle_netif_receive_task(void *param_1)
 {
   esp_openthread_get_instance();
   otPlatInfraIfRecvIcmp6Nd
-            (*(char *)(s_netif + 0x18a) + '\x01',param_1,*(undefined4 *)((int)param_1 + 0x14),
+            (*(char *)(s_netif + 0x20e) + '\x01',param_1,*(undefined4 *)((int)param_1 + 0x14),
              *(undefined2 *)((int)param_1 + 0x18));
   free(*(void **)((int)param_1 + 0x14));
   free(param_1);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,11 +23,11 @@ int netif_init_internal(netif *param_1)
   
   nat64_get_prefix(auStack_28);
   cStack_29 = -1;
-  *(undefined2 *)(param_1 + 0x188) = 0x746e;
-  param_1[0x186] = (netif)0x6;
-  *(undefined2 *)(param_1 + 0x17c) = 0x500;
-  *(code **)(param_1 + 0x160) = nat64_translate_ip6;
-  *(undefined4 *)(param_1 + 0x158) = 0;
+  *(undefined2 *)(param_1 + 0x20c) = 0x746e;
+  param_1[0x20a] = (netif)0x6;
+  *(undefined2 *)(param_1 + 0x200) = 0x500;
+  *(code **)(param_1 + 0x1e4) = nat64_translate_ip6;
+  *(undefined4 *)(param_1 + 0x1dc) = 0;
   uStack_19 = 1;
   iVar1 = netif_add_ip6_address(s_nat64_netif,auStack_28,&cStack_29);
   if ((iVar1 == 0) && (-1 < cStack_29)) {

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> OnDestUdpReceived
  *
  * (C) Espressif, Apache License 2.0.
@@ -74,7 +74,7 @@ void __thiscall idf::UdpSession::OnDestUdpReceived(UdpSession *this,pbuf *param_
       puVar4[0x2f] = (char)((ushort)uVar6 >> 8);
       pbuf_add_header(iVar7,0x28);
       iVar9 = nat64_netif_get();
-      pcVar5 = *(code **)(iVar9 + 0x154);
+      pcVar5 = *(code **)(iVar9 + 0x1d8);
       uVar8 = nat64_netif_get();
       iVar9 = (*pcVar5)(iVar7,uVar8);
       if (iVar9 == 0) {

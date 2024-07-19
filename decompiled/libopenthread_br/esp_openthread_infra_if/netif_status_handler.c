@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * https://github.com/espressif/esp-thread-lib/commit/ff450cf809ca63a6ca6c833ccf4377b4848a5fa6
- * Upstream date: 2021-07-19 15:27:16 +0800
- * Upstream subject: openthread: support 1.3 border routing features
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> netif_status_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,7 +13,12 @@
 void netif_status_handler(void)
 
 {
-  esp_openthread_task_queue_post(handle_netif_state_task,0);
+  int iVar1;
+  
+  iVar1 = esp_openthread_task_queue_post(handle_netif_state_task,0);
+  if (iVar1 != 0) {
+    __assert_func(0,0,0,0);
+  }
   return;
 }
 

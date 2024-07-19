@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> handle_netif_state_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ void handle_netif_state_task(void)
   
   esp_openthread_get_instance();
   iVar1 = otPlatInfraIfStateChanged
-                    (*(char *)(s_netif + 0x18a) + '\x01',*(byte *)(s_netif + 0x187) & 1);
+                    (*(char *)(s_netif + 0x20e) + '\x01',*(byte *)(s_netif + 0x20b) & 1);
   if (iVar1 != 0) {
     uVar2 = esp_log_timestamp();
     esp_log_write(1,"OPENTHREAD",&_LC2,uVar2,"OPENTHREAD");

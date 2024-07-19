@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> is_self_address
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ undefined4 is_self_address(void *param_1)
   byte *pbVar2;
   int iVar3;
   
-  pbVar1 = (byte *)(s_netif + 0x10c);
+  pbVar1 = (byte *)(s_netif + 0x16c);
   __s2 = (byte *)(s_netif + 0x4c);
   pbVar2 = pbVar1;
   while (((*pbVar2 & 0x10) == 0 || (iVar3 = memcmp(param_1,__s2,0x10), iVar3 != 0))) {

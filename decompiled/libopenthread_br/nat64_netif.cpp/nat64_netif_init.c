@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
+ * Upstream date: 2024-07-19 18:50:00 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,8 +16,8 @@ undefined4 nat64_netif_init(void)
   code *pcVar1;
   undefined4 uVar2;
   
-  if ((s_nat64_netif_initialized == '\0') || ((s_nat64_netif[0x187] & 1) != 0)) {
-    memset(s_nat64_netif,0,0x1a4);
+  if ((s_nat64_netif_initialized == '\0') || ((s_nat64_netif[0x20b] & 1) != 0)) {
+    memset(s_nat64_netif,0,0x228);
     esp_openthread_task_switching_lock_release();
     pcVar1 = nat64_netif_do_init;
   }
