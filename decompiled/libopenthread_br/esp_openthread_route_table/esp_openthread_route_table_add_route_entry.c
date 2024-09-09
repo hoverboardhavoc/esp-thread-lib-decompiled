@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 56af58057c259405aa90c478e294f6216cc2f6db
+ * https://github.com/espressif/esp-thread-lib/commit/56af58057c259405aa90c478e294f6216cc2f6db
+ * Upstream date: 2024-09-09 14:04:56 +0200
+ * Upstream subject: update(ot_lib): Rebuild with lwip 2.2.0-esp
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -44,7 +44,7 @@ undefined1 * esp_openthread_route_table_add_route_entry(undefined1 *param_1)
         *(int *)(s_route_entries + iVar2 + 0x34) = iVar7;
         memcpy(s_route_entries + iVar2 + 0x18,param_1 + 0x18,0x14);
         if ((*(uint *)(s_route_entries + iVar2 + 0x18) & 0xc0ff) == 0x80fe) {
-          cVar4 = *(char *)(iVar7 + 0x20e) + '\x01';
+          cVar4 = *(char *)(iVar7 + 0x212) + '\x01';
         }
         else {
           cVar4 = '\0';

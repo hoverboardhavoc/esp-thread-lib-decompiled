@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 56af58057c259405aa90c478e294f6216cc2f6db
+ * https://github.com/espressif/esp-thread-lib/commit/56af58057c259405aa90c478e294f6216cc2f6db
+ * Upstream date: 2024-09-09 14:04:56 +0200
+ * Upstream subject: update(ot_lib): Rebuild with lwip 2.2.0-esp
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,9 +23,9 @@ int netif_init_internal(netif *param_1)
   
   nat64_get_prefix(auStack_28);
   cStack_29 = -1;
-  *(undefined2 *)(param_1 + 0x20c) = 0x746e;
-  param_1[0x20a] = (netif)0x6;
-  *(undefined2 *)(param_1 + 0x200) = 0x500;
+  *(undefined2 *)(param_1 + 0x210) = 0x746e;
+  param_1[0x20e] = (netif)0x6;
+  *(undefined2 *)(param_1 + 0x204) = 0x500;
   *(code **)(param_1 + 0x1e4) = nat64_translate_ip6;
   *(undefined4 *)(param_1 + 0x1dc) = 0;
   uStack_19 = 1;

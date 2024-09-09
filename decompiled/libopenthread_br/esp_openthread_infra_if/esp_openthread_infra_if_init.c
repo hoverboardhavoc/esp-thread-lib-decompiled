@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 56af58057c259405aa90c478e294f6216cc2f6db
+ * https://github.com/espressif/esp-thread-lib/commit/56af58057c259405aa90c478e294f6216cc2f6db
+ * Upstream date: 2024-09-09 14:04:56 +0200
+ * Upstream subject: update(ot_lib): Rebuild with lwip 2.2.0-esp
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> esp_openthread_infra_if_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,7 +25,7 @@ undefined4 esp_openthread_infra_if_init(int param_1)
     uVar1 = esp_netif_tcpip_exec(0x10000,0);
     esp_openthread_task_switching_lock_acquire(0xffffffff);
     esp_openthread_get_instance();
-    iVar2 = otBorderRoutingInit(*(char *)(s_netif + 0x20e) + '\x01',*(byte *)(s_netif + 0x20b) & 1);
+    iVar2 = otBorderRoutingInit(*(char *)(s_netif + 0x212) + '\x01',*(byte *)(s_netif + 0x20f) & 1);
     if (iVar2 == 0) {
       esp_openthread_get_instance();
       iVar2 = otBorderRoutingSetEnabled(1);
