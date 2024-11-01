@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 34d698a274940730901b934caa023a3281aca53e
- * https://github.com/espressif/esp-thread-lib/commit/34d698a274940730901b934caa023a3281aca53e
- * Upstream date: 2024-06-04 12:02:17 +0800
- * Upstream subject: feat(openthread): update br lib
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_route_table.o -> lwip_hook_nd6_get_gw
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,7 +26,7 @@ undefined1 * lwip_hook_nd6_get_gw(int param_1,void *param_2)
       puVar1 = __s2;
     }
     __s2 = __s2 + 0x38;
-  } while (__s2 != (undefined1 *)0x105f4);
+  } while (__s2 != (undefined1 *)0x105f8);
   if (puVar1 != (undefined1 *)0x0) {
     puVar1 = puVar1 + 0x18;
   }

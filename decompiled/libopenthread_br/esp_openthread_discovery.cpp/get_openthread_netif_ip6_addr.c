@@ -1,7 +1,7 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
  * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> get_openthread_netif_ip6_addr
  *
@@ -43,7 +43,8 @@ void * get_openthread_netif_ip6_addr(void)
     __ptr = pvVar2;
   }
   uVar3 = esp_log_timestamp();
-  esp_log_write(1,"OPENTHREAD",&_LC1,uVar3,"OPENTHREAD");
+  esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to alloc memory for mdns_ip_addr_t\n",uVar3,
+                "OPENTHREAD");
   while (__ptr != (void *)0x0) {
     pvVar2 = *(void **)((int)__ptr + 0x18);
     free(__ptr);

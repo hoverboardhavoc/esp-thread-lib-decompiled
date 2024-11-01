@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forward_packet
  *
  * (C) Espressif, Apache License 2.0.
@@ -39,7 +39,8 @@ void esp_openthread_multicast_forward_packet(int param_1,int param_2)
     if ((*(ushort *)(param_1 + 8) != *(ushort *)(param_1 + 10)) || (*(ushort *)(param_1 + 8) < 0x28)
        ) {
       uVar4 = esp_log_timestamp();
-      esp_log_write(2,"OPENTHREAD",&_LC5,uVar4,"OPENTHREAD");
+      esp_log_write(2,"OPENTHREAD","W (%lu) %s: Received messages should not be fragmented, skip\n",
+                    uVar4,"OPENTHREAD");
       return;
     }
     if ((((1 < *(byte *)(iVar2 + 7)) &&
@@ -86,7 +87,8 @@ _L0:
         *(char *)(iVar7 + 0x3b) = *(char *)(iVar2 + 7) + -1;
         if (iVar8 == 0) {
           uVar4 = esp_log_timestamp();
-          esp_log_write(2,"OPENTHREAD",&_LC7,uVar4,"OPENTHREAD");
+          esp_log_write(2,"OPENTHREAD","W (%lu) %s: Cannot allocate pbuf for multicast forwarding\n"
+                        ,uVar4,"OPENTHREAD");
         }
         else {
           pbuf_take(iVar8,iVar5,uVar3);
@@ -96,7 +98,8 @@ _L0:
           iVar2 = raw_sendto_if_src(iVar7,iVar8,auStack_60,iVar6,auStack_48);
           if (iVar2 != 0) {
             uVar4 = esp_log_timestamp();
-            esp_log_write(2,"OPENTHREAD",&_LC8,uVar4,"OPENTHREAD");
+            esp_log_write(2,"OPENTHREAD","W (%lu) %s: Failed to forward multicast packet\n",uVar4,
+                          "OPENTHREAD");
           }
           pbuf_free(iVar8);
         }

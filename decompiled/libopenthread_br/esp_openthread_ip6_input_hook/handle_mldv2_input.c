@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mldv2_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ undefined4 handle_mldv2_input(int param_1,int param_2,uint param_3,undefined4 pa
   char *pcVar3;
   int iVar4;
   undefined4 uVar5;
-  undefined *puVar6;
+  char *pcVar6;
   uint uVar7;
   undefined1 auStack_58 [16];
   undefined1 uStack_48;
@@ -45,15 +45,16 @@ undefined4 handle_mldv2_input(int param_1,int param_2,uint param_3,undefined4 pa
         iVar4 = esp_openthread_multicast_listener_add(auStack_44,auStack_58,param_4);
         if (iVar4 != 0) {
           uVar5 = esp_log_timestamp();
-          puVar6 = &_LC1;
+          pcVar6 = "E (%lu) %s: Failed to add backbone multicast listener\n";
 _L0:
-          esp_log_write(1,0x10000,puVar6,uVar5,0x10000);
+          esp_log_write(1,0x10000,pcVar6,uVar5,0x10000);
         }
       }
       else {
 _L0:
         uVar5 = esp_log_timestamp();
-        esp_log_write(2,0x10000,&_LC3,uVar5,0x10000,*pcVar3);
+        esp_log_write(2,0x10000,"W (%lu) %s: Dropping unsupported mldv2 record of type %d\n",uVar5,
+                      0x10000,*pcVar3);
       }
     }
     else {
@@ -63,7 +64,7 @@ _L0:
       iVar4 = esp_openthread_multicast_listener_remove(auStack_44,auStack_58,param_4);
       if (iVar4 != 0) {
         uVar5 = esp_log_timestamp();
-        puVar6 = &_LC2;
+        pcVar6 = "E (%lu) %s: Failed to remove backbone multicast listener\n";
         goto _L0;
       }
     }

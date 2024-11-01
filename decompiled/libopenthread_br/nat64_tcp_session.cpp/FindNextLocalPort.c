@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> FindNextLocalPort
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,7 +24,7 @@ ushort idf::TcpSession::FindNextLocalPort(void)
     while( true ) {
       if (iVar2 == 0) {
         s_next_port = uVar1 + 1;
-        if (0xc0ff < s_next_port) {
+        if (0xceff < s_next_port) {
           s_next_port = 0xc000;
         }
         return uVar1;
@@ -33,7 +33,7 @@ ushort idf::TcpSession::FindNextLocalPort(void)
       iVar2 = *(int *)(iVar2 + 0x28);
     }
     uVar1 = uVar1 + 1;
-    if (0xc0ff < uVar1) {
+    if (0xceff < uVar1) {
       uVar1 = 0xc000;
     }
     iVar2 = s_session_list;

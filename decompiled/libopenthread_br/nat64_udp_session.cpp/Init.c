@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
   int iVar1;
   undefined4 uVar2;
   undefined2 in_register_0000202e;
-  undefined *puVar3;
+  char *pcVar3;
   undefined4 uVar4;
   undefined4 auStack_28 [5];
   undefined1 uStack_14;
@@ -28,8 +28,8 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
   *(int *)(this + 0x24) = iVar1;
   if (iVar1 == 0) {
     uVar2 = esp_log_timestamp();
-    uVar4 = 0x40;
-    puVar3 = &_LC6;
+    uVar4 = 0x3d;
+    pcVar3 = "E (%lu) %s: %s(%d): Failed to open udp pcb\n";
   }
   else {
     iVar1 = udp_bind(0,CONCAT22(in_register_0000202e,param_1));
@@ -44,10 +44,10 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
       return 0;
     }
     uVar2 = esp_log_timestamp();
-    uVar4 = 0x4c;
-    puVar3 = &_LC7;
+    uVar4 = 0x49;
+    pcVar3 = "E (%lu) %s: %s(%d): Failed to connect to nat64 src\n";
   }
-  esp_log_write(1,"NAT64",puVar3,uVar2,"NAT64",&::_L0,uVar4);
+  esp_log_write(1,"NAT64",pcVar3,uVar2,"NAT64",&_LC5,uVar4);
   Close(this);
   return 0xffffffff;
 }

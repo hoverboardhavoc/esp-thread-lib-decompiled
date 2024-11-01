@@ -1,7 +1,7 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
  * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_netif_do_init
  *
@@ -18,7 +18,7 @@ undefined4 nat64_netif_do_init(void *param_1)
   undefined4 uVar1;
   int iVar2;
   undefined4 uVar3;
-  undefined *puVar4;
+  char *pcVar4;
   
   esp_openthread_get_backbone_netif();
   uVar1 = to_underlying_lwip_netif();
@@ -26,7 +26,7 @@ undefined4 nat64_netif_do_init(void *param_1)
   if (iVar2 == 0) {
     uVar3 = esp_log_timestamp();
     uVar1 = 0xe8;
-    puVar4 = &_LC2;
+    pcVar4 = "E (%lu) %s: %s(%d): Failed to add nat64 interface\n";
   }
   else {
     netif_set_link_up(s_nat64_netif);
@@ -36,7 +36,7 @@ undefined4 nat64_netif_do_init(void *param_1)
     if (s_backbone_raw_pcb == 0) {
       uVar3 = esp_log_timestamp();
       uVar1 = 0xf0;
-      puVar4 = &_LC3;
+      pcVar4 = "E (%lu) %s: %s(%d): Failed to create backbone raw socket\n";
     }
     else {
       s_backbone_icmp_raw_pcb = raw_new_ip_type(0,1);
@@ -50,10 +50,10 @@ undefined4 nat64_netif_do_init(void *param_1)
       }
       uVar3 = esp_log_timestamp();
       uVar1 = 0xf2;
-      puVar4 = &_LC4;
+      pcVar4 = "E (%lu) %s: %s(%d): Failed to create backbone raw icmp pcb\n";
     }
   }
-  esp_log_write(1,"NAT64",puVar4,uVar3,"NAT64","nat64_netif_do_init",uVar1);
+  esp_log_write(1,"NAT64",pcVar4,uVar3,"NAT64","nat64_netif_do_init",uVar1);
   return 0xffffffff;
 }
 

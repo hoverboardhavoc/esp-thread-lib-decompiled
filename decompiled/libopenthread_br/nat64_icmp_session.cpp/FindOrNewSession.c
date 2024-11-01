@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> FindOrNewSession
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,27 +18,36 @@ idf::IcmpSession::FindOrNewSession
 
 {
   ushort uVar1;
-  IcmpSession *pIVar2;
+  IcmpSession *this;
+  undefined4 uVar2;
   
   uVar1 = get_next_icmp_ID();
-  pIVar2 = (IcmpSession *)FindSession(param_2,param_3,param_4);
-  if (pIVar2 == (IcmpSession *)0x0) {
-    pIVar2 = (IcmpSession *)operator_new(0x2c);
-    IcmpSession(pIVar2,param_1,param_2,param_3,param_4,uVar1);
-    if (s_icmp_session_list != (IcmpSession *)0x0) {
-      *(IcmpSession **)(s_icmp_session_list + 0x28) = pIVar2;
+  this = (IcmpSession *)FindSession(param_2,param_3,param_4);
+  if (this == (IcmpSession *)0x0) {
+    uVar2 = esp_openthread_get_alloc_caps();
+    this = (IcmpSession *)heap_caps_calloc(1,0x2c,uVar2);
+    if (this == (IcmpSession *)0x0) {
+      uVar2 = esp_log_timestamp();
+      esp_log_write(1,"NAT64","E (%lu) %s: No memory for creating a new icmp session\n",uVar2,
+                    "NAT64");
     }
-    *(IcmpSession **)(pIVar2 + 0x24) = s_icmp_session_list;
-    s_icmp_session_list = pIVar2;
-    sys_timeout(60000,OnSessionTimeout,pIVar2);
-    pIVar2 = s_icmp_session_list;
+    else {
+      IcmpSession(this,param_1,param_2,param_3,param_4,uVar1);
+      if (s_icmp_session_list != (IcmpSession *)0x0) {
+        *(IcmpSession **)(s_icmp_session_list + 0x28) = this;
+      }
+      *(IcmpSession **)(this + 0x24) = s_icmp_session_list;
+      s_icmp_session_list = this;
+      sys_timeout(60000,OnSessionTimeout,this);
+      this = s_icmp_session_list;
+    }
   }
   else {
-    sys_untimeout(OnSessionTimeout,pIVar2);
-    *(raw_pcb **)pIVar2 = param_1;
-    *(ushort *)(pIVar2 + 0x20) = uVar1;
-    sys_timeout(60000,OnSessionTimeout,pIVar2);
+    sys_untimeout(OnSessionTimeout,this);
+    *(raw_pcb **)this = param_1;
+    *(ushort *)(this + 0x20) = uVar1;
+    sys_timeout(60000,OnSessionTimeout,this);
   }
-  return pIVar2;
+  return this;
 }
 

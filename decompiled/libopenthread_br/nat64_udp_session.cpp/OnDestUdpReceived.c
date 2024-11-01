@@ -1,7 +1,7 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
  * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> OnDestUdpReceived
  *
@@ -34,12 +34,14 @@ void __thiscall idf::UdpSession::OnDestUdpReceived(UdpSession *this,pbuf *param_
   sys_timeout(3600000,OnSessionTimeout,this);
   if (iVar7 == 0) {
     uVar8 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC2,uVar8,"NAT64","OnDestUdpReceived",0x83);
+    esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Failed to forward nat64 packet: cannot allocate\n",
+                  uVar8,"NAT64","OnDestUdpReceived",0x80);
   }
   else {
     if (*(byte *)(iVar9 + 8) < 2) {
       uVar8 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC3,uVar8,"NAT64","OnDestUdpReceived",0x85);
+      esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Drop nat64 packet: ttl\n",uVar8,"NAT64",
+                    "OnDestUdpReceived",0x82);
     }
     else {
       puVar4 = *(undefined1 **)(iVar7 + 4);
@@ -84,7 +86,7 @@ void __thiscall idf::UdpSession::OnDestUdpReceived(UdpSession *this,pbuf *param_
     pbuf_free(iVar7);
   }
   uVar8 = esp_log_timestamp();
-  esp_log_write(1,"NAT64",&_LC4,uVar8,"NAT64");
+  esp_log_write(1,"NAT64","E (%lu) %s: Failed to forward nat64 message\n",uVar8,"NAT64");
   return;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64.cpp.o -> nat64_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,7 +23,8 @@ int nat64_init(void)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC2,uVar2,"NAT64",0x10000,0x1c);
+    esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Failed to initialize nat64 interface\n",uVar2,
+                  "NAT64",0x10000,0x1c);
   }
   return iVar1;
 }

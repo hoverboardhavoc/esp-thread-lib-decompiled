@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 5ae57e156e4cd2ccd8dc51e90266b16b284e64de
- * https://github.com/espressif/esp-thread-lib/commit/5ae57e156e4cd2ccd8dc51e90266b16b284e64de
- * Upstream date: 2024-05-23 11:00:44 +0800
- * Upstream subject: feat(br): update border router lib
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_remove_meshcope_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,9 @@ int esp_openthread_remove_meshcope_mdns(void)
   iVar1 = esp_event_post(_OPENTHREAD_EVENT,0x10,0,0,0);
   if (iVar1 != 0) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD");
+    esp_log_write(1,"OPENTHREAD",
+                  "E (%lu) %s: Failed to post OpenThread remove meshcop-e service event\n",uVar2,
+                  "OPENTHREAD");
   }
   if (s_e_service_published != '\0') {
     esp_openthread_task_switching_lock_release();
@@ -29,7 +31,8 @@ int esp_openthread_remove_meshcope_mdns(void)
     esp_openthread_task_switching_lock_acquire(0xffffffff);
     if (iVar1 != 0) {
       uVar2 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD",&_LC42,uVar2,"OPENTHREAD");
+      esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to remove meshcop-e mdns service\n",uVar2,
+                    "OPENTHREAD");
       return iVar1;
     }
     s_e_service_published = '\0';

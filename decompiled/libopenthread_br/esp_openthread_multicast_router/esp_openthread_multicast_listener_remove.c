@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * Upstream date: 2024-04-18 16:47:55 +0800
- * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,8 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
   if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
     uVar2 = esp_log_timestamp();
     uVar3 = ip6addr_ntoa(param_1);
-    esp_log_write(3,"OPENTHREAD",&_L0,uVar2,"OPENTHREAD",uVar3);
+    esp_log_write(3,"OPENTHREAD","I (%lu) %s: Multicast listener remove: %s\n\n",uVar2,"OPENTHREAD",
+                  uVar3);
     piVar5 = s_netif_listener_lists;
     while( true ) {
       if (piVar5 == (int *)0x0) {

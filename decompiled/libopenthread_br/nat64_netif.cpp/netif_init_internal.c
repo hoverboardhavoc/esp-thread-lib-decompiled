@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 56af58057c259405aa90c478e294f6216cc2f6db
- * https://github.com/espressif/esp-thread-lib/commit/56af58057c259405aa90c478e294f6216cc2f6db
- * Upstream date: 2024-09-09 14:04:56 +0200
- * Upstream subject: update(ot_lib): Rebuild with lwip 2.2.0-esp
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,8 @@ int netif_init_internal(netif *param_1)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC8,uVar2,"NAT64","netif_init_internal",0xac);
+    esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Failed to add address to nat64 interface\n",uVar2,
+                  "NAT64","netif_init_internal",0xac);
   }
   return iVar1;
 }

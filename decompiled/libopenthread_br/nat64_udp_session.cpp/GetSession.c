@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> GetSession
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,31 +16,33 @@ UdpSession *
 idf::UdpSession::GetSession(ip6_addr *param_1,ushort param_2,ip6_addr *param_3,ushort param_4)
 
 {
-  UdpSession *pUVar1;
-  UdpSession *this;
-  int iVar2;
+  undefined4 uVar1;
+  UdpSession *pUVar2;
+  int iVar3;
   
-  pUVar1 = s_session_list;
-  while( true ) {
-    if (pUVar1 == (UdpSession *)0x0) {
-      this = (UdpSession *)operator_new(0x30);
-      UdpSession(this,param_1,param_2,param_3,param_4);
-      iVar2 = Init(this,param_2);
-      pUVar1 = (UdpSession *)0x0;
-      if (iVar2 == 0) {
-        if (s_session_list != (UdpSession *)0x0) {
-          *(UdpSession **)(s_session_list + 0x2c) = this;
-        }
-        *(UdpSession **)(this + 0x28) = s_session_list;
-        pUVar1 = this;
-        s_session_list = this;
-      }
-      return pUVar1;
+  for (pUVar2 = s_session_list; pUVar2 != (UdpSession *)0x0;
+      pUVar2 = *(UdpSession **)(pUVar2 + 0x28)) {
+    iVar3 = Matches(pUVar2,param_1,param_2,param_3,param_4);
+    if (iVar3 != 0) {
+      return pUVar2;
     }
-    iVar2 = Matches(pUVar1,param_1,param_2,param_3,param_4);
-    if (iVar2 != 0) break;
-    pUVar1 = *(UdpSession **)(pUVar1 + 0x28);
   }
-  return pUVar1;
+  uVar1 = esp_openthread_get_alloc_caps();
+  pUVar2 = (UdpSession *)heap_caps_calloc(1,0x30,uVar1);
+  if (pUVar2 != (UdpSession *)0x0) {
+    UdpSession(pUVar2,param_1,param_2,param_3,param_4);
+    iVar3 = Init(pUVar2,param_2);
+    if (iVar3 == 0) {
+      if (s_session_list != (UdpSession *)0x0) {
+        *(UdpSession **)(s_session_list + 0x2c) = pUVar2;
+      }
+      *(UdpSession **)(pUVar2 + 0x28) = s_session_list;
+      s_session_list = pUVar2;
+      return pUVar2;
+    }
+  }
+  uVar1 = esp_log_timestamp();
+  esp_log_write(1,"NAT64","E (%lu) %s: No memory for creating a new udp session\n",uVar1,"NAT64");
+  return (UdpSession *)0x0;
 }
 

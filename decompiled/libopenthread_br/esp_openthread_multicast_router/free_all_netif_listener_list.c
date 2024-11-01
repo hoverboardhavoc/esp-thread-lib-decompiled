@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * Upstream date: 2024-04-18 16:47:55 +0800
- * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> free_all_netif_listener_list
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,8 @@ void free_all_netif_listener_list(void)
         iVar2 = send_mldv2_joinleave_netif(iVar1,0);
         if (iVar2 != 0) {
           uVar3 = esp_log_timestamp();
-          esp_log_write(1,"OPENTHREAD",&_LC4,uVar3,"OPENTHREAD");
+          esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to leave multicast group\n",uVar3,
+                        "OPENTHREAD");
         }
       }
       free_multicast_listener(iVar1);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mld_input.part.0
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,7 @@ void handle_mld_input_part_0(int param_1,char *param_2,undefined4 param_3)
   char cVar1;
   int iVar2;
   undefined4 uVar3;
-  undefined *puVar4;
+  char *pcVar4;
   undefined1 auStack_38 [16];
   undefined1 uStack_28;
   undefined1 auStack_24 [16];
@@ -33,7 +33,7 @@ void handle_mld_input_part_0(int param_1,char *param_2,undefined4 param_3)
       return;
     }
     uVar3 = esp_log_timestamp();
-    puVar4 = &_LC1;
+    pcVar4 = "E (%lu) %s: Failed to add backbone multicast listener\n";
   }
   else {
     iVar2 = esp_openthread_multicast_listener_remove(auStack_24,auStack_38,param_3);
@@ -41,9 +41,9 @@ void handle_mld_input_part_0(int param_1,char *param_2,undefined4 param_3)
       return;
     }
     uVar3 = esp_log_timestamp();
-    puVar4 = &_LC2;
+    pcVar4 = "E (%lu) %s: Failed to remove backbone multicast listener\n";
   }
-  esp_log_write(1,0x10000,puVar4,uVar3,0x10000);
+  esp_log_write(1,0x10000,pcVar4,uVar3,0x10000);
   return;
 }
 

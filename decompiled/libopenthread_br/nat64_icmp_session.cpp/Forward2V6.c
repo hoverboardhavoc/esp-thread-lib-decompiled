@@ -1,7 +1,7 @@
 /*
- * Last changed at upstream commit 203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * https://github.com/espressif/esp-thread-lib/commit/203c78501e9a6ea9ca3a929e6f9b6b9691ef16ee
- * Upstream date: 2024-07-19 18:50:00 +0800
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
  * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> Forward2V6
  *
@@ -39,8 +39,8 @@ undefined4 __thiscall idf::IcmpSession::Forward2V6(IcmpSession *this,uchar *para
     *puVar3 = (char)uVar7;
     puVar3[3] = (char)((uint)uVar7 >> 0x18);
     uVar5 = lwip_htons(__n);
-    puVar3[5] = (char)((ushort)uVar5 >> 8);
     puVar3[4] = (char)uVar5;
+    puVar3[5] = (char)((ushort)uVar5 >> 8);
     puVar3[6] = 0x3a;
     puVar3[7] = param_1[8] + 0xff;
     idf::nat64_translate_to_ip6_addr(aiStack_34);

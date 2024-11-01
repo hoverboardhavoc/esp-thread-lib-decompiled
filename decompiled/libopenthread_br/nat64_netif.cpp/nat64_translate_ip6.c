@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
+ * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
+ * Upstream date: 2024-11-01 17:03:49 +0800
+ * Upstream subject: feat(br): update br lib
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_translate_ip6
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,7 +25,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
   ushort *puVar8;
   undefined4 uVar9;
   uchar *puVar10;
-  undefined *puVar11;
+  char *pcVar11;
   void *__ptr;
   char cStack_51;
   undefined4 uStack_50;
@@ -37,7 +37,8 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
   nat64_get_prefix(auStack_38);
   if (uVar4 < 0x29) {
     uVar5 = esp_log_timestamp();
-    esp_log_write(1,"NAT64",&_LC10,uVar5,"NAT64","nat64_translate_ip6",0x69);
+    esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Invalid nat64 packet\n",uVar5,"NAT64",
+                  "nat64_translate_ip6",0x69);
     return 0xfffffff4;
   }
   iVar6 = memcmp(param_3,auStack_38,(uint)(bStack_24 >> 3));
@@ -55,7 +56,8 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     __ptr = pvVar7;
     if (pvVar7 == (void *)0x0) {
       uVar5 = esp_log_timestamp();
-      esp_log_write(1,"NAT64",&_LC11,uVar5,"NAT64","nat64_translate_ip6",0x73);
+      esp_log_write(1,"NAT64","E (%lu) %s: %s(%d): Failed to copy nat64 packet\n",uVar5,"NAT64",
+                    "nat64_translate_ip6",0x73);
       return 0xffffffff;
     }
   }
@@ -77,7 +79,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     }
     uVar9 = esp_log_timestamp();
     uVar5 = 0x82;
-    puVar11 = &_LC12;
+    pcVar11 = "E (%lu) %s: %s(%d): Invalid nat64 UDP packet\n";
   }
   else if (cStack_51 == ':') {
     if (7 < uVar4) {
@@ -95,12 +97,12 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     }
     uVar9 = esp_log_timestamp();
     uVar5 = 0x8c;
-    puVar11 = &_LC14;
+    pcVar11 = "E (%lu) %s: %s(%d): Invalid nat64 ICMP packet\n";
   }
   else {
     if (cStack_51 != '\x06') {
       uVar5 = esp_log_timestamp();
-      esp_log_write(2,"NAT64",&_LC15,uVar5,"NAT64");
+      esp_log_write(2,"NAT64","W (%lu) %s: nat64 packet type not supported yet\n\n",uVar5,"NAT64");
       goto _L0;
     }
     if (0x13 < uVar4) {
@@ -114,9 +116,9 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     }
     uVar9 = esp_log_timestamp();
     uVar5 = 0x87;
-    puVar11 = &_LC13;
+    pcVar11 = "E (%lu) %s: %s(%d): Invalid nat64 TCP packet\n";
   }
-  esp_log_write(1,"NAT64",puVar11,uVar9,"NAT64","nat64_translate_ip6",uVar5);
+  esp_log_write(1,"NAT64",pcVar11,uVar9,"NAT64","nat64_translate_ip6",uVar5);
 _L0:
   if (__ptr != (void *)0x0) {
     free(__ptr);
