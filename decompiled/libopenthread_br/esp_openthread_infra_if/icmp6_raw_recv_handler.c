@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -74,8 +74,7 @@ undefined4 icmp6_raw_recv_handler(int param_1)
   pcVar7 = (char *)malloc(__size);
   if (pcVar7 == (char *)0x0) {
     uVar8 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to allocate icmp6 buffer\n",uVar8,"OPENTHREAD")
-    ;
+    esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate icmp6 buffer\n",uVar8,"OPENTHREAD");
     return 0;
   }
   pbuf_copy_partial(param_1,pcVar7,__size,0x28);
@@ -87,8 +86,7 @@ undefined4 icmp6_raw_recv_handler(int param_1)
         uVar6 = ((byte)pcVar9[1] & 0x1f) * 8;
         if (((pcVar9[1] & 0x1fU) == 0) || (__size < uVar6)) {
           uVar8 = esp_log_timestamp();
-          esp_log_write(2,"OPENTHREAD","W (%lu) %s: Invalid RA packets, ignored\n",uVar8,
-                        "OPENTHREAD");
+          esp_log(2,"OPENTHREAD","W (%lu) %s: Invalid RA packets, ignored\n",uVar8,"OPENTHREAD");
           break;
         }
         if (*pcVar9 == '\x18') {
@@ -98,12 +96,12 @@ undefined4 icmp6_raw_recv_handler(int param_1)
             bVar2 = pcVar9[2];
             bVar3 = pcVar9[3];
             uVar8 = esp_log_timestamp();
-            esp_log_write(3,"OPENTHREAD","I (%lu) %s: Received RIO\n",uVar8,"OPENTHREAD");
+            esp_log(3,"OPENTHREAD","I (%lu) %s: Received RIO\n",uVar8,"OPENTHREAD");
             if (bVar2 < 8) {
               uVar8 = esp_log_timestamp();
               pcVar9 = "I (%lu) %s: Prefix length: 0, skip to add this RIO\n";
 _L0:
-              esp_log_write(3,"OPENTHREAD",pcVar9,uVar8,"OPENTHREAD");
+              esp_log(3,"OPENTHREAD",pcVar9,uVar8,"OPENTHREAD");
             }
             else {
               __n = (uint)(bVar2 >> 3);
@@ -122,8 +120,8 @@ _L0:
                 uStack_38 = lwip_htonl(*(undefined4 *)(pcVar9 + 4));
                 uVar8 = esp_log_timestamp();
                 uVar10 = ip6addr_ntoa(&uStack_7c);
-                esp_log_write(3,"OPENTHREAD","I (%lu) %s: prefix %s lifetime %lu\n\n",uVar8,
-                              "OPENTHREAD",uVar10,uStack_38);
+                esp_log(3,"OPENTHREAD","I (%lu) %s: prefix %s lifetime %lu\n\n",uVar8,"OPENTHREAD",
+                        uVar10,uStack_38);
                 iVar5 = esp_openthread_route_table_add_route_entry(auStack_68);
                 if (iVar5 == 0) {
                   uVar8 = esp_log_timestamp();
@@ -151,7 +149,7 @@ _L0:
     return 0;
   }
   uVar8 = esp_log_timestamp();
-  esp_log_write(2,"OPENTHREAD","W (%lu) %s: failed to send task to ot queue\n",uVar8,"OPENTHREAD");
+  esp_log(2,"OPENTHREAD","W (%lu) %s: failed to send task to ot queue\n",uVar8,"OPENTHREAD");
   free(*(void **)(pcVar9 + 0x14));
 _L53:
   free(pcVar9);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -37,7 +37,7 @@ uint multicast_router_init_on_lwip_task(void)
     iVar4 = esp_openthread_get_lwip_backbone_netif();
     if (iVar5 == iVar4) {
       iVar5 = *piVar3;
-      memcpy(auStack_50,&DAT_00010d38,0x18);
+      memcpy(auStack_50,&DAT_00010cec,0x18);
       iVar4 = mld6_joingroup_netif(iVar5,auStack_50);
       uVar2 = 0xffffffff;
       if (iVar4 == 0) {

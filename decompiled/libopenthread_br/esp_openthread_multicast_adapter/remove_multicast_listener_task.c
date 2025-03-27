@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_multicast_adapter.o -> remove_multicast_listener_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,8 +31,7 @@ void remove_multicast_listener_task(void *param_1)
   iVar2 = esp_openthread_multicast_listener_remove(param_1,&uStack_24,uVar1);
   if (iVar2 != 0) {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,0x10000,"E (%lu) %s: Failed to remove OpenThread multicast listener\n",uVar1,
-                  0x10000);
+    esp_log(1,0x10000,"E (%lu) %s: Failed to remove OpenThread multicast listener\n",uVar1,0x10000);
   }
   free(param_1);
   return;

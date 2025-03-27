@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -68,8 +68,8 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
   iVar5 = otDatasetGetActive(uVar2,&uStack_b8);
   if (iVar5 != 0) {
     uVar2 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get OpenThread active dataset\n",
-                  uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x90);
+    esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get OpenThread active dataset\n",uVar2,
+            "OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x90);
     return -1;
   }
   uStack_b8 = __bswapdi2(uStack_b8,uStack_b4);
@@ -156,10 +156,9 @@ _L0:
                                         ("_meshcop",&_LC16,&_LC34,&bStack_fc,(bStack_100 >> 3) + 1);
                       if (iVar5 != 0) {
                         uVar2 = esp_log_timestamp();
-                        esp_log_write(1,"OPENTHREAD",
-                                      "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
-                                      ,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0xd2
-                                     );
+                        esp_log(1,"OPENTHREAD",
+                                "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
+                                ,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0xd2);
                         iVar10 = iVar5;
                         goto _L0;
                       }
@@ -224,8 +223,7 @@ _L0:
       pcVar1 = "E (%lu) %s: %s(%d): Failed to set txt items for meshcop mdns service\n";
     }
   }
-  esp_log_write(1,"OPENTHREAD",pcVar1,uVar3,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",uVar2
-               );
+  esp_log(1,"OPENTHREAD",pcVar1,uVar3,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",uVar2);
 _L0:
   esp_openthread_task_switching_lock_acquire(0xffffffff);
   return iVar10;

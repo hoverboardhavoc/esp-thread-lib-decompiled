@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> FindOrNewSession
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,8 +28,7 @@ idf::IcmpSession::FindOrNewSession
     this = (IcmpSession *)heap_caps_calloc(1,0x2c,uVar2);
     if (this == (IcmpSession *)0x0) {
       uVar2 = esp_log_timestamp();
-      esp_log_write(1,"NAT64","E (%lu) %s: No memory for creating a new icmp session\n",uVar2,
-                    "NAT64");
+      esp_log(1,"NAT64","E (%lu) %s: No memory for creating a new icmp session\n",uVar2,"NAT64");
     }
     else {
       IcmpSession(this,param_1,param_2,param_3,param_4,uVar1);

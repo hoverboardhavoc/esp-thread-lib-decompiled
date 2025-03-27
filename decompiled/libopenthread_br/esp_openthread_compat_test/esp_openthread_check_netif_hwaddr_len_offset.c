@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 3638c36b340b5976df2e1fcef8ff28160ef622c3
- * https://github.com/espressif/esp-thread-lib/commit/3638c36b340b5976df2e1fcef8ff28160ef622c3
- * Upstream date: 2025-01-08 16:16:11 +0800
- * Upstream subject: feat(br): add lib for release/v5.5 * esp-openthread: 278d4fc29 * openthread: 005c5cefc * esp-idf: a150b999b
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_compat_test.o -> esp_openthread_check_netif_hwaddr_len_offset
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,9 +17,8 @@ undefined4 esp_openthread_check_netif_hwaddr_len_offset(int param_1)
   
   if (param_1 != 0x20e) {
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OT_TEST",
-                  "E (%lu) %s: The offset of `%s` is mismatched, %d in lib but %d in IDF\n",uVar1,
-                  "OT_TEST","hwaddr_len",0x20e,param_1);
+    esp_log(1,"OT_TEST","E (%lu) %s: The offset of `%s` is mismatched, %d in lib but %d in IDF\n",
+            uVar1,"OT_TEST","hwaddr_len",0x20e,param_1);
     return 0;
   }
   return 1;

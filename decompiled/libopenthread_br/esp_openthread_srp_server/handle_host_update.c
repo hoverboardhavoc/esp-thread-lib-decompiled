@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 3638c36b340b5976df2e1fcef8ff28160ef622c3
- * https://github.com/espressif/esp-thread-lib/commit/3638c36b340b5976df2e1fcef8ff28160ef622c3
- * Upstream date: 2025-01-08 16:16:11 +0800
- * Upstream subject: feat(br): add lib for release/v5.5 * esp-openthread: 278d4fc29 * openthread: 005c5cefc * esp-idf: a150b999b
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_host_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -47,7 +47,7 @@ void handle_host_update(undefined4 param_1,undefined4 param_2)
   otSrpServerHostGetFullName(param_2);
   split_hostname_constprop_0(acStack_19c);
   uVar1 = esp_log_timestamp();
-  esp_log_write(3,"OPENTHREAD","I (%lu) %s: update host %s\n",uVar1,"OPENTHREAD",acStack_19c);
+  esp_log(3,"OPENTHREAD","I (%lu) %s: update host %s\n",uVar1,"OPENTHREAD",acStack_19c);
   esp_openthread_task_switching_lock_release();
   iVar2 = mdns_hostname_get(acStack_158);
   iVar3 = mdns_hostname_exists(acStack_19c);
@@ -56,12 +56,12 @@ void handle_host_update(undefined4 param_1,undefined4 param_2)
   if (bStack_1b3 == 0) {
     if (iVar3 != 0) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(3,"OPENTHREAD","I (%lu) %s: Set addr of host to NULL\n",uVar1,"OPENTHREAD");
+      esp_log(3,"OPENTHREAD","I (%lu) %s: Set addr of host to NULL\n",uVar1,"OPENTHREAD");
       pvVar5 = (void *)0x0;
       goto _L0;
     }
     uVar1 = esp_log_timestamp();
-    esp_log_write(3,"OPENTHREAD","I (%lu) %s: Add a new host without an addr\n",uVar1,"OPENTHREAD");
+    esp_log(3,"OPENTHREAD","I (%lu) %s: Add a new host without an addr\n",uVar1,"OPENTHREAD");
     pvVar5 = (void *)0x0;
 _L0:
     if (iVar2 == 0) {
@@ -93,8 +93,7 @@ _L0:
       do {
         uVar1 = esp_log_timestamp();
         uVar6 = ip6addr_ntoa(pvVar7);
-        esp_log_write(3,"OPENTHREAD","I (%lu) %s: Add a new host, addr %s\n",uVar1,"OPENTHREAD",
-                      uVar6);
+        esp_log(3,"OPENTHREAD","I (%lu) %s: Add a new host, addr %s\n",uVar1,"OPENTHREAD",uVar6);
         puVar14 = (undefined4 *)((int)pvVar7 + 0x18);
         pvVar7 = (void *)*puVar14;
       } while ((void *)*puVar14 != (void *)0x0);
@@ -103,7 +102,7 @@ _L0:
     do {
       uVar1 = esp_log_timestamp();
       uVar6 = ip6addr_ntoa(pvVar7);
-      esp_log_write(3,"OPENTHREAD","I (%lu) %s: Set addr of host to %s\n",uVar1,"OPENTHREAD",uVar6);
+      esp_log(3,"OPENTHREAD","I (%lu) %s: Set addr of host to %s\n",uVar1,"OPENTHREAD",uVar6);
       puVar14 = (undefined4 *)((int)pvVar7 + 0x18);
       pvVar7 = (void *)*puVar14;
     } while ((void *)*puVar14 != (void *)0x0);
@@ -165,8 +164,8 @@ _L0:
         strncpy(acStack_1b0,pcVar10,__n_00);
         acStack_1b0[__n_00] = '\0';
         uVar1 = esp_log_timestamp();
-        esp_log_write(3,"OPENTHREAD","I (%lu) %s: Service %s.%s.%s\n",uVar1,"OPENTHREAD",acStack_114
-                      ,acStack_d0,acStack_1b0);
+        esp_log(3,"OPENTHREAD","I (%lu) %s: Service %s.%s.%s\n",uVar1,"OPENTHREAD",acStack_114,
+                acStack_d0,acStack_1b0);
         esp_openthread_task_switching_lock_release();
         iVar4 = mdns_service_exists_with_instance(acStack_114,acStack_d0,acStack_1b0,acStack_19c);
         esp_openthread_task_switching_lock_acquire(0xffffffff);
@@ -179,8 +178,8 @@ _L0:
           esp_openthread_task_switching_lock_acquire(0xffffffff);
           if (iVar4 == 0x105) {
             uVar1 = esp_log_timestamp();
-            esp_log_write(2,"OPENTHREAD","W (%lu) %s: Failed to find service: %s.%s.%s.%s\n",uVar1,
-                          "OPENTHREAD",acStack_19c,acStack_114,acStack_1b0);
+            esp_log(2,"OPENTHREAD","W (%lu) %s: Failed to find service: %s.%s.%s.%s\n",uVar1,
+                    "OPENTHREAD",acStack_19c,acStack_114,acStack_1b0);
           }
           else if (iVar4 != 0) {
 _L0:
@@ -265,13 +264,13 @@ _L0:
       esp_openthread_task_switching_lock_release();
       if (iVar4 == 0) {
         uVar6 = esp_log_timestamp();
-        esp_log_write(3,"OPENTHREAD","I (%lu) %s: Add new service\n",uVar6,"OPENTHREAD");
+        esp_log(3,"OPENTHREAD","I (%lu) %s: Add new service\n",uVar6,"OPENTHREAD");
         iVar4 = mdns_service_add_for_host
                           (acStack_114,acStack_d0,acStack_1b0,acStack_19c,uVar1,puVar14,uVar13);
       }
       else {
         uVar6 = esp_log_timestamp();
-        esp_log_write(3,"OPENTHREAD","I (%lu) %s: Update service\n",uVar6,"OPENTHREAD");
+        esp_log(3,"OPENTHREAD","I (%lu) %s: Update service\n",uVar6,"OPENTHREAD");
         iVar4 = mdns_service_port_set_for_host(acStack_114,acStack_d0,acStack_1b0,acStack_19c,uVar1)
         ;
         if (iVar4 == 0) {
@@ -285,7 +284,7 @@ _L0:
           uVar1 = esp_log_timestamp();
           pcVar8 = "E (%lu) %s: Failed to add or update service port\n";
         }
-        esp_log_write(1,"OPENTHREAD",pcVar8,uVar1,"OPENTHREAD");
+        esp_log(1,"OPENTHREAD",pcVar8,uVar1,"OPENTHREAD");
       }
 _L0:
       esp_openthread_task_switching_lock_acquire(0xffffffff);
@@ -304,8 +303,7 @@ _L0:
       }
       if (iVar4 != 0) {
         uVar1 = esp_log_timestamp();
-        esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to add or update service\n",uVar1,
-                      "OPENTHREAD");
+        esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to add or update service\n",uVar1,"OPENTHREAD");
         goto _L0;
       }
       uVar15 = otSrpServerServiceGetNumberOfSubTypes(iVar3);
@@ -318,11 +316,11 @@ _L0:
           uVar1 = 0xe5;
           pcVar8 = "E (%lu) %s: %s(%d): Failed to get service subtype\n";
 _L0:
-          esp_log_write(1,"OPENTHREAD",pcVar8,uVar6,"OPENTHREAD","alloc_subtype_list",uVar1);
+          esp_log(1,"OPENTHREAD",pcVar8,uVar6,"OPENTHREAD","alloc_subtype_list",uVar1);
           free_subtype_list(pvVar5,uVar15);
           uVar1 = esp_log_timestamp();
-          esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to allocate subtype list\n",uVar1,
-                        "OPENTHREAD");
+          esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate subtype list\n",uVar1,"OPENTHREAD")
+          ;
           goto _L0;
         }
         pvVar7 = malloc(0x41);
@@ -341,14 +339,13 @@ _L0:
       esp_openthread_task_switching_lock_acquire(0xffffffff);
       for (iVar12 = 0; iVar12 < (int)uVar15; iVar12 = iVar12 + 1) {
         uVar1 = esp_log_timestamp();
-        esp_log_write(3,"OPENTHREAD","I (%lu) %s: Update subtype: %s\n",uVar1,"OPENTHREAD",
-                      *(undefined4 *)(iVar12 * 4 + (int)pvVar5));
+        esp_log(3,"OPENTHREAD","I (%lu) %s: Update subtype: %s\n",uVar1,"OPENTHREAD",
+                *(undefined4 *)(iVar12 * 4 + (int)pvVar5));
       }
       free_subtype_list(pvVar5,uVar15);
     } while (iVar4 == 0);
     uVar1 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD","E (%lu) %s: Failed to update service subtype\n",uVar1,"OPENTHREAD"
-                 );
+    esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to update service subtype\n",uVar1,"OPENTHREAD");
 _L0:
     iVar2 = convert_to_ot_srp_error_code(iVar4);
   }

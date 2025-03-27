@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcope_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,9 +23,8 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
   iVar2 = esp_event_post(_OPENTHREAD_EVENT,0xf,0,0,0);
   if (iVar2 != 0) {
     uVar3 = esp_log_timestamp();
-    esp_log_write(1,"OPENTHREAD",
-                  "E (%lu) %s: Failed to post OpenThread publish meshcop-e service event\n",uVar3,
-                  "OPENTHREAD");
+    esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to post OpenThread publish meshcop-e service event\n"
+            ,uVar3,"OPENTHREAD");
   }
   if (s_e_service_published == '\0') {
     uVar1 = otBorderAgentGetUdpPort(uVar1);
@@ -34,8 +33,8 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
     esp_openthread_task_switching_lock_acquire(0xffffffff);
     if (iVar2 != 0) {
       uVar1 = esp_log_timestamp();
-      esp_log_write(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to publish meshcop-e mdns service\n",
-                    uVar1,"OPENTHREAD","esp_openthread_publish_meshcope_mdns",0xfe);
+      esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to publish meshcop-e mdns service\n",uVar1,
+              "OPENTHREAD","esp_openthread_publish_meshcope_mdns",0xfe);
       return iVar2;
     }
     s_e_service_published = '\x01';

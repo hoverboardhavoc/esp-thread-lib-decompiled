@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,8 +35,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
     }
     uVar3 = esp_log_timestamp();
     uVar4 = ip6addr_ntoa(param_1);
-    esp_log_write(3,"OPENTHREAD","I (%lu) %s: Multicast listener add: %s\n",uVar3,"OPENTHREAD",uVar4
-                 );
+    esp_log(3,"OPENTHREAD","I (%lu) %s: Multicast listener add: %s\n",uVar3,"OPENTHREAD",uVar4);
     iVar2 = find_or_create_netif_listener_list(param_3);
     if (iVar2 != 0) {
       for (pvVar1 = *(void **)(iVar2 + 4); pvVar1 != (void *)0x0;

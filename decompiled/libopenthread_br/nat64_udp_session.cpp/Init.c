@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
+ * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
+ * Upstream date: 2025-03-27 16:04:28 +0800
+ * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -47,7 +47,7 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
     uVar4 = 0x49;
     pcVar3 = "E (%lu) %s: %s(%d): Failed to connect to nat64 src\n";
   }
-  esp_log_write(1,"NAT64",pcVar3,uVar2,"NAT64",&_LC5,uVar4);
+  esp_log(1,"NAT64",pcVar3,uVar2,"NAT64",&_LC5,uVar4);
   Close(this);
   return 0xffffffff;
 }
