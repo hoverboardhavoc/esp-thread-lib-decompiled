@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit eada398075e5b7bc2f8b79003a6b28d948c30096
+ * https://github.com/espressif/esp-thread-lib/commit/eada398075e5b7bc2f8b79003a6b28d948c30096
+ * Upstream date: 2025-04-23 10:42:08 +0000
+ * Upstream subject: fix(meshcop): get right udp port for publishing meshcop-e
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcope_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
             ,uVar3,"OPENTHREAD");
   }
   if (s_e_service_published == '\0') {
-    uVar1 = otBorderAgentGetUdpPort(uVar1);
+    uVar1 = otBorderAgentEphemeralKeyGetUdpPort(uVar1);
     esp_openthread_task_switching_lock_release();
     iVar2 = mdns_service_add(param_1,"_meshcop-e",&_LC16,uVar1,0,0);
     esp_openthread_task_switching_lock_acquire(0xffffffff);
