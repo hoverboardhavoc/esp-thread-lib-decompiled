@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ int esp_openthread_border_router_init(void)
   if (s_backbone_netif == 0) {
     uVar1 = esp_log_timestamp();
     esp_log(1,0x10000,"E (%lu) %s: %s(%d): Backbone netif not set\n",uVar1,0x10000,
-            "esp_openthread_border_router_init",0x8f);
+            "esp_openthread_border_router_init",0x92);
     return 0x103;
   }
   esp_openthread_srp_server_init();
@@ -36,7 +36,7 @@ int esp_openthread_border_router_init(void)
       if (iVar2 != 0) {
         uVar1 = esp_log_timestamp();
         esp_log(1,0x10000,"E (%lu) %s: %s(%d): Failed to install OpenThread state callback\n",uVar1,
-                0x10000,"esp_openthread_border_router_init",0x98);
+                0x10000,"esp_openthread_border_router_init",0x9b);
         return -1;
       }
       esp_netif_get_netif_impl(s_backbone_netif);
@@ -44,8 +44,6 @@ int esp_openthread_border_router_init(void)
       if (iVar2 == 0) {
         iVar2 = esp_openthread_multicast_router_init();
         if (iVar2 == 0) {
-          esp_openthread_get_instance();
-          otBackboneRouterSetEnabled(1);
           esp_openthread_get_instance();
           iVar2 = otDnssdUpstreamQueryIsEnabled();
           if (iVar2 != 0) {
@@ -56,24 +54,24 @@ int esp_openthread_border_router_init(void)
           return 0;
         }
         uVar3 = esp_log_timestamp();
-        uVar1 = 0x9e;
+        uVar1 = 0xa1;
         pcVar4 = "E (%lu) %s: %s(%d): Failed to initialize multicast router\n";
       }
       else {
         uVar3 = esp_log_timestamp();
-        uVar1 = 0x9c;
+        uVar1 = 0x9f;
         pcVar4 = "E (%lu) %s: %s(%d): Failed to initialize infra interface\n";
       }
     }
     else {
       uVar3 = esp_log_timestamp();
-      uVar1 = 0x96;
+      uVar1 = 0x99;
       pcVar4 = "E (%lu) %s: %s(%d): Failed to initialize discovery delegate\n";
     }
   }
   else {
     uVar3 = esp_log_timestamp();
-    uVar1 = 0x94;
+    uVar1 = 0x97;
     pcVar4 = "E (%lu) %s: %s(%d): Failed to initialize DNS upstream resolver\n";
   }
   esp_log(1,0x10000,pcVar4,uVar3,0x10000,"esp_openthread_border_router_init",uVar1);

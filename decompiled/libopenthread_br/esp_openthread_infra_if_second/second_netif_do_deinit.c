@@ -3,29 +3,20 @@
  * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
  * Upstream date: 2025-06-25 11:20:59 +0000
  * Upstream subject: feat(openthread): update border router lib
- * Source: libopenthread_br -> nat64.cpp.o -> nat64_init
+ * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> second_netif_do_deinit
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int nat64_init(void)
+undefined4 second_netif_do_deinit(void)
 
 {
-  int iVar1;
-  undefined4 uVar2;
-  
-  iVar1 = nat64_netif_init();
-  if (iVar1 == 0) {
-    esp_openthread_get_instance();
-    otNat64SetEnabled(1);
-  }
-  else {
-    uVar2 = esp_log_timestamp();
-    esp_log(1,"NAT64","E (%lu) %s: %s(%d): Failed to initialize nat64 interface\n",uVar2,"NAT64",
-            0x10000,0x1d);
-  }
-  return iVar1;
+  raw_remove(s_raw_pcb);
+  s_raw_pcb = 0;
+  netif_set_status_callback(s_netif,0);
+  s_netif_ra_enabled = 0;
+  return 0;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> FindOrAllocateTransaction
  *
  * (C) Espressif, Apache License 2.0.
@@ -70,26 +70,28 @@ Resolver::FindOrAllocateTransaction(Resolver *this,otPlatDnsUpstreamQuery *param
         goto _L0;
       }
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xb5;
+      uVar3 = 0xbb;
     }
     else {
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xb1;
+      uVar3 = 0xb7;
     }
     esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to allocate new transaction\n",uVar4,"Resolver"
             ,"FindOrAllocateTransaction",uVar3);
   }
   else {
 _L0:
+    esp_openthread_task_switching_lock_release();
     uVar3 = 0;
     if (iVar6 == 10) {
       uVar3 = 0x29;
     }
     iVar6 = lwip_socket(iVar6,2,uVar3);
+    esp_openthread_task_switching_lock_acquire(0xffffffff);
     if (iVar6 < 0) {
       uVar3 = esp_log_timestamp();
       esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to create socket for upstream resolver: %d\n"
-              ,uVar3,"Resolver","FindOrAllocateTransaction",0xbd,iVar6);
+              ,uVar3,"Resolver","FindOrAllocateTransaction",0xc5,iVar6);
     }
     else {
       esp_netif_get_netif_impl_name(iVar2,auStack_38);
@@ -104,7 +106,9 @@ _L0:
       puVar8 = (undefined4 *)__errno();
       esp_log(1,"Resolver","E (%lu) %s: Unable to bind socket: errno %d\n",uVar3,"Resolver",*puVar8)
       ;
+      esp_openthread_task_switching_lock_release();
       close(iVar6);
+      esp_openthread_task_switching_lock_acquire(0xffffffff);
     }
   }
   return (undefined4 *)0x0;

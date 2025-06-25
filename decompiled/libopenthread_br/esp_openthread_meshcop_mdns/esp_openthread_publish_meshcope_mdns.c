@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit eada398075e5b7bc2f8b79003a6b28d948c30096
- * https://github.com/espressif/esp-thread-lib/commit/eada398075e5b7bc2f8b79003a6b28d948c30096
- * Upstream date: 2025-04-23 10:42:08 +0000
- * Upstream subject: fix(meshcop): get right udp port for publishing meshcop-e
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcope_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -34,7 +34,7 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
     if (iVar2 != 0) {
       uVar1 = esp_log_timestamp();
       esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to publish meshcop-e mdns service\n",uVar1,
-              "OPENTHREAD","esp_openthread_publish_meshcope_mdns",0xfe);
+              "OPENTHREAD","esp_openthread_publish_meshcope_mdns",0xff);
       return iVar2;
     }
     s_e_service_published = '\x01';

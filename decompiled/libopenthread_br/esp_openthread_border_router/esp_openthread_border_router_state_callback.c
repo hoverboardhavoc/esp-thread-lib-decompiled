@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,24 +10,15 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void esp_openthread_border_router_state_callback(uint param_1)
+void esp_openthread_border_router_state_callback(int param_1)
 
 {
   int iVar1;
   undefined4 uVar2;
-  uint uVar3;
+  undefined4 uVar3;
+  uint uVar4;
   undefined1 auStack_24 [20];
   
-  if ((param_1 & 0x120b0084) != 0) {
-    esp_openthread_get_instance();
-    iVar1 = otThreadGetDeviceRole();
-    if (iVar1 - 2U < 3) {
-      esp_openthread_publish_meshcop_mdns(s_meshcop_instance_name);
-    }
-    else {
-      esp_openthread_remove_meshcop_mdns();
-    }
-  }
   esp_openthread_get_instance();
   iVar1 = otBorderRoutingGetNat64Prefix(auStack_24);
   if (iVar1 == 0) {
@@ -47,24 +38,30 @@ void esp_openthread_border_router_state_callback(uint param_1)
     }
   }
 _L0:
-  if (-1 < (int)(param_1 << 6)) {
+  if (param_1 << 7 < 0) {
+    uVar2 = esp_openthread_get_instance();
+    esp_openthread_get_instance();
+    uVar3 = otIp6IsEnabled();
+    otBackboneRouterSetEnabled(uVar2,uVar3);
+  }
+  if (-1 < param_1 << 6) {
     return;
   }
   esp_openthread_get_instance();
-  uVar3 = otBackboneRouterGetState();
-  if (1 < uVar3) {
-    if (uVar3 != 2) {
-      uVar2 = esp_log_timestamp();
-      esp_log(1,0x10000,"E (%lu) %s: Unknown backbone border router state\n",uVar2,0x10000);
-      return;
-    }
-    esp_openthread_multicast_forwarding_set_enabled(1);
-    esp_openthread_task_switching_lock_release();
-    tcpip_callback(multicast_probe_task,0);
-    esp_openthread_task_switching_lock_acquire(0xffffffff);
+  uVar4 = otBackboneRouterGetState();
+  if (uVar4 < 2) {
+    esp_openthread_multicast_forwarding_set_enabled(0);
     return;
   }
-  esp_openthread_multicast_forwarding_set_enabled(0);
+  if (uVar4 != 2) {
+    uVar2 = esp_log_timestamp();
+    esp_log(1,0x10000,"E (%lu) %s: Unknown backbone border router state\n",uVar2,0x10000);
+    return;
+  }
+  esp_openthread_multicast_forwarding_set_enabled(1);
+  esp_openthread_task_switching_lock_release();
+  tcpip_callback(multicast_probe_task,0);
+  esp_openthread_task_switching_lock_acquire(0xffffffff);
   return;
 }
 

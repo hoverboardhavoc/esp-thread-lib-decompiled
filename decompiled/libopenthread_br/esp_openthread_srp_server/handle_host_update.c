@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_host_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -313,7 +313,7 @@ _L0:
         iVar4 = otSrpServerServiceGetSubTypeServiceNameAt(iVar3,uVar13);
         if (iVar4 == 0) {
           uVar6 = esp_log_timestamp();
-          uVar1 = 0xe5;
+          uVar1 = 0xe6;
           pcVar8 = "E (%lu) %s: %s(%d): Failed to get service subtype\n";
 _L0:
           esp_log(1,"OPENTHREAD",pcVar8,uVar6,"OPENTHREAD","alloc_subtype_list",uVar1);
@@ -326,7 +326,7 @@ _L0:
         pvVar7 = malloc(0x41);
         if (pvVar7 == (void *)0x0) {
           uVar6 = esp_log_timestamp();
-          uVar1 = 0xe8;
+          uVar1 = 0xe9;
           pcVar8 = "E (%lu) %s: %s(%d): No memory for a new subtype entry\n";
           goto _L0;
         }

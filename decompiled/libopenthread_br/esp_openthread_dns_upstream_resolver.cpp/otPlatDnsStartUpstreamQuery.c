@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> otPlatDnsStartUpstreamQuery
  *
  * (C) Espressif, Apache License 2.0.
@@ -38,7 +38,7 @@ void otPlatDnsStartUpstreamQuery(otPlatDnsUpstreamQuery *param_1,undefined4 para
   undefined1 uStack_24b;
   undefined2 uStack_24a;
   undefined1 auStack_244 [20];
-  undefined1 auStack_230 [516];
+  undefined1 auStack_230 [512];
   
   this = g_resolver;
   if (g_resolver == (Resolver *)0x0) {
@@ -77,10 +77,12 @@ _L0:
               uStack_24b = 10;
               uStack_24a = 0x3500;
               memcpy(auStack_244,&iStack_27c,0x10);
+              esp_openthread_task_switching_lock_release();
               iVar7 = lwip_sendto(*(undefined4 *)(iVar1 + 4),auStack_230,uVar3,8,&uStack_24c,0x1c);
-              if (iVar7 < 1) {
+              esp_openthread_task_switching_lock_acquire(0xffffffff);
+              if (iVar7 == 0) {
                 uVar4 = esp_log_timestamp();
-                uVar2 = 0x88;
+                uVar2 = 0x90;
 _L0:
                 pcVar8 = "E (%lu) %s: %s(%d): Failed to forward the Query message\n";
                 goto _L0;
@@ -101,10 +103,12 @@ _L0:
           uStack_28b = 2;
           uStack_28a = 0x3500;
           iStack_288 = iStack_27c;
+          esp_openthread_task_switching_lock_release();
           iVar7 = lwip_sendto(*(undefined4 *)(iVar9 + 4),auStack_230,uVar3,8,&stack0xfffffd74,0x10);
-          if (iVar7 < 1) {
+          esp_openthread_task_switching_lock_acquire(0xffffffff);
+          if (iVar7 == 0) {
             uVar4 = esp_log_timestamp();
-            uVar2 = 0x78;
+            uVar2 = 0x7e;
             goto _L0;
           }
         }
@@ -115,12 +119,12 @@ _L0:
       } while( true );
     }
     uVar4 = esp_log_timestamp();
-    uVar2 = 100;
+    uVar2 = 0x66;
     pcVar8 = "E (%lu) %s: %s(%d): Failed to read query message\n";
   }
   else {
     uVar4 = esp_log_timestamp();
-    uVar2 = 99;
+    uVar2 = 0x65;
     pcVar8 = "E (%lu) %s: %s(%d): No DNS query buffer\n";
   }
 _L0:

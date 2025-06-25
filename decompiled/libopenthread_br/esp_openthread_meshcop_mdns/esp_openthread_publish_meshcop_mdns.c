@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
+ * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
+ * Upstream date: 2025-06-25 11:20:59 +0000
+ * Upstream subject: feat(openthread): update border router lib
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -69,7 +69,7 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
   if (iVar5 != 0) {
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get OpenThread active dataset\n",uVar2,
-            "OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x90);
+            "OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x91);
     return -1;
   }
   uStack_b8 = __bswapdi2(uStack_b8,uStack_b4);
@@ -120,7 +120,7 @@ _L0:
       goto _L0;
     }
     uVar3 = esp_log_timestamp();
-    uVar2 = 0xa8;
+    uVar2 = 0xa9;
     pcVar1 = "E (%lu) %s: %s(%d): Failed to publish meshcop mdns service\n";
   }
   else {
@@ -158,7 +158,7 @@ _L0:
                         uVar2 = esp_log_timestamp();
                         esp_log(1,"OPENTHREAD",
                                 "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
-                                ,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0xd2);
+                                ,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0xd3);
                         iVar10 = iVar5;
                         goto _L0;
                       }
@@ -168,19 +168,19 @@ _L0:
                                            ("_meshcop",&_LC16,&_LC36,auStack_120,0x10), iVar10 == 0)
                        ) goto _L0;
                     uVar3 = esp_log_timestamp();
-                    uVar2 = 0xd9;
+                    uVar2 = 0xda;
                     pcVar1 = 
                     "E (%lu) %s: %s(%d): Failed to set border agent id in meshcop mdns service\n";
                   }
                   else {
                     uVar3 = esp_log_timestamp();
-                    uVar2 = 0xc9;
+                    uVar2 = 0xca;
                     pcVar1 = "E (%lu) %s: %s(%d): Failed to set extpanid in meshcop mdns service\n";
                   }
                 }
                 else {
                   uVar3 = esp_log_timestamp();
-                  uVar2 = 0xc5;
+                  uVar2 = 0xc6;
                   pcVar1 = 
                   "E (%lu) %s: %s(%d): Failed to set device discriminator in meshcop mdns service\n"
                   ;
@@ -188,38 +188,38 @@ _L0:
               }
               else {
                 uVar3 = esp_log_timestamp();
-                uVar2 = 0xc1;
+                uVar2 = 0xc2;
                 pcVar1 = "E (%lu) %s: %s(%d): Failed to set state bitmap in meshcop mdns service\n";
               }
             }
             else {
               uVar3 = esp_log_timestamp();
-              uVar2 = 0xbd;
+              uVar2 = 0xbe;
               pcVar1 = 
               "E (%lu) %s: %s(%d): Failed to set active timestamp in meshcop mdns service\n";
             }
           }
           else {
             uVar3 = esp_log_timestamp();
-            uVar2 = 0xb9;
+            uVar2 = 0xba;
             pcVar1 = "E (%lu) %s: %s(%d): Failed to set partition id in meshcop mdns service\n";
           }
         }
         else {
           uVar3 = esp_log_timestamp();
-          uVar2 = 0xb5;
+          uVar2 = 0xb6;
           pcVar1 = "E (%lu) %s: %s(%d): Failed to set sequence number in meshcop mdns service\n";
         }
       }
       else {
         uVar3 = esp_log_timestamp();
-        uVar2 = 0xb2;
+        uVar2 = 0xb3;
         pcVar1 = "E (%lu) %s: %s(%d): Failed to set bbr port number in meshcop mdns service\n";
       }
     }
     else {
       uVar3 = esp_log_timestamp();
-      uVar2 = 0xaf;
+      uVar2 = 0xb0;
       pcVar1 = "E (%lu) %s: %s(%d): Failed to set txt items for meshcop mdns service\n";
     }
   }

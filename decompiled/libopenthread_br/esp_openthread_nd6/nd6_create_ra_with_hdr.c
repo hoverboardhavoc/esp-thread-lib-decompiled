@@ -3,28 +3,26 @@
  * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
  * Upstream date: 2025-06-25 11:20:59 +0000
  * Upstream subject: feat(openthread): update border router lib
- * Source: libopenthread_br -> nat64.cpp.o -> nat64_init
+ * Source: libopenthread_br -> esp_openthread_nd6.o -> nd6_create_ra_with_hdr
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-int nat64_init(void)
+int nd6_create_ra_with_hdr(uint param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  undefined1 *puVar2;
   
-  iVar1 = nat64_netif_init();
-  if (iVar1 == 0) {
-    esp_openthread_get_instance();
-    otNat64SetEnabled(1);
-  }
-  else {
-    uVar2 = esp_log_timestamp();
-    esp_log(1,"NAT64","E (%lu) %s: %s(%d): Failed to initialize nat64 interface\n",uVar2,"NAT64",
-            0x10000,0x1d);
+  iVar1 = 0;
+  if ((0xf < param_1) && (iVar1 = pbuf_alloc(0x36,param_1,0x280), iVar1 != 0)) {
+    puVar2 = *(undefined1 **)(iVar1 + 4);
+    memset(puVar2 + 1,0,0xf);
+    *puVar2 = 0x86;
+    puVar2[5] = 2;
+    *(undefined4 *)(iVar1 + 8) = 0x100010;
   }
   return iVar1;
 }
