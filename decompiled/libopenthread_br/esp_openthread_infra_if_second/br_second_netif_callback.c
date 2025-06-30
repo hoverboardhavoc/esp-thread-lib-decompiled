@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> br_second_netif_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,16 +26,16 @@ void br_second_netif_callback(uint param_1)
   uVar3 = 1;
   if (2 < iVar2 - 2U) {
     iVar1 = 0;
-    if (iVar2 != 0) goto _L0;
+    if (iVar2 != 0) goto _L16;
     uVar3 = 3;
   }
   iVar1 = esp_netif_tcpip_exec(notify_lwip_send_ra,uVar3);
-_L0:
+_L16:
   esp_openthread_task_switching_lock_acquire(0xffffffff);
   if (iVar1 != 0) {
     uVar3 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to notify lwip to send RA\n",uVar3,
-            "OPENTHREAD","br_second_netif_callback",0xe0);
+            "br_second_netif_callback",0xe0);
     return;
   }
   return;

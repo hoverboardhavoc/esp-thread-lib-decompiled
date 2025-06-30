@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_route_table.o -> route_timeout_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,7 +10,7 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 route_timeout_handler(undefined1 *param_1)
+undefined4 route_timeout_handler(uint param_1)
 
 {
   int iVar1;
@@ -27,17 +27,15 @@ undefined4 route_timeout_handler(undefined1 *param_1)
     uVar2 = sys_timeout(iVar1,route_timeout_handler,param_1);
     return uVar2;
   }
-  if (param_1 < s_route_entries) {
-    return 0x102;
-  }
-  uVar2 = 0x102;
-  if (param_1 < (undefined1 *)0x103c9) {
-    if (*(int *)(param_1 + 0x30) != -1) {
-      sys_untimeout(route_timeout_handler,param_1);
+  if ((0x103c3 < param_1) && (param_1 < 0x103c5)) {
+    if (*(int *)(param_1 + 0x30) == -1) {
+      *(undefined4 *)(param_1 + 0x34) = 0;
+      return 0;
     }
+    sys_untimeout(route_timeout_handler,param_1);
     *(undefined4 *)(param_1 + 0x34) = 0;
-    uVar2 = 0;
+    return 0;
   }
-  return uVar2;
+  return 0x102;
 }
 

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> Forward2V6
  *
  * (C) Espressif, Apache License 2.0.
@@ -33,10 +33,10 @@ undefined4 __thiscall idf::IcmpSession::Forward2V6(IcmpSession *this,uchar *para
   if (param_1[0x14] == '\0') {
     puVar3 = *(undefined1 **)(iVar6 + 4);
     memcpy(puVar3 + 0x28,param_1 + 0x14,__n);
-    uVar7 = lwip_htonl((uint)param_1[1] << 0x14 | 0x60000000);
+    uVar7 = lwip_htonl((param_1[1] | 0x600) << 0x14);
+    *puVar3 = (char)uVar7;
     puVar3[1] = (char)((uint)uVar7 >> 8);
     puVar3[2] = (char)((uint)uVar7 >> 0x10);
-    *puVar3 = (char)uVar7;
     puVar3[3] = (char)((uint)uVar7 >> 0x18);
     uVar5 = lwip_htons(__n);
     puVar3[4] = (char)uVar5;

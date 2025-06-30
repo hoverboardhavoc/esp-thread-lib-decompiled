@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_nd6.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,16 +18,15 @@ undefined4 icmp6_raw_recv_handler(int param_1,undefined4 param_2)
   byte bVar3;
   int iVar4;
   uint uVar5;
+  uint __size;
   char *__ptr;
   undefined4 uVar6;
   undefined4 uVar7;
-  uint __n;
-  uint __size;
   char *pcVar8;
   uint uVar9;
-  undefined1 auStack_a4 [16];
-  undefined1 uStack_94;
-  undefined1 auStack_90 [20];
+  uint __n;
+  undefined1 auStack_90 [16];
+  undefined1 uStack_80;
   undefined4 uStack_7c;
   undefined4 uStack_78;
   undefined4 uStack_74;
@@ -41,9 +40,7 @@ undefined4 icmp6_raw_recv_handler(int param_1,undefined4 param_2)
   undefined4 uStack_34;
   
   iVar4 = *(int *)(param_1 + 4);
-  uStack_94 = 0;
-  memcpy(auStack_a4,(void *)(iVar4 + 8),0x10);
-  memcpy(auStack_90,(void *)(iVar4 + 0x18),0x10);
+  memcpy(auStack_90,(void *)(iVar4 + 8),0x10);
   if (((((*(uint3 *)(iVar4 + 0x18) & 0xff) != 0xff) ||
        ((((*(int *)(iVar4 + 0x18) == 0x2ff && (*(int *)(iVar4 + 0x1c) == 0)) &&
          (*(int *)(iVar4 + 0x20) == 0)) &&
@@ -59,52 +56,49 @@ undefined4 icmp6_raw_recv_handler(int param_1,undefined4 param_2)
           for (uVar9 = 0x10; uVar9 + 1 < __size; uVar9 = uVar5 + uVar9 & 0xffff) {
             pcVar8 = __ptr + uVar9;
             uVar5 = ((byte)pcVar8[1] & 0x1f) * 8;
-            if (((pcVar8[1] & 0x1fU) == 0) || (__size < uVar5)) {
+            if ((__size < uVar5) || ((pcVar8[1] & 0x1fU) == 0)) {
               uVar6 = esp_log_timestamp();
-              esp_log(2,"OPENTHREAD","W (%lu) %s: Invalid RA packets, ignored\n",uVar6,"OPENTHREAD")
-              ;
+              esp_log(2,"OPENTHREAD","W (%lu) %s: Invalid RA packets, ignored\n",uVar6);
               break;
             }
             if (*pcVar8 == '\x18') {
-              uStack_94 = 0;
-              iVar4 = is_address_from_netif(auStack_a4,param_2);
+              uStack_80 = 0;
+              iVar4 = is_address_from_netif(auStack_90,param_2);
               if (iVar4 == 0) {
                 bVar2 = pcVar8[2];
                 bVar3 = pcVar8[3];
                 uVar6 = esp_log_timestamp();
-                esp_log(3,"OPENTHREAD","I (%lu) %s: Received RIO\n",uVar6,"OPENTHREAD");
-                if (bVar2 < 8) {
+                __n = (uint)(bVar2 >> 3);
+                esp_log(3,"OPENTHREAD","I (%lu) %s: Received RIO\n",uVar6);
+                if (__n == 0) {
                   uVar6 = esp_log_timestamp();
                   pcVar8 = "I (%lu) %s: Prefix length: 0, skip to add this RIO\n";
-_L0:
-                  esp_log(3,"OPENTHREAD",pcVar8,uVar6,"OPENTHREAD");
+_L54:
+                  esp_log(3,"OPENTHREAD",pcVar8,uVar6);
                 }
-                else {
-                  __n = (uint)(bVar2 >> 3);
-                  if (__n + 8 <= uVar5) {
-                    uStack_7c = 0;
-                    uStack_78 = 0;
-                    uStack_74 = 0;
-                    uStack_70 = 0;
-                    uStack_6c = 0;
-                    memcpy(&uStack_7c,__ptr + uVar9 + 8,__n);
-                    uStack_34 = param_2;
-                    memcpy(auStack_50,auStack_a4,0x14);
-                    cStack_54 = pcVar8[2];
-                    memcpy(auStack_68,&uStack_7c,0x14);
-                    cStack_3c = ((byte)((int)((uint)bVar3 << 0x1b) >> 0x1f) & 0xfe) +
-                                (bVar3 >> 3 & 1);
-                    uStack_38 = lwip_htonl(*(undefined4 *)(pcVar8 + 4));
+                else if (__n + 8 <= uVar5) {
+                  uStack_7c = 0;
+                  uStack_78 = 0;
+                  uStack_74 = 0;
+                  uStack_70 = 0;
+                  uStack_6c = 0;
+                  memcpy(&uStack_7c,__ptr + uVar9 + 8,__n);
+                  uStack_34 = param_2;
+                  memcpy(auStack_50,auStack_90,0x14);
+                  cStack_54 = pcVar8[2];
+                  memcpy(auStack_68,&uStack_7c,0x14);
+                  cStack_3c = ((byte)((int)((uint)bVar3 << 0x1b) >> 0x1f) & 0xfe) + (bVar3 >> 3 & 1)
+                  ;
+                  uStack_38 = lwip_htonl(*(undefined4 *)(pcVar8 + 4));
+                  uVar6 = esp_log_timestamp();
+                  uVar7 = ip6addr_ntoa(&uStack_7c);
+                  esp_log(3,"OPENTHREAD","I (%lu) %s: prefix %s lifetime %lu\n\n",uVar6,uVar7,
+                          uStack_38);
+                  iVar4 = esp_openthread_route_table_add_route_entry(auStack_68);
+                  if (iVar4 == 0) {
                     uVar6 = esp_log_timestamp();
-                    uVar7 = ip6addr_ntoa(&uStack_7c);
-                    esp_log(3,"OPENTHREAD","I (%lu) %s: prefix %s lifetime %lu\n\n",uVar6,
-                            "OPENTHREAD",uVar7,uStack_38);
-                    iVar4 = esp_openthread_route_table_add_route_entry(auStack_68);
-                    if (iVar4 == 0) {
-                      uVar6 = esp_log_timestamp();
-                      pcVar8 = "I (%lu) %s: Failed to add route table entry\n\n";
-                      goto _L0;
-                    }
+                    pcVar8 = "I (%lu) %s: Failed to add route table entry\n\n";
+                    goto _L54;
                   }
                 }
               }
@@ -120,7 +114,7 @@ _L0:
       return 0;
     }
     uVar6 = esp_log_timestamp();
-    esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate icmp6 buffer\n",uVar6,"OPENTHREAD");
+    esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate icmp6 buffer\n",uVar6);
   }
   return 0xffffffff;
 }

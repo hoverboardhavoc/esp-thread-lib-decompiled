@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forward_packet
  *
  * (C) Espressif, Apache License 2.0.
@@ -36,10 +36,10 @@ void esp_openthread_multicast_forward_packet(int param_1,int param_2)
   }
   esp_openthread_get_backbone_netif();
   iVar2 = to_underlying_lwip_netif();
-  if (param_2 != iVar2) {
+  if (iVar2 != param_2) {
     esp_netif_get_handle_from_ifkey("OT_DEF");
     iVar2 = to_underlying_lwip_netif();
-    if (param_2 != iVar2) {
+    if (iVar2 != param_2) {
       return;
     }
   }
@@ -59,28 +59,28 @@ void esp_openthread_multicast_forward_packet(int param_1,int param_2)
         for (__s1 = (void *)piVar9[1]; __s1 != (void *)0x0; __s1 = *(void **)((int)__s1 + 0x18)) {
           iVar5 = memcmp(__s1,auStack_50,0x10);
           if (iVar5 == 0) {
-            if (iVar4 != 0) goto _L0;
-            goto _L0;
+            if (iVar4 != 0) goto _L79;
+            goto _L78;
           }
         }
       }
     }
-_L0:
+_L78:
     esp_netif_get_handle_from_ifkey("OT_DEF");
     iVar4 = to_underlying_lwip_netif();
-    if ((param_2 == iVar4) &&
-       (((auStack_50[0] & 0x8eff) == 0x4ff || ((auStack_50[0] & 0x8fff) == 0xeff)))) {
+    if ((iVar4 == param_2) &&
+       (((auStack_50[0] | 0xffff7000) == 0xffff7eff || ((auStack_50[0] & 0x8eff) == 0x4ff)))) {
       esp_openthread_get_backbone_netif();
       iVar4 = to_underlying_lwip_netif();
       if ((iVar4 != 0) && (param_2 != iVar4)) {
-_L0:
+_L79:
         uVar8 = (uint)uVar1 - (iVar3 - iVar2) & 0xffff;
         iVar5 = pbuf_alloc(0x36,uVar8,0x280);
         if (iVar5 == 0) {
           uVar6 = esp_log_timestamp();
           esp_log(1,"OPENTHREAD",
                   "E (%lu) %s: %s(%d): Cannot allocate pbuf for multicast forwarding\n",uVar6,
-                  "OPENTHREAD","esp_openthread_multicast_forward_packet",0x85);
+                  "esp_openthread_multicast_forward_packet",0x85);
         }
         else {
           iVar7 = s_icmp_send_pcb;
@@ -95,8 +95,7 @@ _L0:
           iVar2 = raw_sendto_if_src(iVar7,iVar5,auStack_50,iVar4,auStack_38);
           if (iVar2 != 0) {
             uVar6 = esp_log_timestamp();
-            esp_log(2,"OPENTHREAD","W (%lu) %s: Failed to forward multicast packet\n",uVar6,
-                    "OPENTHREAD");
+            esp_log(2,"OPENTHREAD","W (%lu) %s: Failed to forward multicast packet\n",uVar6);
           }
           pbuf_free(iVar5);
         }

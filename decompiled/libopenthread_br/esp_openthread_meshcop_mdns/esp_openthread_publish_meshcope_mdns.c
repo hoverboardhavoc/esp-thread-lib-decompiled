@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcope_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,7 +24,7 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
   if (iVar2 != 0) {
     uVar3 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to post OpenThread publish meshcop-e service event\n"
-            ,uVar3,"OPENTHREAD");
+            ,uVar3);
   }
   if (s_e_service_published == '\0') {
     uVar1 = otBorderAgentEphemeralKeyGetUdpPort(uVar1);
@@ -34,7 +34,7 @@ int esp_openthread_publish_meshcope_mdns(undefined4 param_1)
     if (iVar2 != 0) {
       uVar1 = esp_log_timestamp();
       esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to publish meshcop-e mdns service\n",uVar1,
-              "OPENTHREAD","esp_openthread_publish_meshcope_mdns",0xff);
+              "esp_openthread_publish_meshcope_mdns",0xff);
       return iVar2;
     }
     s_e_service_published = '\x01';

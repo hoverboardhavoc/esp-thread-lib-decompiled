@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> Forward2V4
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,16 +35,16 @@ undefined4 __thiscall idf::IcmpSession::Forward2V4(IcmpSession *this,uchar *para
   uVar4 = *(undefined2 *)(this + 0x20);
   puVar3[4] = (char)((ushort)uVar4 >> 8);
   puVar3[5] = (char)uVar4;
-  uVar1 = param_1[6];
-  uVar2 = param_1[7];
+  uVar1 = param_1[7];
+  uVar2 = param_1[6];
   puVar3[2] = 0;
-  puVar3[6] = uVar1;
-  puVar3[7] = uVar2;
+  puVar3[6] = uVar2;
+  puVar3[7] = uVar1;
   puVar3[3] = 0;
   uVar4 = inet_chksum_pbuf(iVar5);
-  puVar3[3] = (char)((ushort)uVar4 >> 8);
   auStack_38[0] = *(undefined4 *)(this + 0x1c);
   puVar3[2] = (char)uVar4;
+  puVar3[3] = (char)((ushort)uVar4 >> 8);
   cStack_24 = '\0';
   esp_openthread_get_backbone_netif();
   iVar6 = to_underlying_lwip_netif();

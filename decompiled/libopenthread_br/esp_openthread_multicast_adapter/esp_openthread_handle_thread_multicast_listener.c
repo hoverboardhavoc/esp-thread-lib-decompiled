@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_adapter.o -> esp_openthread_handle_thread_multicast_listener
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,7 +22,7 @@ void esp_openthread_handle_thread_multicast_listener(int param_1,void *param_2)
     uVar1 = esp_log_timestamp();
     esp_log(1,0x10000,
             "E (%lu) %s: %s(%d): Error handling OpenThread multicast listener: No enough memory\n",
-            uVar1,0x10000,"esp_openthread_handle_thread_multicast_listener",0x31);
+            uVar1,"esp_openthread_handle_thread_multicast_listener",0x31);
     return;
   }
   memcpy(__dest,param_2,0x10);
@@ -34,7 +34,7 @@ void esp_openthread_handle_thread_multicast_listener(int param_1,void *param_2)
   else {
     if (param_1 != 1) {
       uVar1 = esp_log_timestamp();
-      esp_log(1,0x10000,"E (%lu) %s: Unknown OpenThread multicast listener event\n",uVar1,0x10000);
+      esp_log(1,0x10000,"E (%lu) %s: Unknown OpenThread multicast listener event\n",uVar1);
       return;
     }
     esp_openthread_task_switching_lock_release();

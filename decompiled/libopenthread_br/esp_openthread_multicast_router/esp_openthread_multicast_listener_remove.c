@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,8 +28,7 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
   if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
     uVar2 = esp_log_timestamp();
     uVar3 = ip6addr_ntoa(param_1);
-    esp_log(3,"OPENTHREAD","I (%lu) %s: Multicast listener remove: %s\n\n",uVar2,"OPENTHREAD",uVar3)
-    ;
+    esp_log(3,"OPENTHREAD","I (%lu) %s: Multicast listener remove: %s\n\n",uVar2,uVar3);
     piVar5 = s_netif_listener_lists;
     while( true ) {
       if (piVar5 == (int *)0x0) {

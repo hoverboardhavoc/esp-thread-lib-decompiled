@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> otPlatInfraIfSendIcmp6Nd
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ undefined4 otPlatInfraIfSendIcmp6Nd(void *param_1,char *param_2,int param_3)
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD",
             "E (%lu) %s: %s(%d): Failed to allocate buffer for icmpv6 nd message on backbone netif\n"
-            ,uVar2,"OPENTHREAD","br_backbone_netif_create_nd6_msg",0xcb);
+            ,uVar2,"br_backbone_netif_create_nd6_msg",0xcb);
   }
   else {
     iVar3 = pbuf_take(param_2,param_3);
@@ -58,7 +58,7 @@ undefined4 otPlatInfraIfSendIcmp6Nd(void *param_1,char *param_2,int param_3)
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD",
             "E (%lu) %s: %s(%d): Failed to create an icmpv6 nd message on backbone netif\n",uVar2,
-            "OPENTHREAD","br_backbone_netif_create_nd6_msg",0xcd);
+            "br_backbone_netif_create_nd6_msg",0xcd);
     pbuf_free(iVar1);
   }
   return 3;

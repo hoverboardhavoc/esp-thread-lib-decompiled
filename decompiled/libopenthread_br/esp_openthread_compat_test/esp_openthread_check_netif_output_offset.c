@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_compat_test.o -> esp_openthread_check_netif_output_offset
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,7 +18,7 @@ undefined4 esp_openthread_check_netif_output_offset(int param_1)
   if (param_1 != 0x1dc) {
     uVar1 = esp_log_timestamp();
     esp_log(1,"OT_TEST","E (%lu) %s: The offset of `%s` is mismatched, %d in lib but %d in IDF\n",
-            uVar1,"OT_TEST","output",0x1dc,param_1);
+            uVar1,"output",0x1dc,param_1);
     return 0;
   }
   return 1;

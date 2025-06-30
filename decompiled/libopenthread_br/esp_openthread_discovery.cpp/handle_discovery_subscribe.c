@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> handle_discovery_subscribe
  *
  * (C) Espressif, Apache License 2.0.
@@ -29,11 +29,11 @@ void handle_discovery_subscribe(void *param_1,char *param_2)
   
   pcVar3 = strstr(param_2,".default.service.arpa.");
   uVar1 = (int)pcVar3 - (int)param_2;
-  if ((pcVar3 != (char *)0x0) && (uVar1 < 0x100)) {
+  if ((uVar1 < 0x100) && (pcVar3 != (char *)0x0)) {
     __s = malloc(0x3f0);
     if (__s == (void *)0x0) {
       uVar4 = esp_log_timestamp();
-      esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to create pending query\n",uVar4,"OPENTHREAD");
+      esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to create pending query\n",uVar4);
       return;
     }
     memset(__s,0,0x3f0);
@@ -42,7 +42,7 @@ void handle_discovery_subscribe(void *param_1,char *param_2)
     acStack_121[uVar1 + 1] = '\0';
     sVar5 = strnlen(pcVar3,0x100);
     if (sVar5 == 0) {
-_L0:
+_L70:
       free(__s);
       return;
     }
@@ -53,19 +53,20 @@ _L0:
     for (uVar1 = sVar2 - 1; -1 < (int)uVar1; uVar1 = uVar1 - 1) {
       if (pcVar3[uVar1] == '.') {
         if (uVar1 != 0) {
-          if ((0x81 < uVar1) || (__n = (sVar2 - 1) - uVar1, 0x40 < __n)) goto _L0;
+          __n = (sVar2 - 1) - uVar1;
+          if ((0x81 < uVar1) || (0x40 < __n)) goto _L70;
           strncpy(acStack_1a4,pcVar3,uVar1);
           acStack_1a4[uVar1] = '\0';
           strncpy(acStack_1e9 + 1,pcVar3 + uVar1 + 1,__n);
           acStack_1e9[__n + 1] = '\0';
-          goto _L0;
+          goto _L76;
         }
         break;
       }
     }
     strncpy(acStack_1a4,pcVar3,0x82);
     acStack_1e9[1] = 0;
-_L0:
+_L76:
     pcVar6 = strstr(pcVar3,"._tcp");
     if ((pcVar6 == (char *)0x0) && (pcVar3 = strstr(pcVar3,"._udp"), pcVar3 == (char *)0x0)) {
       otLogInfoPlat("subscribe host %s",acStack_1a4);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_nd6.o -> is_address_from_netif
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,9 +13,9 @@
 undefined4 is_address_from_netif(void *param_1,int param_2)
 
 {
-  byte *__s2;
   byte *pbVar1;
   int iVar2;
+  byte *__s2;
   
   if ((*(byte *)(param_2 + 0x20f) & 1) == 0) {
     return 0;
@@ -25,7 +25,7 @@ undefined4 is_address_from_netif(void *param_1,int param_2)
   while (((*pbVar1 & 0x10) == 0 || (iVar2 = memcmp(param_1,__s2,0x10), iVar2 != 0))) {
     __s2 = __s2 + 0x18;
     pbVar1 = pbVar1 + 1;
-    if (__s2 == (byte *)(param_2 + 0x16c)) {
+    if ((byte *)(param_2 + 0x16c) == __s2) {
       return 0;
     }
   }

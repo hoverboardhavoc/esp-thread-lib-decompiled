@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,7 +25,7 @@ undefined4 __thiscall Resolver::Init(Resolver *this)
     uVar1 = esp_log_timestamp();
     esp_log(1,"Resolver",
             "E (%lu) %s: %s(%d): No free memory for creating a DNS forwarding transaction\n",uVar1,
-            "Resolver",0x10000,0x47);
+            0x10000,0x47);
     uVar1 = 0x101;
   }
   else {

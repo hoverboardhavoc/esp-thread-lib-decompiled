@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * https://github.com/espressif/esp-thread-lib/commit/e6fe125f50ac1bec267fce4cd8f27c0e2e431636
- * Upstream date: 2023-06-02 12:00:23 +0800
- * Upstream subject: ot br lib: fix issues in certification esp-openthread: a158ca1 openthread:091f68e
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_probe_backbone_listeners
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,7 +17,12 @@ int esp_openthread_probe_backbone_listeners(void)
   undefined1 *puVar2;
   int iVar3;
   undefined4 uVar4;
-  undefined1 auStack_28 [24];
+  undefined4 uStack_28;
+  undefined4 uStack_24;
+  undefined4 uStack_20;
+  undefined4 uStack_1c;
+  undefined4 uStack_18;
+  undefined4 uStack_14;
   
   iVar3 = pbuf_alloc(0x36,0x28,0x280);
   iVar1 = 0x101;
@@ -27,13 +32,18 @@ int esp_openthread_probe_backbone_listeners(void)
     *puVar2 = 0x82;
     puVar2[4] = 3;
     puVar2[5] = 0xe8;
-    memcpy(auStack_28,&_LANCHOR0,0x18);
     iVar1 = s_icmp_send_pcb;
+    uStack_28 = 0x2ff;
+    uStack_1c = 0x1000000;
+    uStack_14 = 6;
     *(undefined2 *)(s_icmp_send_pcb + 0x44) = 2;
     *(undefined1 *)(iVar1 + 0x46) = 1;
+    uStack_24 = 0;
+    uStack_20 = 0;
+    uStack_18 = 0;
     uVar4 = esp_openthread_get_lwip_backbone_netif();
     raw_bind_netif(iVar1,uVar4);
-    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,auStack_28);
+    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,&uStack_28);
     iVar1 = -(uint)(iVar1 != 0);
     pbuf_free(iVar3);
   }

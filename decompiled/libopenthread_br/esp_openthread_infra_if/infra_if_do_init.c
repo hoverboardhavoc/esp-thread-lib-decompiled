@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if.o -> infra_if_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,10 +15,20 @@ undefined4 infra_if_do_init(void)
 {
   int iVar1;
   undefined4 uVar2;
-  undefined1 auStack_28 [28];
+  undefined4 uStack_28;
+  undefined4 uStack_24;
+  undefined4 uStack_20;
+  undefined4 uStack_1c;
+  undefined4 uStack_18;
+  undefined4 uStack_14;
   
-  memcpy(auStack_28,&_LANCHOR0,0x18);
-  iVar1 = mld6_joingroup_netif(s_netif,auStack_28);
+  uStack_28 = 0x2ff;
+  uStack_1c = 0x2000000;
+  uStack_24 = 0;
+  uStack_20 = 0;
+  uStack_18 = 0;
+  uStack_14 = 6;
+  iVar1 = mld6_joingroup_netif(s_netif,&uStack_28);
   uVar2 = 0xffffffff;
   if (iVar1 == 0) {
     s_raw_pcb = raw_new_ip_type(6,0x3a);

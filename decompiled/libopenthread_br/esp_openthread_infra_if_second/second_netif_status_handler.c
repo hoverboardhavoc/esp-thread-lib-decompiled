@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> second_netif_status_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -10,46 +10,43 @@
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-/* WARNING: Removing unreachable block (ram,0x000103de) */
-/* WARNING: Removing unreachable block (ram,0x00010488) */
-/* WARNING: Removing unreachable block (ram,0x00010442) */
-/* WARNING: Removing unreachable block (ram,0x00010412) */
-/* WARNING: Removing unreachable block (ram,0x00010434) */
-/* WARNING: Removing unreachable block (ram,0x0001040c) */
-/* WARNING: Removing unreachable block (ram,0x000103e2) */
-/* WARNING: Removing unreachable block (ram,0x00010370) */
-/* WARNING: Removing unreachable block (ram,0x000103a4) */
+/* WARNING: Removing unreachable block (ram,0x000103e4) */
+/* WARNING: Removing unreachable block (ram,0x0001048c) */
+/* WARNING: Removing unreachable block (ram,0x00010446) */
+/* WARNING: Removing unreachable block (ram,0x00010416) */
+/* WARNING: Removing unreachable block (ram,0x00010438) */
+/* WARNING: Removing unreachable block (ram,0x00010410) */
+/* WARNING: Removing unreachable block (ram,0x000103e8) */
+/* WARNING: Removing unreachable block (ram,0x0001036e) */
+/* WARNING: Removing unreachable block (ram,0x000103a0) */
 
-undefined4 second_netif_status_handler(undefined4 param_1)
+code * second_netif_status_handler(code *param_1)
 
 {
-  int iVar1;
+  undefined4 uVar1;
   int iVar2;
-  undefined4 uVar3;
   
   if (((*(byte *)(s_netif + 0x20f) & 1) != 0) && (s_netif_ra_enabled == '\0')) {
-    iVar1 = 0;
+    iVar2 = 0;
     do {
-      iVar2 = iVar1 + 1;
-      sys_untimeout(second_netif_ra_send,iVar1);
-      iVar1 = iVar2;
+      sys_untimeout(second_netif_ra_send,iVar2);
+      iVar2 = iVar2 + 1;
     } while (iVar2 != 5);
     s_ra_txCount = 0;
     s_netif_ra_enabled = 1;
-    uVar3 = generate_random_time(10000,2000);
-    sys_timeout(uVar3,second_netif_ra_send,0);
-    return 0;
+    uVar1 = generate_random_time(10000,2000);
+    sys_timeout(uVar1,second_netif_ra_send,0);
+    return (code *)0x0;
   }
   if ((*(byte *)(s_netif + 0x20f) & 1) != 0) {
     return param_1;
   }
-  iVar1 = 0;
+  iVar2 = 0;
   do {
-    iVar2 = iVar1 + 1;
-    uVar3 = sys_untimeout(second_netif_ra_send,iVar1);
-    iVar1 = iVar2;
+    sys_untimeout(second_netif_ra_send);
+    iVar2 = iVar2 + 1;
   } while (iVar2 != 5);
   s_netif_ra_enabled = 0;
-  return uVar3;
+  return second_netif_ra_send;
 }
 

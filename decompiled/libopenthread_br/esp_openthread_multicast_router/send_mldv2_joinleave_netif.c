@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * https://github.com/espressif/esp-thread-lib/commit/a0f6a77960b36ebe357cc4bee280034f8c7120f1
- * Upstream date: 2024-04-18 16:47:55 +0800
- * Upstream subject: feat(br): update border router lib           esp-openthread: 07f637d           openthread: be7d36e
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_joinleave_netif
  *
  * (C) Espressif, Apache License 2.0.
@@ -16,7 +16,12 @@ int send_mldv2_joinleave_netif(undefined4 param_1,void *param_2,char param_3)
   int iVar1;
   undefined1 *puVar2;
   int iVar3;
-  undefined1 auStack_38 [28];
+  undefined4 uStack_38;
+  undefined4 uStack_34;
+  undefined4 uStack_30;
+  undefined4 uStack_2c;
+  undefined4 uStack_28;
+  undefined4 uStack_24;
   
   iVar3 = pbuf_alloc(0x36,0x1c,0x280);
   iVar1 = 0x101;
@@ -24,18 +29,23 @@ int send_mldv2_joinleave_netif(undefined4 param_1,void *param_2,char param_3)
     puVar2 = *(undefined1 **)(iVar3 + 4);
     memset(puVar2 + 1,0,7);
     *puVar2 = 0x8f;
+    puVar2[8] = param_3 + '\x03';
     puVar2[7] = 1;
     puVar2[9] = 0;
     puVar2[10] = 0;
     puVar2[0xb] = 0;
-    puVar2[8] = param_3 + '\x03';
     memcpy(puVar2 + 0xc,param_2,0x10);
     iVar1 = s_icmp_send_pcb;
     *(undefined2 *)(s_icmp_send_pcb + 0x44) = 2;
     *(undefined1 *)(iVar1 + 0x46) = 1;
     raw_bind_netif(param_1);
-    memcpy(auStack_38,&_LANCHOR0,0x18);
-    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,auStack_38);
+    uStack_38 = 0x2ff;
+    uStack_2c = 0x16000000;
+    uStack_34 = 0;
+    uStack_30 = 0;
+    uStack_28 = 0;
+    uStack_24 = 6;
+    iVar1 = raw_sendto(s_icmp_send_pcb,iVar3,&uStack_38);
     iVar1 = -(uint)(iVar1 != 0);
     pbuf_free(iVar3);
   }

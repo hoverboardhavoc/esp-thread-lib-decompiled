@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8d47b585cf4b5e717aa06b2897d27c843fafa343
- * https://github.com/espressif/esp-thread-lib/commit/8d47b585cf4b5e717aa06b2897d27c843fafa343
- * Upstream date: 2022-05-24 22:56:58 +0800
- * Upstream subject: openthread: rebuild the lib with new toolchain
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> split_hostname.constprop.0
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,8 +13,8 @@
 void split_hostname_constprop_0(char *param_1,char *param_2)
 
 {
-  size_t __n;
   char *pcVar1;
+  size_t __n;
   
   pcVar1 = strchr(param_1,0x2e);
   __n = (int)pcVar1 - (int)param_1;

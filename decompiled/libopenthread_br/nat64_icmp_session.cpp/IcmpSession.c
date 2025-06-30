@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> IcmpSession
  *
  * (C) Espressif, Apache License 2.0.
@@ -25,8 +25,8 @@ idf::IcmpSession::IcmpSession
   memcpy(this + 4,param_2,0x14);
   uVar1 = *(undefined4 *)param_4;
   *(ushort *)(this + 0x18) = param_3;
-  *(ushort *)(this + 0x20) = param_5;
   *(undefined4 *)(this + 0x1c) = uVar1;
+  *(ushort *)(this + 0x20) = param_5;
   *(undefined4 *)(this + 0x24) = 0;
   *(undefined4 *)(this + 0x28) = 0;
   return;

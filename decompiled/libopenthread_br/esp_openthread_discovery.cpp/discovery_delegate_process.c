@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> discovery_delegate_process
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,14 +18,14 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
 {
   mdns_result_s *pmVar1;
   pending_query_t *__ptr;
-  undefined1 *puVar2;
-  int iVar3;
-  undefined4 uVar4;
-  char *pcVar5;
+  int iVar2;
+  mdns_result_s *pmVar3;
+  int iVar4;
+  undefined4 uVar5;
+  char *pcVar6;
   size_t __n;
   mdns_ip_addr_s *__ptr_00;
-  int iVar6;
-  mdns_result_s *pmVar7;
+  undefined1 *puVar7;
   mdns_ip_addr_s *pmVar8;
   int local_90;
   mdns_result_s *pmStack_8c;
@@ -37,70 +37,70 @@ discovery_delegate_process(otInstance *param_1,esp_openthread_mainloop_context_t
   }
   if ((1 << (s_mdns_event_fd & 0x1f) & *(uint *)(param_2 + ((int)s_mdns_event_fd >> 5) * 4)) != 0) {
     read(s_mdns_event_fd,auStack_88,8);
-    while (iVar3 = xQueueReceive(s_mdns_result_queue,&local_90,0), iVar3 == 1) {
+    while (iVar4 = xQueueReceive(s_mdns_result_queue,&local_90,0), iVar4 == 1) {
       mdns_query_async_get_results(local_90,0xffffffff,&pmStack_8c,0);
       pmVar1 = pmStack_8c;
-      iVar3 = local_90;
-      puVar2 = s_pending_queries;
+      iVar4 = local_90;
       __ptr = (pending_query_t *)s_pending_queries._1004_4_;
+      puVar7 = s_pending_queries;
       while (__ptr != (pending_query_t *)0x0) {
-        if (iVar3 != *(int *)(__ptr + 0x3e0)) {
-          if (iVar3 == *(int *)(__ptr + 0x3e4)) goto _L0;
-          goto _L0;
+        if (iVar4 != *(int *)(__ptr + 0x3e0)) {
+          if (iVar4 == *(int *)(__ptr + 0x3e4)) goto _L105;
+          goto _L106;
         }
         *(undefined4 *)(__ptr + 0x3e0) = 0;
-        if (iVar3 == *(int *)(__ptr + 0x3e4)) {
-_L0:
+        if (iVar4 == *(int *)(__ptr + 0x3e4)) {
+_L105:
           *(undefined4 *)(__ptr + 0x3e4) = 0;
         }
-        iVar6 = *(int *)(__ptr + 1000);
-        if (iVar6 == 1) {
+        iVar2 = *(int *)(__ptr + 1000);
+        if (iVar2 == 1) {
           apmStack_80[0] = (mdns_result_s *)0x0;
-          pmVar7 = pmVar1;
+          pmVar3 = pmVar1;
           if (pmVar1 == (mdns_result_s *)0x0) {
-            iVar6 = mdns_lookup_selfhosted_service
+            iVar2 = mdns_lookup_selfhosted_service
                               (__ptr + 0x300,__ptr + 0x340,__ptr + 0x380,1,apmStack_80);
-            pmVar7 = apmStack_80[0];
-            if ((iVar6 == 0) && (apmStack_80[0] != (mdns_result_s *)0x0)) {
-              uVar4 = get_openthread_netif_ip6_addr();
-              *(undefined4 *)(pmVar7 + 0x30) = uVar4;
-              pmVar7 = apmStack_80[0];
-              goto _L0;
+            pmVar3 = apmStack_80[0];
+            if ((iVar2 == 0) && (apmStack_80[0] != (mdns_result_s *)0x0)) {
+              uVar5 = get_openthread_netif_ip6_addr();
+              *(undefined4 *)(pmVar3 + 0x30) = uVar5;
+              pmVar3 = apmStack_80[0];
+              goto _L160;
             }
           }
           else {
-_L0:
-            append_to_query_result(__ptr,pmVar7);
+_L160:
+            append_to_query_result(__ptr,pmVar3);
           }
           if ((*(int *)(__ptr + 0x3e0) == 0) && (*(int *)(__ptr + 0x3e4) == 0)) {
             if (*(char **)(__ptr + 0x3c0) != (char *)0x0) {
-              pcVar5 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
+              pcVar6 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
               esp_openthread_get_instance();
-              otDnssdQueryHandleDiscoveredServiceInstance(pcVar5 + 1,__ptr + 0x3c0);
+              otDnssdQueryHandleDiscoveredServiceInstance(pcVar6 + 1,__ptr + 0x3c0);
             }
             free_addresses_in_pending_query(__ptr);
           }
-_L0:
+_L119:
           if (apmStack_80[0] != (mdns_result_s *)0x0) {
             mdns_query_results_free();
           }
         }
-        else if (iVar6 == 2) {
+        else if (iVar2 == 2) {
           if (pmVar1 == (mdns_result_s *)0x0) {
             memset(apmStack_80,0,0x40);
-            iVar6 = mdns_hostname_get(apmStack_80);
-            if (iVar6 == 0) {
+            iVar2 = mdns_hostname_get(apmStack_80);
+            if (iVar2 == 0) {
               __n = strnlen((char *)apmStack_80,0x40);
-              iVar6 = strncmp((char *)(__ptr + 0x300),(char *)apmStack_80,__n);
-              if (iVar6 == 0) {
+              iVar2 = strncmp((char *)(__ptr + 0x300),(char *)apmStack_80,__n);
+              if (iVar2 == 0) {
                 snprintf((char *)(__ptr + 0x100),0x100,"%s%s");
                 __ptr_00 = (mdns_ip_addr_s *)get_openthread_netif_ip6_addr();
-                iVar6 = get_mdns_num_ipv6_addresses(__ptr_00);
-                __ptr[0x3c0] = SUB41(iVar6,0);
+                iVar2 = get_mdns_num_ipv6_addresses(__ptr_00);
+                __ptr[0x3c0] = SUB41(iVar2,0);
                 *(undefined4 *)(__ptr + 0x3c8) = 0x78;
-                if (iVar6 != 0) {
-                  uVar4 = convert_mdns_addresses_to_array(__ptr_00);
-                  *(undefined4 *)(__ptr + 0x3c4) = uVar4;
+                if (iVar2 != 0) {
+                  uVar5 = convert_mdns_addresses_to_array(__ptr_00);
+                  *(undefined4 *)(__ptr + 0x3c4) = uVar5;
                 }
                 while (__ptr_00 != (mdns_ip_addr_s *)0x0) {
                   pmVar8 = *(mdns_ip_addr_s **)(__ptr_00 + 0x18);
@@ -121,43 +121,43 @@ _L0:
             free_addresses_in_pending_query(__ptr);
           }
         }
-        else if (iVar6 == 0) {
+        else if (iVar2 == 0) {
           apmStack_80[0] = (mdns_result_s *)0x0;
-          iVar6 = 0;
-          for (pmVar7 = pmVar1; pmVar7 != (mdns_result_s *)0x0; pmVar7 = *(mdns_result_s **)pmVar7)
+          iVar2 = 0;
+          for (pmVar3 = pmVar1; pmVar3 != (mdns_result_s *)0x0; pmVar3 = *(mdns_result_s **)pmVar3)
           {
-            append_to_query_result(__ptr,pmVar7);
-            iVar6 = iVar6 + 1;
-            pcVar5 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
+            append_to_query_result(__ptr,pmVar3);
+            iVar2 = iVar2 + 1;
+            pcVar6 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
             esp_openthread_get_instance();
-            otDnssdQueryHandleDiscoveredServiceInstance(pcVar5 + 1,__ptr + 0x3c0);
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar6 + 1,__ptr + 0x3c0);
             free_addresses_in_pending_query(__ptr);
             memset(__ptr + 0x3c0,0,0x20);
           }
-          iVar6 = mdns_lookup_selfhosted_service
-                            (0,__ptr + 0x340,__ptr + 0x380,5 - iVar6,apmStack_80);
-          if (iVar6 != 0) goto _L0;
-          for (pmVar7 = apmStack_80[0]; pmVar7 != (mdns_result_s *)0x0;
-              pmVar7 = *(mdns_result_s **)pmVar7) {
-            uVar4 = get_openthread_netif_ip6_addr();
-            *(undefined4 *)(pmVar7 + 0x30) = uVar4;
-            append_to_query_result(__ptr,pmVar7);
-            pcVar5 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
+          iVar2 = mdns_lookup_selfhosted_service
+                            (0,__ptr + 0x340,__ptr + 0x380,5 - iVar2,apmStack_80);
+          if (iVar2 != 0) goto _L106;
+          for (pmVar3 = apmStack_80[0]; pmVar3 != (mdns_result_s *)0x0;
+              pmVar3 = *(mdns_result_s **)pmVar3) {
+            uVar5 = get_openthread_netif_ip6_addr();
+            *(undefined4 *)(pmVar3 + 0x30) = uVar5;
+            append_to_query_result(__ptr,pmVar3);
+            pcVar6 = strchr(*(char **)(__ptr + 0x3c0),0x2e);
             esp_openthread_get_instance();
-            otDnssdQueryHandleDiscoveredServiceInstance(pcVar5 + 1,__ptr + 0x3c0);
+            otDnssdQueryHandleDiscoveredServiceInstance(pcVar6 + 1,__ptr + 0x3c0);
             free_addresses_in_pending_query(__ptr);
             memset(__ptr + 0x3c0,0,0x20);
           }
-          goto _L0;
+          goto _L119;
         }
-_L0:
+_L106:
         if ((*(int *)(__ptr + 0x3e0) == 0) && (*(int *)(__ptr + 0x3e4) == 0)) {
-          *(pending_query_t **)(puVar2 + 0x3ec) = *(pending_query_t **)(__ptr + 0x3ec);
+          *(pending_query_t **)(puVar7 + 0x3ec) = *(pending_query_t **)(__ptr + 0x3ec);
           free(__ptr);
-          __ptr = *(pending_query_t **)(puVar2 + 0x3ec);
+          __ptr = *(pending_query_t **)(puVar7 + 0x3ec);
         }
         else {
-          puVar2 = *(undefined1 **)(puVar2 + 0x3ec);
+          puVar7 = *(undefined1 **)(puVar7 + 0x3ec);
           __ptr = *(pending_query_t **)(__ptr + 0x3ec);
         }
       }

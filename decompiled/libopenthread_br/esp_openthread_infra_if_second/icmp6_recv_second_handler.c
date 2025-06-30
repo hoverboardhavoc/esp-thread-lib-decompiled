@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> icmp6_recv_second_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 icmp6_recv_second_handler(int param_1)
   if (*(ushort *)(param_1 + 8) < 0x29) {
     uVar1 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: Secondary netif received pbuf with unexpected length: %u\n",
-            uVar1,"OPENTHREAD",*(undefined2 *)(param_1 + 8));
+            uVar1,*(undefined2 *)(param_1 + 8));
   }
   else {
     iVar3 = *(int *)(param_1 + 4);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> nat64_netif.cpp.o -> netif_init_internal
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,8 +35,8 @@ int netif_init_internal(netif *param_1)
   }
   else {
     uVar2 = esp_log_timestamp();
-    esp_log(1,"NAT64","E (%lu) %s: %s(%d): Failed to add address to nat64 interface\n",uVar2,"NAT64"
-            ,"netif_init_internal",0xac);
+    esp_log(1,"NAT64","E (%lu) %s: %s(%d): Failed to add address to nat64 interface\n",uVar2,
+            "netif_init_internal",0xac);
   }
   return iVar1;
 }

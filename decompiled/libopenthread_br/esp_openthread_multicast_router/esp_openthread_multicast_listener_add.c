@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_add
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,16 +26,16 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
   if (((*param_1 & 0x8fff) - 0x1ff & 0xfffffeff) != 0) {
     esp_openthread_get_backbone_netif();
     iVar2 = to_underlying_lwip_netif();
-    if (param_3 != iVar2) {
+    if (iVar2 != param_3) {
       esp_netif_get_handle_from_ifkey("OT_DEF");
       iVar2 = to_underlying_lwip_netif();
-      if (param_3 != iVar2) {
+      if (iVar2 != param_3) {
         return 0;
       }
     }
     uVar3 = esp_log_timestamp();
     uVar4 = ip6addr_ntoa(param_1);
-    esp_log(3,"OPENTHREAD","I (%lu) %s: Multicast listener add: %s\n",uVar3,"OPENTHREAD",uVar4);
+    esp_log(3,"OPENTHREAD","I (%lu) %s: Multicast listener add: %s\n",uVar3,uVar4);
     iVar2 = find_or_create_netif_listener_list(param_3);
     if (iVar2 != 0) {
       for (pvVar1 = *(void **)(iVar2 + 4); pvVar1 != (void *)0x0;
@@ -71,7 +71,7 @@ undefined4 esp_openthread_multicast_listener_add(uint *param_1,void *param_2,int
           *(undefined4 *)((int)pvVar5 + 0x14) = 0;
           *(void **)((int)pvVar1 + 0x14) = pvVar5;
           iVar6 = esp_openthread_get_lwip_backbone_netif();
-          if (param_3 != iVar6) {
+          if (iVar6 != param_3) {
             esp_openthread_get_lwip_backbone_netif();
             iVar6 = send_mldv2_joinleave_netif(param_1,1);
             if (iVar6 != 0) {

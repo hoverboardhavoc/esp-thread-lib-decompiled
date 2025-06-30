@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> notify_lwip_send_ra
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,55 +14,52 @@ undefined4 notify_lwip_send_ra(uint param_1)
 
 {
   int iVar1;
-  int iVar2;
-  undefined4 uVar3;
-  uint uVar4;
-  undefined4 uVar5;
+  undefined4 uVar2;
+  uint uVar3;
+  undefined4 uVar4;
   
-  iVar1 = 0;
-  if ((s_netif_ra_enabled == '\0') && (param_1 != 0)) {
-    uVar3 = esp_log_timestamp();
+  if ((s_netif_ra_enabled != '\x01') && (param_1 != 0)) {
+    uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Invalid state for sending RA on the second netif\n",
-            uVar3,"OPENTHREAD","notify_lwip_send_ra",0xa8);
+            uVar2,"notify_lwip_send_ra",0xa8);
     return 0xffffffff;
   }
+  iVar1 = 0;
   do {
-    iVar2 = iVar1 + 1;
     sys_untimeout(second_netif_ra_send,iVar1);
-    iVar1 = iVar2;
-  } while (iVar2 != 5);
+    iVar1 = iVar1 + 1;
+  } while (iVar1 != 5);
   if (param_1 == 3) {
-    uVar3 = 0xfa;
-    uVar5 = 0x2ee;
+    uVar2 = 0xfa;
+    uVar4 = 0x2ee;
   }
   else {
     if (3 < param_1) {
       if (param_1 != 4) {
-_L0:
-        uVar3 = esp_log_timestamp();
-        esp_log(1,"OPENTHREAD","E (%lu) %s: Invalid state to notify lwip to send RA\n",uVar3,
-                "OPENTHREAD");
+_L38:
+        uVar2 = esp_log_timestamp();
+        esp_log(1,"OPENTHREAD","E (%lu) %s: Invalid state to notify lwip to send RA\n",uVar2);
         return 0xffffffff;
       }
       iVar1 = esp_timer_get_time();
-      uVar4 = 500;
+      uVar3 = 500;
       if (0x7a507 < (uint)(iVar1 - s_ra_moment_last)) {
-        uVar4 = esp_random();
-        uVar4 = uVar4 % 500;
+        uVar3 = esp_random();
+        uVar3 = uVar3 % 500;
       }
-      goto _L0;
+      goto _L40;
     }
     if (param_1 == 0) {
       s_netif_ra_enabled = '\x01';
     }
-    else if (param_1 != 1) goto _L0;
-    uVar3 = 2000;
-    uVar5 = 10000;
+    else if (param_1 != 1) goto _L38;
+    uVar2 = 2000;
+    uVar4 = 10000;
   }
   s_ra_txCount = 0;
-  uVar4 = generate_random_time(uVar5,uVar3);
-_L0:
-  sys_timeout(uVar4,second_netif_ra_send,param_1);
+  uVar3 = generate_random_time(uVar4,uVar2);
+_L40:
+  sys_timeout(uVar3,second_netif_ra_send,param_1);
   return 0;
 }
 

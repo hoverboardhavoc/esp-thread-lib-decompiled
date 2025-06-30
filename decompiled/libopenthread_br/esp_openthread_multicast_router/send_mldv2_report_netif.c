@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> send_mldv2_report_netif
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,12 @@ uint send_mldv2_report_netif(void)
   int iVar6;
   int iVar7;
   void *__src;
-  undefined1 auStack_38 [32];
+  undefined4 uStack_38;
+  undefined4 uStack_34;
+  undefined4 uStack_30;
+  undefined4 uStack_2c;
+  undefined4 uStack_28;
+  undefined4 uStack_24;
   
   uVar2 = 0x105;
   if (s_netif_listener_lists != 0) {
@@ -39,8 +44,8 @@ uint send_mldv2_report_netif(void)
       puVar3 = *(undefined1 **)(iVar7 + 4);
       memset(puVar3 + 1,0,7);
       *puVar3 = 0x8f;
-      iVar6 = s_netif_listener_lists;
       puVar3[6] = (char)(uVar4 >> 8);
+      iVar6 = s_netif_listener_lists;
       puVar3[7] = (char)uVar4;
       puVar3 = puVar3 + 8;
       for (; iVar1 = s_icmp_send_pcb, iVar6 != 0; iVar6 = *(int *)(iVar6 + 8)) {
@@ -58,8 +63,13 @@ uint send_mldv2_report_netif(void)
       *(undefined1 *)(iVar1 + 0x46) = 1;
       uVar5 = esp_openthread_get_lwip_backbone_netif();
       raw_bind_netif(iVar1,uVar5);
-      memcpy(auStack_38,&_LANCHOR0,0x18);
-      iVar6 = raw_sendto(s_icmp_send_pcb,iVar7,auStack_38);
+      uStack_38 = 0x2ff;
+      uStack_2c = 0x16000000;
+      uStack_34 = 0;
+      uStack_30 = 0;
+      uStack_28 = 0;
+      uStack_24 = 6;
+      iVar6 = raw_sendto(s_icmp_send_pcb,iVar7,&uStack_38);
       uVar2 = -(uint)(iVar6 != 0) | 1;
       pbuf_free(iVar7);
     }

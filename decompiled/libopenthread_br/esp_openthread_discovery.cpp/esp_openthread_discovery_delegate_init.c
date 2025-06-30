@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> esp_openthread_discovery_delegate_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,7 @@ undefined4 esp_openthread_discovery_delegate_init(void)
     if (s_mdns_event_fd < 0) {
       uVar1 = esp_log_timestamp();
       esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to create discovery delegate eventfd\n",
-              uVar1,"OPENTHREAD","esp_openthread_discovery_delegate_init",0x1f9);
+              uVar1,"esp_openthread_discovery_delegate_init",0x1fb);
       uVar1 = 0xffffffff;
     }
     else {
@@ -34,14 +34,14 @@ undefined4 esp_openthread_discovery_delegate_init(void)
       }
       uVar1 = esp_log_timestamp();
       esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to create discovery delegate queue\n",uVar1
-              ,"OPENTHREAD","esp_openthread_discovery_delegate_init",0x1fb);
+              ,"esp_openthread_discovery_delegate_init",0x1fd);
       uVar1 = 0x101;
     }
   }
   else {
     uVar1 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Discovery delegate already initialized\n",uVar1,
-            "OPENTHREAD","esp_openthread_discovery_delegate_init",0x1f6);
+            "esp_openthread_discovery_delegate_init",0x1f8);
     uVar1 = 0x102;
   }
   return uVar1;

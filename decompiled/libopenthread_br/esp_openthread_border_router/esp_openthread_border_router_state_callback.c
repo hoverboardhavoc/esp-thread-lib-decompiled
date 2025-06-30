@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,20 +24,20 @@ void esp_openthread_border_router_state_callback(int param_1)
   if (iVar1 == 0) {
     if (s_nat64_initialized != '\0') {
       iVar1 = nat64_netif_get();
-      if ((*(byte *)(iVar1 + 0x20f) & 1) != 0) goto _L0;
+      if ((*(byte *)(iVar1 + 0x20f) & 1) != 0) goto _L3;
     }
     iVar1 = nat64_init();
     if (iVar1 == 0) {
       uVar2 = esp_log_timestamp();
-      esp_log(3,0x10000,"I (%lu) %s: NAT64 ready\n",uVar2,0x10000);
+      esp_log(3,0x10000,"I (%lu) %s: NAT64 ready\n",uVar2);
       s_nat64_initialized = '\x01';
     }
     else {
       uVar2 = esp_log_timestamp();
-      esp_log(1,0x10000,"E (%lu) %s: Failed to initialize NAT64\n",uVar2,0x10000);
+      esp_log(1,0x10000,"E (%lu) %s: Failed to initialize NAT64\n",uVar2);
     }
   }
-_L0:
+_L3:
   if (param_1 << 7 < 0) {
     uVar2 = esp_openthread_get_instance();
     esp_openthread_get_instance();
@@ -55,7 +55,7 @@ _L0:
   }
   if (uVar4 != 2) {
     uVar2 = esp_log_timestamp();
-    esp_log(1,0x10000,"E (%lu) %s: Unknown backbone border router state\n",uVar2,0x10000);
+    esp_log(1,0x10000,"E (%lu) %s: Unknown backbone border router state\n",uVar2);
     return;
   }
   esp_openthread_multicast_forwarding_set_enabled(1);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> lwip_hook_ip6_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ undefined4 lwip_hook_ip6_input(int param_1,int param_2)
         esp_openthread_multicast_forward_packet();
       }
       iVar4 = esp_openthread_get_lwip_backbone_netif();
-      if ((((param_2 == iVar4) &&
+      if ((((iVar4 == param_2) &&
            (pcVar5 = (char *)skip_ipv6_header_and_extensions(iVar3,uVar2,&cStack_11),
            pcVar5 != (char *)0x0)) && (cStack_11 == ':')) &&
          (uVar2 = uVar2 - ((int)pcVar5 - iVar3) & 0xffff, 7 < uVar2)) {
@@ -41,7 +41,7 @@ undefined4 lwip_hook_ip6_input(int param_1,int param_2)
         else if (cVar1 == -0x71) {
           handle_mldv2_input(iVar3,param_2);
         }
-        else if ((cVar1 == -0x7e) && (0x1b < uVar2)) {
+        else if ((0x1b < uVar2) && (cVar1 == -0x7e)) {
           send_mldv2_report_netif(param_2,pcVar5);
         }
       }

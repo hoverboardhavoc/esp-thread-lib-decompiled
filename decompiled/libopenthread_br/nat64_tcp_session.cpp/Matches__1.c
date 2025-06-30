@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * https://github.com/espressif/esp-thread-lib/commit/e03f5d45ad69eb97243fdb2790c4ac815a3a888c
- * Upstream date: 2023-09-07 16:10:51 +0800
- * Upstream subject: feat(br): support br deinit
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> Matches__1
  *
  * (C) Espressif, Apache License 2.0.
@@ -18,11 +18,17 @@ idf::TcpSession::Matches(TcpSession *this,ip4_addr *param_1,ushort param_2,ushor
 {
   undefined2 in_register_00002032;
   undefined2 in_register_00002036;
+  bool bVar1;
   
-  if ((*(int *)(this + 0x1c) == *(int *)param_1) &&
-     ((uint)*(ushort *)(this + 0x22) == CONCAT22(in_register_00002032,param_2))) {
-    return (uint)*(ushort *)(this + 0x20) == CONCAT22(in_register_00002036,param_3);
+  if (*(int *)(this + 0x1c) == *(int *)param_1) {
+    bVar1 = false;
+    if ((uint)*(ushort *)(this + 0x22) == CONCAT22(in_register_00002032,param_2)) {
+      bVar1 = (uint)*(ushort *)(this + 0x20) == CONCAT22(in_register_00002036,param_3);
+    }
   }
-  return false;
+  else {
+    bVar1 = false;
+  }
+  return bVar1;
 }
 

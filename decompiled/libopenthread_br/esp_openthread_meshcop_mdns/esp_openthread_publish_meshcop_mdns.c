@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -69,7 +69,7 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
   if (iVar5 != 0) {
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get OpenThread active dataset\n",uVar2,
-            "OPENTHREAD","esp_openthread_publish_meshcop_mdns",0x91);
+            "esp_openthread_publish_meshcop_mdns",0x91);
     return -1;
   }
   uStack_b8 = __bswapdi2(uStack_b8,uStack_b4);
@@ -84,7 +84,7 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
       pcVar1 = "1.1.1";
     }
     else {
-      if (uVar6 != 3) goto _L0;
+      if (uVar6 != 3) goto _L24;
       pcVar1 = "1.2.0";
     }
   }
@@ -92,7 +92,7 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
     pcVar1 = "1.4.0";
   }
   else {
-_L0:
+_L24:
     pcVar1 = "";
   }
   uVar8 = otThreadGetNetworkName(uVar2);
@@ -117,14 +117,14 @@ _L0:
     if (iVar10 == 0) {
       esp_openthread_task_switching_lock_acquire(0xffffffff);
       s_service_published = '\x01';
-      goto _L0;
+      goto _L6;
     }
     uVar3 = esp_log_timestamp();
     uVar2 = 0xa9;
     pcVar1 = "E (%lu) %s: %s(%d): Failed to publish meshcop mdns service\n";
   }
   else {
-_L0:
+_L6:
     esp_openthread_task_switching_lock_release();
     iVar10 = mdns_service_txt_set("_meshcop",&_LC16,&puStack_e8,6);
     if (iVar10 == 0) {
@@ -155,18 +155,19 @@ _L0:
                       iVar5 = mdns_service_txt_item_set_with_explicit_value_len
                                         ("_meshcop",&_LC16,&_LC34,&bStack_fc,(bStack_100 >> 3) + 1);
                       if (iVar5 != 0) {
-                        uVar2 = esp_log_timestamp();
-                        esp_log(1,"OPENTHREAD",
-                                "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
-                                ,uVar2,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",0xd3);
+                        uVar3 = esp_log_timestamp();
+                        uVar2 = 0xd3;
+                        pcVar1 = 
+                        "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
+                        ;
                         iVar10 = iVar5;
-                        goto _L0;
+                        goto _L29;
                       }
                     }
                     if ((iVar9 != 0) ||
                        (iVar10 = mdns_service_txt_item_set_with_explicit_value_len
                                            ("_meshcop",&_LC16,&_LC36,auStack_120,0x10), iVar10 == 0)
-                       ) goto _L0;
+                       ) goto _L8;
                     uVar3 = esp_log_timestamp();
                     uVar2 = 0xda;
                     pcVar1 = 
@@ -223,8 +224,9 @@ _L0:
       pcVar1 = "E (%lu) %s: %s(%d): Failed to set txt items for meshcop mdns service\n";
     }
   }
-  esp_log(1,"OPENTHREAD",pcVar1,uVar3,"OPENTHREAD","esp_openthread_publish_meshcop_mdns",uVar2);
-_L0:
+_L29:
+  esp_log(1,"OPENTHREAD",pcVar1,uVar3,"esp_openthread_publish_meshcop_mdns",uVar2);
+_L8:
   esp_openthread_task_switching_lock_acquire(0xffffffff);
   return iVar10;
 }

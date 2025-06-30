@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
+ * Upstream date: 2025-06-30 12:13:17 +0000
+ * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
  * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> get_openthread_netif_ip6_addr
  *
  * (C) Espressif, Apache License 2.0.
@@ -17,39 +17,38 @@ void * get_openthread_netif_ip6_addr(void)
 
 {
   void *__ptr;
-  undefined1 *__src;
-  int iVar1;
-  void *pvVar2;
+  void *pvVar1;
+  int iVar2;
+  void *__dest;
   undefined4 uVar3;
-  int iVar4;
-  undefined1 auStack_110 [244];
   
-  __src = auStack_110;
-  esp_openthread_get_netif();
-  iVar1 = esp_netif_get_all_ip6(auStack_110);
-  iVar4 = 0;
+  esp_openthread_get_instance();
+  pvVar1 = (void *)otIp6GetUnicastAddresses();
   __ptr = (void *)0x0;
-  while( true ) {
-    if (iVar4 == iVar1) {
+  do {
+    if (pvVar1 == (void *)0x0) {
       return __ptr;
     }
-    pvVar2 = malloc(0x1c);
-    if (pvVar2 == (void *)0x0) break;
-    *(undefined1 *)((int)pvVar2 + 0x14) = 6;
-    memcpy(pvVar2,__src,0x14);
-    iVar4 = iVar4 + 1;
-    *(void **)((int)pvVar2 + 0x18) = __ptr;
-    __src = __src + 0x14;
-    __ptr = pvVar2;
-  }
-  uVar3 = esp_log_timestamp();
-  esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to alloc memory for mdns_ip_addr_t\n",uVar3,
-          "OPENTHREAD");
-  while (__ptr != (void *)0x0) {
-    pvVar2 = *(void **)((int)__ptr + 0x18);
-    free(__ptr);
-    __ptr = pvVar2;
-  }
-  return (void *)0x0;
+    iVar2 = is_openthread_internal_mesh_local_addr(pvVar1);
+    __dest = __ptr;
+    if ((iVar2 == 0) && ((*(ushort *)((int)pvVar1 + 0x12) & 1) != 0)) {
+      __dest = malloc(0x1c);
+      if (__dest == (void *)0x0) {
+        uVar3 = esp_log_timestamp();
+        esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to alloc memory for mdns_ip_addr_t\n",uVar3);
+        while (__ptr != (void *)0x0) {
+          pvVar1 = *(void **)((int)__ptr + 0x18);
+          free(__ptr);
+          __ptr = pvVar1;
+        }
+        return (void *)0x0;
+      }
+      *(undefined1 *)((int)__dest + 0x14) = 6;
+      memcpy(__dest,pvVar1,0x10);
+      *(void **)((int)__dest + 0x18) = __ptr;
+    }
+    pvVar1 = *(void **)((int)pvVar1 + 0x14);
+    __ptr = __dest;
+  } while( true );
 }
 
