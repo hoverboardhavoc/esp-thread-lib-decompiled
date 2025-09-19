@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> esp_openthread_nd6.o -> icmp6_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,8 +41,8 @@ undefined4 icmp6_raw_recv_handler(int param_1,undefined4 param_2)
   
   iVar4 = *(int *)(param_1 + 4);
   memcpy(auStack_90,(void *)(iVar4 + 8),0x10);
-  if (((((*(uint3 *)(iVar4 + 0x18) & 0xff) != 0xff) ||
-       ((((*(int *)(iVar4 + 0x18) == 0x2ff && (*(int *)(iVar4 + 0x1c) == 0)) &&
+  if (((((*(uint *)(iVar4 + 0x18) & 0xff) != 0xff) ||
+       ((((*(uint *)(iVar4 + 0x18) == 0x2ff && (*(int *)(iVar4 + 0x1c) == 0)) &&
          (*(int *)(iVar4 + 0x20) == 0)) &&
         ((*(int *)(iVar4 + 0x24) == 0x1000000 || (*(int *)(iVar4 + 0x24) == 0x2000000)))))) &&
       (*(char *)(iVar4 + 7) == -1)) && (*(char *)(iVar4 + 6) == ':')) {
@@ -73,7 +73,7 @@ undefined4 icmp6_raw_recv_handler(int param_1,undefined4 param_2)
                 if (__n == 0) {
                   uVar6 = esp_log_timestamp();
                   pcVar8 = "I (%lu) %s: Prefix length: 0, skip to add this RIO\n";
-_L54:
+_L57:
                   esp_log(3,"OPENTHREAD",pcVar8,uVar6);
                 }
                 else if (__n + 8 <= uVar5) {
@@ -98,7 +98,7 @@ _L54:
                   if (iVar4 == 0) {
                     uVar6 = esp_log_timestamp();
                     pcVar8 = "I (%lu) %s: Failed to add route table entry\n\n";
-                    goto _L54;
+                    goto _L57;
                   }
                 }
               }

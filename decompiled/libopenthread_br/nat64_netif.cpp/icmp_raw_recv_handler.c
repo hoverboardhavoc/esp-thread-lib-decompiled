@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> nat64_netif.cpp.o -> icmp_raw_recv_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -32,8 +32,8 @@ undefined4 icmp_raw_recv_handler(void *param_1,raw_pcb *param_2,pbuf *param_3,ip
     }
     puVar2 = (uchar *)idf::IcmpSession::FindSession
                                 ((ip4_addr *)param_4,
-                                 CONCAT11(*(undefined1 *)((int)pvVar1 + 0x18),
-                                          *(undefined1 *)((int)pvVar1 + 0x19)));
+                                 *(ushort *)((int)pvVar1 + 0x18) >> 8 |
+                                 (ushort)((*(ushort *)((int)pvVar1 + 0x18) & 0xff) << 8));
     if (puVar2 != (uchar *)0x0) {
       iVar3 = idf::IcmpSession::Forward2V6(puVar2,(ushort)pvVar1);
       if (iVar3 == 0) {

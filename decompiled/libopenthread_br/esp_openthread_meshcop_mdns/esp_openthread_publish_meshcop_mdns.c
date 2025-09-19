@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,10 +24,10 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
   int iVar9;
   int iVar10;
   undefined4 extraout_a1;
-  undefined1 uStack_13b;
-  undefined2 uStack_13a;
-  undefined4 uStack_138;
-  undefined4 auStack_134 [2];
+  undefined1 uStack_137;
+  undefined2 uStack_136;
+  undefined4 uStack_134;
+  undefined4 uStack_130;
   undefined1 auStack_12c [8];
   undefined1 uStack_124;
   undefined1 auStack_120 [16];
@@ -59,12 +59,12 @@ int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
   uVar6 = otThreadGetVersion();
   uStack_b8 = CONCAT22((ushort)(4 < uVar6) << 3 | iVar5 == 2 | 0x3100 | (ushort)(iVar5 != 0) << 0xf
                        | (ushort)((uint)uStack_b8 >> 0x10) & 0xf6,(undefined2)uStack_b8);
-  uStack_138 = uStack_b8;
+  uStack_134 = uStack_b8;
   otThreadGetPartitionId(uVar2);
-  auStack_134[0] = __bswapsi2();
-  uStack_13a = 0xbff0;
+  uStack_130 = __bswapsi2();
+  uStack_136 = 0xbff0;
   otBackboneRouterGetConfig(uVar2,auStack_12c);
-  uStack_13b = uStack_124;
+  uStack_137 = uStack_124;
   iVar5 = otDatasetGetActive(uVar2,&uStack_b8);
   if (iVar5 != 0) {
     uVar2 = esp_log_timestamp();
@@ -129,19 +129,19 @@ _L6:
     iVar10 = mdns_service_txt_set("_meshcop",&_LC16,&puStack_e8,6);
     if (iVar10 == 0) {
       iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                         ("_meshcop",&_LC16,&_LC20,&uStack_13a,2);
+                         ("_meshcop",&_LC16,&_LC20,&uStack_136,2);
       if (iVar10 == 0) {
         iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                           ("_meshcop",&_LC16,&_LC22,&uStack_13b,1);
+                           ("_meshcop",&_LC16,&_LC22,&uStack_137,1);
         if (iVar10 == 0) {
           iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                             ("_meshcop",&_LC16,&_LC24,auStack_134,4);
+                             ("_meshcop",&_LC16,&_LC24,&uStack_130,4);
           if (iVar10 == 0) {
             iVar10 = mdns_service_txt_item_set_with_explicit_value_len
                                ("_meshcop",&_LC16,&_LC26,&uStack_b8,8);
             if (iVar10 == 0) {
               iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                                 ("_meshcop",&_LC16,&_LC28,&uStack_138,4);
+                                 ("_meshcop",&_LC16,&_LC28,&uStack_134,4);
               if (iVar10 == 0) {
                 iVar10 = mdns_service_txt_item_set_with_explicit_value_len
                                    ("_meshcop",&_LC16,&_LC30,uVar4,8);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV6
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,86 +15,81 @@
 undefined4 __thiscall idf::TcpSession::ForwardV6(TcpSession *this,uchar *param_1,ushort param_2)
 
 {
-  undefined1 *puVar1;
-  undefined2 uVar2;
-  int iVar3;
-  uint uVar4;
-  int iVar5;
+  ushort uVar1;
+  int iVar2;
+  uint uVar3;
+  int iVar4;
   undefined2 in_register_00002032;
-  uint uVar6;
-  int iVar7;
-  undefined4 uVar8;
+  uint uVar5;
+  int iVar6;
+  undefined4 uVar7;
+  ushort *puVar8;
   undefined4 auStack_38 [5];
   char cStack_24;
   
-  uVar6 = CONCAT22(in_register_00002032,param_2);
-  if (uVar6 < 0x14) {
+  uVar5 = CONCAT22(in_register_00002032,param_2);
+  if (uVar5 < 0x14) {
     return 0x102;
   }
-  iVar3 = pbuf_alloc(0x36,uVar6,0x280);
-  if (iVar3 == 0) {
+  iVar2 = pbuf_alloc(0x36,uVar5,0x280);
+  if (iVar2 == 0) {
     return 0x101;
   }
   sys_untimeout(OnSessionTimeout,this);
-  uVar4 = lwip_htons(*(undefined2 *)(param_1 + 0xc));
-  if (((uVar4 & 2) != 0) && (*(int *)(this + 0x24) == 0)) {
+  uVar3 = lwip_htons(*(undefined2 *)(param_1 + 0xc));
+  if (((uVar3 & 2) != 0) && (*(int *)(this + 0x24) == 0)) {
     *(undefined4 *)(this + 0x24) = 1;
   }
-  if ((uVar4 & 4) == 0) {
-    if ((uVar4 & 1) == 0) {
+  if ((uVar3 & 4) == 0) {
+    if ((uVar3 & 1) == 0) {
       if (*(int *)(this + 0x24) == 2) {
-        uVar8 = 3;
+        uVar7 = 3;
         goto _L67;
       }
     }
     else {
       if (*(int *)(this + 0x24) == 4) {
-        uVar8 = 6;
+        uVar7 = 6;
         goto _L68;
       }
-      uVar8 = 5;
+      uVar7 = 5;
 _L67:
-      *(undefined4 *)(this + 0x24) = uVar8;
+      *(undefined4 *)(this + 0x24) = uVar7;
     }
-    uVar8 = 9000000;
+    uVar7 = 9000000;
   }
   else {
-    uVar8 = 2;
+    uVar7 = 2;
 _L68:
-    *(undefined4 *)(this + 0x24) = uVar8;
-    uVar8 = 240000;
+    *(undefined4 *)(this + 0x24) = uVar7;
+    uVar7 = 240000;
   }
-  sys_timeout(uVar8,OnSessionTimeout,this);
+  sys_timeout(uVar7,OnSessionTimeout,this);
   if (*(int *)(this + 0x24) != 0) {
-    pbuf_take(iVar3,param_1,uVar6);
-    uVar2 = *(undefined2 *)(this + 0x20);
-    puVar1 = *(undefined1 **)(iVar3 + 4);
-    *puVar1 = (char)((ushort)uVar2 >> 8);
-    puVar1[1] = (char)uVar2;
-    uVar2 = *(undefined2 *)(this + 0x22);
-    puVar1[0x10] = 0;
-    puVar1[0x11] = 0;
-    puVar1[2] = (char)((ushort)uVar2 >> 8);
-    puVar1[3] = (char)uVar2;
+    pbuf_take(iVar2,param_1,uVar5);
+    puVar8 = *(ushort **)(iVar2 + 4);
+    *puVar8 = *(ushort *)(this + 0x20) >> 8 | *(ushort *)(this + 0x20) << 8;
+    uVar1 = *(ushort *)(this + 0x22);
+    puVar8[8] = 0;
+    puVar8[1] = uVar1 >> 8 | uVar1 << 8;
     auStack_38[0] = *(undefined4 *)(this + 0x1c);
     cStack_24 = '\0';
     esp_openthread_get_backbone_netif();
-    iVar5 = to_underlying_lwip_netif();
-    iVar7 = 0;
+    iVar4 = to_underlying_lwip_netif();
+    iVar6 = 0;
     if (cStack_24 == '\x06') {
-      if (iVar5 != 0) {
-        iVar7 = ip6_select_source_address(auStack_38);
+      if (iVar4 != 0) {
+        iVar6 = ip6_select_source_address(auStack_38);
       }
     }
-    else if (iVar5 != 0) {
-      iVar7 = iVar5 + 4;
+    else if (iVar4 != 0) {
+      iVar6 = iVar4 + 4;
     }
-    uVar2 = ip_chksum_pseudo(iVar3,6,*(undefined2 *)(iVar3 + 8),auStack_38);
-    puVar1[0x10] = (char)uVar2;
-    puVar1[0x11] = (char)((ushort)uVar2 >> 8);
-    raw_sendto_if_src(*(undefined4 *)this,iVar3,auStack_38,iVar5,iVar7);
+    uVar1 = ip_chksum_pseudo(iVar2,6,*(undefined2 *)(iVar2 + 8),auStack_38);
+    puVar8[8] = uVar1;
+    raw_sendto_if_src(*(undefined4 *)this,iVar2,auStack_38,iVar4,iVar6);
   }
-  pbuf_free(iVar3);
+  pbuf_free(iVar2);
   return 0;
 }
 

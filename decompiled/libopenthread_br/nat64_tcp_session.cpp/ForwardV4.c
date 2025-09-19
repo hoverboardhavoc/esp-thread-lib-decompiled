@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV4
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,8 +15,8 @@
 undefined4 __thiscall idf::TcpSession::ForwardV4(TcpSession *this,uchar *param_1,ushort param_2)
 
 {
-  undefined1 *puVar1;
-  code *pcVar2;
+  code *pcVar1;
+  undefined4 *puVar2;
   undefined2 uVar3;
   int iVar4;
   uint uVar5;
@@ -72,38 +72,28 @@ _L38:
     uVar7 = 240000;
   }
   sys_timeout(uVar7,OnSessionTimeout,this);
-  puVar1 = *(undefined1 **)(iVar4 + 4);
+  puVar2 = *(undefined4 **)(iVar4 + 4);
   uVar7 = lwip_htonl((param_1[1] | 0x600) << 0x14);
-  *puVar1 = (char)uVar7;
-  puVar1[1] = (char)((uint)uVar7 >> 8);
-  puVar1[2] = (char)((uint)uVar7 >> 0x10);
-  puVar1[3] = (char)((uint)uVar7 >> 0x18);
+  *puVar2 = uVar7;
   uVar3 = lwip_htons(__n);
-  puVar1[4] = (char)uVar3;
-  puVar1[5] = (char)((ushort)uVar3 >> 8);
-  puVar1[6] = param_1[9];
-  puVar1[7] = param_1[8] + 0xff;
-  memcpy(puVar1 + 8,aiStack_34,0x10);
-  memcpy(puVar1 + 0x18,this + 4,0x10);
-  memcpy(puVar1 + 0x28,param_1 + 0x14,__n);
-  uVar3 = *(undefined2 *)(this + 0x22);
-  puVar1[0x28] = (char)((ushort)uVar3 >> 8);
-  puVar1[0x29] = (char)uVar3;
-  uVar3 = *(undefined2 *)(this + 0x18);
-  puVar1[0x2a] = (char)((ushort)uVar3 >> 8);
-  puVar1[0x2b] = (char)uVar3;
+  *(undefined2 *)(puVar2 + 1) = uVar3;
+  *(uchar *)((int)puVar2 + 6) = param_1[9];
+  *(uchar *)((int)puVar2 + 7) = param_1[8] + 0xff;
+  memcpy(puVar2 + 2,aiStack_34,0x10);
+  memcpy(puVar2 + 6,this + 4,0x10);
+  memcpy(puVar2 + 10,param_1 + 0x14,__n);
+  *(ushort *)(puVar2 + 10) = *(ushort *)(this + 0x22) >> 8 | *(ushort *)(this + 0x22) << 8;
+  *(ushort *)((int)puVar2 + 0x2a) = *(ushort *)(this + 0x18) >> 8 | *(ushort *)(this + 0x18) << 8;
   pbuf_remove_header(iVar4,0x28);
   uVar3 = *(undefined2 *)(iVar4 + 8);
-  puVar1[0x38] = 0;
-  puVar1[0x39] = 0;
+  *(undefined2 *)(puVar2 + 0xe) = 0;
   uVar3 = ip6_chksum_pseudo(iVar4,6,uVar3,aiStack_34,this + 4);
-  puVar1[0x38] = (char)uVar3;
-  puVar1[0x39] = (char)((ushort)uVar3 >> 8);
+  *(undefined2 *)(puVar2 + 0xe) = uVar3;
   pbuf_add_header(iVar4,0x28);
   iVar6 = nat64_netif_get();
-  pcVar2 = *(code **)(iVar6 + 0x1d8);
+  pcVar1 = *(code **)(iVar6 + 0x1d8);
   uVar7 = nat64_netif_get();
-  iVar6 = (*pcVar2)(iVar4,uVar7);
+  iVar6 = (*pcVar1)(iVar4,uVar7);
   if (iVar6 == 0) {
     return 0;
   }

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_probe_backbone_listeners
  *
  * (C) Espressif, Apache License 2.0.
@@ -30,8 +30,7 @@ int esp_openthread_probe_backbone_listeners(void)
     puVar2 = *(undefined1 **)(iVar3 + 4);
     memset(puVar2 + 1,0,0x27);
     *puVar2 = 0x82;
-    puVar2[4] = 3;
-    puVar2[5] = 0xe8;
+    *(undefined2 *)(puVar2 + 4) = 0xe803;
     iVar1 = s_icmp_send_pcb;
     uStack_28 = 0x2ff;
     uStack_1c = 0x1000000;

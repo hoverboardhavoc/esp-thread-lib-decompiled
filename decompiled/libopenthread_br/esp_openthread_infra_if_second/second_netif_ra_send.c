@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> second_netif_ra_send
  *
  * (C) Espressif, Apache License 2.0.
@@ -19,6 +19,7 @@ void second_netif_ra_send(int param_1)
   int iVar4;
   int iVar5;
   int iVar6;
+  undefined4 extraout_a1;
   undefined1 auStack_a0 [32];
   undefined1 auStack_80 [36];
   undefined1 auStack_5c [20];
@@ -81,6 +82,7 @@ void second_netif_ra_send(int param_1)
           "create_and_send_second_netif_ra",0x7e);
 _L85:
   s_ra_moment_last = esp_timer_get_time();
+  DAT_00010c44 = extraout_a1;
   if (s_netif_ra_enabled != '\0') {
     if (s_ra_txCount < 4) {
       s_ra_txCount = s_ra_txCount + 1;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> second_netif_do_init
  *
  * (C) Espressif, Apache License 2.0.
@@ -14,6 +14,7 @@ undefined4 second_netif_do_init(void)
 
 {
   int iVar1;
+  undefined4 extraout_a1;
   undefined4 uVar2;
   undefined4 uStack_28;
   undefined4 uStack_24;
@@ -30,6 +31,7 @@ undefined4 second_netif_do_init(void)
   uStack_20 = 0;
   uStack_18 = 0;
   uStack_14 = 6;
+  DAT_00010c44 = extraout_a1;
   iVar1 = mld6_joingroup_netif(s_netif,&uStack_28);
   uVar2 = 0xffffffff;
   if (iVar1 == 0) {

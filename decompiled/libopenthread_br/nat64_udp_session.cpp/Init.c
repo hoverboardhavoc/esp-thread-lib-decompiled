@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
+ * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
+ * Upstream date: 2025-09-19 08:31:45 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> Init
  *
  * (C) Espressif, Apache License 2.0.
@@ -47,7 +47,7 @@ undefined4 __thiscall idf::UdpSession::Init(UdpSession *this,ushort param_1)
     uVar4 = 0x49;
     pcVar3 = "E (%lu) %s: %s(%d): Failed to connect to nat64 src\n";
   }
-  esp_log(1,"NAT64",pcVar3,uVar2,&::_L0,uVar4);
+  esp_log(1,"NAT64",pcVar3,uVar2,&_LC5,uVar4);
   Close(this);
   return 0xffffffff;
 }
