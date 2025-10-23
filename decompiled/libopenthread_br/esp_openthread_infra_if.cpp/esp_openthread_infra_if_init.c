@@ -1,9 +1,9 @@
 /*
- * Last changed at upstream commit 56af58057c259405aa90c478e294f6216cc2f6db
- * https://github.com/espressif/esp-thread-lib/commit/56af58057c259405aa90c478e294f6216cc2f6db
- * Upstream date: 2024-09-09 14:04:56 +0200
- * Upstream subject: update(ot_lib): Rebuild with lwip 2.2.0-esp
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> esp_openthread_infra_if_init
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> esp_openthread_infra_if_init
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).

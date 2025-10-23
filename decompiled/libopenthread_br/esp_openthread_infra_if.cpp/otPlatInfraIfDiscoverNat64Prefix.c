@@ -1,9 +1,9 @@
 /*
- * Last changed at upstream commit b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * https://github.com/espressif/esp-thread-lib/commit/b50de92c3b8b2adb5528b46d24a37f9fadb65708
- * Upstream date: 2022-08-18 14:47:55 +0800
- * Upstream subject: br: support nat64 icmp
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> otPlatInfraIfDiscoverNat64Prefix
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> otPlatInfraIfDiscoverNat64Prefix
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).

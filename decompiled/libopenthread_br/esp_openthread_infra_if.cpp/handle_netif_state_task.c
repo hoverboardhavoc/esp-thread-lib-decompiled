@@ -1,16 +1,18 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> handle_netif_state_task
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> handle_netif_state_task
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-void handle_netif_state_task(void)
+/* handle_netif_state_task(void*) */
+
+void handle_netif_state_task(void *param_1)
 
 {
   int iVar1;

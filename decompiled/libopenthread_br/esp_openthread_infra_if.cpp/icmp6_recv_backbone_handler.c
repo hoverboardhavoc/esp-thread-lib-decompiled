@@ -1,16 +1,19 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> icmp6_recv_backbone_handler
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> icmp6_recv_backbone_handler
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 icmp6_recv_backbone_handler(int param_1)
+/* icmp6_recv_backbone_handler(void*, raw_pcb*, pbuf*, ip_addr const*) */
+
+undefined4
+icmp6_recv_backbone_handler(void *param_1,raw_pcb *param_2,pbuf *param_3,ip_addr *param_4)
 
 {
   ushort uVar1;
@@ -20,18 +23,18 @@ undefined4 icmp6_recv_backbone_handler(int param_1)
   void *__dest;
   int iVar4;
   
-  if (0x28 < *(ushort *)(param_1 + 8)) {
-    iVar4 = *(int *)(param_1 + 4);
+  if (0x28 < *(ushort *)(param_3 + 8)) {
+    iVar4 = *(int *)(param_3 + 4);
     iVar2 = icmp6_raw_recv_handler(s_netif);
     if (iVar2 == 0) {
-      uVar1 = *(short *)(param_1 + 8) - 0x28;
+      uVar1 = *(short *)(param_3 + 8) - 0x28;
       __ptr = malloc((uint)uVar1);
       if (__ptr == (void *)0x0) {
         uVar3 = esp_log_timestamp();
         esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate a buffer for payload\n",uVar3);
       }
       else {
-        pbuf_copy_partial(param_1,__ptr,(uint)uVar1,0x28);
+        pbuf_copy_partial(param_3,__ptr,(uint)uVar1,0x28);
         __dest = malloc(0x1c);
         if (__dest == (void *)0x0) {
           uVar3 = esp_log_timestamp();

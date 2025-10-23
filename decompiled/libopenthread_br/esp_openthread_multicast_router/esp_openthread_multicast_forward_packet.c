@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forward_packet
  *
  * (C) Espressif, Apache License 2.0.
@@ -23,6 +23,8 @@ void esp_openthread_multicast_forward_packet(int param_1,int param_2)
   uint uVar8;
   int *piVar9;
   void *__s1;
+  undefined1 auStack_a0 [32];
+  undefined1 auStack_80 [47];
   char cStack_51;
   uint auStack_50 [5];
   undefined1 uStack_3c;
@@ -74,30 +76,35 @@ _L78:
       iVar4 = to_underlying_lwip_netif();
       if ((iVar4 != 0) && (param_2 != iVar4)) {
 _L79:
-        uVar8 = (uint)uVar1 - (iVar3 - iVar7) & 0xffff;
-        iVar5 = pbuf_alloc(0x36,uVar8,0x280);
-        if (iVar5 == 0) {
-          uVar6 = esp_log_timestamp();
-          esp_log(1,"OPENTHREAD",
-                  "E (%lu) %s: %s(%d): Cannot allocate pbuf for multicast forwarding\n",uVar6,
-                  "esp_openthread_multicast_forward_packet",0x85);
-        }
-        else {
-          iVar2 = s_icmp_send_pcb;
-          if (cStack_51 == '\x11') {
-            iVar2 = s_udp_send_pcb;
-          }
-          *(char *)(iVar2 + 0x3b) = *(char *)(iVar7 + 7) + -1;
-          pbuf_take(iVar5,iVar3,uVar8);
-          raw_bind_netif(iVar2,0);
-          *(undefined2 *)(iVar2 + 0x44) = 0;
-          *(undefined1 *)(iVar2 + 0x46) = 0;
-          iVar3 = raw_sendto_if_src(iVar2,iVar5,auStack_50,iVar4,auStack_38);
-          if (iVar3 != 0) {
+        memcpy(auStack_80,auStack_38,0x14);
+        memcpy(auStack_a0,auStack_50,0x14);
+        iVar5 = esp_openthread_mcast_filter(auStack_80,auStack_a0,param_2,iVar4);
+        if (iVar5 != 0) {
+          uVar8 = (uint)uVar1 - (iVar3 - iVar7) & 0xffff;
+          iVar5 = pbuf_alloc(0x36,uVar8,0x280);
+          if (iVar5 == 0) {
             uVar6 = esp_log_timestamp();
-            esp_log(2,"OPENTHREAD","W (%lu) %s: Failed to forward multicast packet\n",uVar6);
+            esp_log(1,"OPENTHREAD",
+                    "E (%lu) %s: %s(%d): Cannot allocate pbuf for multicast forwarding\n",uVar6,
+                    "esp_openthread_multicast_forward_packet",0x86);
           }
-          pbuf_free(iVar5);
+          else {
+            iVar2 = s_icmp_send_pcb;
+            if (cStack_51 == '\x11') {
+              iVar2 = s_udp_send_pcb;
+            }
+            *(char *)(iVar2 + 0x3b) = *(char *)(iVar7 + 7) + -1;
+            pbuf_take(iVar5,iVar3,uVar8);
+            raw_bind_netif(iVar2,0);
+            *(undefined2 *)(iVar2 + 0x44) = 0;
+            *(undefined1 *)(iVar2 + 0x46) = 0;
+            iVar3 = raw_sendto_if_src(iVar2,iVar5,auStack_50,iVar4,auStack_38);
+            if (iVar3 != 0) {
+              uVar6 = esp_log_timestamp();
+              esp_log(2,"OPENTHREAD","W (%lu) %s: Failed to forward multicast packet\n",uVar6);
+            }
+            pbuf_free(iVar5);
+          }
         }
       }
     }

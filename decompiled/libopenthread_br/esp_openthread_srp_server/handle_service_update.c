@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_service_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -200,7 +200,7 @@ _L30:
                     acStack_19c,acStack_114,acStack_1b0);
           }
           else if (iVar2 != 0) {
-_L78:
+_L79:
             iVar11 = 1;
             goto _L33;
           }
@@ -214,7 +214,7 @@ _L78:
         uVar14 = uVar14 + 1 & 0xff;
       }
       if (uVar14 == 0) {
-_L60:
+_L61:
         puVar13 = (undefined4 *)0x0;
         uVar15 = 0;
       }
@@ -261,13 +261,19 @@ _L56:
           else {
             if ((pcVar8 == (char *)0x0) || (sVar16 = strnlen(pcStack_1a8,0x41), 0x40 < sVar16))
             goto _L56;
+            puVar17 = puVar13 + uVar14 * 2;
             strncpy(pcVar8,pcVar6,0x40);
             pcVar8[0x40] = '\0';
-            puVar13[uVar14 * 2] = pcVar8;
+            *puVar17 = pcVar8;
             if ((pcVar9 == (char *)0x0) || (uVar15 = (uint)uStack_1a0, 0x40 < uVar15)) goto _L56;
-            strncpy(pcVar9,pcStack_1a4,uVar15);
-            pcVar9[uVar15] = '\0';
-            (puVar13 + uVar14 * 2)[1] = pcVar9;
+            if (pcStack_1a4 == (char *)0x0) {
+              puVar17[1] = 0;
+            }
+            else {
+              strncpy(pcVar9,pcStack_1a4,uVar15);
+              puVar17[1] = pcVar9;
+              pcVar9[uVar15] = '\0';
+            }
 _L53:
             uVar14 = uVar14 + 1;
           }
@@ -275,7 +281,7 @@ _L53:
         uVar15 = uVar14 & 0xff;
         if (uVar14 == 0) {
           free(puVar13);
-          goto _L60;
+          goto _L61;
         }
       }
       uVar12 = otSrpServerServiceGetPort(iVar1);
@@ -294,7 +300,7 @@ _L53:
         if (iVar2 == 0) {
           iVar2 = mdns_service_txt_set_for_host
                             (acStack_114,acStack_d0,acStack_1b0,acStack_19c,puVar13,uVar15);
-          if (iVar2 == 0) goto _L62;
+          if (iVar2 == 0) goto _L63;
           uVar12 = esp_log_timestamp();
           pcVar6 = "E (%lu) %s: Failed to add or update service txt\n";
         }
@@ -304,7 +310,7 @@ _L53:
         }
         esp_log(1,"OPENTHREAD",pcVar6,uVar12);
       }
-_L62:
+_L63:
       esp_openthread_task_switching_lock_acquire(0xffffffff);
       if (puVar13 != (undefined4 *)0x0) {
         puVar17 = puVar13;
@@ -322,7 +328,7 @@ _L62:
       if (iVar2 != 0) {
         uVar12 = esp_log_timestamp();
         esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to add or update service\n",uVar12);
-        goto _L126;
+        goto _L127;
       }
       uVar14 = otSrpServerServiceGetNumberOfSubTypes(iVar1);
       pvVar3 = malloc(uVar14 << 2);
@@ -331,21 +337,21 @@ _L62:
         iVar2 = otSrpServerServiceGetSubTypeServiceNameAt(iVar1,uVar15);
         if (iVar2 == 0) {
           uVar4 = esp_log_timestamp();
-          uVar12 = 0xe6;
+          uVar12 = 0xeb;
           pcVar6 = "E (%lu) %s: %s(%d): Failed to get service subtype\n";
-_L125:
+_L126:
           esp_log(1,"OPENTHREAD",pcVar6,uVar4,__FUNCTION___0,uVar12);
           free_subtype_list(pvVar3,uVar14);
           uVar12 = esp_log_timestamp();
           esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate subtype list\n",uVar12);
-          goto _L78;
+          goto _L79;
         }
         pvVar5 = malloc(0x41);
         if (pvVar5 == (void *)0x0) {
           uVar4 = esp_log_timestamp();
-          uVar12 = 0xe9;
+          uVar12 = 0xee;
           pcVar6 = "E (%lu) %s: %s(%d): No memory for a new subtype entry\n";
-          goto _L125;
+          goto _L126;
         }
         split_hostname_constprop_0(iVar2,pvVar5);
         *(void **)(uVar15 * 4 + (int)pvVar3) = pvVar5;
@@ -363,7 +369,7 @@ _L125:
     } while (iVar2 == 0);
     uVar12 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to update service subtype\n",uVar12);
-_L126:
+_L127:
     iVar11 = convert_to_ot_srp_error_code(iVar2);
   }
 _L33:

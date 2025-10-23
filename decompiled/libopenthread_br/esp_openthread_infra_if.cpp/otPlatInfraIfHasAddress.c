@@ -1,9 +1,9 @@
 /*
- * Last changed at upstream commit fff1e900a1169e76ea06246100f81d005d5f7f44
- * https://github.com/espressif/esp-thread-lib/commit/fff1e900a1169e76ea06246100f81d005d5f7f44
- * Upstream date: 2025-06-25 11:20:59 +0000
- * Upstream subject: feat(openthread): update border router lib
- * Source: libopenthread_br -> esp_openthread_infra_if.o -> otPlatInfraIfHasAddress
+ * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
+ * Upstream date: 2025-10-23 04:21:23 +0000
+ * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> otPlatInfraIfHasAddress
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
