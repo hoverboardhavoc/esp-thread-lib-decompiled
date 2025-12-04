@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * Upstream date: 2025-10-23 04:21:23 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * Upstream date: 2025-12-04 07:38:20 +0000
+ * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> otPlatInfraIfSendIcmp6Nd
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,7 +28,7 @@ undefined1 otPlatInfraIfSendIcmp6Nd(void *param_1,char *param_2,int param_3)
     uVar3 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD",
             "E (%lu) %s: %s(%d): Failed to allocate buffer for icmpv6 nd message on backbone netif\n"
-            ,uVar3,"br_backbone_netif_create_nd6_msg",0xd2);
+            ,uVar3,"br_backbone_netif_create_nd6_msg",0xd5);
   }
   else {
     iVar4 = pbuf_take(param_2,param_3);
@@ -59,7 +59,7 @@ undefined1 otPlatInfraIfSendIcmp6Nd(void *param_1,char *param_2,int param_3)
     uVar3 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD",
             "E (%lu) %s: %s(%d): Failed to create an icmpv6 nd message on backbone netif\n",uVar3,
-            "br_backbone_netif_create_nd6_msg",0xd4);
+            "br_backbone_netif_create_nd6_msg",0xd7);
     pbuf_free(iVar2);
   }
   iVar2 = 0;

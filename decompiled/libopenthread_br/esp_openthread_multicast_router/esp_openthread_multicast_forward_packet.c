@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * Upstream date: 2025-10-23 04:21:23 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * Upstream date: 2025-12-04 07:38:20 +0000
+ * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forward_packet
  *
  * (C) Espressif, Apache License 2.0.
@@ -86,7 +86,7 @@ _L79:
             uVar6 = esp_log_timestamp();
             esp_log(1,"OPENTHREAD",
                     "E (%lu) %s: %s(%d): Cannot allocate pbuf for multicast forwarding\n",uVar6,
-                    "esp_openthread_multicast_forward_packet",0x86);
+                    "esp_openthread_multicast_forward_packet",0x87);
           }
           else {
             iVar2 = s_icmp_send_pcb;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * Upstream date: 2025-12-04 07:38:20 +0000
+ * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> FindOrAllocateTransaction
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,17 +41,22 @@ Resolver::FindOrAllocateTransaction(Resolver *this,otPlatDnsUpstreamQuery *param
   auStack_40[0] = 0;
   auStack_40[1] = 4;
   for (uVar9 = 0; uVar9 < *(uint *)(this + 4); uVar9 = uVar9 + 1) {
-    puVar6 = (undefined4 *)(*(int *)this + uVar9 * 8);
-    poVar8 = (otPlatDnsUpstreamQuery *)*puVar6;
-    if ((poVar8 == (otPlatDnsUpstreamQuery *)0x0) || ((int)puVar6[1] < 0)) {
+    iVar5 = uVar9 * 8;
+    poVar8 = *(otPlatDnsUpstreamQuery **)(*(int *)this + iVar5);
+    if ((poVar8 == (otPlatDnsUpstreamQuery *)0x0) ||
+       ((int)((undefined4 *)(*(int *)this + iVar5))[1] < 0)) {
       if (uVar9 < uVar1) {
         uVar1 = uVar9;
       }
     }
-    else if ((poVar8 == param_1) &&
-            (lwip_getsockopt(0x29,0x1b,auStack_40,auStack_40 + 1), (iVar7 == 10) == auStack_40[0]))
-    {
-      return (undefined4 *)(*(int *)this + uVar9 * 8);
+    else if (poVar8 == param_1) {
+      esp_openthread_task_switching_lock_release();
+      lwip_getsockopt(*(undefined4 *)(*(int *)this + iVar5 + 4),0x29,0x1b,auStack_40,auStack_40 + 1)
+      ;
+      esp_openthread_task_switching_lock_acquire(0xffffffff);
+      if ((iVar7 == 10) == auStack_40[0]) {
+        return (undefined4 *)(*(int *)this + iVar5);
+      }
     }
   }
   if (*(uint *)(this + 4) == uVar1) {
@@ -68,11 +73,11 @@ Resolver::FindOrAllocateTransaction(Resolver *this,otPlatDnsUpstreamQuery *param
         goto _L17;
       }
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xbb;
+      uVar3 = 0xbf;
     }
     else {
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xb7;
+      uVar3 = 0xbb;
     }
     esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to allocate new transaction\n",uVar4,
             "FindOrAllocateTransaction",uVar3);
@@ -89,21 +94,22 @@ _L17:
     if (iVar7 < 0) {
       uVar3 = esp_log_timestamp();
       esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to create socket for upstream resolver: %d\n"
-              ,uVar3,"FindOrAllocateTransaction",0xc5,iVar7);
+              ,uVar3,"FindOrAllocateTransaction",0xc9,iVar7);
     }
     else {
+      esp_openthread_task_switching_lock_release();
       esp_netif_get_netif_impl_name(iVar2,auStack_38);
       iVar2 = lwip_setsockopt(iVar7,0xfff,0x100b,auStack_38,6);
       if (-1 < iVar2) {
+        esp_openthread_task_switching_lock_acquire(0xffffffff);
         puVar6 = (undefined4 *)(*(int *)this + uVar1 * 8);
         puVar6[1] = iVar7;
         *puVar6 = param_1;
         return puVar6;
       }
       uVar3 = esp_log_timestamp();
-      puVar6 = (undefined4 *)__errno();
-      esp_log(1,"Resolver","E (%lu) %s: Unable to bind socket: errno %d\n",uVar3,*puVar6);
-      esp_openthread_task_switching_lock_release();
+      _ZTH5errno(uVar3);
+      esp_log(1,"Resolver","E (%lu) %s: Unable to bind socket: errno %d\n",uVar3,*tp);
       close(iVar7);
       esp_openthread_task_switching_lock_acquire(0xffffffff);
     }

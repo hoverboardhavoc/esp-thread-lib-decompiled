@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * Upstream date: 2025-12-04 07:38:20 +0000
+ * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> Query
  *
  * (C) Espressif, Apache License 2.0.
@@ -55,7 +55,9 @@ void __thiscall Resolver::Query(Resolver *this,otPlatDnsUpstreamQuery *param_1,o
       iVar2 = 0;
       iVar1 = 0;
       do {
+        esp_openthread_task_switching_lock_release();
         esp_netif_get_dns_info(uVar3,*puVar10,auStack_264);
+        esp_openthread_task_switching_lock_acquire(0xffffffff);
         memcpy(&iStack_27c,auStack_264,0x18);
         if (cStack_268 == '\x06') {
           if (((iStack_27c != 0 || iStack_278 != 0) || iStack_274 != 0) || iStack_270 != 0) {
@@ -66,7 +68,7 @@ void __thiscall Resolver::Query(Resolver *this,otPlatDnsUpstreamQuery *param_1,o
             {
               uVar5 = esp_log_timestamp();
               pcVar9 = "E (%lu) %s: Failed to allocate ipv6 transaction\n";
-_L50:
+_L54:
               esp_log(1,"Resolver",pcVar9,uVar5);
             }
             else {
@@ -78,10 +80,10 @@ _L50:
               esp_openthread_task_switching_lock_acquire(0xffffffff);
               if (iVar8 == 0) {
                 uVar5 = esp_log_timestamp();
-                uVar3 = 0x90;
-_L51:
+                uVar3 = 0x92;
+_L55:
                 pcVar9 = "E (%lu) %s: %s(%d): Failed to forward the Query message\n";
-                goto _L52;
+                goto _L56;
               }
             }
           }
@@ -94,7 +96,7 @@ _L51:
           {
             uVar5 = esp_log_timestamp();
             pcVar9 = "E (%lu) %s: Failed to allocate ipv4 transaction\n";
-            goto _L50;
+            goto _L54;
           }
           uStack_28b = 2;
           uStack_28a = 0x3500;
@@ -104,8 +106,8 @@ _L51:
           esp_openthread_task_switching_lock_acquire(0xffffffff);
           if (iVar8 == 0) {
             uVar5 = esp_log_timestamp();
-            uVar3 = 0x7e;
-            goto _L51;
+            uVar3 = 0x80;
+            goto _L55;
           }
         }
         puVar10 = puVar10 + 1;
@@ -123,7 +125,7 @@ _L51:
     uVar3 = 0x65;
     pcVar9 = "E (%lu) %s: %s(%d): No DNS query buffer\n";
   }
-_L52:
+_L56:
   esp_log(1,"Resolver",pcVar9,uVar5,"Query",uVar3);
   return;
 }

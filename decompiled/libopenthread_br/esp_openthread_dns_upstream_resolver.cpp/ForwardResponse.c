@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
+ * Upstream date: 2025-12-04 07:38:20 +0000
+ * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> ForwardResponse
  *
  * (C) Espressif, Apache License 2.0.
@@ -21,7 +21,9 @@ void Resolver::ForwardResponse(Transaction *param_1)
   undefined4 *in_a1;
   undefined1 auStack_210 [512];
   
+  esp_openthread_task_switching_lock_release();
   uVar1 = read(in_a1[1],auStack_210,0x200);
+  esp_openthread_task_switching_lock_acquire(0xffffffff);
   if (0 < (int)uVar1) {
     esp_openthread_get_instance();
     iVar2 = otUdpNewMessage(0);
