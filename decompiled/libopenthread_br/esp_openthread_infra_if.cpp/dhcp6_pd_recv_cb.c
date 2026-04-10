@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
- * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
- * Upstream date: 2025-12-04 07:38:20 +0000
- * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
+ * Last changed at upstream commit 70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
+ * https://github.com/espressif/esp-thread-lib/commit/70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
+ * Upstream date: 2026-04-10 09:53:42 +0000
+ * Upstream subject: feat(openthread/lib): update thread-lib for upstream a98813b30
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> dhcp6_pd_recv_cb
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,7 +41,7 @@ void dhcp6_pd_recv_cb(void *param_1,udp_pcb *param_2,pbuf *param_3,ip_addr *para
   __ptr = malloc(__size);
   if (__ptr == (void *)0x0) {
     uVar3 = esp_log_timestamp();
-    uVar2 = 0x12a;
+    uVar2 = 300;
     pcVar5 = "E (%lu) %s: %s(%d): Failed to allocate buffer\n";
 _L55:
     esp_log(1,"OPENTHREAD",pcVar5,uVar3,"dhcp6_pd_recv_cb",uVar2);
@@ -57,7 +57,7 @@ _L43:
     iVar1 = otUdpNewMessage(uVar2,auStack_24);
     if (iVar1 == 0) {
       uVar3 = esp_log_timestamp();
-      uVar2 = 0x12f;
+      uVar2 = 0x131;
       pcVar5 = "E (%lu) %s: %s(%d): Failed to allocate otMessage\n";
       goto _L55;
     }
@@ -65,7 +65,7 @@ _L43:
     if (iVar4 != 0) {
       uVar2 = esp_log_timestamp();
       esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to append to message\n",uVar2,
-              "dhcp6_pd_recv_cb",0x130);
+              "dhcp6_pd_recv_cb",0x132);
       goto _L43;
     }
     otPlatInfraIfDhcp6PdClientHandleReceived(uVar2,iVar1,param_2[0x30]);

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
- * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
- * Upstream date: 2025-12-04 07:38:20 +0000
- * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
+ * Last changed at upstream commit 70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
+ * https://github.com/espressif/esp-thread-lib/commit/70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
+ * Upstream date: 2026-04-10 09:53:42 +0000
+ * Upstream subject: feat(openthread/lib): update thread-lib for upstream a98813b30
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> dhcp6_pd_listen_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -22,7 +22,7 @@ undefined4 dhcp6_pd_listen_task(void *param_1)
   if (iVar1 == 0) {
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Netif index %lu not found\n",uVar2,
-            "dhcp6_pd_listen_task",0x14b,*(undefined4 *)((int)param_1 + 4));
+            "dhcp6_pd_listen_task",0x14d,*(undefined4 *)((int)param_1 + 4));
     uVar2 = 0x102;
   }
   else {
@@ -39,7 +39,7 @@ undefined4 dhcp6_pd_listen_task(void *param_1)
       if (iVar1 == 0) {
         uVar2 = esp_log_timestamp();
         esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to allocate PCB\n",uVar2,
-                "dhcp6_pd_listen_task",0x154);
+                "dhcp6_pd_listen_task",0x156);
         uVar2 = esp_log_timestamp();
         esp_log(1,"OPENTHREAD","E (%lu) %s: Finished dhcp6_pd_listen_task with some errors\n",uVar2)
         ;
