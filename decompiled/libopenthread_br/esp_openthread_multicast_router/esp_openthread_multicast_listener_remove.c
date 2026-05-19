@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * Upstream date: 2026-05-19 03:52:07 +0000
+ * Upstream subject: feat(openthread): support s31 openthread br lib
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -54,22 +54,18 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
       iVar4 = memcmp(pvVar1,param_2,0x10);
       __s1 = (void *)0x0;
       if (iVar4 == 0) {
-        iVar4 = esp_openthread_get_lwip_backbone_netif();
-        if (param_3 != iVar4) {
-          esp_openthread_get_lwip_backbone_netif();
-          iVar4 = send_mldv2_joinleave_netif(param_1,0);
-          if (iVar4 != 0) {
-            return iVar4;
+        iVar4 = leave_multicast_group_on_backbone_netif(param_3,param_1);
+        if (iVar4 == 0) {
+          if (pvVar6 == (void *)0x0) {
+            piVar5[1] = *(int *)((int)__s1_00 + 0x18);
           }
+          else {
+            *(int *)((int)pvVar6 + 0x18) = *(int *)((int)__s1_00 + 0x18);
+          }
+          free_multicast_listener(__s1_00);
+          return 0;
         }
-        if (pvVar6 == (void *)0x0) {
-          piVar5[1] = *(int *)((int)__s1_00 + 0x18);
-        }
-        else {
-          *(int *)((int)pvVar6 + 0x18) = *(int *)((int)__s1_00 + 0x18);
-        }
-        free_multicast_listener(__s1_00);
-        return 0;
+        return iVar4;
       }
     }
     else {

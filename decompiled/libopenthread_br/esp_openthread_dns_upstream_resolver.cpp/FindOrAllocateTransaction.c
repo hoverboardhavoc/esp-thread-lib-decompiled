@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 66e81acb8df80dbc52a2b0841a8ae3153557e131
- * https://github.com/espressif/esp-thread-lib/commit/66e81acb8df80dbc52a2b0841a8ae3153557e131
- * Upstream date: 2025-12-04 07:38:20 +0000
- * Upstream subject: fix(openthread): resolve deadlock issues due to switching_lock
+ * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * Upstream date: 2026-05-19 03:52:07 +0000
+ * Upstream subject: feat(openthread): support s31 openthread br lib
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> FindOrAllocateTransaction
  *
  * (C) Espressif, Apache License 2.0.
@@ -73,11 +73,11 @@ Resolver::FindOrAllocateTransaction(Resolver *this,otPlatDnsUpstreamQuery *param
         goto _L17;
       }
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xbf;
+      uVar3 = 0xca;
     }
     else {
       uVar4 = esp_log_timestamp();
-      uVar3 = 0xbb;
+      uVar3 = 0xc6;
     }
     esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to allocate new transaction\n",uVar4,
             "FindOrAllocateTransaction",uVar3);
@@ -94,7 +94,7 @@ _L17:
     if (iVar7 < 0) {
       uVar3 = esp_log_timestamp();
       esp_log(1,"Resolver","E (%lu) %s: %s(%d): Failed to create socket for upstream resolver: %d\n"
-              ,uVar3,"FindOrAllocateTransaction",0xc9,iVar7);
+              ,uVar3,"FindOrAllocateTransaction",0xd4,iVar7);
     }
     else {
       esp_openthread_task_switching_lock_release();

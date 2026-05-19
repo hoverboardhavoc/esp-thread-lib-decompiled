@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
+ * Upstream date: 2026-05-19 03:52:07 +0000
+ * Upstream subject: feat(openthread): support s31 openthread br lib
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,7 +41,7 @@ uint multicast_router_init_on_lwip_task(void)
   else {
     uVar2 = -(uint)bVar1 & 0x101;
     for (; piVar3 != (int *)0x0; piVar3 = (int *)piVar3[2]) {
-      if (uVar2 != 0) goto _L42;
+      if (uVar2 != 0) goto _L40;
       iVar5 = *piVar3;
       iVar4 = esp_openthread_get_lwip_backbone_netif();
       if (iVar5 == iVar4) {
@@ -70,7 +70,7 @@ uint multicast_router_init_on_lwip_task(void)
       return 0;
     }
   }
-_L42:
+_L40:
   lwip_do_multicast_deinit(0);
   return uVar2;
 }
