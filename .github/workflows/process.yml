@@ -2,6 +2,11 @@ name: process
 
 on:
   workflow_dispatch:
+  schedule:
+    # Best-effort daily catch-up. Scheduled workflows on forks are heavily
+    # throttled by GitHub (and auto-disable after 60 days idle), so this is a
+    # bonus on top of manual workflow_dispatch, never a dependable replacement.
+    - cron: '0 7 * * *'
 
 permissions:
   contents: write
