@@ -1,0 +1,64 @@
+name: process
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: process-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      GHIDRA_VERSION: '11.3.2'
+      GHIDRA_BUILD_DATE: '20250415'
+    steps:
+      - name: Checkout decompiled branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'decompiled'
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configure git committer
+        run: |
+          git config user.name blobmaster
+          git config user.email blobmaster.crux120@passmail.net
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            binutils openjdk-21-jdk-headless wget unzip ca-certificates
+
+      - name: Cache Ghidra
+        uses: actions/cache@v4
+        id: ghidra-cache
+        with:
+          path: /opt/ghidra
+          key: ghidra-${{ env.GHIDRA_VERSION }}-${{ env.GHIDRA_BUILD_DATE }}
+
+      - name: Install Ghidra
+        if: steps.ghidra-cache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          url="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VERSION}_build/ghidra_${GHIDRA_VERSION}_PUBLIC_${GHIDRA_BUILD_DATE}.zip"
+          echo "Downloading $url"
+          wget -q "$url" -O /tmp/ghidra.zip
+          sudo mkdir -p /opt
+          sudo unzip -q /tmp/ghidra.zip -d /opt
+          sudo mv "/opt/ghidra_${GHIDRA_VERSION}_PUBLIC" /opt/ghidra
+          rm /tmp/ghidra.zip
+
+      - name: Export Ghidra path
+        run: echo "GHIDRA_HOME=/opt/ghidra" >> "$GITHUB_ENV"
+
+      - name: Run decompile pipeline
+        env:
+          MAX_COMMITS_PER_RUN: '25'
+        run: python3 scripts/process.py

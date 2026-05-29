@@ -1,0 +1,40 @@
+esp-thread-lib-decompiled
+========================================
+
+This repository contains derivative work of esp-thread-lib by
+Espressif (https://github.com/espressif/esp-thread-lib), licensed under
+Apache License 2.0.
+
+Changes from the original
+-------------------------
+
+- The original binary archive(s) matching esp32c3/*.a (static archives of
+  compiled object files copyright Espressif) are decompiled into
+  per-function C-like text files under decompiled/ using Ghidra
+  (https://ghidra-sre.org/), an open-source software-reverse-engineering suite
+  developed by the United States National Security Agency and released under
+  Apache License 2.0.
+- Each .o member of an archive is extracted with `ar x` and decompiled
+  separately; each function within a member becomes its own .c file.
+- Each .c file carries a header naming the upstream commit where that
+  function's decompiled body last actually changed, plus provenance and
+  license information.
+- Commit history in this repository mirrors upstream commits that modified the
+  target binary (one commit here per such upstream commit).
+
+The decompiled output is mechanical and may be incomplete, structurally
+different from the original source, or semantically inaccurate. It is not a
+substitute for the original source code (which Espressif does not
+publish for this library) and should not be treated as authoritative.
+
+License
+-------
+
+The original binary is copyright Espressif and licensed under the
+Apache License 2.0; see LICENSE for the full text.
+
+The decompiled files in this repository are likewise distributed under the
+Apache License 2.0.
+
+This repository is not affiliated with or endorsed by Espressif or
+by the National Security Agency.
