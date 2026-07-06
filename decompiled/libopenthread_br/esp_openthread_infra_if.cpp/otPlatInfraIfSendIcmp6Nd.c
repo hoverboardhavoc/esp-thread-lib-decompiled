@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * https://github.com/espressif/esp-thread-lib/commit/70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * Upstream date: 2026-04-10 09:53:42 +0000
- * Upstream subject: feat(openthread/lib): update thread-lib for upstream a98813b30
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> otPlatInfraIfSendIcmp6Nd
  *
  * (C) Espressif, Apache License 2.0.
@@ -54,17 +54,17 @@ undefined1 otPlatInfraIfSendIcmp6Nd(void *param_1,char *param_2,int param_3)
       memcpy(auStack_70,auStack_34,0x14);
       iVar4 = icmp6_raw_send(s_raw_pcb,auStack_70,iVar2,0);
       uVar1 = iVar4 != 0;
-      goto _L87;
+      goto _L89;
     }
     uVar3 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD",
             "E (%lu) %s: %s(%d): Failed to create an icmpv6 nd message on backbone netif\n",uVar3,
             "br_backbone_netif_create_nd6_msg",0xd8);
     pbuf_free(iVar2);
+    iVar2 = 0;
   }
-  iVar2 = 0;
   uVar1 = 3;
-_L87:
+_L89:
   pbuf_free(iVar2);
   return uVar1;
 }

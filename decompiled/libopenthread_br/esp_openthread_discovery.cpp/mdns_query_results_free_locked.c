@@ -3,25 +3,21 @@
  * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
  * Upstream date: 2026-07-06 09:06:22 +0000
  * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
- * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_remove_route_entry
+ * Source: libopenthread_br -> esp_openthread_discovery.cpp.o -> mdns_query_results_free_locked
  *
  * (C) Espressif, Apache License 2.0.
  * Derivative work (this file): mechanical decompile via Ghidra (NSA, Apache 2.0).
  * Decompiler output may be incomplete or differ from original semantics.
  */
 
-undefined4 esp_openthread_route_table_remove_route_entry(uint param_1)
+/* mdns_query_results_free_locked(mdns_result_s*) */
+
+void mdns_query_results_free_locked(mdns_result_s *param_1)
 
 {
-  if ((0x103bf < param_1) && (param_1 < 0x103c1)) {
-    if (*(int *)(param_1 + 0x30) != -1) {
-      sys_untimeout(route_timeout_handler,param_1);
-      *(undefined4 *)(param_1 + 0x34) = 0;
-      return 0;
-    }
-    *(undefined4 *)(param_1 + 0x34) = 0;
-    return 0;
-  }
-  return 0x102;
+  esp_openthread_task_switching_lock_release();
+  mdns_query_results_free(param_1);
+  esp_openthread_task_switching_lock_acquire(0xffffffff);
+  return;
 }
 

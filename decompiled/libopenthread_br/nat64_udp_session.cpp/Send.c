@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 55f18e4cc6a249974247fd408aad79b1049d4b31
- * https://github.com/espressif/esp-thread-lib/commit/55f18e4cc6a249974247fd408aad79b1049d4b31
- * Upstream date: 2024-11-01 17:03:49 +0800
- * Upstream subject: feat(br): update br lib
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> nat64_udp_session.cpp.o -> Send
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,17 +31,17 @@ uint __thiscall idf::UdpSession::Send(UdpSession *this,uchar *param_1,ushort par
   esp_openthread_get_backbone_netif();
   iVar3 = to_underlying_lwip_netif();
   if (cStack_24 == '\x06') {
-    iVar5 = 0;
     if (iVar3 != 0) {
       iVar5 = ip6_select_source_address(auStack_38);
+      goto _L11;
     }
   }
-  else {
-    iVar5 = 0;
-    if (iVar3 != 0) {
-      iVar5 = iVar3 + 4;
-    }
+  else if (iVar3 != 0) {
+    iVar5 = iVar3 + 4;
+    goto _L11;
   }
+  iVar5 = 0;
+_L11:
   sys_untimeout(OnSessionTimeout,this);
   sys_timeout(3600000,OnSessionTimeout,this);
   pbuf_take_at(iVar2,param_1,uVar4,0);

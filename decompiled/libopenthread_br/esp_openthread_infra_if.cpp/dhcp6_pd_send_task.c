@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * https://github.com/espressif/esp-thread-lib/commit/70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * Upstream date: 2026-04-10 09:53:42 +0000
- * Upstream subject: feat(openthread/lib): update thread-lib for upstream a98813b30
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> dhcp6_pd_send_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -48,7 +48,7 @@ undefined4 dhcp6_pd_send_task(void *param_1)
     uVar3 = netif_get_by_index(*(undefined1 *)((int)param_1 + 0x18));
     iVar4 = udp_sendto_if(uVar1,iVar2,&uStack_28,0x223,uVar3);
     uVar1 = 0;
-    if (iVar4 == 0) goto _L59;
+    if (iVar4 == 0) goto _L57;
     uVar1 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): UDP send failed: %d\n",uVar1,"dhcp6_pd_send_task",
             0x18a,iVar4);
@@ -56,7 +56,7 @@ undefined4 dhcp6_pd_send_task(void *param_1)
   }
   uVar3 = esp_log_timestamp();
   esp_log(1,"OPENTHREAD","E (%lu) %s: Finished dhcp6_pd_send_task with some errors\n",uVar3);
-_L59:
+_L57:
   pbuf_free(iVar2);
                     /* WARNING: Load size is inaccurate */
   otMessageFree(*param_1);

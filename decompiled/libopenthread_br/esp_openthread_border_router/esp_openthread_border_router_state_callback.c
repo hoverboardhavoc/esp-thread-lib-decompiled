@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_border_router.o -> esp_openthread_border_router_state_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -24,7 +24,7 @@ void esp_openthread_border_router_state_callback(int param_1)
   if (iVar1 == 0) {
     if (s_nat64_initialized != '\0') {
       iVar1 = nat64_netif_get();
-      if ((*(byte *)(iVar1 + 0x20f) & 1) != 0) goto _L3;
+      if ((*(byte *)(iVar1 + 0x20f) & 1) != 0) goto _L2;
     }
     iVar1 = nat64_init();
     if (iVar1 == 0) {
@@ -37,7 +37,7 @@ void esp_openthread_border_router_state_callback(int param_1)
       esp_log(1,0x10000,"E (%lu) %s: Failed to initialize NAT64\n",uVar2);
     }
   }
-_L3:
+_L2:
   if (param_1 << 7 < 0) {
     uVar2 = esp_openthread_get_instance();
     esp_openthread_get_instance();

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
- * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
- * Upstream date: 2026-05-19 03:52:07 +0000
- * Upstream subject: feat(openthread): support s31 openthread br lib
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> multicast_router_init_on_lwip_task
  *
  * (C) Espressif, Apache License 2.0.
@@ -40,38 +40,37 @@ uint multicast_router_init_on_lwip_task(void)
   }
   else {
     uVar2 = -(uint)bVar1 & 0x101;
-    for (; piVar3 != (int *)0x0; piVar3 = (int *)piVar3[2]) {
-      if (uVar2 != 0) goto _L40;
+  }
+  for (; piVar3 != (int *)0x0; piVar3 = (int *)piVar3[2]) {
+    if (uVar2 != 0) goto _L47;
+    iVar5 = *piVar3;
+    iVar4 = esp_openthread_get_lwip_backbone_netif();
+    if (iVar5 == iVar4) {
       iVar5 = *piVar3;
-      iVar4 = esp_openthread_get_lwip_backbone_netif();
-      if (iVar5 == iVar4) {
-        iVar5 = *piVar3;
-        uStack_4c = 0;
-        uStack_48 = 0;
-        uStack_40 = 0;
-        local_50 = 0x2ff;
-        uStack_44 = 0x2000000;
-        uStack_3c = 6;
-        iVar4 = mld6_joingroup_netif(iVar5,&local_50);
-        uVar2 = 0xffffffff;
-        if (iVar4 == 0) {
-          uStack_34 = 0;
-          uStack_30 = 0;
-          uStack_28 = 0;
-          uStack_38 = 0x2ff;
-          uStack_2c = 0x16000000;
-          uStack_24 = 6;
-          iVar4 = mld6_joingroup_netif(iVar5,&uStack_38);
-          uVar2 = -(uint)(iVar4 != 0);
-        }
+      uStack_4c = 0;
+      uStack_48 = 0;
+      uStack_40 = 0;
+      local_50 = 0x2ff;
+      uStack_44 = 0x2000000;
+      uStack_3c = 6;
+      iVar4 = mld6_joingroup_netif(iVar5,&local_50);
+      uVar2 = 0xffffffff;
+      if (iVar4 == 0) {
+        uStack_34 = 0;
+        uStack_30 = 0;
+        uStack_28 = 0;
+        uStack_38 = 0x2ff;
+        uStack_2c = 0x16000000;
+        uStack_24 = 6;
+        iVar4 = mld6_joingroup_netif(iVar5,&uStack_38);
+        uVar2 = -(uint)(iVar4 != 0);
       }
     }
-    if (uVar2 == 0) {
-      return 0;
-    }
   }
-_L40:
-  lwip_do_multicast_deinit(0);
+  if (uVar2 != 0) {
+_L47:
+    lwip_do_multicast_deinit(0);
+  }
   return uVar2;
 }
 

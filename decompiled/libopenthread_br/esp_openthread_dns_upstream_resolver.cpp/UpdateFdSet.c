@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 151fd03b3353ca155fa974338a1361fcc6904cd9
- * https://github.com/espressif/esp-thread-lib/commit/151fd03b3353ca155fa974338a1361fcc6904cd9
- * Upstream date: 2025-03-27 16:04:28 +0800
- * Upstream subject: feat(openthread): update thread-lib to support BR DNS resolution
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> UpdateFdSet
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,28 +15,29 @@
 void __thiscall Resolver::UpdateFdSet(Resolver *this,esp_openthread_mainloop_context_t *param_1)
 
 {
-  uint uVar1;
-  int iVar2;
-  uint uVar3;
-  int *piVar4;
+  int iVar1;
+  uint uVar2;
+  int *piVar3;
+  uint uVar4;
   esp_openthread_mainloop_context_t *peVar5;
   int iVar6;
   
   iVar6 = *(int *)(this + 4);
-  for (iVar2 = 0; iVar6 != iVar2; iVar2 = iVar2 + 1) {
-    piVar4 = (int *)(*(int *)this + iVar2 * 8);
-    if (*piVar4 != 0) {
-      uVar3 = piVar4[1];
-      if (uVar3 < 0x40) {
-        peVar5 = param_1 + ((int)uVar3 >> 5) * 4;
-        uVar1 = 1 << (uVar3 & 0x1f);
-        *(uint *)peVar5 = *(uint *)peVar5 | uVar1;
-        *(uint *)(peVar5 + 0x10) = *(uint *)(peVar5 + 0x10) | uVar1;
+  piVar3 = *(int **)this;
+  for (iVar1 = 0; iVar6 != iVar1; iVar1 = iVar1 + 1) {
+    if (*piVar3 != 0) {
+      uVar4 = piVar3[1];
+      if (uVar4 < 0x40) {
+        peVar5 = param_1 + ((int)uVar4 >> 5) * 4;
+        uVar2 = 1 << (uVar4 & 0x1f);
+        *(uint *)peVar5 = *(uint *)peVar5 | uVar2;
+        *(uint *)(peVar5 + 0x10) = *(uint *)(peVar5 + 0x10) | uVar2;
       }
-      if (*(int *)(param_1 + 0x18) < (int)uVar3) {
-        *(uint *)(param_1 + 0x18) = uVar3;
+      if (*(int *)(param_1 + 0x18) < (int)uVar4) {
+        *(uint *)(param_1 + 0x18) = uVar4;
       }
     }
+    piVar3 = piVar3 + 2;
   }
   return;
 }

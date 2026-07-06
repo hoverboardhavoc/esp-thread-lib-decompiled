@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_route_table.o -> lwip_hook_nd6_get_gw
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,7 +26,7 @@ undefined1 * lwip_hook_nd6_get_gw(int param_1,void *param_2)
       puVar1 = __s2;
     }
     __s2 = __s2 + 0x38;
-  } while (__s2 != (undefined1 *)0x105f4);
+  } while (__s2 != (undefined1 *)0x105f0);
   if (puVar1 != (undefined1 *)0x0) {
     puVar1 = puVar1 + 0x18;
   }

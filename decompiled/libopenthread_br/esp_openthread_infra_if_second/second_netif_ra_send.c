@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> second_netif_ra_send
  *
  * (C) Espressif, Apache License 2.0.
@@ -70,7 +70,7 @@ void second_netif_ra_send(int param_1)
         esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to send RA on the second netif\n",uVar2);
       }
       pbuf_free(iVar4);
-      goto _L85;
+      goto _L80;
     }
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get mac addr of the second netif\n",uVar2,
@@ -80,7 +80,7 @@ void second_netif_ra_send(int param_1)
   uVar2 = esp_log_timestamp();
   esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to create RA for the second netif\n",uVar2,
           "create_and_send_second_netif_ra",0x7e);
-_L85:
+_L80:
   s_ra_moment_last = esp_timer_get_time();
   DAT_00010c44 = extraout_a1;
   if (s_netif_ra_enabled != '\0') {

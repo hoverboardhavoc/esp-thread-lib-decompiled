@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
- * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
- * Upstream date: 2026-05-19 03:52:07 +0000
- * Upstream subject: feat(openthread): support s31 openthread br lib
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_forward_packet
  *
  * (C) Espressif, Apache License 2.0.
@@ -61,13 +61,13 @@ void esp_openthread_multicast_forward_packet(int param_1,int param_2)
         for (__s1 = (void *)piVar9[1]; __s1 != (void *)0x0; __s1 = *(void **)((int)__s1 + 0x18)) {
           iVar5 = memcmp(__s1,auStack_50,0x10);
           if (iVar5 == 0) {
-            if (iVar4 != 0) goto _L86;
-            goto _L85;
+            if (iVar4 != 0) goto _L81;
+            goto _L80;
           }
         }
       }
     }
-_L85:
+_L80:
     esp_netif_get_handle_from_ifkey("OT_DEF");
     iVar4 = to_underlying_lwip_netif();
     if ((iVar4 == param_2) &&
@@ -75,7 +75,7 @@ _L85:
       esp_openthread_get_backbone_netif();
       iVar4 = to_underlying_lwip_netif();
       if ((iVar4 != 0) && (param_2 != iVar4)) {
-_L86:
+_L81:
         memcpy(auStack_80,auStack_38,0x14);
         memcpy(auStack_a0,auStack_50,0x14);
         iVar5 = esp_openthread_mcast_filter(auStack_80,auStack_a0,param_2,iVar4);

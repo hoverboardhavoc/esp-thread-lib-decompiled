@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> nat64_tcp_session.cpp.o -> ForwardV4
  *
  * (C) Espressif, Apache License 2.0.
@@ -51,23 +51,23 @@ undefined4 __thiscall idf::TcpSession::ForwardV4(TcpSession *this,uchar *param_1
     if ((uVar5 & 1) == 0) {
       if (*(int *)(this + 0x24) == 2) {
         uVar7 = 3;
-        goto _L37;
+        goto _L36;
       }
     }
     else {
       if (*(int *)(this + 0x24) == 5) {
         uVar7 = 6;
-        goto _L38;
+        goto _L37;
       }
       uVar7 = 4;
-_L37:
+_L36:
       *(undefined4 *)(this + 0x24) = uVar7;
     }
     uVar7 = 9000000;
   }
   else {
     uVar7 = 2;
-_L38:
+_L37:
     *(undefined4 *)(this + 0x24) = uVar7;
     uVar7 = 240000;
   }

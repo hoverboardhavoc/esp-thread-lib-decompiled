@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> nat64_netif.cpp.o -> nat64_translate_ip6
  *
  * (C) Espressif, Apache License 2.0.
@@ -64,7 +64,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
   memcpy(aiStack_4c,(void *)((int)pvVar6 + 8),0x10);
   puVar7 = (ushort *)skip_ipv6_header_and_extensions(pvVar6,uVar11,&cStack_51);
   prVar3 = s_backbone_icmp_raw_pcb;
-  if (*(byte *)((int)pvVar6 + 7) < 2) goto _L49;
+  if (*(byte *)((int)pvVar6 + 7) < 2) goto _L42;
   uVar11 = uVar11 - ((int)puVar7 - (int)pvVar6) & 0xffff;
   uVar1 = (ushort)puVar7;
   if (cStack_51 == '\x11') {
@@ -75,7 +75,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
       if (puVar9 != (uchar *)0x0) {
         idf::UdpSession::Send(puVar9,uVar1 + 8);
       }
-      goto _L49;
+      goto _L42;
     }
     uVar8 = esp_log_timestamp();
     uVar4 = 0x82;
@@ -93,7 +93,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
           idf::IcmpSession::Forward2V4(puVar9,uVar1);
         }
       }
-      goto _L49;
+      goto _L42;
     }
     uVar8 = esp_log_timestamp();
     uVar4 = 0x8c;
@@ -103,7 +103,7 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
     if (cStack_51 != '\x06') {
       uVar4 = esp_log_timestamp();
       esp_log(2,"NAT64","W (%lu) %s: nat64 packet type not supported yet\n\n",uVar4);
-      goto _L49;
+      goto _L42;
     }
     if (0x13 < uVar11) {
       puVar9 = (uchar *)idf::TcpSession::FindOrNewSession
@@ -113,14 +113,14 @@ undefined4 nat64_translate_ip6(netif *param_1,pbuf *param_2,ip6_addr *param_3)
       if (puVar9 != (uchar *)0x0) {
         idf::TcpSession::ForwardV6(puVar9,uVar1);
       }
-      goto _L49;
+      goto _L42;
     }
     uVar8 = esp_log_timestamp();
     uVar4 = 0x87;
     pcVar10 = "E (%lu) %s: %s(%d): Invalid nat64 TCP packet\n";
   }
   esp_log(1,"NAT64",pcVar10,uVar8,"nat64_translate_ip6",uVar4);
-_L49:
+_L42:
   if (__ptr != (void *)0x0) {
     free(__ptr);
   }

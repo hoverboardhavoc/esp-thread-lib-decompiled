@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_route_table.o -> route_timeout_handler
  *
  * (C) Espressif, Apache License 2.0.
@@ -27,7 +27,7 @@ undefined4 route_timeout_handler(uint param_1)
     uVar2 = sys_timeout(iVar1,route_timeout_handler,param_1);
     return uVar2;
   }
-  if ((0x103c3 < param_1) && (param_1 < 0x103c5)) {
+  if ((0x103bf < param_1) && (param_1 < 0x103c1)) {
     if (*(int *)(param_1 + 0x30) == -1) {
       *(undefined4 *)(param_1 + 0x34) = 0;
       return 0;

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_infra_if_second.o -> br_second_netif_callback
  *
  * (C) Espressif, Apache License 2.0.
@@ -26,11 +26,11 @@ void br_second_netif_callback(uint param_1)
   uVar3 = 1;
   if (2 < iVar2 - 2U) {
     iVar1 = 0;
-    if (iVar2 != 0) goto _L16;
+    if (iVar2 != 0) goto _L15;
     uVar3 = 3;
   }
   iVar1 = esp_netif_tcpip_exec(notify_lwip_send_ra,uVar3);
-_L16:
+_L15:
   esp_openthread_task_switching_lock_acquire(0xffffffff);
   if (iVar1 != 0) {
     uVar3 = esp_log_timestamp();

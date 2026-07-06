@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_meshcop_mdns.o -> esp_openthread_publish_meshcop_mdns
  *
  * (C) Espressif, Apache License 2.0.
@@ -13,221 +13,28 @@
 int esp_openthread_publish_meshcop_mdns(undefined4 param_1)
 
 {
-  char *pcVar1;
+  int iVar1;
   undefined4 uVar2;
   undefined4 uVar3;
-  undefined4 uVar4;
-  int iVar5;
-  uint uVar6;
-  undefined4 uVar7;
-  undefined4 uVar8;
-  int iVar9;
-  int iVar10;
-  undefined4 extraout_a1;
-  undefined1 uStack_137;
-  undefined2 uStack_136;
-  undefined4 uStack_134;
-  undefined4 uStack_130;
-  undefined1 auStack_12c [8];
-  undefined1 uStack_124;
-  undefined1 auStack_120 [16];
-  undefined1 auStack_110 [16];
-  byte bStack_100;
-  byte bStack_fc;
-  undefined1 auStack_fb [19];
-  undefined *puStack_e8;
-  undefined4 uStack_e4;
-  undefined *puStack_e0;
-  char *pcStack_dc;
-  undefined *puStack_d8;
-  undefined4 uStack_d4;
-  undefined *puStack_d0;
-  char *pcStack_cc;
-  undefined *puStack_c8;
-  char *pcStack_c4;
-  undefined *puStack_c0;
-  undefined *puStack_bc;
-  undefined4 uStack_b8;
-  undefined4 uStack_b4;
   
-  uVar2 = esp_openthread_get_instance();
-  uVar3 = otThreadGetExtendedPanId();
-  uVar4 = otLinkGetExtendedAddress(uVar2);
-  esp_openthread_get_instance();
-  uStack_b8 = 0;
-  iVar5 = otBackboneRouterGetState();
-  uVar6 = otThreadGetVersion();
-  uStack_b8 = CONCAT22((ushort)(4 < uVar6) << 3 | iVar5 == 2 | 0x3100 | (ushort)(iVar5 != 0) << 0xf
-                       | (ushort)((uint)uStack_b8 >> 0x10) & 0xf6,(undefined2)uStack_b8);
-  uStack_134 = uStack_b8;
-  otThreadGetPartitionId(uVar2);
-  uStack_130 = __bswapsi2();
-  uStack_136 = 0xbff0;
-  otBackboneRouterGetConfig(uVar2,auStack_12c);
-  uStack_137 = uStack_124;
-  iVar5 = otDatasetGetActive(uVar2,&uStack_b8);
-  if (iVar5 != 0) {
-    uVar2 = esp_log_timestamp();
-    esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to get OpenThread active dataset\n",uVar2,
-            "esp_openthread_publish_meshcop_mdns",0x91);
-    return -1;
-  }
-  uStack_b8 = __bswapdi2(uStack_b8,uStack_b4);
-  uStack_b4 = extraout_a1;
-  uVar7 = otThreadGetDomainName(uVar2);
-  uVar6 = otThreadGetVersion();
-  if (uVar6 == 4) {
-    pcVar1 = "1.3.0";
-  }
-  else if (uVar6 < 5) {
-    if (uVar6 == 2) {
-      pcVar1 = "1.1.1";
-    }
-    else {
-      if (uVar6 != 3) goto _L24;
-      pcVar1 = "1.2.0";
-    }
-  }
-  else if (uVar6 == 5) {
-    pcVar1 = "1.4.0";
-  }
-  else {
-_L24:
-    pcVar1 = "";
-  }
-  uVar8 = otThreadGetNetworkName(uVar2);
-  iVar5 = otBorderRoutingGetOmrPrefix(uVar2,auStack_110);
-  iVar9 = otBorderAgentGetId(uVar2,auStack_120);
-  puStack_e8 = &_LC7;
-  puStack_e0 = &_LC8;
-  puStack_d8 = &_LC9;
-  puStack_d0 = &_LC10;
-  pcStack_cc = "BorderRouter";
-  puStack_c8 = &_LC12;
-  pcStack_c4 = "OpenThread";
-  puStack_c0 = &_LC14;
-  puStack_bc = &_LC15;
-  uStack_e4 = uVar7;
-  pcStack_dc = pcVar1;
-  uStack_d4 = uVar8;
+  iVar1 = 0;
   if (s_service_published == '\0') {
-    uVar2 = otBorderAgentGetUdpPort(uVar2);
+    uVar2 = esp_openthread_get_instance();
+    uVar3 = otBorderAgentGetUdpPort();
     esp_openthread_task_switching_lock_release();
-    iVar10 = mdns_service_add(param_1,"_meshcop",&_LC16,uVar2,0,0);
-    if (iVar10 == 0) {
+    iVar1 = mdns_service_add(param_1,"_meshcop",&_LC3,uVar3,0,0);
+    if (iVar1 == 0) {
       esp_openthread_task_switching_lock_acquire(0xffffffff);
       s_service_published = '\x01';
-      goto _L6;
-    }
-    uVar3 = esp_log_timestamp();
-    uVar2 = 0xa9;
-    pcVar1 = "E (%lu) %s: %s(%d): Failed to publish meshcop mdns service\n";
-  }
-  else {
-_L6:
-    esp_openthread_task_switching_lock_release();
-    iVar10 = mdns_service_txt_set("_meshcop",&_LC16,&puStack_e8,6);
-    if (iVar10 == 0) {
-      iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                         ("_meshcop",&_LC16,&_LC20,&uStack_136,2);
-      if (iVar10 == 0) {
-        iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                           ("_meshcop",&_LC16,&_LC22,&uStack_137,1);
-        if (iVar10 == 0) {
-          iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                             ("_meshcop",&_LC16,&_LC24,&uStack_130,4);
-          if (iVar10 == 0) {
-            iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                               ("_meshcop",&_LC16,&_LC26,&uStack_b8,8);
-            if (iVar10 == 0) {
-              iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                                 ("_meshcop",&_LC16,&_LC28,&uStack_134,4);
-              if (iVar10 == 0) {
-                iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                                   ("_meshcop",&_LC16,&_LC30,uVar4,8);
-                if (iVar10 == 0) {
-                  iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                                     ("_meshcop",&_LC16,&_LC32,uVar3,8);
-                  if (iVar10 == 0) {
-                    if (iVar5 == 0) {
-                      bStack_fc = bStack_100;
-                      memcpy(auStack_fb,auStack_110,(uint)(bStack_100 >> 3));
-                      iVar5 = mdns_service_txt_item_set_with_explicit_value_len
-                                        ("_meshcop",&_LC16,&_LC34,&bStack_fc,(bStack_100 >> 3) + 1);
-                      if (iVar5 != 0) {
-                        uVar3 = esp_log_timestamp();
-                        uVar2 = 0xd3;
-                        pcVar1 = 
-                        "E (%lu) %s: %s(%d): Failed to set Off-Mesh routable prefix in meshcop mdns service\n"
-                        ;
-                        iVar10 = iVar5;
-                        goto _L29;
-                      }
-                    }
-                    if ((iVar9 != 0) ||
-                       (iVar10 = mdns_service_txt_item_set_with_explicit_value_len
-                                           ("_meshcop",&_LC16,&_LC36,auStack_120,0x10), iVar10 == 0)
-                       ) goto _L8;
-                    uVar3 = esp_log_timestamp();
-                    uVar2 = 0xda;
-                    pcVar1 = 
-                    "E (%lu) %s: %s(%d): Failed to set border agent id in meshcop mdns service\n";
-                  }
-                  else {
-                    uVar3 = esp_log_timestamp();
-                    uVar2 = 0xca;
-                    pcVar1 = "E (%lu) %s: %s(%d): Failed to set extpanid in meshcop mdns service\n";
-                  }
-                }
-                else {
-                  uVar3 = esp_log_timestamp();
-                  uVar2 = 0xc6;
-                  pcVar1 = 
-                  "E (%lu) %s: %s(%d): Failed to set device discriminator in meshcop mdns service\n"
-                  ;
-                }
-              }
-              else {
-                uVar3 = esp_log_timestamp();
-                uVar2 = 0xc2;
-                pcVar1 = "E (%lu) %s: %s(%d): Failed to set state bitmap in meshcop mdns service\n";
-              }
-            }
-            else {
-              uVar3 = esp_log_timestamp();
-              uVar2 = 0xbe;
-              pcVar1 = 
-              "E (%lu) %s: %s(%d): Failed to set active timestamp in meshcop mdns service\n";
-            }
-          }
-          else {
-            uVar3 = esp_log_timestamp();
-            uVar2 = 0xba;
-            pcVar1 = "E (%lu) %s: %s(%d): Failed to set partition id in meshcop mdns service\n";
-          }
-        }
-        else {
-          uVar3 = esp_log_timestamp();
-          uVar2 = 0xb6;
-          pcVar1 = "E (%lu) %s: %s(%d): Failed to set sequence number in meshcop mdns service\n";
-        }
-      }
-      else {
-        uVar3 = esp_log_timestamp();
-        uVar2 = 0xb3;
-        pcVar1 = "E (%lu) %s: %s(%d): Failed to set bbr port number in meshcop mdns service\n";
-      }
+      otBorderAgentSetMeshCoPServiceChangedCallback(uVar2,update_meshcop_mdns,0);
     }
     else {
-      uVar3 = esp_log_timestamp();
-      uVar2 = 0xb0;
-      pcVar1 = "E (%lu) %s: %s(%d): Failed to set txt items for meshcop mdns service\n";
+      uVar2 = esp_log_timestamp();
+      esp_log(1,0x10000,"E (%lu) %s: %s(%d): Failed to publish meshcop mdns service\n",uVar2,
+              "esp_openthread_publish_meshcop_mdns",0x4d);
+      esp_openthread_task_switching_lock_acquire(0xffffffff);
     }
   }
-_L29:
-  esp_log(1,"OPENTHREAD",pcVar1,uVar3,"esp_openthread_publish_meshcop_mdns",uVar2);
-_L8:
-  esp_openthread_task_switching_lock_acquire(0xffffffff);
-  return iVar10;
+  return iVar1;
 }
 

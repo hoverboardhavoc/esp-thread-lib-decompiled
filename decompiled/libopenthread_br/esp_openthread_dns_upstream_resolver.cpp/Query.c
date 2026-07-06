@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
- * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
- * Upstream date: 2026-05-19 03:52:07 +0000
- * Upstream subject: feat(openthread): support s31 openthread br lib
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_dns_upstream_resolver.cpp.o -> Query
  *
  * (C) Espressif, Apache License 2.0.
@@ -70,7 +70,7 @@ void __thiscall Resolver::Query(Resolver *this,otPlatDnsUpstreamQuery *param_1,o
             {
               uVar5 = esp_log_timestamp();
               pcVar9 = "E (%lu) %s: Failed to allocate ipv6 transaction\n";
-_L67:
+_L63:
               esp_log(1,"Resolver",pcVar9,uVar5);
             }
             else {
@@ -88,7 +88,7 @@ _L67:
                   uVar3 = 0x96;
                   pcVar9 = 
                   "E (%lu) %s: %s(%d): Failed to resolve scope id for link-local DNS server\n";
-                  goto _L68;
+                  goto _L64;
                 }
               }
               esp_openthread_task_switching_lock_release();
@@ -100,7 +100,7 @@ _L67:
                 uVar7 = *tp;
                 uVar3 = 0x9d;
                 pcVar9 = "E (%lu) %s: %s(%d): Failed to forward DNS query to v6 server: errno=%d\n";
-_L69:
+_L65:
                 esp_log(1,"Resolver",pcVar9,uVar5,"Query",uVar3,uVar7);
                 return;
               }
@@ -115,7 +115,7 @@ _L69:
           {
             uVar5 = esp_log_timestamp();
             pcVar9 = "E (%lu) %s: Failed to allocate ipv4 transaction\n";
-            goto _L67;
+            goto _L63;
           }
           local_298[3] = 0x35000200;
           local_298[5] = 0;
@@ -130,11 +130,11 @@ _L69:
             uVar7 = *tp;
             uVar3 = 0x82;
             pcVar9 = "E (%lu) %s: %s(%d): Failed to forward DNS query to v4 server: errno=%d\n";
-            goto _L69;
+            goto _L65;
           }
         }
         puVar10 = puVar10 + 1;
-        if (local_298 + 3 == puVar10) {
+        if (puVar10 == local_298 + 3) {
           return;
         }
       } while( true );
@@ -148,7 +148,7 @@ _L69:
     uVar3 = 0x66;
     pcVar9 = "E (%lu) %s: %s(%d): No DNS query buffer\n";
   }
-_L68:
+_L64:
   esp_log(1,"Resolver",pcVar9,uVar5,"Query",uVar3);
   return;
 }

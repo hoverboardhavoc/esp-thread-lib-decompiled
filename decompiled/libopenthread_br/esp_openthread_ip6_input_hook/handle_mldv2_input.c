@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_ip6_input_hook.o -> handle_mldv2_input
  *
  * (C) Espressif, Apache License 2.0.
@@ -35,7 +35,7 @@ undefined4 handle_mldv2_input(int param_1,int param_2,uint param_3,undefined4 pa
   uStack_48 = 0;
   uVar7 = 0;
   do {
-    if (((param_3 & 0xffff) < 0x14) || (((uVar2 & 0xff) << 8 | (uint)(uVar2 >> 8)) <= uVar7)) {
+    if ((((uVar2 & 0xff) << 8 | (uint)(uVar2 >> 8)) == uVar7) || ((param_3 & 0xffff) < 0x14)) {
       return 0;
     }
     if (*pcVar3 == '\x04') {
@@ -46,26 +46,26 @@ undefined4 handle_mldv2_input(int param_1,int param_2,uint param_3,undefined4 pa
         if (iVar4 != 0) {
           uVar5 = esp_log_timestamp();
           pcVar6 = "E (%lu) %s: Failed to add backbone multicast listener\n";
-_L48:
+_L45:
           esp_log(1,0x10000,pcVar6,uVar5);
         }
       }
       else {
-_L21:
+_L22:
         uVar5 = esp_log_timestamp();
         esp_log(2,0x10000,"W (%lu) %s: Dropping unsupported mldv2 record of type %d\n",uVar5,0x10000
                 ,*pcVar3);
       }
     }
     else {
-      if ((*(short *)(pcVar3 + 2) != 0) || (*pcVar3 != '\x03')) goto _L21;
+      if ((*(short *)(pcVar3 + 2) != 0) || (*pcVar3 != '\x03')) goto _L22;
       memcpy(auStack_44,pcVar3 + 4,0x10);
       uStack_34 = 0;
       iVar4 = esp_openthread_multicast_listener_remove(auStack_44,auStack_58,param_4);
       if (iVar4 != 0) {
         uVar5 = esp_log_timestamp();
         pcVar6 = "E (%lu) %s: Failed to remove backbone multicast listener\n";
-        goto _L48;
+        goto _L45;
       }
     }
     pbVar1 = (byte *)(pcVar3 + 1);

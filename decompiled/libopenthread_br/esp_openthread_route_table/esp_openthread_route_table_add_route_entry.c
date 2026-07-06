@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * https://github.com/espressif/esp-thread-lib/commit/8f3bd568ba77a5194e501b849966bc0ea16a8aff
- * Upstream date: 2025-06-30 12:13:17 +0000
- * Upstream subject: fix(discovery): use mesh local for self-hosted service if OMR is not preferred
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_route_table.o -> esp_openthread_route_table_add_route_entry
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,10 +31,10 @@ undefined1 * esp_openthread_route_table_add_route_entry(undefined1 *param_1)
          ((iVar3 = memcmp(__s1 + 0x18,param_1 + 0x18,0x10), iVar3 == 0 &&
           (iVar3 = memcmp(__s1,param_1,(uint)(bVar1 >> 3)), iVar3 == 0)))) {
         sys_untimeout(route_timeout_handler,__s1);
-        goto _L25;
+        goto _L24;
       }
       __s1 = __s1 + 0x38;
-    } while (__s1 != (undefined1 *)0x105f4);
+    } while (__s1 != (undefined1 *)0x105f0);
     iVar3 = 0;
     do {
       if (*(int *)(puVar6 + 0x34) == 0) {
@@ -53,7 +53,7 @@ undefined1 * esp_openthread_route_table_add_route_entry(undefined1 *param_1)
         s_route_entries[iVar3 + 0x28] = cVar4;
         memcpy(s_route_entries + iVar3,param_1,0x14);
         s_route_entries[iVar3 + 0x14] = param_1[0x14];
-_L25:
+_L24:
         __s1[0x2c] = param_1[0x2c];
         uVar5 = *(uint *)(param_1 + 0x30);
         *(uint *)(__s1 + 0x30) = uVar5;

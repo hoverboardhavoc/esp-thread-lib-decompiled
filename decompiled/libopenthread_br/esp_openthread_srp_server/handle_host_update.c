@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * https://github.com/espressif/esp-thread-lib/commit/baa93a0cffc57c2f9cb0518d2e5ab3518ae5fa88
- * Upstream date: 2025-10-23 04:21:23 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 36b14d3ef
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_srp_server.o -> handle_host_update
  *
  * (C) Espressif, Apache License 2.0.
@@ -28,8 +28,8 @@ void handle_host_update(undefined4 param_1,undefined4 param_2)
   undefined4 *puVar13;
   uint uVar14;
   size_t __n;
-  uint uVar15;
-  size_t sVar16;
+  size_t sVar15;
+  uint uVar16;
   undefined4 *puVar17;
   size_t __n_00;
   byte bStack_1b3;
@@ -63,7 +63,7 @@ void handle_host_update(undefined4 param_1,undefined4 param_2)
     uVar1 = esp_log_timestamp();
     esp_log(3,"OPENTHREAD","I (%lu) %s: Add a new host without an addr\n",uVar1);
     pvVar5 = (void *)0x0;
-_L27:
+_L28:
     if (iVar2 == 0) {
       iVar3 = strcasecmp(acStack_158,acStack_19c);
       iVar2 = 0x1d;
@@ -97,7 +97,7 @@ _L27:
         puVar13 = (undefined4 *)((int)pvVar7 + 0x18);
         pvVar7 = (void *)*puVar13;
       } while ((void *)*puVar13 != (void *)0x0);
-      goto _L27;
+      goto _L28;
     }
     do {
       uVar1 = esp_log_timestamp();
@@ -141,9 +141,9 @@ _L30:
         acStack_1b0[4] = '\0';
         acStack_1b0[5] = '\0';
         pcVar9 = strchr(pcVar8,0x2e);
-        sVar16 = (int)pcVar9 - (int)pcVar8;
-        if (0x40 < sVar16) {
-          sVar16 = 0x40;
+        sVar15 = (int)pcVar9 - (int)pcVar8;
+        if (0x40 < sVar15) {
+          sVar15 = 0x40;
         }
         pcVar9 = pcVar9 + 1;
         pcVar10 = strchr(pcVar9,0x2e);
@@ -157,8 +157,8 @@ _L30:
         if (5 < __n_00) {
           __n_00 = 5;
         }
-        strncpy(acStack_114,pcVar8,sVar16);
-        acStack_114[sVar16] = '\0';
+        strncpy(acStack_114,pcVar8,sVar15);
+        acStack_114[sVar15] = '\0';
         strncpy(acStack_d0,pcVar9,__n);
         acStack_d0[__n] = '\0';
         strncpy(acStack_1b0,pcVar10,__n_00);
@@ -182,7 +182,7 @@ _L30:
                     acStack_19c,acStack_114,acStack_1b0);
           }
           else if (iVar4 != 0) {
-_L79:
+_L77:
             iVar2 = 1;
             goto _L33;
           }
@@ -196,9 +196,8 @@ _L79:
         uVar14 = uVar14 + 1 & 0xff;
       }
       if (uVar14 == 0) {
-_L61:
         puVar13 = (undefined4 *)0x0;
-        uVar15 = 0;
+        uVar14 = 0;
       }
       else {
         puVar13 = (undefined4 *)malloc(uVar14 << 3);
@@ -208,62 +207,63 @@ _L61:
         }
         memset(puVar13,0,uVar14 << 3);
         otDnsInitTxtEntryIterator(auStack_8c,uVar1,uStack_1b2);
-        uVar14 = 0;
+        uVar16 = 0;
         while (iVar12 = otDnsGetNextTxtEntry(auStack_8c,&pcStack_1a8), iVar12 == 0) {
           pcVar10 = (char *)malloc(0x41);
           pcVar11 = (char *)malloc(0x41);
           pcVar9 = pcStack_1a4;
           pcVar8 = pcStack_1a8;
           if (pcStack_1a8 == (char *)0x0) {
-            uVar15 = (uint)uStack_1a0;
-            sVar16 = 0;
+            uVar14 = (uint)uStack_1a0;
+            sVar15 = 0;
             do {
-              if (pcStack_1a4[sVar16] == '=') {
-                if ((sVar16 - 1 & 0xffff) < 0x40) {
-                  strncpy(pcVar10,pcStack_1a4,sVar16);
-                  pcVar10[sVar16] = '\0';
-                  iVar12 = uVar15 - sVar16;
-                  puVar13[uVar14 * 2] = pcVar10;
+              if (pcStack_1a4[sVar15] == '=') {
+                if ((sVar15 - 1 & 0xffff) < 0x40) {
+                  strncpy(pcVar10,pcStack_1a4,sVar15);
+                  pcVar10[sVar15] = '\0';
+                  iVar12 = uVar14 - sVar15;
+                  puVar13[uVar16 * 2] = pcVar10;
                   if ((iVar12 - 2U & 0xffff) < 0x40) {
-                    uVar15 = iVar12 - 1U & 0xffff;
-                    strncpy(pcVar11,pcVar9 + sVar16 + 1,uVar15);
-                    pcVar11[uVar15] = '\0';
-                    (puVar13 + uVar14 * 2)[1] = pcVar11;
-                    goto _L53;
+                    uVar14 = iVar12 - 1U & 0xffff;
+                    strncpy(pcVar11,pcVar9 + sVar15 + 1,uVar14);
+                    pcVar11[uVar14] = '\0';
+                    (puVar13 + uVar16 * 2)[1] = pcVar11;
+                    goto _L51;
                   }
                 }
                 break;
               }
-              sVar16 = sVar16 + 1 & 0xffff;
-            } while (uVar15 != sVar16);
-_L56:
+              sVar15 = sVar15 + 1 & 0xffff;
+            } while (uVar14 != sVar15);
+_L54:
             free(pcVar10);
             free(pcVar11);
           }
           else {
-            if ((pcVar10 == (char *)0x0) || (sVar16 = strnlen(pcStack_1a8,0x41), 0x40 < sVar16))
-            goto _L56;
-            puVar17 = puVar13 + uVar14 * 2;
+            if ((pcVar10 == (char *)0x0) || (sVar15 = strnlen(pcStack_1a8,0x41), 0x40 < sVar15))
+            goto _L54;
+            puVar17 = puVar13 + uVar16 * 2;
             strncpy(pcVar10,pcVar8,0x40);
             pcVar10[0x40] = '\0';
             *puVar17 = pcVar10;
-            if ((pcVar11 == (char *)0x0) || (uVar15 = (uint)uStack_1a0, 0x40 < uVar15)) goto _L56;
+            if ((pcVar11 == (char *)0x0) || (uVar14 = (uint)uStack_1a0, 0x40 < uVar14)) goto _L54;
             if (pcStack_1a4 == (char *)0x0) {
               puVar17[1] = 0;
             }
             else {
-              strncpy(pcVar11,pcStack_1a4,uVar15);
+              strncpy(pcVar11,pcStack_1a4,uVar14);
               puVar17[1] = pcVar11;
-              pcVar11[uVar15] = '\0';
+              pcVar11[uVar14] = '\0';
             }
-_L53:
-            uVar14 = uVar14 + 1;
+_L51:
+            uVar16 = uVar16 + 1;
           }
         }
-        uVar15 = uVar14 & 0xff;
-        if (uVar14 == 0) {
+        uVar14 = uVar16 & 0xff;
+        if (uVar16 == 0) {
           free(puVar13);
-          goto _L61;
+          puVar13 = (undefined4 *)0x0;
+          uVar14 = 0;
         }
       }
       uVar1 = otSrpServerServiceGetPort(iVar3);
@@ -272,7 +272,7 @@ _L53:
         uVar6 = esp_log_timestamp();
         esp_log(3,"OPENTHREAD","I (%lu) %s: Add new service\n",uVar6);
         iVar4 = mdns_service_add_for_host
-                          (acStack_114,acStack_d0,acStack_1b0,acStack_19c,uVar1,puVar13,uVar15);
+                          (acStack_114,acStack_d0,acStack_1b0,acStack_19c,uVar1,puVar13,uVar14);
       }
       else {
         uVar6 = esp_log_timestamp();
@@ -281,8 +281,8 @@ _L53:
         ;
         if (iVar4 == 0) {
           iVar4 = mdns_service_txt_set_for_host
-                            (acStack_114,acStack_d0,acStack_1b0,acStack_19c,puVar13,uVar15);
-          if (iVar4 == 0) goto _L63;
+                            (acStack_114,acStack_d0,acStack_1b0,acStack_19c,puVar13,uVar14);
+          if (iVar4 == 0) goto _L61;
           uVar1 = esp_log_timestamp();
           pcVar8 = "E (%lu) %s: Failed to add or update service txt\n";
         }
@@ -292,11 +292,11 @@ _L53:
         }
         esp_log(1,"OPENTHREAD",pcVar8,uVar1);
       }
-_L63:
+_L61:
       esp_openthread_task_switching_lock_acquire(0xffffffff);
       if (puVar13 != (undefined4 *)0x0) {
         puVar17 = puVar13;
-        for (uVar14 = 0; uVar14 < uVar15; uVar14 = uVar14 + 1) {
+        for (uVar16 = 0; uVar16 < uVar14; uVar16 = uVar16 + 1) {
           if ((void *)*puVar17 != (void *)0x0) {
             free((void *)*puVar17);
           }
@@ -310,33 +310,33 @@ _L63:
       if (iVar4 != 0) {
         uVar1 = esp_log_timestamp();
         esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to add or update service\n",uVar1);
-        goto _L127;
+        goto _L128;
       }
       uVar14 = otSrpServerServiceGetNumberOfSubTypes(iVar3);
       pvVar5 = malloc(uVar14 << 2);
       memset(pvVar5,0,uVar14 << 2);
-      for (uVar15 = 0; uVar15 < uVar14; uVar15 = uVar15 + 1 & 0xffff) {
-        iVar4 = otSrpServerServiceGetSubTypeServiceNameAt(iVar3,uVar15);
+      for (uVar16 = 0; uVar16 < uVar14; uVar16 = uVar16 + 1 & 0xffff) {
+        iVar4 = otSrpServerServiceGetSubTypeServiceNameAt(iVar3,uVar16);
         if (iVar4 == 0) {
           uVar6 = esp_log_timestamp();
           uVar1 = 0xeb;
           pcVar8 = "E (%lu) %s: %s(%d): Failed to get service subtype\n";
-_L126:
+_L127:
           esp_log(1,"OPENTHREAD",pcVar8,uVar6,__FUNCTION___0,uVar1);
           free_subtype_list(pvVar5,uVar14);
           uVar1 = esp_log_timestamp();
           esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to allocate subtype list\n",uVar1);
-          goto _L79;
+          goto _L77;
         }
         pvVar7 = malloc(0x41);
         if (pvVar7 == (void *)0x0) {
           uVar6 = esp_log_timestamp();
           uVar1 = 0xee;
           pcVar8 = "E (%lu) %s: %s(%d): No memory for a new subtype entry\n";
-          goto _L126;
+          goto _L127;
         }
         split_hostname_constprop_0(iVar4,pvVar7);
-        *(void **)(uVar15 * 4 + (int)pvVar5) = pvVar7;
+        *(void **)(uVar16 * 4 + (int)pvVar5) = pvVar7;
       }
       esp_openthread_task_switching_lock_release();
       iVar4 = mdns_service_subtype_update_multiple_items_for_host
@@ -351,7 +351,7 @@ _L126:
     } while (iVar4 == 0);
     uVar1 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: Failed to update service subtype\n",uVar1);
-_L127:
+_L128:
     iVar2 = convert_to_ot_srp_error_code(iVar4);
   }
 _L33:

@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * https://github.com/espressif/esp-thread-lib/commit/70a7322bfe4dd130c7cf9a94b8dbbeb0dbae0687
- * Upstream date: 2026-04-10 09:53:42 +0000
- * Upstream subject: feat(openthread/lib): update thread-lib for upstream a98813b30
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_infra_if.cpp.o -> dhcp6_pd_recv_cb
  *
  * (C) Espressif, Apache License 2.0.
@@ -31,25 +31,23 @@ void dhcp6_pd_recv_cb(void *param_1,udp_pcb *param_2,pbuf *param_3,ip_addr *para
     if (param_3 == (pbuf *)0x0) {
       return;
     }
-    goto _L36;
+    goto _L31;
   }
   if (param_3 == (pbuf *)0x0) {
     return;
   }
   __size = (uint)*(ushort *)(param_3 + 8);
-  if (__size == 0) goto _L36;
+  if (__size == 0) goto _L31;
   __ptr = malloc(__size);
   if (__ptr == (void *)0x0) {
-    uVar3 = esp_log_timestamp();
-    uVar2 = 300;
-    pcVar5 = "E (%lu) %s: %s(%d): Failed to allocate buffer\n";
-_L55:
-    esp_log(1,"OPENTHREAD",pcVar5,uVar3,"dhcp6_pd_recv_cb",uVar2);
+    uVar2 = esp_log_timestamp();
+    esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to allocate buffer\n",uVar2,
+            "dhcp6_pd_recv_cb",300);
     iVar1 = 0;
-_L43:
+_L33:
     uVar2 = esp_log_timestamp();
     esp_log(1,"OPENTHREAD","E (%lu) %s: Finished dhcp6_pd_recv_cb with some errors\n",uVar2);
-    if (__ptr != (void *)0x0) goto _L44;
+    if (__ptr != (void *)0x0) goto _L37;
   }
   else {
     pbuf_copy_partial(param_3,__ptr,__size,0);
@@ -59,25 +57,27 @@ _L43:
       uVar3 = esp_log_timestamp();
       uVar2 = 0x131;
       pcVar5 = "E (%lu) %s: %s(%d): Failed to allocate otMessage\n";
-      goto _L55;
+_L53:
+      esp_log(1,"OPENTHREAD",pcVar5,uVar3,"dhcp6_pd_recv_cb",uVar2);
+      goto _L33;
     }
     iVar4 = otMessageAppend(__ptr,*(undefined2 *)(param_3 + 8));
     if (iVar4 != 0) {
-      uVar2 = esp_log_timestamp();
-      esp_log(1,"OPENTHREAD","E (%lu) %s: %s(%d): Failed to append to message\n",uVar2,
-              "dhcp6_pd_recv_cb",0x132);
-      goto _L43;
+      uVar3 = esp_log_timestamp();
+      uVar2 = 0x132;
+      pcVar5 = "E (%lu) %s: %s(%d): Failed to append to message\n";
+      goto _L53;
     }
     otPlatInfraIfDhcp6PdClientHandleReceived(uVar2,iVar1,param_2[0x30]);
     iVar1 = 0;
     esp_openthread_task_switching_lock_release();
-_L44:
+_L37:
     free(__ptr);
   }
   if (iVar1 != 0) {
     otMessageFree(iVar1);
   }
-_L36:
+_L31:
   pbuf_free(param_3);
   return;
 }

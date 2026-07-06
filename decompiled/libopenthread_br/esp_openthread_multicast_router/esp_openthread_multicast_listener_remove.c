@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 75a1adad77ac6a3a45ec0806c4f680520823fdba
- * https://github.com/espressif/esp-thread-lib/commit/75a1adad77ac6a3a45ec0806c4f680520823fdba
- * Upstream date: 2026-05-19 03:52:07 +0000
- * Upstream subject: feat(openthread): support s31 openthread br lib
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> esp_openthread_multicast_router.o -> esp_openthread_multicast_listener_remove
  *
  * (C) Espressif, Apache License 2.0.
@@ -15,10 +15,10 @@ int esp_openthread_multicast_listener_remove(uint *param_1,void *param_2,int par
 {
   void *pvVar1;
   void *__s1;
-  void *__s1_00;
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
+  void *__s1_00;
   int *piVar5;
   void *pvVar6;
   

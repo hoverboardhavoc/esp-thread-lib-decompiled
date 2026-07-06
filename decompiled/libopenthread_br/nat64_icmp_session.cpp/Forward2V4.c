@@ -1,8 +1,8 @@
 /*
- * Last changed at upstream commit 984efc1578c856af215f33fcfeab645145949b46
- * https://github.com/espressif/esp-thread-lib/commit/984efc1578c856af215f33fcfeab645145949b46
- * Upstream date: 2025-09-19 08:31:45 +0000
- * Upstream subject: feat(openthread): update thread-lib for new OT upstream 3b3dd203
+ * Last changed at upstream commit be3cf518ee046640e217baf52315665cd7798a32
+ * https://github.com/espressif/esp-thread-lib/commit/be3cf518ee046640e217baf52315665cd7798a32
+ * Upstream date: 2026-07-06 09:06:22 +0000
+ * Upstream subject: feat(openthread): update thread-lib for upstream b678a4f6
  * Source: libopenthread_br -> nat64_icmp_session.cpp.o -> Forward2V4
  *
  * (C) Espressif, Apache License 2.0.
@@ -41,17 +41,17 @@ undefined4 __thiscall idf::IcmpSession::Forward2V4(IcmpSession *this,uchar *para
   esp_openthread_get_backbone_netif();
   iVar4 = to_underlying_lwip_netif();
   if (cStack_24 == '\x06') {
-    iVar5 = 0;
     if (iVar4 != 0) {
-      iVar5 = ip6_select_source_address(auStack_38,iVar4,0);
+      iVar5 = ip6_select_source_address(auStack_38,iVar4);
+      goto _L51;
     }
   }
-  else {
-    iVar5 = 0;
-    if (iVar4 != 0) {
-      iVar5 = iVar4 + 4;
-    }
+  else if (iVar4 != 0) {
+    iVar5 = iVar4 + 4;
+    goto _L51;
   }
+  iVar5 = 0;
+_L51:
   raw_sendto_if_src(*(undefined4 *)this,iVar3,auStack_38,iVar4,iVar5);
   pbuf_free(iVar3);
   return 0;
